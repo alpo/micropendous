@@ -1,0 +1,12 @@
+#summary Projects using the Micropendous
+
+== Morse Keyboard ==
+
+[http://code.google.com/p/morsekeyboard/ Morse Keyboard]: Connect an iambic keyer to type in Morse Code.  This firmware was designed with an earlier version of [http://www.fourwalledcubicle.com/LUFA.php LUFA/MyUSB].  It works with the [http://www.fourwalledcubicle.com/files/MyUSB/MyUSB%201.5.3.zip MyUSB] release.
+
+
+== Open Hardware Projects Based on the AT90USB162 ==
+
+[http://code.google.com/p/bicycleledpov/ BicycleLEDPOV]: Persistence-of-Vision display for a bicycle wheel.
+
+[http://dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing Benito7]: Serial-Over-USB AVR Programmer
