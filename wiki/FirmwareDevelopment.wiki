@@ -64,27 +64,6 @@ Program AVR directly and directly control USB communication on both the host and
 
 
 
-= !QuickStart Hierarchy Map =
-
-  * Get Started 
-   * on [LinuxQuickStart Linux]
-    * [ProgramAndTestLinux Program and/or test a Micropendous board]
-     * [SerialPortUsageLinux Serial Port Usage]
-   * on [WindowsQuickStart Windows]
-    * [ProgramAndTestWindows Program and/or test a Micropendous board]
-     * [SerialPortUsageWindows Serial Port Usage]
-
-  * Develop Firmware:
-   * [FirmwareDevelopment Choose Development Complexity]
-    * [LUFAduino] Use [http://www.arduino.cc Arduino] code and style
-    * [USBVirtualSerial_FreeRTOS] Program AVR directly but ignore USB
-    * [USBVirtualSerial] Program AVR directly and customize USB handling
-    * [LoopBack] Program AVR directly and use custom USB class
-     * [SetupLibUSBWindows] Setting up for [http://libusb-win32.sourceforge.net/ LibUSB-Win32] development under Windows
-   * [USBVirtualSerial_ADC] Get the current value of ADC pins using serial port software
-   * More firmware examples will be added soon!
-
-
 == Next ==
 
 Back to [QuickStart]
