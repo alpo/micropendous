@@ -45,7 +45,7 @@ MCU = atmega32u4
 BOARD  = USER
 F_CPU = 8000000
 }}}
- * you can disable JTAG via software by placing the following code near the top of `main()`:
+ * you can enable pins PF4,5,6,7 by disabling JTAG via software.  Place the following code near the top of `main()`:
 {{{
     /* disable JTAG to allow corresponding pins to be used */
     #if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
