@@ -53,7 +53,7 @@ The above happens on the device.  On the PC side of things, both `DeviceAccessC.
  # define important device specific details like IDs and endpoints
  # search through the USB bus for a device that matches the Vendor and Product IDs
  # initialize communication with the device by opening it, setting which configuration to use, and then claiming the interface
- # starting a communication loop with the device.  This is where the action is and where your code should focus on.
+ # start a communication loop with the device.  This is where the action is and where your code should focus on.
    * `usb_interrupt_read(udev, IN_EP, buffer, IN_EP_SIZE, TIMEOUT)` in C or `handle.interruptRead(in_ep, in_ep_size, timeout)` in Python
    * `usb_interrupt_write(udev, OUT_EP, buffer, OUT_EP_SIZE, TIMEOUT)` in C or `handle.interruptWrite(out_ep, buffer, timeout)` in Python
    * the above functions either read or write a local buffer (`char` array in C, `tuple` in Python) to the device
