@@ -1,6 +1,6 @@
 #summary Open Hardware Development Board for the ATmega32U4
 
-Micropendous2-JTAG is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] USB AVR Microcontroller and includes a mini 0.05" JTAG header.
+Micropendous2 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] USB AVR Microcontroller.
 
 The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous2-JTAG` directory.
 
@@ -15,6 +15,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout-Pictu
   * 28kb of available FLASH memory for your programs (4kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 2.5 kbytes SRAM, 1 kbytes of EEPROM
   * USB powered
+  * microSD connector wired up for SPI-mode SD
   * 8MHz crystal (16MHz version also possible but must run at 5V)
   * 26 General Purpose IO Pins
   * !Vcc_Sel jumper selects 5V or 3.3V operation and powers external devices through Vcc pins (500mA at 5V, 500mA at 3.3V)
@@ -22,7 +23,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout-Pictu
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * standard USB Mini-B connector
-  * JTAG header for debugging or bootloader update and all JTAG pins are also accessible on the outer 0.1" headers
+  * all JTAG pins are also accessible on the outer 0.1" headers
   * Size LxWxH (including headers): 1.55" x 0.8" x 0.6" =~ 4cm x 2cm x 1.5cm
   * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
   * works with Open Source [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB firmware library and Open Source [http://libusb.sourceforge.net LibUSB] software library, or with Open Source [http://pyserial.wiki.sourceforge.net/pySerial PySerial] library if using USBtoSerial or CDC based firmware.
@@ -45,7 +46,7 @@ MCU = atmega32u4
 BOARD  = USER
 F_CPU = 8000000
 }}}
- * you can disable JTAG via software by placing the following code near the top of `main()`:
+ * you can enable pins PF4,5,6,7 by disabling JTAG via software.  Place the following code near the top of `main()`:
 {{{
     /* disable JTAG to allow corresponding pins to be used */
     #if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
