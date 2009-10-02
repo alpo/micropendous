@@ -26,4 +26,5 @@ The first step is to choose which Operating System you will be using for develop
   * [USBVirtualSerial_FreeRTOS] Program AVR directly but ignore USB
   * [USBVirtualSerial] Program AVR directly and customize USB handling
   * [LoopBack] Program AVR directly and use custom USB class
+   * [SetupLibUSBWindows] Setting up for [http://libusb-win32.sourceforge.net/ LibUSB-Win32] development under Windows
  * More firmware examples will be added soon!
