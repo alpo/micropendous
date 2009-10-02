@@ -27,4 +27,5 @@ The first step is to choose which Operating System you will be using for develop
   * [USBVirtualSerial] Program AVR directly and customize USB handling
   * [LoopBack] Program AVR directly and use custom USB class
    * [SetupLibUSBWindows] Setting up for [http://libusb-win32.sourceforge.net/ LibUSB-Win32] development under Windows
+ * [USBVirtualSerial_ADC] Get the current value of ADC pins using serial port software
  * More firmware examples will be added soon!
