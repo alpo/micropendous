@@ -37,7 +37,7 @@ After enumeration (USB term meaning _"connect and establish communication with"_
 
 Right-Click on *My Computer*, then click *Properties*, then the *Hardware* tab, then *Device Manager*, then find *USB Virtual Serial Port* under "Ports (COM & LPT)".  Note that on this system it has enumerated as `COM7`.
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_Windows_DeviceManager.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBtoSerial_Windows_DeviceManager.jpg
 
 = Communicating with Serial Devices using PuTTY =
 
