@@ -1,6 +1,6 @@
 #summary Instructions for Setting Up Programmers Notepad for Micropendous Firmware Development
 
-These instructions will allow you to compile firmware and program Micropendous boards from within [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad].  These instructions assume you have properly set up Windows for firmware development [http://code.google.com/p/micropendous/wiki/WindowsQuickStart] and have installed [DevelopingFirmware Serial Port] drivers using [SerialPortUsageWindows] or [SerialPortUsageLinux].
+These instructions will allow you to compile firmware and program Micropendous boards from within [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad].  These instructions assume you have properly set up Windows for firmware development, [WindowsQuickStart], and have installed Serial Port drivers using [SerialPortUsageWindows] or [SerialPortUsageLinux].
 
  # Start [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad] which is installed as part of [http://winavr.sourceforge.net/ WinAVR]:
    http://micropendous.googlecode.com/svn/trunk/Pictures/Programmers_Notepad-1.jpg
