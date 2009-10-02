@@ -39,6 +39,7 @@ make
    * Copy `C:\Program Files\LibUSB-Win32\src\src\usb.h` to `C:\MingW\include\`
    * Copy `C:\Program Files\LibUSB-Win32\src\libusb.a` to `C:\MingW\lib\`
    * Copy `C:\Program Files\LibUSB-Win32\src\libusb0.dll` to `C:\MingW\bin\`
+ # Test if everything works by running the [LoopBack] demo.
 
 
 == Next ==
