@@ -1,7 +1,9 @@
 #summary Programming and Testing Micropendous Boards
 
+Partial DRAFT!
 
-Atmel's also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Guide] for firmware uploading.
+
+Atmel also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Guide] for firmware uploading.
 
 
 
