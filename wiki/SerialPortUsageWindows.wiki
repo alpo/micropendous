@@ -109,6 +109,7 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 `print ser.readline()` reads a line from the `ser` serial port and prints the data.  Note that `.readline()` will block until it receives a newline character.
 
+`ser.close()` just closes the serial port so that other programs may access it.
 
 
 == Next ==
