@@ -10,7 +10,7 @@ The first step is to choose which Operating System you will be using for develop
 
 
 
-== QuickStart Hierarchy Map ==
+= QuickStart Hierarchy Map =
 
 * Get Started on [LinuxQuickStart Linux]
   * [SerialPortUsageLinux Serial Port Usage]
