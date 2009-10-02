@@ -1,0 +1,21 @@
+#summary Communicate with Micropendous board using Serial Port software and techniques
+
+Partial Draft!
+
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_FreeRTOS` directory.
+
+USBVirtualSerial_FreeRTOS combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with the preemptive [http://www.freertos.org/ FreeRTOS] kernel to enable programming Micropendous boards without worrying about USB.  All USB functionality is hidden.  The preemptive FreeRTOS kernel allows for multitasking user code and LUFA USB functions.
+
+* Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
+
+* Targets: * Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with more than 2kbytes of SRAM.
+
+== Usage ==
+
+Assuming you have completed all setup tasks in the [QuickStart] tutorial, simply compile and upload the USBVirtualSerial firmware onto your Micropendous.
+
+USBVirtualSerial-programmed devices will enumerate as a Virtual Serial Port and any data sent to the device will be echoed back.
+
+== Firmware Design ==
+
+DO NOT alter Timer1 settings as it is used by FreeRTOS.
