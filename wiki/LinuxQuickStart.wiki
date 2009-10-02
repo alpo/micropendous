@@ -11,3 +11,11 @@
 == Fedora ==
 
 [SettingUpFedoraLinux] - Setting up [http://fedoraproject.org/ Fedora] 10 Linux for USB firmware and software development.
+
+
+
+== Next ==
+
+Back to [QuickStart]
+
+Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
