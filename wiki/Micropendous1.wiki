@@ -41,5 +41,4 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Mcropendous1_Pinout-Pictur
 MCU = at90usb162
 BOARD  = USER
 F_CPU = 8000000
-F_CLOCK = 8000000
 }}}
