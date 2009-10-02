@@ -1,0 +1,13 @@
+#summary Programming and Testing Micropendous Boards
+
+
+Atmel's also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Guide] for firmware uploading.
+
+
+
+
+== Next ==
+
+Back to [QuickStart]
+
+Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
