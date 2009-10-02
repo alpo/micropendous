@@ -2,8 +2,9 @@
 
 DRAFT!
 
-The SRAM IC used is [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D].
-Note pin *PE6* controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.
+The SRAM IC used is the [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D] which has 17-bit address space.
+
+Note pin PE6 controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.  If you must use these other pins, make sure the SRAM chip is disabled by setting PE6 high.
 
 AVRs have 16-bit addresses so a total of 64kbytes of memory space is available.  The AVR uses memory-mapped IO so some of the address space is used by peripherals.  The AVR's internal SRAM also uses some of the address space, 8kbytes in the case of the AT90USB1287.  This means that the full 128kbytes of external SRAM cannot be easily accessed.  Several options are available.
 
@@ -12,15 +13,12 @@ AVRs have 16-bit addresses so a total of 64kbytes of memory space is available. 
 
 Allow the linker and `malloc()` to take care of everything.
 
-In the `makefile` enable external memory space:
+Enable external memory space in the `makefile`:
 
 {{{
 #---------------- External Memory Options ----------------
-EXTMEMOPTS = 
-
 # for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
-# 0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
-# SAFEST OPTION:
+# 0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 56Kbytes of available external SRAM
 EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
 }}}
 
@@ -28,7 +26,7 @@ Near the start of `main()` enable the external SRAM interface (XMEM):
 
 {{{
 // Enable External SRAM
-DDRE = 0xFF;
+DDRE = 0xFF;  // set PortE for output
 // PE6 is chip enable (^CS - active low); PE7 is highest address bit (bank); PE0,1,2 are SRAM-related
 PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
 XMCRA = ((1 << SRE));  // enable external SRAM with 0 wait states
@@ -41,7 +39,7 @@ Then simply use `malloc()` to allocate SRAM.
 
 == Slightly Complex Way - 112kbytes made available ==
 
-Control bank selection yourself.  The full 128kbytes (17-bit addresses) cannot be accessed through the AVR's XMEM interface as the AVR uses 16-bit addresses.  This means the 128kbyte SRAM needs to be split into two banks by controlling the highest address bit.
+Control bank selection yourself.  The full 128kbytes (17-bit addresses) cannot be accessed through the AVR's XMEM interface as the AVR uses 16-bit addresses.  This means the 128kbyte SRAM needs to be split into two banks by controlling the highest address bit manually.
 
 Useful Defines for your code:
 {{{
@@ -78,12 +76,12 @@ static uint8_t* ExtMemArray = (uint8_t*)EXT_SRAM_START;
 
 * simply use the pointer as an array throughout your code
 {{{
-
+ExtMemArray[1] = (uint8_t)20;
 }}}
 
 * for example, the following will test external SRAM with data
 {{{
-uint16_t ArraySize = (uint16_t)((uint16_t)EXT_SRAM_END - (uint16_t)EXT_SRAM_START);
+uint16_t ArraySize = (uint16_t)(EXT_SRAM_SIZE);
 
 // Test SRAM with an upward count
 for (i = 0; i < ArraySize; i++) {
@@ -100,12 +98,12 @@ for (i = 0; i < ArraySize; i++) {
 * control which bank is currently being used with the defines
 {{{
 ExtMemArray[100] = (uint8_t)20;
-SELECT_EXTSRAM_BANK1
+SELECT_EXTSRAM_BANK1;
 ExtMemArray[100] = (uint8_t)40;
-SELECT_EXTSRAM_BANK0
+SELECT_EXTSRAM_BANK0;
 }}}
 
 
 == Complex Way - All 128kbytes made available ==
 
-To use addresses lower than the tail 56kbytes you will have to control the address lines manually.  There is no simple and efficient way to do this automatically and is not worth the effort unless you absolutely need the additional 16kbytes.  If you have some clever solution, please post a comment!
+To use addresses lower than the tail 56kbytes you will have to control the address lines manually.  There is no simple and efficient way to do this automatically and is not worth the effort unless you absolutely need the additional 16kbytes.  If you have some clever and efficient solution, please post a comment!
