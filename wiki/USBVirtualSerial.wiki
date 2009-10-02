@@ -1,3 +1,19 @@
 #summary Communicate with Micropendous board using Serial Port software and techniques
 
 Partial Draft!
+
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial` directory.
+
+USBVirtualSerial is based on the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library.
+
+* Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
+
+* Targets: * Micropendous1, Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards
+
+== Usage ==
+
+Assuming you have completed all setup tasks in the [QuickStart] tutorial, simply compile and upload the USBVirtualSerial firmware onto your Micropendous.
+
+USBVirtualSerial-programmed devices will enumerate as a Virtual Serial Port and any data sent to the device will be echoed back.
+
+== Firmware Design ==
