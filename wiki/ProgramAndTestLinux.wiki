@@ -1,0 +1,12 @@
+#summary Programming and Testing Micropendous Boards on Linux
+
+Partial DRAFT!
+
+
+
+
+== Next ==
+
+Back to [QuickStart]
+
+Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
