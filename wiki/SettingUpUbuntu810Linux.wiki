@@ -12,7 +12,7 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
     * then run `sudo apt-get -y update`
  # Install software:
     `sudo apt-get -y install build-essential gcc binutils  gdb-avr python python-dev libusb-dev avrdude libtool tofrodos gtkterm rapidsvn subversion`
- # Unfortunately, the version of `gcc-avr` that is part of Ubuntu 8.10 (_Intrepid Ibex_) incorrectly compiles `USBtoSerial` demos.  A newer version, from Ubuntu 9.04 (_Jaunty Jackalope_), must be installed.
+ # Unfortunately, the version of `gcc-avr` that is part of Ubuntu 8.10 (_Intrepid Ibex_) incorrectly compiles `USBVirtualSerial` demos.  A newer version, from Ubuntu 9.04 (_Jaunty Jackalope_), must be installed.
     * `sudo gedit /etc/apt/sources.list`
     * replace the line `deb http://archive.ubuntu.com/ubuntu intrepid main universe` with the line: `deb http://archive.ubuntu.com/ubuntu jaunty main universe`
     * also, comment out with a `#` the `deb-src` line at the top: `# deb-src http://archive.ubuntu.com/ubuntu intrepid main restricted universe`
