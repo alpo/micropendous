@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_ADC` directory.
 
-USBVirtualSerial_ADC uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with to send ADC to a host system for further processing.
+USBVirtualSerial_ADC uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library to send ADC to a host system for further processing.
 
 * Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
