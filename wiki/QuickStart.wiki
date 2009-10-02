@@ -12,7 +12,7 @@ The first step is to choose which Operating System you will be using for develop
 
 = !QuickStart Hierarchy Map =
 
-  * Get Started 
+  * Get Started (Setup and Testing)
    * on [LinuxQuickStart Linux]
     * [ProgramAndTestLinux Program and/or test a Micropendous board]
      * [SerialPortUsageLinux Serial Port Usage]
