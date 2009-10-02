@@ -1,4 +1,4 @@
-#summary Programming and Testing Micropendous Boards
+#summary Programming and Testing Micropendous Boards on Windows
 
 Partial DRAFT!
 
