@@ -47,7 +47,7 @@ Save the file.  Permissions have been set up.
 
 = Communicating with Serial Devices using gtkterm =
 
-*gtkterm* is already installed on your system if you have followed the instructions in [SettingUpLinux].
+*gtkterm* is already installed on your system if you have followed the instructions in [LinuxQuickStart].
 
 After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial] firmware anything you type will echo back.
 
