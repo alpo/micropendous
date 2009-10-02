@@ -1,0 +1,60 @@
+#summary Get the current value of ADC pins using serial port software
+
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_ADC` directory.
+
+USBVirtualSerial_ADC uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with to send ADC to a host system for further processing.
+
+* Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
+
+* Targets: * Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with ADC.
+
+
+= Quick Start =
+
+Plug in Micropendous board [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows loaded with USBVirtualSerial-ADC firmware] into a PC.  Connect to it with a serial port terminal (instructions for [SerialPortUsageWindows Windows] and [SerialPortUsageLinux Linux] are available), then type 0 or 1 to get back the value of ADC channel 0 or 1, respectively.  The first value is the ADC value and the second is the 32-bit value of Timer1.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_PuTTY-2.jpg
+
+
+
+= Graphical Display of ADC Data =
+
+== Overview ==
+
+First an explanation of the ADC's capabilities.  The ADC clock in USBVirtualSerial-ADC firmware is set up to be the core clock divided by 128.  This ensures the most compatibility with the various Micropendous boards.  At 8MHz this means the ADC clock runs at 62.5kHz.  The [http://en.wikipedia.org/wiki/Sample_and_hold sampling] period of each ADC sample takes 1.5 ADC clock ticks, or 192/8M = 0.000024 seconds = 24 microseconds.  The [http://en.wikipedia.org/wiki/Nyquist_frequency Nyquist frequency] is (8M/192)/2 ~= 20kHz.  You should at least [http://en.wikipedia.org/wiki/Low-pass_filter low-pass filter] all ADC inputs with a 0.1uF capacitor.  The analog to digital conversion then takes up to 30 ADC clock ticks or 3840/8M = 0.00048 seconds = 480 microseconds.  
+
+The not-relative-to-scale graphic below attempts to illustrate the above.  Each sample captures a portion of the signal over 24 microseconds and holds it, then the signal takes 480 microseconds to be digitized before the next sample is gathered.  Some time is also spend transferring the data to the PC.  Groups of samples, or frames, are then displayed on a voltage vs. time plot while the next frame is being captured.  The `SAMPLE_SIZE = 128` variable in `PlotADCData.py` can be adjusted to speed up or slow down the frame rate.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_SPS_FPS_Note.jpg
+
+From the above explanation we know that the bandwidth of the ADC is about 20kHz.  Signals with frequency components greater than this will cause [http://en.wikipedia.org/wiki/Aliasing aliasing] if not properly filtered.  A simple 0.1uF capacitor is usually enough of a filter.  Also, the vertical scale of the signal is GND to VCC.  You can adjust this in `USBVirtualSerial-ADC.c` by changing the ADC reference from `ADC_REFERENCE_AVCC` which causes VCC to be used as a reference to `ADC_REFERENCE_AREF` which uses the AREF pin or `ADC_REFERENCE_INT2560MV` which uses an internal 2.56V reference.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_Bandwidth_Scale_Note.jpg
+
+
+
+== Installation ==
+
+To run under Linux install:
+{{{
+sudo apt-get install python-matplotlib python-numpy python-wxversion 
+}}}
+
+To run under Windows install:
+ * [http://python.org/download/releases/2.5.4/ Python 2.5.4]
+ * [http://downloads.sourceforge.net/wxpython/wxPython2.8-win32-unicode-2.8.10.1-py25.exe wxPython]
+ * [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial]
+ * [http://downloads.sourceforge.net/matplotlib/matplotlib-0.98.5.3.win32-py2.5.exe matplotlib]
+ * [http://downloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.5.exe numpy]
+
+== Usage ==
+
+Before running the software you will need to set it up for your system.  The only necessary change is the serial port name.  Uncomment one of the following lines near the top of `PlotADCData.py` and change the serial port accordingly.  For more on Serial Port usage see [SerialPortUsageWindows] or [SerialPortUsageLinux].
+{{{
+ser = serial.Serial(2)                 # COM3 under Windows
+ser = serial.Serial('/dev/ttyACM0')    # /dev/ttyACM0 - found with dmesg
+}}}
+
+To test the ADC a simple voltage divider circuit with a 50k Ohm potentiometer is used.  To avoid shorting VCC and GND, 5.1k Ohm resistors pull the "signal" up to VCC and down to GND.  Turning the potentiometer control quickly produces the following data plot:
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_PotentiometerTest.jpg
