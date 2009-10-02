@@ -1,0 +1,32 @@
+#summary Get Started Using a Micropendous Development Board
+#labels Featured,Phase-Support
+
+The first step is to choose which Operating System you will be using for development:
+
+[LinuxQuickStart Linux]
+
+[WindowsQuickStart Windows]
+
+
+
+
+== QuickStart Hierarchy Map ==
+
+* Get Started on [LinuxQuickStart Linux]
+  * [SerialPortUsageLinux Serial Port Usage]
+    * [FirmwareDevelopment Choose Development Complexity]
+      * [LUFAduino] Use [http://www.arduino.cc Arduino] code and style
+      * [USBVirtualSerial_FreeRTOS] Program AVR directly but ignore USB
+      * [USBVirtualSerial] Program AVR directly and customize USB handling
+      * [LoopBack] Program AVR directly and use custom USB class
+    * [FirmwareExamples More Example Firmware]
+
+
+* Get Started on [WindowsQuickStart Windows]
+  * [SerialPortUsageWindows Serial Port Usage]
+    * [FirmwareDevelopment Choose Development Complexity]
+      * [LUFAduino] Use [http://www.arduino.cc Arduino] code and style
+      * [USBVirtualSerial_FreeRTOS] Program AVR directly but ignore USB
+      * [USBVirtualSerial] Program AVR directly and customize USB handling
+      * [LoopBack] Program AVR directly and use custom USB class
+    * [FirmwareExamples More Example Firmware]
