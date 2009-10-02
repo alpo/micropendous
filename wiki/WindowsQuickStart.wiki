@@ -1,0 +1,14 @@
+#summary Setting up a firmware development environment in Windows
+
+
+In general, *Administrator* privileges are required on a Windows machine during development.  The easiest thing to do is to log in as Administrator during development.  This creates security issues so it is best disconnect from the Internet when not using it.  Also, having a separate computer for development is preferable in case you incorrectly connect something and fry your system.
+
+ # Download and Install [http://winavr.sourceforge.net/ WinAVR]
+ # Download and Install [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3886 Atmel's FLIP]
+ # [ProgramAndTestWindows Test your Micropendous] by compiling and uploading firmware
+
+== Next ==
+
+Back to [QuickStart]
+
+Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
