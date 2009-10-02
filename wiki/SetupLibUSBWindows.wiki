@@ -17,7 +17,7 @@ In general, *Administrator* privileges are required on a Windows machine during 
    * Do not install `GNU make` or it will conflict with WinAVR
  # Edit Windows `PATH` to include MingW
    * Right-Click *My Computer*, then click *Properties*, then *Advanced* tab, then *Environment Variables*, then double-click _Path_ and add `;C:\MingW\bin` to the end, or whatever your install directory for MingW is.
-   http://avropendous.googlecode.com/svn/trunk/Pictures/Windows_Editing_PATH.jpg
+   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_Editing_PATH.jpg
  # Install [http://libusb-win32.sourceforge.net/ LibUSB-Win32]
    * Note that in Windows Vista, LibUSB-Win32 must be run in XP SP2 Compatibility Mode and with Administrator privileges.
    * Download and Install [http://downloads.sourceforge.net/libusb-win32/libusb-win32-filter-bin-0.1.12.1.exe libusb-win32-filter-bin-0.1.12.1.exe] to `C:\Program Files\LibUSB-Win32` (_Default_)
