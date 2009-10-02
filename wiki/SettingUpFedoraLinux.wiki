@@ -1,0 +1,33 @@
+#summary Instructions for setting up a development environment in Fedora 10
+
+This procedure has been tested on a [http://fedoraproject.org/en/get-fedora Fedora 10 i686 Desktop Edition] hard drive install.
+
+== Procedure ==
+
+At a terminal:
+
+ # Enable the [http://rpmfusion.org RPM Fusion] repository:
+   `su -c 'rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'`
+ # Install all necessary software:
+   `yum install avr-gcc avr-libc avr-binutils avr-gdb avrdude dfu-programmer gcc binutils autoconf libtool automake texinfo kernel-headers libusb-devel python gtkterm unix2dos subversion subcommander`
+ # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.1.tar.gz dfu-programmer]
+   * `tar xvf dfu-programmer-0.5.1.tar.gz`
+   * `cd dfu-programmer-0.5.1`
+   * `./configure --prefix=/usr ; make ; sudo make install`
+   * `sudo chmod 775 /usr/local/bin/dfu-programmer`
+ # Install [http://developer.berlios.de/project/showfiles.php?group_id=4354&release_id=13488 PyUSB]
+   * `tar xvf pyusb-0.4.1.tar.gz`
+   * `cd pyusb-0.4.1`
+   * `sudo python setup.py install`
+ # Install [http://downloads.sourceforge.net/pyserial/pyserial-2.4.tar.gz PySerial]
+   * `tar xvf pyserial-2.4.tar.gz`
+   * `cd pyserial-2.4`
+   * `sudo python setup.py install`
+
+
+
+== Next ==
+
+Back to [QuickStart]
+
+Proceed to [FirmwareDevelopment Firmware Development]
