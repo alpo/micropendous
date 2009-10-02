@@ -1,0 +1,13 @@
+#summary How to Set up various Linux distributions for Micropendous development.
+
+== Ubuntu ==
+
+[SettingUpUbuntu904Linux] - Setting up [http://www.ubuntu.com/ Ubuntu] 9.04 Linux for USB firmware and software development.
+
+[SettingUpUbuntu810Linux] - Setting up [http://www.ubuntu.com/ Ubuntu] 8.10 Linux for USB firmware and software development.
+
+[SettingUpUbuntu804Linux] - Setting up [http://www.ubuntu.com/ Ubuntu] 8.04 Linux for USB firmware and software development.
+
+== Fedora ==
+
+[SettingUpFedoraLinux] - Setting up [http://fedoraproject.org/ Fedora] 10 Linux for USB firmware and software development.
