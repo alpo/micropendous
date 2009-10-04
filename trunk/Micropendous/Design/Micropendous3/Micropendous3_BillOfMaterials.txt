@@ -1,0 +1,58 @@
+EESchema (20090216-final)  >> Creation date: 4/14/2009 1:50:20 PM
+#Cmp ( order = Reference )
+  Ref#  Value           Footprint          Digi-Key Part#          Unit Cost (USD)
+  ~~~   ~~~~~           ~~~~~~~~~          ~~~~~~~~~~~~~~          ~~~~~~~~~~~~~~~
+| C1  ; 22pF          ; 0402             ; 490-1283-1-ND         ; 0.022
+| C2  ; 22pF          ; 0402             ; 490-1283-1-ND         ; 0.022
+| C6  ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C7  ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C8  ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C9  ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C10 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C11 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C12 ; 0.01uF        ; 0402             ; 490-4516-1-ND         ; 0.022
+| C13 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C14 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C17 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C21 ; 4.7uF         ; 0805             ; 445-1370-1-ND         ; 0.127
+| C22 ; 4.7uF         ; 0805             ; 445-1370-1-ND         ; 0.127
+| C24 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C26 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| CR1 ; ESD_ZENER     ; 0402             ; CG0402MLC-05LGCT-ND   ; 0.156
+| CR2 ; ESD_ZENER     ; 0402             ; CG0402MLC-05LGCT-ND   ; 0.156
+| CR3 ; ESD_ZENER     ; 0402             ; CG0402MLC-05LGCT-ND   ; 0.156
+| D1  ; MBR120VLSF    ; SOD123           ; MBR120VLSFT1GOSCT-ND  ; 0.375
+| IC1 ; AT90USB??6    ; QFN64            ; AT90USB646-MU-ND      ; 6.450
+| IC2 ; ST1L05B       ; DFN6_3x3mm       ; 497-6829-1-ND         ; 0.850
+| K1  ; Vcc_Sel       ; SIL-3-2mm        ; S5800-40-ND (3/40)    ; 1.095(x3/40)=0.082
+| L1  ; Ferrite       ; 0603             ; 587-1923-1-ND         ; 0.041
+| L3  ; Ferrite       ; 0603             ; 587-1923-1-ND         ; 0.041
+| R1  ; 22            ; 0402             ; 311-22JRCT-ND         ; 0.066
+| R2  ; 22            ; 0402             ; 311-22JRCT-ND         ; 0.066
+| R5  ; 43k           ; 0402             ; 311-43.0KLRCT-ND      ; 0.067
+| R8  ; 43k           ; 0402             ; 311-43.0KLRCT-ND      ; 0.067
+| R10 ; 15k           ; 0402             ; 311-15KJRCT-ND        ; 0.066
+| R11 ; 82.5k         ; 0805             ; RHM82.5KCRCT-ND       ; 0.037
+| R12 ; 43k           ; 0402             ; 311-43.0KLRCT-ND      ; 0.067
+| R13 ; 0             ; 0402             ; 311-0.0JRCT-ND        ; 0.066
+| R14 ; 0             ; 0402             ; 311-0.0JRCT-ND        ; 0.066
+| R16 ; 15k           ; 0402             ; 311-15KJRCT-ND        ; 0.066
+| SW1 ; RESET         ; 6.5x6x3.1mm_EVQ  ; P12955SCT-ND          ; 0.296
+| SW2 ; HWB           ; 6.5x6x3.1mm_EVQ  ; P12955SCT-ND          ; 0.296
+| U1  ; USB-miniB     ; MiniB-5pos       ; H2959CT-ND            ; 0.853
+| U3a ; MICROPENDOUS3 ; SIL-26-0.1"-M    ; 609-3270-ND           ; 0.598
+| U3b ; MICROPENDOUS3 ; SIL-26-0.1"-M    ; 609-3270-ND           ; 0.598
+| U4  ; JTAG          ; DIL-0.1"-2x5-M   ; 609-3243-ND           ; 0.350
+| X1  ; 8MHz          ; 6x3.3mm_ABM7     ; ABM7-16.000MHZ-D2Y-T  ; 1.138
+| *   ; *             ; Shunt Jumper     ; S3404-ND              ; 0.263
+------------------------------------------------------------Total:22.941
+#End Cmp
+#End List
+
+#Notes: -Unit costs based on minimum orders of 25 components.
+        -Headers are bought as large pieces and seperated,
+         hence the fraction after each breakable header
+	-operation at 3.3V requires 8MHz crystal - ABM7-8.000MHZ-D2Y-T
+	-Vcc_Sel (K1) is only required if using the regulator (IC2).  Can just short
+         center and 5V pin to force 5V operation when using SRAM IC (IC4,IC5)
+	-MBR120VLSF can be replaced with MBRX120LF in SOD123-compatible package

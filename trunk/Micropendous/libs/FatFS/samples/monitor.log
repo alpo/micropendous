@@ -1,0 +1,42 @@
+Disk#0 <== \\.\PhysicalDrive1 (310352 Sectors, 2048 Bytes/Sector)
+Disk#1 <== \\.\PhysicalDrive5 (16006410 Sectors, 512 Bytes/Sector)
+Disk#2 <== \\.\PhysicalDrive6 (Not Available)
+
+FatFs module test monitor on Win32
+>fi 0
+rc=0 FR_OK
+>fi 1
+rc=0 FR_OK
+>fs 1:
+FAT type = 3
+Bytes/Cluster = 8192
+Number of FATs = 2
+Root DIR entries = 0
+Sectors/FAT = 7292
+Number of clusters = 932864
+FAT start (lba) = 706892
+DIR start (lba,clustor) = 2
+Data start (lba) = 721476
+
+19641 files, 2008859484 bytes.
+1101 folders.
+7462912 KB total disk space.
+5394080 KB available.
+
+>fl 1:
+-RHSA 1999/05/05 22:22    224150  IO.SYS
+-RHSA 2002/01/04 23:01      1696  MSDOS.SYS
+-R--A 1999/05/05 22:22    118174  COMMAND.COM
+D---- 2003/01/04 16:05         0  DESKTOP
+DR--- 2003/01/04 16:05         0  PROGRA~1  Program Files
+D---- 2003/01/04 16:05         0  TMP
+D-H-- 2003/01/04 16:05         0  WIN98
+D---- 2003/01/04 16:05         0  WINDOWS
+D---- 2003/01/04 16:05         0  JUST
+D---- 2003/01/04 16:05         0  XILINX
+D---- 2003/01/04 16:05         0  DOS
+----A 2008/02/25 16:11       318  CONFIG.SYS
+----A 2008/02/25 16:11       437  AUTOEXEC.BAT
+   5 File(s),    344775 bytes total
+   8 Dir(s), 1228570624 bytes free
+>
