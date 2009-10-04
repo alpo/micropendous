@@ -24,3 +24,17 @@ Arduino `loop()` and `setup()` functions are in `Sketch.cpp`.  Simply edit this 
 `loop2()` - flashes a LED using `analogOut()`.
 
 For detailed firmware design, see [USBVirtualSerial_FreeRTOS] for details of how FreeRTOS was added and [USBVirtualSerial] for details about LUFA USB.
+
+== Pinouts ==
+
+=== [Micropendous2] ===
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous2/Micropendous2_LUFAduino-Pinout.jpg
+
+=== [Micropendous2_JTAG Micropendous2-JTAG] ===
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous2-JTAG/Micropendous2-JTAG_LUFAduino-Pinout.jpg
+
+=== [Micropendous3] ===
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_LUFAduino-Pinout.jpg
+
+=== [Micropendous4] ===
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous4/Micropendous4_LUFAduino-Pinout.jpg
