@@ -7,6 +7,7 @@ The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files c
 == Pinout ==
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous1_Pinout_Picture.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous1/Micropendous1_Pinout.jpg
 
 == Features ==
   * Based on the [http://www.atmel.com Atmel] [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB162 AT90USB162] USB AVR Microcontroller
