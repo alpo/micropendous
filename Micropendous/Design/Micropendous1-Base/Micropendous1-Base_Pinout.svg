@@ -1,0 +1,1570 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Micropendous1-Base_Pinout.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename=""
+   inkscape:export-xdpi="162.50018"
+   inkscape:export-ydpi="162.50018"
+   version="1.0">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4983">
+      <stop
+         style="stop-color:#008000;stop-opacity:1"
+         offset="0"
+         id="stop4985" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1"
+         id="stop4987" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4983"
+       id="linearGradient4989"
+       x1="-475.42474"
+       y1="-341.45795"
+       x2="952.4325"
+       y2="671.39917"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4178596,0,0,0.8430232,298.14305,20.668145)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="532.65957"
+     inkscape:cy="496.0142"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1679"
+     inkscape:window-height="975"
+     inkscape:window-x="0"
+     inkscape:window-y="41" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+        <dc:title>Micropendous-Base Pinout</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient4989);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3699"
+       width="437.85715"
+       height="621.42859"
+       x="298.86099"
+       y="24.256329"
+       ry="0.66785347"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="522.64972"
+       y="291.05167"
+       id="text4246"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4248"
+         x="522.64972"
+         y="291.05167">PC2 / PCINT11</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="239.82457"
+       y="207.03781"
+       id="text4250"><tspan
+         sodipodi:role="line"
+         id="tspan4252"
+         x="239.82457"
+         y="207.03781" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="519.66339"
+       y="264.85565"
+       id="text4254"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4256"
+         x="519.66339"
+         y="264.85565">PC4 / PCINT10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="738.46503"
+       y="264.86102"
+       id="text4258"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4260"
+         x="738.46503"
+         y="264.86102">PC5 / PCINT9 / OC.1B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="446.48761"
+       y="238.70494"
+       id="text4262"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4264"
+         x="446.48761"
+         y="238.70494">PC6 / PCINT8 / OC.1A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="738.46503"
+       y="238.69957"
+       id="text4266"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4268"
+         x="738.46503"
+         y="238.69957">PC7 / INT4 / ICP1 / CLK0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="737.25055"
+       y="555.44617"
+       id="text4270"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4272"
+         x="737.25055"
+         y="555.44617">PB7 / PCINT7 / OC.0A / OC.1C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="535.36108"
+       y="555.4408"
+       id="text4274"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4276"
+         x="535.36108"
+         y="555.4408">PB6 / PCINT6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="737.25055"
+       y="581.59692"
+       id="text4278"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4280"
+         x="737.25055"
+         y="581.59692">PB5 / PCINT5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="494.39038"
+       y="581.59692"
+       id="text4282"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4284"
+         x="494.39038"
+         y="581.59692">PB4 / PCINT4 / T1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="737.25055"
+       y="607.86353"
+       id="text4286"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4288"
+         x="737.25055"
+         y="607.86353">PB3 / MISO / PDO / PCINT3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="404.78979"
+       y="607.8689"
+       id="text4290"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4292"
+         x="404.78979"
+         y="607.8689">PB2 / MOSI / PDI / PCINT2 </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="737.25055"
+       y="633.23468"
+       id="text4294"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4296"
+         x="737.25055"
+         y="633.23468">PB1 / SCLK / PCINT1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="487.70874"
+       y="633.23468"
+       id="text4298"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4300"
+         x="487.70874"
+         y="633.23468">PB0 / SS / PCINT0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="8.9870682"
+       y="477.58502"
+       id="text4302"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4304"
+         x="8.9870682"
+         y="477.58502">PD7 / CTS / HWB / T0 / INT7</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="363.5712"
+       y="477.58502"
+       id="text4306"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4308"
+         x="363.5712"
+         y="477.58502">PD6 / RTS / INT6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="78.714607"
+       y="451.49396"
+       id="text4310"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4312"
+         x="78.714607"
+         y="451.49396">PD5 / XCK / PCINT12</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="363.5712"
+       y="451.49396"
+       id="text4314"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4316"
+         x="363.5712"
+         y="451.49396">PD4 / INT5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="110.39332"
+       y="425.22757"
+       id="text4318"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4320"
+         x="110.39332"
+         y="425.22757">PD3 / TXD1 / INT3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="363.5712"
+       y="425.23294"
+       id="text4322"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4324"
+         x="363.5712"
+         y="425.23294">PD2 / RXD1 / AIN1 / INT2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="120.78101"
+       y="399.03702"
+       id="text4326"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4328"
+         x="120.78101"
+         y="399.03702">PD1 / AIN0 / INT1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="363.5712"
+       y="399.04239"
+       id="text4330"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4332"
+         x="363.5712"
+         y="399.04239">PD0 / OC.0B / INT0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="407.14285"
+       y="56.647896"
+       id="text4346"><tspan
+         sodipodi:role="line"
+         id="tspan4348"
+         x="407.14285"
+         y="56.647896" /></text>
+    <text
+       id="text4517"
+       y="608.14771"
+       x="643.34644"
+       style="font-size:26px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="608.14771"
+         x="643.34644"
+         id="tspan4519"
+         sodipodi:role="line">__</tspan></text>
+    <text
+       id="text4521"
+       y="434.07556"
+       x="74.217163"
+       style="font-size:26.81667137px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9577383,1.0441266)"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="434.07556"
+         x="74.217163"
+         id="tspan4523"
+         sodipodi:role="line">___</tspan></text>
+    <text
+       id="text4525"
+       y="453.22986"
+       x="424.22025"
+       style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="453.22986"
+         x="424.22025"
+         id="tspan4527"
+         sodipodi:role="line">___</tspan></text>
+    <text
+       id="text4529"
+       y="433.96866"
+       x="139.50139"
+       style="font-size:22.94623947px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9560933,1.0459231)"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="433.96866"
+         x="139.50139"
+         id="tspan4531"
+         sodipodi:role="line">____</tspan></text>
+    <text
+       id="text4599"
+       y="81.044159"
+       x="453.58475"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="81.044159"
+         x="453.58475"
+         id="tspan4601"
+         sodipodi:role="line">5V</tspan></text>
+    <text
+       id="text4603"
+       y="107.35001"
+       x="454.25272"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="107.35001"
+         x="454.25272"
+         id="tspan4605"
+         sodipodi:role="line">VCC</tspan></text>
+    <text
+       id="text4607"
+       y="133.41823"
+       x="453.57596"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="133.41823"
+         x="453.57596"
+         id="tspan4609"
+         sodipodi:role="line">3.3V</tspan></text>
+    <text
+       id="text4611"
+       y="44.463623"
+       x="389.74594"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="44.463623"
+         x="389.74594"
+         id="tspan4613"
+         sodipodi:role="line">VCC_Select</tspan></text>
+    <rect
+       style="opacity:1;fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2788"
+       width="65.714737"
+       height="81.538071"
+       x="535.21619"
+       y="70.350998"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3560"
+       width="19.838411"
+       height="19.025549"
+       x="514.39355"
+       y="76.116608"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3562"
+       width="19.838411"
+       height="19.025549"
+       x="601.8847"
+       y="76.116608"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3564"
+       width="19.838411"
+       height="19.025549"
+       x="514.29645"
+       y="132.86351"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3566"
+       width="19.838411"
+       height="19.025549"
+       x="601.95129"
+       y="132.86351"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3568"
+       width="33.477318"
+       height="6.4550972"
+       x="551.3349"
+       y="145.43394"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3570"
+       width="2.7897766"
+       height="36.352386"
+       x="598.14111"
+       y="92.943848"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3572"
+       width="2.7897766"
+       height="36.352386"
+       x="535.21619"
+       y="92.943848"
+       ry="1.1876323"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:28.27051735px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="565.47375"
+       y="60.826328"
+       id="text3574"
+       transform="scale(0.955188,1.0469143)"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3576"
+         x="565.47375"
+         y="60.826328">USB</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2571"
+       width="25.20178"
+       height="25.381186"
+       x="218.22466"
+       y="-706.30444"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2573"
+       width="14.8565"
+       height="14.811365"
+       x="223.39729"
+       y="-701.01953"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2575"
+       width="25.20178"
+       height="25.381186"
+       x="192.0287"
+       y="-706.30444"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2577"
+       width="14.8565"
+       height="14.811365"
+       x="197.20134"
+       y="-701.01953"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2579"
+       width="25.20178"
+       height="25.381186"
+       x="270.57675"
+       y="-706.30444"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2581"
+       width="14.8565"
+       height="14.811365"
+       x="275.74939"
+       y="-701.01953"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2583"
+       width="25.20178"
+       height="25.381186"
+       x="244.38075"
+       y="-706.30444"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2585"
+       width="14.8565"
+       height="14.811365"
+       x="249.55339"
+       y="-701.01953"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2595"
+       width="25.20178"
+       height="25.381186"
+       x="218.22466"
+       y="-732.53278"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2597"
+       width="14.8565"
+       height="14.811365"
+       x="223.39729"
+       y="-727.24786"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2599"
+       width="25.20178"
+       height="25.381186"
+       x="192.0287"
+       y="-732.53278"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2601"
+       width="14.8565"
+       height="14.811365"
+       x="197.20134"
+       y="-727.24786"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2603"
+       width="25.20178"
+       height="25.381186"
+       x="270.57675"
+       y="-732.53278"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2605"
+       width="14.8565"
+       height="14.811365"
+       x="275.74939"
+       y="-727.24786"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2607"
+       width="25.20178"
+       height="25.381186"
+       x="244.38075"
+       y="-732.53278"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2609"
+       width="14.8565"
+       height="14.811365"
+       x="249.55339"
+       y="-727.24786"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="622.56281"
+       y="212.50362"
+       id="text2615"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2617"
+         x="622.56281"
+         y="212.50362">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="740.06561"
+       y="212.50362"
+       id="text2619"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2621"
+         x="740.06561"
+         y="212.50362">VCC</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2623"
+       width="25.20178"
+       height="25.381186"
+       x="534.96588"
+       y="-707.16724"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2625"
+       width="14.8565"
+       height="14.811365"
+       x="540.13855"
+       y="-701.88232"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2627"
+       width="25.20178"
+       height="25.381186"
+       x="508.7699"
+       y="-707.16724"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2629"
+       width="14.8565"
+       height="14.811365"
+       x="513.94257"
+       y="-701.88232"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2631"
+       width="25.20178"
+       height="25.381186"
+       x="587.38861"
+       y="-707.16724"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2633"
+       width="14.8565"
+       height="14.811365"
+       x="592.56128"
+       y="-701.88232"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2635"
+       width="25.20178"
+       height="25.381186"
+       x="561.12201"
+       y="-707.16724"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2637"
+       width="14.8565"
+       height="14.811365"
+       x="566.29468"
+       y="-701.88232"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2639"
+       width="25.20178"
+       height="25.381186"
+       x="612.75977"
+       y="-707.16724"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2641"
+       width="14.8565"
+       height="14.811365"
+       x="617.93243"
+       y="-701.88232"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2643"
+       width="25.20178"
+       height="25.381186"
+       x="534.96588"
+       y="-733.39557"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2645"
+       width="14.8565"
+       height="14.811365"
+       x="540.13855"
+       y="-728.11066"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2647"
+       width="25.20178"
+       height="25.381186"
+       x="508.7699"
+       y="-733.39557"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2649"
+       width="14.8565"
+       height="14.811365"
+       x="513.94257"
+       y="-728.11066"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2651"
+       width="25.20178"
+       height="25.381186"
+       x="587.38861"
+       y="-733.39557"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2653"
+       width="14.8565"
+       height="14.811365"
+       x="592.56128"
+       y="-728.11066"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2655"
+       width="25.20178"
+       height="25.381186"
+       x="561.12201"
+       y="-733.39557"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2657"
+       width="14.8565"
+       height="14.811365"
+       x="566.29468"
+       y="-728.11066"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2659"
+       width="25.20178"
+       height="25.381186"
+       x="612.75977"
+       y="-733.39557"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2661"
+       width="14.8565"
+       height="14.811365"
+       x="617.93243"
+       y="-728.11066"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="624.85425"
+       y="529.24481"
+       id="text2663"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2665"
+         x="624.85425"
+         y="529.24481">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="738.85114"
+       y="529.24481"
+       id="text2667"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2669"
+         x="738.85114"
+         y="529.24481">VCC</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2671"
+       width="25.20178"
+       height="25.381186"
+       x="404.75803"
+       y="-328.92114"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2673"
+       width="14.8565"
+       height="14.811365"
+       x="409.93066"
+       y="-323.63623"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2675"
+       width="25.20178"
+       height="25.381186"
+       x="378.5621"
+       y="-328.92114"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2677"
+       width="14.8565"
+       height="14.811365"
+       x="383.73474"
+       y="-323.63623"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2679"
+       width="25.20178"
+       height="25.381186"
+       x="457.11011"
+       y="-328.92114"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2681"
+       width="14.8565"
+       height="14.811365"
+       x="462.28275"
+       y="-323.63623"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2683"
+       width="25.20178"
+       height="25.381186"
+       x="431.01907"
+       y="-328.92114"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2685"
+       width="14.8565"
+       height="14.811365"
+       x="436.19168"
+       y="-323.63623"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2687"
+       width="25.20178"
+       height="25.381186"
+       x="483.26624"
+       y="-328.92114"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2689"
+       width="14.8565"
+       height="14.811365"
+       x="488.43887"
+       y="-323.63623"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2691"
+       width="25.20178"
+       height="25.381186"
+       x="404.75803"
+       y="-355.14948"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2693"
+       width="14.8565"
+       height="14.811365"
+       x="409.93066"
+       y="-349.86456"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2695"
+       width="25.20178"
+       height="25.381186"
+       x="378.5621"
+       y="-355.14948"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2697"
+       width="14.8565"
+       height="14.811365"
+       x="383.73474"
+       y="-349.86456"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2699"
+       width="25.20178"
+       height="25.381186"
+       x="457.11011"
+       y="-355.14948"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2701"
+       width="14.8565"
+       height="14.811365"
+       x="462.28275"
+       y="-349.86456"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2703"
+       width="25.20178"
+       height="25.381186"
+       x="431.01907"
+       y="-355.14948"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2705"
+       width="14.8565"
+       height="14.811365"
+       x="436.19168"
+       y="-349.86456"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2707"
+       width="25.20178"
+       height="25.381186"
+       x="483.26624"
+       y="-355.14948"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2709"
+       width="14.8565"
+       height="14.811365"
+       x="488.43887"
+       y="-349.86456"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="364.09756"
+       y="503.74115"
+       id="text2711"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2713"
+         x="364.09756"
+         y="503.74115">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="247.20581"
+       y="503.74115"
+       id="text2715"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2717"
+         x="247.20581"
+         y="503.74115">VCC</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2729"
+       width="25.20178"
+       height="25.381186"
+       x="88.306732"
+       y="-445.34259"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2731"
+       width="14.8565"
+       height="14.811365"
+       x="93.47937"
+       y="-440.05768"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2733"
+       width="25.20178"
+       height="25.381186"
+       x="62.110748"
+       y="-445.34259"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2735"
+       width="14.8565"
+       height="14.811365"
+       x="67.283386"
+       y="-440.05768"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2737"
+       width="25.20178"
+       height="25.381186"
+       x="114.46286"
+       y="-445.34259"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2739"
+       width="14.8565"
+       height="14.811365"
+       x="119.6355"
+       y="-440.05768"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.24871671px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3513"
+       width="49.753834"
+       height="76.775414"
+       x="315.56412"
+       y="63.893223"
+       ry="9.6941586"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       id="text3515"
+       y="-372.81863"
+       x="71.716957"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="-372.81863"
+         x="71.716957"
+         id="tspan3517"
+         sodipodi:role="line">RESET</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#323232;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3519"
+       width="23.233509"
+       height="49.750011"
+       x="328.82428"
+       y="77.405922"
+       rx="5.678391"
+       ry="10.597051"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="opacity:1;fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.24871671px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3521"
+       width="49.753834"
+       height="76.775414"
+       x="315.56412"
+       y="204.25311"
+       ry="9.6941586"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       id="text3523"
+       y="-372.81863"
+       x="221.40207"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="-372.81863"
+         x="221.40207"
+         id="tspan3525"
+         sodipodi:role="line">HWB</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#323232;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3527"
+       width="23.233509"
+       height="49.750011"
+       x="328.82428"
+       y="217.76581"
+       rx="5.678391"
+       ry="10.597051"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect4999"
+       width="25.20178"
+       height="25.381186"
+       x="323.13452"
+       y="-622.82269"
+       ry="2.7099738"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5001"
+       width="14.8565"
+       height="14.811365"
+       x="328.30716"
+       y="-617.53778"
+       ry="7.4056826"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="426.34839"
+       y="343.60944"
+       id="text5003"
+       inkscape:export-filename=".\Micropendous1-Base_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan5005"
+         x="426.34839"
+         y="343.60944">PC1/RESET/dW</tspan></text>
+    <text
+       id="text5007"
+       y="402.25308"
+       x="378.37885"
+       style="font-size:35.45957184px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.2664133,0.7896316)"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="402.25308"
+         x="378.37885"
+         id="tspan5009"
+         sodipodi:role="line">___</tspan></text>
+  </g>
+</svg>

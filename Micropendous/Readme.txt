@@ -71,7 +71,7 @@ Table of Contents:
 
   The USB Virtual Serial Port is designed to loop back any data sent to it.
   Connect to your Micropendous using a serial terminal and typed characters
-  will appear.  More info at www.Micropendous.org/SerialUsage
+  will appear.  More info at www.Micropendous.org/Serial
 
   The Micropendous firmware is based on LUFAduino which allows Arduino code to
   run on a Micropendous board.  More info at www.Micropendous.org/LUFAduino
@@ -98,6 +98,10 @@ Table of Contents:
   To keep the distribution size small, the more obscure designs and firmware
   examples are kept in the Micropendous Subversion repository:
   http://code.google.com/p/micropendous/source/checkout
+
+  Designs no longer supported are kept in Opendous Inc.'s SVN repository
+  along with other abandoned hardware designs:
+  http://code.google.com/p/opendous/source/browse/trunk/Abandoned_Designs
 
 
 
@@ -135,6 +139,7 @@ Table of Contents:
 -------------------------------------------------------------------------------
 By Opendous Inc.
 www.Micropendous.org
+www.opendous.org
 October 2, 2009
 Copyright Under the Creative Commons Attribution License
 http://creativecommons.org/licenses/by/3.0/

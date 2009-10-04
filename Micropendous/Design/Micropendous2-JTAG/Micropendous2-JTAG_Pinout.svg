@@ -1,0 +1,1984 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Micropendous2-JTAG_Pinout.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="Micropendous2-JTAG_Pinout.png"
+   inkscape:export-xdpi="196.8846"
+   inkscape:export-ydpi="196.8846"
+   version="1.0">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4234">
+      <stop
+         style="stop-color:#008000;stop-opacity:1;"
+         offset="0"
+         id="stop4236" />
+      <stop
+         style="stop-color:#008000;stop-opacity:0;"
+         offset="1"
+         id="stop4238" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234"
+       id="linearGradient4781"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.1878333,0,0,0.624895,-385.46491,31.347585)"
+       x1="532.22333"
+       y1="541.64789"
+       x2="371.42856"
+       y2="541.64789" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="705.88302"
+     inkscape:cy="398.58776"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="994"
+     inkscape:window-x="0"
+     inkscape:window-y="22" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient4781);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3699"
+       width="303.1712"
+       height="513.3067"
+       x="427.15884"
+       y="113.16728"
+       ry="0.5516541"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="239.82457"
+       y="207.03781"
+       id="text4250"><tspan
+         sodipodi:role="line"
+         id="tspan4252"
+         x="239.82457"
+         y="207.03781" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="407.14285"
+       y="56.647896"
+       id="text4346"><tspan
+         sodipodi:role="line"
+         id="tspan4348"
+         x="407.14285"
+         y="56.647896" /></text>
+    <text
+       id="text4521"
+       y="399.07602"
+       x="926.43994"
+       style="font-size:26.44530296px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9444751,1.0587892)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="399.07602"
+         x="926.43994"
+         id="tspan4523"
+         sodipodi:role="line">___</tspan></text>
+    <text
+       id="text4529"
+       y="558.97565"
+       x="846.7937"
+       style="font-size:22.62649918px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9427708,1.0607032)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="558.97565"
+         x="846.7937"
+         id="tspan4531"
+         sodipodi:role="line">____</tspan></text>
+    <text
+       id="text4599"
+       y="224.34189"
+       x="608.40393"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="224.34189"
+         x="608.40393"
+         id="tspan4601"
+         sodipodi:role="line">5V</tspan></text>
+    <text
+       id="text4603"
+       y="190.55861"
+       x="592.97034"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="190.55861"
+         x="592.97034"
+         id="tspan4605"
+         sodipodi:role="line">VCC</tspan></text>
+    <text
+       id="text4607"
+       y="156.57759"
+       x="593.39221"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="156.57759"
+         x="593.39221"
+         id="tspan4609"
+         sodipodi:role="line">3.3V</tspan></text>
+    <text
+       id="text4611"
+       y="-675.90723"
+       x="135.35767"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="-675.90723"
+         x="135.35767"
+         id="tspan4613"
+         sodipodi:role="line">VCC_Select</tspan></text>
+    <g
+       id="g3370"
+       transform="translate(-26.287843,48.045202)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="0.88279486"
+         y="69.734146"
+         x="533.95404"
+         height="60.609154"
+         width="53.538086"
+         id="rect2788"
+         style="opacity:1;fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="74.019852"
+         x="516.98975"
+         height="14.142136"
+         width="16.162441"
+         id="rect3560"
+         style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="74.019852"
+         x="588.26917"
+         height="14.142136"
+         width="16.162441"
+         id="rect3562"
+         style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="116.20116"
+         x="516.91064"
+         height="14.142136"
+         width="16.162441"
+         id="rect3564"
+         style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="116.20116"
+         x="588.32343"
+         height="14.142136"
+         width="16.162441"
+         id="rect3566"
+         style="opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="125.54506"
+         x="547.08606"
+         height="4.7982244"
+         width="27.274118"
+         id="rect3568"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="86.527939"
+         x="585.2193"
+         height="27.02158"
+         width="2.2728431"
+         id="rect3570"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         ry="0.88279486"
+         y="86.527939"
+         x="533.95404"
+         height="27.02158"
+         width="2.2728431"
+         id="rect3572"
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         id="text3574"
+         y="106.48112"
+         x="541.97601"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           style="font-size:18px"
+           y="106.48112"
+           x="541.97601"
+           id="tspan3576"
+           sodipodi:role="line">USB</tspan></text>
+    </g>
+    <text
+       id="text3596"
+       y="539.15741"
+       x="487.27975"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="539.15741"
+         x="487.27975"
+         id="tspan3598"
+         sodipodi:role="line"
+         style="font-size:24px">RESET</tspan></text>
+    <text
+       id="text3600"
+       y="539.15741"
+       x="603.28143"
+       style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="539.15741"
+         x="603.28143"
+         id="tspan3602"
+         sodipodi:role="line"
+         style="font-size:24px">HWB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="514.87152"
+       id="text4302"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4304"
+         x="736.76221"
+         y="514.87152">PD7 / T0 / OC.4D / ADC10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="481.02753"
+       id="text4306"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4308"
+         x="736.76221"
+         y="481.02753">PD6 / T1 / OC.4D / ADC9</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="447.0799"
+       id="text4310"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4312"
+         x="736.76221"
+         y="447.0799">PD5 / XCK1 / CTS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="413.1868"
+       id="text4314"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4316"
+         x="736.76221"
+         y="413.1868">PD4 / ICP1 / ADC8</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="379.28827"
+       id="text4318"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4320"
+         x="736.76221"
+         y="379.28827">PD3 / TXD1 / INT3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="345.40051"
+       id="text4322"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4324"
+         x="736.76221"
+         y="345.40051">PD2 / RXD1 / INT2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="311.50739"
+       id="text4326"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4328"
+         x="736.76221"
+         y="311.50739">PD1 / SDA / INT1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="277.6196"
+       id="text4330"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4332"
+         x="736.76221"
+         y="277.6196">PD0 / SCL / OC.0B / INT0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="373.15558"
+       y="617.11169"
+       id="text4334"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4336"
+         x="373.15558"
+         y="617.11169">GND</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect4577"
+       width="30.493515"
+       height="30.71059"
+       x="457.90137"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect4579"
+       width="17.975986"
+       height="17.921375"
+       x="464.16013"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.72998"
+       y="209.828"
+       id="text2645"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2647"
+         x="736.72998"
+         y="209.828">RESET</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2655"
+       width="30.493515"
+       height="30.71059"
+       x="491.74542"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2657"
+       width="17.975986"
+       height="17.921375"
+       x="498.00421"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2661"
+       width="30.493515"
+       height="30.71059"
+       x="423.95911"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2663"
+       width="17.975986"
+       height="17.921375"
+       x="430.21786"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2667"
+       width="30.493515"
+       height="30.71059"
+       x="356.17285"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2669"
+       width="17.975986"
+       height="17.921375"
+       x="362.43161"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2673"
+       width="30.493515"
+       height="30.71059"
+       x="390.06601"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2675"
+       width="17.975986"
+       height="17.921375"
+       x="396.32477"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2679"
+       width="30.493515"
+       height="30.71059"
+       x="322.27972"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2681"
+       width="17.975986"
+       height="17.921375"
+       x="328.53848"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2685"
+       width="30.493515"
+       height="30.71059"
+       x="254.49344"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2687"
+       width="17.975986"
+       height="17.921375"
+       x="260.7522"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2691"
+       width="30.493515"
+       height="30.71059"
+       x="288.3866"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2693"
+       width="17.975986"
+       height="17.921375"
+       x="294.64536"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2697"
+       width="30.493515"
+       height="30.71059"
+       x="220.60031"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2699"
+       width="17.975986"
+       height="17.921375"
+       x="226.85907"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2703"
+       width="30.493515"
+       height="30.71059"
+       x="152.81407"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2705"
+       width="17.975986"
+       height="17.921375"
+       x="159.07283"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2709"
+       width="30.493515"
+       height="30.71059"
+       x="186.70721"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2711"
+       width="17.975986"
+       height="17.921375"
+       x="192.96597"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2715"
+       width="30.493515"
+       height="30.71059"
+       x="118.92093"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2717"
+       width="17.975986"
+       height="17.921375"
+       x="125.17969"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="616.86169"
+       id="text4258"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4260"
+         x="736.76221"
+         y="616.86169">PE2 / HWB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="243.72113"
+       id="text4262"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4264"
+         x="736.76221"
+         y="243.72113">PE6 / INT6 / AIN0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="583.01764"
+       id="text4266"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4268"
+         x="736.76221"
+         y="583.01764">PC7 / ICP3 / CLK0 / OC.4A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="51.566727"
+       y="583.27301"
+       id="text4270"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4272"
+         x="51.566727"
+         y="583.27301">PB7 / PCINT7 / OC.0A / OC.1C / RTS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="25.678055"
+       y="549.32538"
+       id="text4274"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4276"
+         x="25.678055"
+         y="549.32538">PB6 / OC.1B / OC.4B / ADC13 / PCINT6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="25.549149"
+       y="514.87158"
+       id="text4278"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4280"
+         x="25.549149"
+         y="514.87158">PB5 / OC.1A / OC.4B / ADC12 / PCINT5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="194.42708"
+       y="481.02216"
+       id="text4282"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4284"
+         x="194.42708"
+         y="481.02216">PB4 / ADC11 / PCINT4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="143.10091"
+       y="447.0799"
+       id="text4286"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4288"
+         x="143.10091"
+         y="447.0799">PB3 / MISO / PDO / PCINT3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="153.09114"
+       y="413.19217"
+       id="text4290"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4292"
+         x="153.09114"
+         y="413.19217">PB2 / MOSI / PDI / PCINT2 </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="210.85188"
+       y="379.29364"
+       id="text4294"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4296"
+         x="210.85188"
+         y="379.29364">PB1 / SCLK / PCINT1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="236.01009"
+       y="345.40051"
+       id="text4298"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4300"
+         x="236.01009"
+         y="345.40051">PB0 / SS / PCINT0</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2721"
+       width="30.493515"
+       height="30.71059"
+       x="457.90137"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2723"
+       width="17.975986"
+       height="17.921375"
+       x="464.16013"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2727"
+       width="30.493515"
+       height="30.71059"
+       x="491.74536"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2729"
+       width="17.975986"
+       height="17.921375"
+       x="498.00415"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2733"
+       width="30.493515"
+       height="30.71059"
+       x="423.95911"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2735"
+       width="17.975986"
+       height="17.921375"
+       x="430.21786"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2739"
+       width="30.493515"
+       height="30.71059"
+       x="356.17285"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2741"
+       width="17.975986"
+       height="17.921375"
+       x="362.43161"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2745"
+       width="30.493515"
+       height="30.71059"
+       x="390.06601"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2747"
+       width="17.975986"
+       height="17.921375"
+       x="396.32477"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2751"
+       width="30.493515"
+       height="30.71059"
+       x="322.27972"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2753"
+       width="17.975986"
+       height="17.921375"
+       x="328.53848"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2757"
+       width="30.493515"
+       height="30.71059"
+       x="254.49344"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2759"
+       width="17.975986"
+       height="17.921375"
+       x="260.7522"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2763"
+       width="30.493515"
+       height="30.71059"
+       x="288.3866"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2765"
+       width="17.975986"
+       height="17.921375"
+       x="294.64536"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2769"
+       width="30.493515"
+       height="30.71059"
+       x="220.60034"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2771"
+       width="17.975986"
+       height="17.921375"
+       x="226.8591"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2775"
+       width="30.493515"
+       height="30.71059"
+       x="152.81407"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2777"
+       width="17.975986"
+       height="17.921375"
+       x="159.07283"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2781"
+       width="30.493515"
+       height="30.71059"
+       x="186.70721"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2783"
+       width="17.975986"
+       height="17.921375"
+       x="192.96597"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2787"
+       width="30.493515"
+       height="30.71059"
+       x="118.92094"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2789"
+       width="17.975986"
+       height="17.921375"
+       x="125.1797"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="738.36279"
+       y="142.04172"
+       id="text2791"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2793"
+         x="738.36279"
+         y="142.04172">VCC</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2797"
+       width="30.493515"
+       height="30.71059"
+       x="168.86946"
+       y="-667.51886"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2799"
+       width="17.975986"
+       height="17.921375"
+       x="175.12822"
+       y="-661.12427"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2803"
+       width="30.493515"
+       height="30.71059"
+       x="202.76262"
+       y="-667.51886"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2805"
+       width="17.975986"
+       height="17.921375"
+       x="209.02138"
+       y="-661.12427"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2809"
+       width="30.493515"
+       height="30.71059"
+       x="134.97633"
+       y="-667.51886"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2811"
+       width="17.975986"
+       height="17.921375"
+       x="141.23509"
+       y="-661.12427"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.56854904px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3592"
+       width="78.43145"
+       height="76.846977"
+       x="488.81598"
+       y="544.6991"
+       ry="1.384707"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#0c0c0c;stroke-width:0;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3594"
+       sodipodi:cx="-167.43279"
+       sodipodi:cy="386.16656"
+       sodipodi:rx="13.889598"
+       sodipodi:ry="13.637059"
+       d="M -153.54319,386.16656 A 13.889598,13.637059 0 1 1 -181.32238,386.16656 A 13.889598,13.637059 0 1 1 -153.54319,386.16656 z"
+       transform="matrix(1.568549,0,0,1.568549,790.65821,-22.598636)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.56854904px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3067"
+       width="78.43145"
+       height="76.846977"
+       x="592.38409"
+       y="545.20807"
+       ry="1.384707"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#0c0c0c;stroke-width:0;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3069"
+       sodipodi:cx="-167.43279"
+       sodipodi:cy="386.16656"
+       sodipodi:rx="13.889598"
+       sodipodi:ry="13.637059"
+       d="M -153.54319,386.16656 A 13.889598,13.637059 0 1 1 -181.32238,386.16656 A 13.889598,13.637059 0 1 1 -153.54319,386.16656 z"
+       transform="matrix(1.568549,0,0,1.568549,894.22633,-22.089636)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       transform="matrix(0,1.1137553,-0.8978633,0,0,0)"
+       id="text4473"
+       y="-734.87305"
+       x="220.38025"
+       style="font-size:24px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="-734.87305"
+         x="220.38025"
+         id="tspan4475"
+         sodipodi:role="line"
+         style="font-size:24px">Micropendous2-JTAG</tspan></text>
+    <text
+       id="text2526"
+       y="228.00786"
+       x="597.23499"
+       style="font-size:34.62438583px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.2365853,0.8086786)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="228.00786"
+         x="597.23499"
+         id="tspan2528"
+         sodipodi:role="line">___</tspan></text>
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2528"
+       width="30.493515"
+       height="30.71059"
+       x="560.14685"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2530"
+       width="17.975986"
+       height="17.921375"
+       x="566.40564"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2532"
+       width="30.493515"
+       height="30.71059"
+       x="593.99091"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2534"
+       width="17.975986"
+       height="17.921375"
+       x="600.24969"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2536"
+       width="30.493515"
+       height="30.71059"
+       x="526.20459"
+       y="-464.56561"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2538"
+       width="17.975986"
+       height="17.921375"
+       x="532.46338"
+       y="-458.17102"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2540"
+       width="30.493515"
+       height="30.71059"
+       x="559.89685"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2542"
+       width="17.975986"
+       height="17.921375"
+       x="566.15564"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2544"
+       width="30.493515"
+       height="30.71059"
+       x="593.74091"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2546"
+       width="17.975986"
+       height="17.921375"
+       x="599.99969"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2548"
+       width="30.493515"
+       height="30.71059"
+       x="525.95459"
+       y="-727.54285"
+       ry="3.2789996"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2550"
+       width="17.975986"
+       height="17.921375"
+       x="532.21338"
+       y="-721.14825"
+       ry="8.9606876"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="738.4917"
+       y="175.93484"
+       id="text2552"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2554"
+         x="738.4917"
+         y="175.93484">AREF</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="304.50226"
+       y="142.04172"
+       id="text2556"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2558"
+         x="304.50226"
+         y="142.04172">PF0 / ADC0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="307.48859"
+       y="175.93484"
+       id="text2560"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2562"
+         x="307.48859"
+         y="175.93484">PF1 / ADC1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="241.15559"
+       y="209.828"
+       id="text2564"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2566"
+         x="241.15559"
+         y="209.828">PF4 / ADC4 / TCK</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="239.81282"
+       y="243.7211"
+       id="text2568"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2570"
+         x="239.81282"
+         y="243.7211">PF5 / ADC5 / TMS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="239.66243"
+       y="277.6196"
+       id="text2572"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2574"
+         x="239.66243"
+         y="277.6196">PF6 / ADC6 / TDO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="251.65071"
+       y="311.50739"
+       id="text2576"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2578"
+         x="251.65071"
+         y="311.50739">PF7 / ADC7 / TDI</tspan></text>
+    <text
+       id="text2580"
+       y="569.31018"
+       x="147.89929"
+       style="font-size:32.47111893px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.1596829,0.8623047)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="569.31018"
+         x="147.89929"
+         id="tspan2582"
+         sodipodi:role="line">___</tspan></text>
+    <text
+       id="text2584"
+       y="524.29993"
+       x="404.80301"
+       style="font-size:26.28922844px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9389009,1.0650751)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="524.29993"
+         x="404.80301"
+         id="tspan2586"
+         sodipodi:role="line">___</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="736.76221"
+       y="549.07538"
+       id="text3358"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3360"
+         x="736.76221"
+         y="549.07538">PC6 / OC.3A / OC.4A</tspan></text>
+    <text
+       id="text3362"
+       y="578.01056"
+       x="802.14404"
+       style="font-size:26.4278698px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.1011613,0.9081322)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="578.01056"
+         x="802.14404"
+         id="tspan3364"
+         sodipodi:role="line">____</tspan></text>
+    <text
+       id="text3366"
+       y="499.98749"
+       x="771.14032"
+       style="font-size:26.24908447px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.0937119,0.9143176)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="499.98749"
+         x="771.14032"
+         id="tspan3368"
+         sodipodi:role="line">____</tspan></text>
+    <g
+       id="g3649"
+       transform="translate(-1.1231768,0)"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <g
+         transform="matrix(0.648,0,0,0.648,77.059292,-110.46964)"
+         id="g3386">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3382"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3384"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,97.665848,-110.46964)"
+         id="g3390">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3392"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3394"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,77.059292,-89.97762)"
+         id="g3396">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3398"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3400"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,97.665848,-89.97762)"
+         id="g3402">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3404"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3406"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,77.059305,-69.40931)"
+         id="g3408">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3410"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3412"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,97.665861,-69.40931)"
+         id="g3414">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3416"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3418"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,77.059305,-48.9173)"
+         id="g3420">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3422"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3424"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,97.665861,-48.9173)"
+         id="g3426">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3428"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3430"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,77.059292,-28.46357)"
+         id="g3432">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3434"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3436"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+      <g
+         transform="matrix(0.648,0,0,0.648,97.665848,-28.46357)"
+         id="g3438">
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3440"
+           width="30.493515"
+           height="30.71059"
+           x="692.09772"
+           y="-714.60529"
+           ry="3.2789996" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3442"
+           width="17.975986"
+           height="17.921375"
+           x="698.35651"
+           y="-708.21069"
+           ry="8.9606876" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="485.83533"
+       y="352.90033"
+       id="text3476"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3478"
+         x="485.83533"
+         y="352.90033">TCK</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="484.88513"
+       y="373.39575"
+       id="text3480"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3482"
+         x="484.88513"
+         y="373.39575">TDO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="484.98083"
+       y="393.96063"
+       id="text3484"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3486"
+         x="484.98083"
+         y="393.96063">TMS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="484.79626"
+       y="414.45264"
+       id="text3488"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3490"
+         x="484.79626"
+         y="414.45264">VCC</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="492.51404"
+       y="434.90637"
+       id="text3492"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3494"
+         x="492.51404"
+         y="434.90637">TDI</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="565.05408"
+       y="352.90033"
+       id="text3496"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3498"
+         x="565.05408"
+         y="352.90033">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="565.73767"
+       y="373.39233"
+       id="text3500"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3502"
+         x="565.73767"
+         y="373.39233">VCC</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="564.69861"
+       y="393.96063"
+       id="text3504"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3506"
+         x="564.69861"
+         y="393.96063">RESET</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="565.05408"
+       y="434.90637"
+       id="text3512"
+       inkscape:export-filename=".\Micropendous2-JTAG_Pinout"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3514"
+         x="565.05408"
+         y="434.90637">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="516.66003"
+       y="333.09448"
+       id="text3597"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3599"
+         x="516.66003"
+         y="333.09448">JTAG</tspan></text>
+  </g>
+</svg>

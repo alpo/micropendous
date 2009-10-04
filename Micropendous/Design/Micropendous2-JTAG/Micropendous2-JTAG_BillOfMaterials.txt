@@ -1,0 +1,50 @@
+EESchema (20090216-final)  >> Creation date: 9/08/2009 14:51:45 AM
+
+#Cmp ( order = Reference )
+  Ref#  Value              Footprint           Digi-Key Part#          Unit Cost (USD)
+  ~~~   ~~~~~              ~~~~~~~~~           ~~~~~~~~~~~~~~          ~~~~~~~~~~~~~~~
+| C1  ; 22pF               ; 0402              ; 490-1283-1-ND         ; 0.022
+| C2  ; 22pF               ; 0402              ; 490-1283-1-ND         ; 0.022
+| C6  ; 0.1uF              ; 0402              ; PCC2146CT-ND          ; 0.033
+| C7  ; 0.1uF              ; 0402              ; PCC2146CT-ND          ; 0.033
+| C8  ; 1uF                ; 0402              ; 587-1231-1-ND         ; 0.044
+| C9  ; 1uF                ; 0402              ; 587-1231-1-ND         ; 0.044
+| C10 ; 1uF                ; 0402              ; 587-1231-1-ND         ; 0.044
+| C12 ; 0.01uF             ; 0402              ; 490-4516-1-ND         ; 0.022
+| C14 ; 0.1uF              ; 0402              ; PCC2146CT-ND          ; 0.033
+| C17 ; 1uF                ; 0402              ; 587-1231-1-ND         ; 0.044
+| C21 ; 4.7uF              ; 0603              ; 490-3302-1-ND         ; 0.125
+| C22 ; 4.7uF              ; 0805              ; 445-1370-1-ND         ; 0.127
+| C23 ; 0.01uF             ; 0402              ; 490-4516-1-ND         ; 0.022
+| C24 ; 1uF                ; 0402              ; 587-1231-1-ND         ; 0.044
+| C25 ; 0.1uF              ; 0402              ; PCC2146CT-ND          ; 0.033
+| CR1 ; ESD_ZENER          ; 0402              ; CG0402MLC-05LGCT-ND   ; 0.156
+| CR2 ; ESD_ZENER          ; 0402              ; CG0402MLC-05LGCT-ND   ; 0.156
+| D1  ; MBR120VLSF         ; SOD123            ; MBR120VLSFT1GOSCT-ND  ; 0.375
+| IC1 ; ATMEGA32U4         ; TQFP44            ; Avnet ATMEGA32U4-AU   ; 3.310
+| IC2 ; ST1L05B            ; DFN6_3x3mm        ; 497-6829-1-ND         ; 0.850
+| K1  ; Vcc_Sel            ; SIL-3-2mm         ; S5800-40-ND (3/40)    ; 1.095(x3/40)=0.082
+| L1  ; Ferrite            ; 0603              ; 587-1923-1-ND         ; 0.041
+| L2  ; Ferrite            ; 0603              ; 587-1923-1-ND         ; 0.041
+| R1  ; 22                 ; 0402              ; 311-22JRCT-ND         ; 0.066
+| R2  ; 22                 ; 0402              ; 311-22JRCT-ND         ; 0.066
+| R5  ; 47k                ; 0402              ; 311-47KJRCT-ND        ; 0.066
+| R8  ; 47k                ; 0402              ; 311-47KJRCT-ND        ; 0.066
+| R11 ; 82.5k              ; 0805              ; RHM82.5KCRCT-ND       ; 0.037
+| R12 ; 43k                ; 0402              ; 311-43.0KLRCT-ND      ; 0.067
+| SW1 ; RESET              ; 6.5x6x3.1mm_EVQ   ; P12940SCT-ND          ; 0.296
+| SW2 ; HWB                ; 6.5x6x3.1mm_EVQ   ; P12940SCT-ND          ; 0.296
+| U1a ; MICROPENDOUS2-JTAG ; SIL-15-0.1"-M     ; 609-2227-ND (15/36)   ; 1.350 (x1/2)=0.675
+| U1b ; MICROPENDOUS2-JTAG ; SIL-15-0.1"-M     ; 609-2227-ND (15/36)   ; 1.350 (x1/2)=0.675
+| U3  ; USBCONN            ; MiniB-5pos        ; H2959CT-ND            ; 0.853
+| U4  ; JTAG               ; DIL_SMT-5x2-0.05" ; S9006E-05-ND (Opt.)   ; 1.818
+| X1  ; 8MHz               ; 8x4.5mm_NX8045    ; 644-1018-1-ND         ; 0.367
+| *   ; *                  ; Shunt Jumper      ; S3404-ND              ; 0.263
+------------------------------------------------------------------Total:11.314
+#End Cmp
+#End List
+
+#Notes: -Unit costs based on minimum orders of 25 components.
+        -Headers are bought as large pieces and seperated,
+         hence the fraction after each breakable header
+	-MBR120VLSF can be replaced with MBRX120LF in SOD123-compatible package

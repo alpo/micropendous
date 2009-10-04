@@ -1,0 +1,708 @@
+# EESchema Netlist Version 1.1 created  8/11/2009 10:29:29 AM
+(
+ ( /494A56AF SM0402_Opendous C1 24pF
+  ( 1 GND )
+  ( 2 N-000005 )
+ )
+ ( /494A56AB SM0402_Opendous C2 24pF
+  ( 1 GND )
+  ( 2 N-000023 )
+ )
+ ( /498EEF77 SM0402_Opendous C6 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4893D53C SM0402_Opendous C7 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /48BB90E5 SM0402_Opendous C8 1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /494A5892 SM0402_Opendous C9 1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /494A51E2 SM0402_Opendous C10 1uF
+  ( 1 3.56V )
+  ( 2 GND )
+ )
+ ( /494A5461 SM0402_Opendous C11 0.1uF
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /494A4EA2 SM0402_Opendous C12 0.01uF
+  ( 1 /AREF )
+  ( 2 GND )
+ )
+ ( /494A53A6 SM0402_Opendous C13 0.1uF
+  ( 1 /AVCC )
+  ( 2 GND )
+ )
+ ( /494A53A3 SM0402_Opendous C14 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /49ED04C4 SM0402_Opendous C17 1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /49F8B842 SM0805_Opendous C21 4.7uF
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /49F93888 SM0805_Opendous C22 10uF
+  ( 1 N-000081 )
+  ( 2 GND )
+ )
+ ( /4A5058F4 SM0402_Opendous C23 1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A5058F9 SM0402_Opendous C24 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A507363 SM0402_Opendous C25 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A52136E SM0402_Opendous C26 1uF
+  ( 1 3.56V )
+  ( 2 GND )
+ )
+ ( /4A505334 SM0402_Opendous CR1 ESD_ZENER
+  ( 1 GNDPWR )
+  ( 2 N-000026 )
+ )
+ ( /4A50533C SM0402_Opendous CR2 ESD_ZENER
+  ( 1 GNDPWR )
+  ( 2 N-000025 )
+ )
+ ( /4A50BF4B SM0402_Opendous CR3 ESD_ZENER
+  ( 1 GND )
+  ( 2 /PE3 )
+ )
+ ( /4997EEBE SOD123 D1 MBR120VLSF
+  ( 1 +5V )
+  ( 2 3.56V )
+ )
+ ( /494A3BCE QFN64_0.5mmPitch_9x9mm_Opendous IC1 AT90USB64
+  ( 1 /PE6 )
+  ( 2 /PE7 )
+  ( 3 +5V )
+  ( 4 N-000016 )
+  ( 5 N-000015 )
+  ( 6 GND )
+  ( 7 3.56V )
+  ( 8 VBUS )
+  ( 9 /PE3 )
+  ( 10 /PB0 )
+  ( 11 /PB1 )
+  ( 12 /PB2 )
+  ( 13 /PB3 )
+  ( 14 /PB4 )
+  ( 15 /PB5 )
+  ( 16 /PB6 )
+  ( 17 /PB7 )
+  ( 18 /PE4 )
+  ( 19 /PE5 )
+  ( 20 /RST )
+  ( 21 VCC )
+  ( 22 GND )
+  ( 23 N-000023 )
+  ( 24 N-000005 )
+  ( 25 /PD0 )
+  ( 26 /PD1 )
+  ( 27 /PD2 )
+  ( 28 /PD3 )
+  ( 29 /PD4 )
+  ( 30 /PD5 )
+  ( 31 /PD6 )
+  ( 32 /PD7 )
+  ( 33 /PE0 )
+  ( 34 /PE1 )
+  ( 35 /PC0 )
+  ( 36 /PC1 )
+  ( 37 /PC2 )
+  ( 38 /PC3 )
+  ( 39 /PC4 )
+  ( 40 /PC5 )
+  ( 41 /PC6 )
+  ( 42 /PC7 )
+  ( 43 /PE2 )
+  ( 44 /PA7 )
+  ( 45 /PA6 )
+  ( 46 /PA5 )
+  ( 47 /PA4 )
+  ( 48 /PA3 )
+  ( 49 /PA2 )
+  ( 50 /PA1 )
+  ( 51 /PA0 )
+  ( 52 VCC )
+  ( 53 GND )
+  ( 54 /PF7 )
+  ( 55 /PF6 )
+  ( 56 /PF5 )
+  ( 57 /PF4 )
+  ( 58 /PF3 )
+  ( 59 /PF2 )
+  ( 60 /PF1 )
+  ( 61 /PF0 )
+  ( 62 /AREF )
+  ( 63 GND )
+  ( 64 /AVCC )
+  ( 65 GND )
+ )
+ ( /49F937ED DFN6_3x3mm IC2 ST1L05B
+  ( 1 ? )
+  ( 2 GND )
+  ( 3 ? )
+  ( 4 3.56V )
+  ( 5 N-000012 )
+  ( 6 N-000081 )
+  ( 7 GNDPWR )
+ )
+ ( /4A50E02D SON10_DRC IC3 ISL54200IRZ
+  ( 1 VCC )
+  ( 2 N-000013 )
+  ( 3 N-000025 )
+  ( 4 N-000026 )
+  ( 5 GND )
+  ( 6 N-000011 )
+  ( 7 N-000018 )
+  ( 8 N-000004 )
+  ( 9 N-000027 )
+  ( 10 N-000006 )
+  ( 11 GND )
+ )
+ ( /4A50540C TSSOP20_PW IC4 74AHC573
+  ( 1 GND )
+  ( 2 /PA0 )
+  ( 3 /PA1 )
+  ( 4 /PA2 )
+  ( 5 /PA3 )
+  ( 6 /PA4 )
+  ( 7 /PA5 )
+  ( 8 /PA6 )
+  ( 9 /PA7 )
+  ( 10 GND )
+  ( 11 /PE2 )
+  ( 12 N-000010 )
+  ( 13 N-000019 )
+  ( 14 N-000009 )
+  ( 15 N-000020 )
+  ( 16 N-000008 )
+  ( 17 N-000021 )
+  ( 18 N-000007 )
+  ( 19 N-000022 )
+  ( 20 VCC )
+ )
+ ( /4A5053FD TSOPII32 IC5 CY7C1019D_5V_1MBIT_SRAM
+  ( 1 N-000022 )
+  ( 2 N-000007 )
+  ( 3 N-000021 )
+  ( 4 N-000008 )
+  ( 5 /PE6 )
+  ( 6 /PA0 )
+  ( 7 /PA1 )
+  ( 8 VCC )
+  ( 9 GND )
+  ( 10 /PA2 )
+  ( 11 /PA3 )
+  ( 12 /PE0 )
+  ( 13 N-000020 )
+  ( 14 N-000009 )
+  ( 15 N-000019 )
+  ( 16 N-000010 )
+  ( 17 /PC0 )
+  ( 18 /PC1 )
+  ( 19 /PC2 )
+  ( 20 /PC3 )
+  ( 21 /PC4 )
+  ( 22 /PA4 )
+  ( 23 /PA5 )
+  ( 24 VCC )
+  ( 25 GND )
+  ( 26 /PA6 )
+  ( 27 /PA7 )
+  ( 28 /PE1 )
+  ( 29 /PC5 )
+  ( 30 /PC6 )
+  ( 31 /PC7 )
+  ( 32 /PE7 )
+ )
+ ( /49F881AC SIL-3POS-2mm K1 Vcc_Sel
+  ( 1 N-000081 )
+  ( 2 VBUS )
+  ( 3 +5V )
+ )
+ ( /498FD909 SM0603_Opendous L1 Ferrite
+  ( 1 VCC )
+  ( 2 +5V )
+ )
+ ( /494A537A SM0603_Opendous L3 Ferrite
+  ( 1 VCC )
+  ( 2 /AVCC )
+ )
+ ( /4997E94F SIL-2_Opendous P15 USB-B/^A
+  ( 1 GND )
+  ( 2 N-000013 )
+ )
+ ( /4A505A65 1Pin_20mil_VIA P16 CONN_1
+  ( 1 N-000006 )
+ )
+ ( /494A512F SM0402_Opendous R1 22
+  ( 1 N-000016 )
+  ( 2 N-000026 )
+ )
+ ( /494A5137 SM0402_Opendous R2 22
+  ( 1 N-000015 )
+  ( 2 N-000025 )
+ )
+ ( /494A62C7 SM0805_Opendous R4 0
+  ( 1 N-000029 )
+  ( 2 /PE3 )
+ )
+ ( /494A5258 SM0402_Opendous R5 47k
+  ( 1 /RST )
+  ( 2 VCC )
+ )
+ ( /494A52C6 SM0402_Opendous R8 47k
+  ( 1 /PE2 )
+  ( 2 VCC )
+ )
+ ( /4997E9D4 SM0402_Opendous R10 15k
+  ( 1 N-000013 )
+  ( 2 VCC )
+ )
+ ( /49F8B052 SM0805_Opendous R11 82.5k
+  ( 1 N-000012 )
+  ( 2 3.56V )
+ )
+ ( /49F8B058 SM0402_Opendous R12 43k
+  ( 1 GND )
+  ( 2 N-000012 )
+ )
+ ( /49EA5053 SM0402_Opendous R13 0
+  ( 1 N-000026 )
+  ( 2 N-000004 )
+ )
+ ( /49EA5054 SM0402_Opendous R14 0
+  ( 1 N-000025 )
+  ( 2 N-000027 )
+ )
+ ( /4A505054 SM0402_Opendous R15 0
+  ( 1 GND )
+  ( 2 GNDPWR )
+ )
+ ( /4A5051DE SM0402_Opendous R16 15k
+  ( 1 N-000006 )
+  ( 2 VCC )
+ )
+ ( /494A525F Switch_SMT_EVQ SW1 RESET
+  ( 1 GND )
+  ( 2 /RST )
+ )
+ ( /494A52C7 Switch_SMT_EVQ SW2 HWB
+  ( 1 GND )
+  ( 2 /PE2 )
+ )
+ ( /49EA96E4 CONN_USB2_MiniB_SMT U1 USBCONN-HOSTCAPABLE-2GNDS
+  ( 1 VBUS )
+  ( 2 N-000004 )
+  ( 3 N-000027 )
+  ( 4 GND )
+  ( 5 GNDPWR )
+  ( 6 N-000029 )
+  ( 7 GND )
+ )
+ ( /4997E625 CONN_USB_A_Vertical_Opendous U2 USBCONN
+  ( 1 VBUS )
+  ( 2 N-000011 )
+  ( 3 N-000018 )
+  ( 4 GND )
+  ( 5 GNDPWR )
+ )
+ ( /49ECCEA3 Micropendous3 U3 MICROPENDOUS3
+  ( 1 VCC )
+  ( 2 /AREF )
+  ( 3 /PF0 )
+  ( 4 /PF1 )
+  ( 5 /PF2 )
+  ( 6 /PF3 )
+  ( 7 /PF4 )
+  ( 8 /PF5 )
+  ( 9 /PF6 )
+  ( 10 /PF7 )
+  ( 11 /PA0 )
+  ( 12 /PA1 )
+  ( 13 /PA2 )
+  ( 14 /PA3 )
+  ( 15 /PA4 )
+  ( 16 /PA5 )
+  ( 17 /PA6 )
+  ( 18 /PA7 )
+  ( 19 /PE0 )
+  ( 20 /PE1 )
+  ( 21 /PE2 )
+  ( 22 /PE3 )
+  ( 23 /PE4 )
+  ( 24 /PE5 )
+  ( 25 /PE6 )
+  ( 26 /PE7 )
+  ( 27 VBUS )
+  ( 28 /PB0 )
+  ( 29 /PB1 )
+  ( 30 /PB2 )
+  ( 31 /PB3 )
+  ( 32 /PB4 )
+  ( 33 /PB5 )
+  ( 34 /PB6 )
+  ( 35 /PB7 )
+  ( 36 /PD0 )
+  ( 37 /PD1 )
+  ( 38 /PD2 )
+  ( 39 /PD3 )
+  ( 40 /PD4 )
+  ( 41 /PD5 )
+  ( 42 /PD6 )
+  ( 43 /PD7 )
+  ( 44 /PC0 )
+  ( 45 /PC1 )
+  ( 46 /PC2 )
+  ( 47 /PC3 )
+  ( 48 /PC4 )
+  ( 49 /PC5 )
+  ( 50 /PC6 )
+  ( 51 /PC7 )
+  ( 52 GND )
+ )
+ ( /494E15BF Pin_Array_Port_5x2_Opendous U4 JTAG
+  ( 1 /PF4 )
+  ( 2 GND )
+  ( 3 /PF6 )
+  ( 4 VCC )
+  ( 5 /PF5 )
+  ( 6 /RST )
+  ( 7 VCC )
+  ( 8 ? )
+  ( 9 /PF7 )
+  ( 10 GND )
+ )
+ ( /4A50DEBB 1Pin_15mil_VIA U6 VIA
+  ( 1 N-000004 )
+ )
+ ( /4A50DEBA 1Pin_15mil_VIA U7 VIA
+  ( 1 N-000027 )
+ )
+ ( /4A50E207 1Pin_15mil_VIA U8 VIA
+  ( 1 N-000004 )
+ )
+ ( /4A50E206 1Pin_15mil_VIA U9 VIA
+  ( 1 N-000027 )
+ )
+ ( /49ED1760 1Pin_15mil_VIA U76 VIA
+  ( 1 /PE6 )
+ )
+ ( /49ED1768 1Pin_15mil_VIA U79 VIA
+  ( 1 /PE3 )
+ )
+ ( /49ED1852 1Pin_15mil_VIA U84 VIA
+  ( 1 GND )
+ )
+ ( /49ED1867 1Pin_15mil_VIA U93 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1854 1Pin_15mil_VIA U94 VIA
+  ( 1 GND )
+ )
+ ( /49ED1865 1Pin_15mil_VIA U103 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1863 1Pin_15mil_VIA U113 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1858 1Pin_15mil_VIA U114 VIA
+  ( 1 GND )
+ )
+ ( /49ED1861 1Pin_15mil_VIA U123 VIA
+  ( 1 VCC )
+ )
+ ( /49ED185C 1Pin_15mil_VIA U134 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F99 1Pin_15mil_VIA U136 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F97 1Pin_15mil_VIA U137 VIA
+  ( 1 GND )
+ )
+ ( /49ED1DFA 1Pin_15mil_VIA U138 VIA
+  ( 1 /PE7 )
+ )
+ ( /49ED1DFB 1Pin_15mil_VIA U140 VIA
+  ( 1 /PE5 )
+ )
+ ( /49ED1DF8 1Pin_15mil_VIA U141 VIA
+  ( 1 /PE4 )
+ )
+ ( /49ED1DF9 1Pin_15mil_VIA U144 VIA
+  ( 1 /PE1 )
+ )
+ ( /49ED1DFF 1Pin_15mil_VIA U145 VIA
+  ( 1 /PE0 )
+ )
+ ( /49ED1FAD 1Pin_15mil_VIA U155 VIA
+  ( 1 GND )
+ )
+ ( /49ED1FAB 1Pin_15mil_VIA U162 VIA
+  ( 1 GND )
+ )
+ ( /49ED1FA9 1Pin_15mil_VIA U163 VIA
+  ( 1 GND )
+ )
+ ( /49ED1FA5 1Pin_15mil_VIA U165 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F1A 1Pin_15mil_VIA U167 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1F1C 1Pin_15mil_VIA U170 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1E00 1Pin_15mil_VIA U174 VIA
+  ( 1 /RST )
+ )
+ ( /49ED1F16 1Pin_15mil_VIA U177 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1FA3 1Pin_15mil_VIA U191 VIA
+  ( 1 GND )
+ )
+ ( /49ED1DFE 1Pin_15mil_VIA U193 VIA
+  ( 1 /PE2 )
+ )
+ ( /49ED1F69 1Pin_15mil_VIA U194 VIA
+  ( 1 GND )
+ )
+ ( /49ED1DFD 1Pin_15mil_VIA U196 VIA
+  ( 1 /RST )
+ )
+ ( /49ED1F67 1Pin_15mil_VIA U206 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F65 1Pin_15mil_VIA U207 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F63 1Pin_15mil_VIA U214 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F61 1Pin_15mil_VIA U215 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F5F 1Pin_15mil_VIA U216 VIA
+  ( 1 GND )
+ )
+ ( /49EA584C 1Pin_15mil_VIA U253 VIA
+  ( 1 N-000005 )
+ )
+ ( /49EA5849 1Pin_15mil_VIA U254 VIA
+  ( 1 N-000023 )
+ )
+ ( /49ED1DB9 1Pin_TH_40milVia U259 VIA
+  ( 1 +5V )
+ )
+ ( /49ED1F18 1Pin_TH_40milVia U260 VIA
+  ( 1 VCC )
+ )
+ ( /49ED1F9D 1Pin_20mil_VIA U266 VIA
+  ( 1 GND )
+ )
+ ( /49ED1F9F 1Pin_25mil_VIA U267 VIA
+  ( 1 GND )
+ )
+ ( /49ED1FA1 1Pin_25mil_VIA U268 VIA
+  ( 1 GND )
+ )
+ ( /49ED1DFC 1Pin_15mil_VIA U271 VIA
+  ( 1 /PE3 )
+ )
+ ( /49ED203F 1Pin_15mil_VIA U273 VIA
+  ( 1 GND )
+ )
+ ( /49ED211D 1Pin_15mil_VIA U275 VIA
+  ( 1 GND )
+ )
+ ( /4A505643 1Pin_15mil_VIA U278 VIA
+  ( 1 N-000022 )
+ )
+ ( /4A5055D7 1Pin_15mil_VIA U279 VIA
+  ( 1 N-000007 )
+ )
+ ( /4A5055FC 1Pin_15mil_VIA U280 VIA
+  ( 1 N-000021 )
+ )
+ ( /4A5055FD 1Pin_15mil_VIA U281 VIA
+  ( 1 N-000008 )
+ )
+ ( /4A5055FE 1Pin_15mil_VIA U282 VIA
+  ( 1 N-000020 )
+ )
+ ( /4A5055F8 1Pin_15mil_VIA U283 VIA
+  ( 1 N-000009 )
+ )
+ ( /4A5055EB 1Pin_15mil_VIA U284 VIA
+  ( 1 N-000019 )
+ )
+ ( /4A5055F5 1Pin_15mil_VIA U285 VIA
+  ( 1 N-000010 )
+ )
+ ( /4A50A2EC 1Pin_15mil_VIA U291 VIA
+  ( 1 /PE0 )
+ )
+ ( /4A50A2ED 1Pin_15mil_VIA U292 VIA
+  ( 1 /PE1 )
+ )
+ ( /4A50A899 1Pin_15mil_VIA U293 VIA
+  ( 1 /PE4 )
+ )
+ ( /4A50A898 1Pin_15mil_VIA U294 VIA
+  ( 1 /PE5 )
+ )
+ ( /4A50A897 1Pin_15mil_VIA U295 VIA
+  ( 1 /PE6 )
+ )
+ ( /4A50A89A 1Pin_15mil_VIA U296 VIA
+  ( 1 /PE7 )
+ )
+ ( /4A50AB74 1Pin_15mil_VIA U297 VIA
+  ( 1 /PA0 )
+ )
+ ( /4A50AB75 1Pin_15mil_VIA U298 VIA
+  ( 1 /PA1 )
+ )
+ ( /4A50AB72 1Pin_15mil_VIA U299 VIA
+  ( 1 /PA2 )
+ )
+ ( /4A50AB76 1Pin_15mil_VIA U300 VIA
+  ( 1 /PA3 )
+ )
+ ( /4A50C046 1Pin_15mil_VIA U301 VIA
+  ( 1 VCC )
+ )
+ ( /4A50C044 1Pin_15mil_VIA U302 VIA
+  ( 1 VCC )
+ )
+ ( /4A50C17E 1Pin_15mil_VIA U303 VIA
+  ( 1 /PA4 )
+ )
+ ( /4A50C17F 1Pin_15mil_VIA U304 VIA
+  ( 1 /PA5 )
+ )
+ ( /4A50C17D 1Pin_15mil_VIA U305 VIA
+  ( 1 /PA6 )
+ )
+ ( /4A50C180 1Pin_15mil_VIA U306 VIA
+  ( 1 /PA7 )
+ )
+ ( /4A50CB0D 1Pin_15mil_VIA U307 VIA
+  ( 1 /RST )
+ )
+ ( /4A50CB0E 1Pin_15mil_VIA U308 VIA
+  ( 1 /RST )
+ )
+ ( /4A50CB16 1Pin_15mil_VIA U309 VIA
+  ( 1 /PA0 )
+ )
+ ( /4A50CB17 1Pin_15mil_VIA U310 VIA
+  ( 1 /PA1 )
+ )
+ ( /4A50CB15 1Pin_15mil_VIA U311 VIA
+  ( 1 /PA2 )
+ )
+ ( /4A50CB18 1Pin_15mil_VIA U312 VIA
+  ( 1 /PA3 )
+ )
+ ( /4A50CDB4 1Pin_15mil_VIA U313 VIA
+  ( 1 GND )
+ )
+ ( /4A50CDBD 1Pin_15mil_VIA U314 VIA
+  ( 1 GND )
+ )
+ ( /4A50CDBF 1Pin_15mil_VIA U315 VIA
+  ( 1 GND )
+ )
+ ( /4A50CDC1 1Pin_15mil_VIA U316 VIA
+  ( 1 GND )
+ )
+ ( /4A50CDAE 1Pin_15mil_VIA U317 VIA
+  ( 1 VCC )
+ )
+ ( /4A50CDC3 1Pin_15mil_VIA U318 VIA
+  ( 1 GND )
+ )
+ ( /4A50CDAC 1Pin_15mil_VIA U319 VIA
+  ( 1 VCC )
+ )
+ ( /4A50D1B5 1Pin_15mil_VIA U321 VIA
+  ( 1 GND )
+ )
+ ( /4A50EA28 1Pin_15mil_VIA U324 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A50EA48 1Pin_15mil_VIA U325 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A50ECE6 1Pin_15mil_VIA U326 VIA
+  ( 1 N-000013 )
+ )
+ ( /4A50EEC0 1Pin_15mil_VIA U327 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A50EFD5 1Pin_15mil_VIA U329 VIA
+  ( 1 GND )
+ )
+ ( /4A50F1EE 1Pin_15mil_VIA U330 VIA
+  ( 1 VBUS )
+ )
+ ( /4A50F1F0 1Pin_15mil_VIA U331 VIA
+  ( 1 GND )
+ )
+ ( /4A50F9CD 1Pin_15mil_VIA U332 VIA
+  ( 1 3.56V )
+ )
+ ( /4A5213F0 1Pin_15mil_VIA U333 VIA
+  ( 1 GND )
+ )
+ ( /4A5213D5 1Pin_15mil_VIA U334 VIA
+  ( 1 GND )
+ )
+ ( /4A5214BF 1Pin_15mil_VIA U335 VIA
+  ( 1 GND )
+ )
+ ( /4A5215A3 1Pin_15mil_VIA U336 VIA
+  ( 1 GND )
+ )
+ ( /4A5215E4 1Pin_15mil_VIA U337 VIA
+  ( 1 GND )
+ )
+ ( /4A50F62D 1Pin_20mil_VIA V1 VIA
+  ( 1 N-000081 )
+ )
+ ( /4A505F7A Crystal_6x3.3mm_ABM7 X1 8MHz
+  ( 1 N-000005 )
+  ( 2 N-000023 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component D1
+ D?
+ SO*
+ SM*
+ SLP1006P2
+$endlist
+$endfootprintlist
+}

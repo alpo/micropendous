@@ -1,0 +1,38 @@
+EESchema (20080825-RC1)  >> Creation date: 3/11/2008-16:48:37
+#Cmp ( order = Reference )
+  Ref#  Value            Footprint            Digi-Key Part#          Unit Cost (USD)
+  ~~~   ~~~~~            ~~~~~~~~~            ~~~~~~~~~~~~~~          ~~~~~~~~~~~~~~~
+| C1  ; 24pF           ; 0603               ; 490-1412-1-ND         ; 0.048
+| C2  ; 24pF           ; 0603               ; 490-1412-1-ND         ; 0.048
+| C3  ; 1uF            ; 0603               ; 587-1262-1-ND         ; 0.044
+| C4  ; 1uF            ; 0603               ; 587-1262-1-ND         ; 0.044
+| C5  ; 1uF            ; 0603               ; 587-1262-1-ND         ; 0.044
+| C6  ; 1uF            ; 0603               ; 587-1262-1-ND         ; 0.044
+| C7  ; 4.7uF          ; 0805               ; 511-1443-1-ND         ; 0.283
+| C8  ; 0.1uF          ; 0603               ; PCC2277TR-ND          ; 0.042
+| C9  ; 0.1uF          ; 0603               ; PCC2277TR-ND          ; 0.042
+| CR1 ; ESD_ZENER      ; 0603               ; CG0603MLU-12ECT-ND    ; 0.340
+| CR2 ; ESD_ZENER      ; 0603               ; CG0603MLU-12ECT-ND    ; 0.340
+| D1  ; Schottky_Diode ; MicroSMP           ; MSS1P3L-E3/89AGICT-ND ; 0.112
+| IC1 ; AT90USB16      ; QFN32              ; AT90USB162-16MURCT-ND ; 3.760
+| J1  ; USB_MiniB      ; MiniB-5pos         ; H2959CT-ND            ; 1.180
+| K1  ; Vcc_Sel        ; 2mm-3pos-SIL       ; S5800-40-ND (3/40)    ; 1.095(x3/40)=0.082
+| L3  ; Ferrite        ; 0603               ; 587-1926-1-ND         ; 0.041
+| P6  ; PortB          ; 0.05"x0.05"-DIL-10 ; S9009E-05-ND          ; 1.216
+| P7  ; PortD          ; 0.05"x0.05"-DIL-10 ; S9009E-05-ND          ; 1.216
+| P8  ; PortC          ; 0.05"x0.05"-DIL-8  ; S9009E-04-ND          ; 1.058 
+| R1  ; 22             ; 0603               ; RMCF1/16225%RTR-ND    ; 0.004
+| R2  ; 22             ; 0603               ; RMCF1/16225%RTR-ND    ; 0.004
+| R3  ; 47k            ; 0603               ; RMCF1/1647K5%RTR-ND   ; 0.004
+| R4  ; 47k            ; 0603               ; RMCF1/1647K5%RTR-ND   ; 0.004
+| SW1 ; RESET          ; 5x3mm_KMR2         ; 401-1427-1-ND         ; 0.450
+| SW2 ; HWB            ; 5x3mm_KMR2         ; 401-1427-1-ND         ; 0.450
+| X1  ; 8MHz           ; 5x3.2mm            ; 644-1132-1-ND         ; 1.529
+| *   ; *              ; Shunt Jumper       ; S3404-ND              ; 0.263
+---------------------------------------------------------------Total:12.692
+#End Cmp
+#End List
+
+#Notes: -Unit costs based on minimum orders of 25 components.
+        -Headers are bought as large pieces and seperated,
+         hence the fraction after each breakable header

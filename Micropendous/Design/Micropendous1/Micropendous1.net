@@ -1,0 +1,241 @@
+# EESchema Netlist Version 1.1 created  4/23/2009 5:51:18 PM
+(
+ ( /4893D443 SM0402_Opendous C1 18pF
+  ( 1 GND )
+  ( 2 N-000032 )
+ )
+ ( /4893D446 SM0402_Opendous C2 18pF
+  ( 1 GND )
+  ( 2 N-000031 )
+ )
+ ( /48BB90E5 SM0402_Opendous C3 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4893D53C SM0402_Opendous C4 1uF
+  ( 1 N-000009 )
+  ( 2 GND )
+ )
+ ( /48BB8F00 SM0402_Opendous C5 1uF
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /489B8692 SM0402_Opendous C6 1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /489B85E8 SM0603_Opendous C7 4.7uF
+  ( 1 VPP )
+  ( 2 GND )
+ )
+ ( /4949FCEE SM0402_Opendous C8 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4893D99C SM0402_Opendous C9 0.1uF
+  ( 1 GND )
+  ( 2 VDD )
+ )
+ ( /47FBC085 SM0402_Opendous CR1 ESD_ZENER
+  ( 1 N-000008 )
+  ( 2 N-000034 )
+ )
+ ( /47FBC1D2 SM0402_Opendous CR2 ESD_ZENER
+  ( 1 N-000008 )
+  ( 2 N-000033 )
+ )
+ ( /4947CCE3 QFN32_5x5mm_0.5mm_Pitch IC1 AT90USB16
+  ( 1 N-000032 )
+  ( 2 N-000031 )
+  ( 3 GND )
+  ( 4 VCC )
+  ( 5 /PC2 )
+  ( 6 /PD0 )
+  ( 7 /PD1 )
+  ( 8 /PD2 )
+  ( 9 /PD3 )
+  ( 10 /PD4 )
+  ( 11 /PD5 )
+  ( 12 /PD6 )
+  ( 13 /PD7 )
+  ( 14 /PB0 )
+  ( 15 /PB1 )
+  ( 16 /PB2 )
+  ( 17 /PB3 )
+  ( 18 /PB4 )
+  ( 19 /PB5 )
+  ( 20 /PB6 )
+  ( 21 /PB7 )
+  ( 22 /PC7 )
+  ( 23 /PC6 )
+  ( 24 /RST )
+  ( 25 /PC5 )
+  ( 26 /PC4 )
+  ( 27 N-000009 )
+  ( 28 GND )
+  ( 29 N-000007 )
+  ( 30 N-000006 )
+  ( 31 VDD )
+  ( 32 VCC )
+  ( 33 GND )
+ )
+ ( /484E10D0 CONN_USB2_MiniB_SMT J1 USBCONN
+  ( 1 VPP )
+  ( 2 N-000033 )
+  ( 3 N-000034 )
+  ( 4 GND )
+  ( 5 N-000008 )
+ )
+ ( /47FBB096 SIL-3POS-2mm K1 Vcc_Sel
+  ( 1 N-000009 )
+  ( 2 VCC )
+  ( 3 VDD )
+ )
+ ( /489B83F5 SM0603_Opendous L3 47nH
+  ( 1 VPP )
+  ( 2 VDD )
+ )
+ ( /49F0D1DE Micropendous1 P1 Micropendous1
+  ( 1 /RST )
+  ( 2 /PC4 )
+  ( 3 /PC2 )
+  ( 4 /PD0 )
+  ( 5 /PD1 )
+  ( 6 /PD2 )
+  ( 7 /PD3 )
+  ( 8 /PD4 )
+  ( 9 /PD5 )
+  ( 10 /PD6 )
+  ( 11 /PD7 )
+  ( 12 GND )
+  ( 13 /PB0 )
+  ( 14 /PB1 )
+  ( 15 /PB2 )
+  ( 16 /PB3 )
+  ( 17 /PB4 )
+  ( 18 /PB5 )
+  ( 19 /PB6 )
+  ( 20 /PB7 )
+  ( 21 /PC7 )
+  ( 22 /PC6 )
+  ( 23 /PC5 )
+  ( 24 VCC )
+ )
+ ( /4893DBAC SM0402_Opendous R1 22
+  ( 1 N-000033 )
+  ( 2 N-000006 )
+ )
+ ( /4893DBA9 SM0402_Opendous R2 22
+  ( 1 N-000034 )
+  ( 2 N-000007 )
+ )
+ ( /4893D306 SM0402_Opendous R3 47k
+  ( 1 /RST )
+  ( 2 VCC )
+ )
+ ( /4893D735 SM0402_Opendous R4 47k
+  ( 1 /PD7 )
+  ( 2 VCC )
+ )
+ ( /49468F58 SM0402_Opendous R5 0
+  ( 1 GND )
+  ( 2 N-000008 )
+ )
+ ( /49468966 Switch_SMT_TH_EVQ SW1 RESET
+  ( 1 GND )
+  ( 2 /RST )
+ )
+ ( /494689C7 Switch_SMT_TH_EVQ SW2 HWB
+  ( 1 GND )
+  ( 2 /PD7 )
+ )
+ ( /4947C8EB 1Pin_15mil_VIA U1 VIA
+  ( 1 N-000009 )
+ )
+ ( /4947C984 1Pin_15mil_VIA U2 VIA
+  ( 1 GND )
+ )
+ ( /4947C986 1Pin_15mil_VIA U3 VIA
+  ( 1 GND )
+ )
+ ( /4947CEE5 1Pin_15mil_VIA U4 VIA
+  ( 1 GND )
+ )
+ ( /4947CEDB 1Pin_15mil_VIA U5 VIA
+  ( 1 GND )
+ )
+ ( /4947E385 1Pin_15mil_VIA U14 VIA
+  ( 1 VCC )
+ )
+ ( /4948C9E8 1Pin_15mil_VIA U25 VIA
+  ( 1 /RST )
+ )
+ ( /4949FD98 1Pin_15mil_VIA U27 VIA
+  ( 1 VCC )
+ )
+ ( /494A2AF3 1Pin_15mil_VIA U28 VIA
+  ( 1 /PD3 )
+ )
+ ( /494A2AF7 1Pin_15mil_VIA U29 VIA
+  ( 1 /PD2 )
+ )
+ ( /494A326D 1Pin_15mil_VIA U30 VIA
+  ( 1 /PC4 )
+ )
+ ( /494A3559 1Pin_15mil_VIA U31 VIA
+  ( 1 GND )
+ )
+ ( /49F0C769 1Pin_15mil_VIA U32 VIA
+  ( 1 GND )
+ )
+ ( /49F0C76A 1Pin_15mil_VIA U33 VIA
+  ( 1 GND )
+ )
+ ( /49F0DA3E 1Pin_15mil_VIA U34 VIA
+  ( 1 GND )
+ )
+ ( /49F0DA3F 1Pin_15mil_VIA U35 VIA
+  ( 1 GND )
+ )
+ ( /49F0DB7C 1Pin_15mil_VIA U36 VIA
+  ( 1 /PC4 )
+ )
+ ( /49F0DB79 1Pin_15mil_VIA U37 VIA
+  ( 1 /PC4 )
+ )
+ ( /49F0E0C7 1Pin_15mil_VIA U38 VIA
+  ( 1 /RST )
+ )
+ ( /49F0E0CC 1Pin_15mil_VIA U39 VIA
+  ( 1 /RST )
+ )
+ ( /49F0E165 1Pin_15mil_VIA U40 VIA
+  ( 1 GND )
+ )
+ ( /49F0E25D 1Pin_15mil_VIA U41 VIA
+  ( 1 GND )
+ )
+ ( /49F0E25E 1Pin_15mil_VIA U42 VIA
+  ( 1 GND )
+ )
+ ( /49F0E2C4 1Pin_15mil_VIA U43 VIA
+  ( 1 GND )
+ )
+ ( /489B907F 1Pin_15mil_VIA via1 CONN_1
+  ( 1 N-000034 )
+ )
+ ( /489B9080 1Pin_15mil_VIA via2 CONN_1
+  ( 1 N-000033 )
+ )
+ ( /48B9CB04 1Pin_15mil_VIA via3 CONN_1
+  ( 1 N-000034 )
+ )
+ ( /48B9CB05 1Pin_15mil_VIA via4 CONN_1
+  ( 1 N-000033 )
+ )
+ ( /494693F5 Crystal_6x3.6mm_ReducedSize X1 8MHz
+  ( 1 N-000032 )
+  ( 3 N-000031 )
+ )
+)
+*

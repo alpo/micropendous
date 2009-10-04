@@ -1,0 +1,61 @@
+EESchema (20090216-final)  >> Creation date: 4/14/2009 1:50:20 PM
+#Cmp ( order = Reference )
+  Ref#  Value              Footprint          Digi-Key Part#          Unit Cost (USD)
+  ~~~   ~~~~~              ~~~~~~~~~          ~~~~~~~~~~~~~~          ~~~~~~~~~~~~~~~
+| C1  ; 22pF          ; 0402             ; 490-1283-1-ND         ; 0.022
+| C2  ; 22pF          ; 0402             ; 490-1283-1-ND         ; 0.022
+| C6  ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C7  ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C8  ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C9  ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C10 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C11 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C12 ; 0.01uF        ; 0402             ; 490-4516-1-ND         ; 0.022
+| C13 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C14 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C17 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C21 ; 4.7uF         ; 0805             ; 445-1370-1-ND         ; 0.127
+| C23 ; 1uF           ; 0402             ; 587-1231-1-ND         ; 0.044
+| C24 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| C25 ; 0.1uF         ; 0402             ; PCC2146CT-ND          ; 0.033
+| CR3 ; ESD_ZENER     ; 0402             ; CG0402MLC-05LGCT-ND   ; 0.156
+| IC1 ; AT90USB???7   ; QFN64            ; AT90USB1287-MU-ND     ; 9.450
+| IC3 ; ISL54200IRZ   ; SON10_DRC        ; ISL54200IRZ-ND        ; 1.463
+| IC4 ; 74AHC573      ; TSSOP20_PW       ; 74VHC573MTCXCT-ND     ; 0.378
+| IC5 ; CY7C1019D     ; TSOPII32         ; 428-1965-ND           ; 2.520
+| L1  ; Ferrite       ; 0603             ; 587-1923-1-ND         ; 0.041
+| L3  ; Ferrite       ; 0603             ; 587-1923-1-ND         ; 0.041
+| P15 ; USB-B/^A      ; SIL-2-0.1"-F     ; S7035-ND              ; 0.229
+| R1  ; 22            ; 0402             ; 311-22JRCT-ND         ; 0.066
+| R2  ; 22            ; 0402             ; 311-22JRCT-ND         ; 0.066
+| R4  ; 0             ; 0805 (???7-Opt)  ; RMCF1/100RCT-ND       ; 0.105
+| R5  ; 43k           ; 0402             ; 311-43.0KLRCT-ND      ; 0.067
+| R8  ; 43k           ; 0402             ; 311-43.0KLRCT-ND      ; 0.067
+| R10 ; 15k           ; 0402             ; 311-15KJRCT-ND        ; 0.066
+| R16 ; 15k           ; 0402             ; 311-15KJRCT-ND        ; 0.066
+| SW1 ; RESET         ; 6.5x6x3.1mm_EVQ  ; P12955SCT-ND          ; 0.296
+| SW2 ; HWB           ; 6.5x6x3.1mm_EVQ  ; P12955SCT-ND          ; 0.296
+| U1  ; USB-miniB     ; MiniB-5pos       ; H2959CT-ND            ; 0.853
+| U2  ; USB-A         ; USB-A-Vert       ; 151-1082-ND           ; 1.100
+| U3a ; MICROPENDOUS3 ; SIL-26-0.1"-M    ; 609-3270-ND           ; 0.598
+| U3b ; MICROPENDOUS3 ; SIL-26-0.1"-M    ; 609-3270-ND           ; 0.598
+| U4  ; JTAG          ; DIL-0.1"-2x5-M   ; 609-3243-ND           ; 0.350
+| X1  ; 16MHz         ; 6x3.3mm_ABM7     ; ABM7-16.000MHZ-D2Y-T  ; 1.138
+------------------------------------------------------------Total:22.941
+#End Cmp
+#End List
+
+#Notes: -Unit costs based on minimum orders of 25 components.
+        -Headers are bought as large pieces and seperated,
+         hence the fraction after each breakable header
+        -populate R4 to enable OTG for AT90USB???7, but then do not use pin PE3
+	-operation at 3.3V requires 8MHz crystal - ABM7-8.000MHZ-D2Y-T
+	-if populating SRAM and running at 5V use 16MHz crystal - ABM7-16.000MHZ-D2Y-T
+	-if populating SRAM (IC4,IC5), regulator ST1L05B (IC2) and associated
+         components (R11,R12,C22,C26,D1) are uneccessary as SRAM requires 5V operation
+	-CR1,CR2,R13,R14 can be populated instead of USB Switch (IC3,R10,R16) if
+         using the AT90USB???6 as these ICs do not have host capability
+	-Vcc_Sel (K1) is only required if using the regulator (IC2).  Can just short
+         center and 5V pin to force 5V operation when using SRAM IC (IC4,IC5)
+	-MBR120VLSF can be replaced with MBRX120LF in SOD123-compatible package
+	-74AHC573 can be replaced with 74VHC573 in TSSOP20 package

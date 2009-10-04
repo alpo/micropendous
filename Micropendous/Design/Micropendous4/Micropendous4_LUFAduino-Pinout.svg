@@ -1,0 +1,2859 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Micropendous4_LUFAduino-Pinout.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="Micropendous4_LUFAduino-Pinout.png"
+   inkscape:export-xdpi="213.8"
+   inkscape:export-ydpi="213.8"
+   version="1.0">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4983">
+      <stop
+         style="stop-color:#008000;stop-opacity:1"
+         offset="0"
+         id="stop4985" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1"
+         id="stop4987" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4983"
+       id="linearGradient3143"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.2854263,0,0,1.0413477,412.59355,-29.731147)"
+       x1="-475.42474"
+       y1="-341.45795"
+       x2="798.70624"
+       y2="530.35718" />
+    <inkscape:perspective
+       id="perspective3154"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="548.7164"
+     inkscape:cy="432.79651"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1046"
+     inkscape:window-height="988"
+     inkscape:window-x="625"
+     inkscape:window-y="4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="239.82457"
+       y="207.03781"
+       id="text4250"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="213.8"
+       inkscape:export-ydpi="213.8"><tspan
+         sodipodi:role="line"
+         id="tspan4252"
+         x="239.82457"
+         y="207.03781" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="407.14285"
+       y="56.647896"
+       id="text4346"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="213.8"
+       inkscape:export-ydpi="213.8"><tspan
+         sodipodi:role="line"
+         id="tspan4348"
+         x="407.14285"
+         y="56.647896" /></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2572"
+       sodipodi:cx="338.92856"
+       sodipodi:cy="231.05876"
+       sodipodi:rx="0.71428573"
+       sodipodi:ry="0"
+       d="M 339.64284,231.05876 A 0.71428573,0 0 1 1 338.21427,231.05876 A 0.71428573,0 0 1 1 339.64284,231.05876 z"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="213.8"
+       inkscape:export-ydpi="213.8" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3661"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="213.8"
+       inkscape:export-ydpi="213.8"><flowRegion
+         id="flowRegion3663"><rect
+           id="rect3665"
+           width="205.06096"
+           height="324.25897"
+           x="280.82242"
+           y="5.6729765" /></flowRegion><flowPara
+         id="flowPara3667" /></flowRoot>    <rect
+       style="fill:url(#linearGradient3143);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3699"
+       width="299.08597"
+       height="767.62201"
+       x="413.08398"
+       y="-25.298813"
+       ry="0.82496852"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <g
+       id="g4644"
+       transform="matrix(0,1,-1,0,567.59023,-83.474767)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="61.239483"
+         x="-92.783363"
+         height="81.538071"
+         width="65.714737"
+         id="rect2788"
+         style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="67.005096"
+         x="-113.606"
+         height="19.025549"
+         width="19.838411"
+         id="rect3560"
+         style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="67.005096"
+         x="-26.114843"
+         height="19.025549"
+         width="19.838411"
+         id="rect3562"
+         style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="123.75199"
+         x="-113.7031"
+         height="19.025549"
+         width="19.838411"
+         id="rect3564"
+         style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="123.75199"
+         x="-26.048254"
+         height="19.025549"
+         width="19.838411"
+         id="rect3566"
+         style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:#003700;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="136.32243"
+         x="-76.66465"
+         height="6.4550972"
+         width="33.477318"
+         id="rect3568"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="83.832336"
+         x="-29.858435"
+         height="36.352386"
+         width="2.7897766"
+         id="rect3570"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="1.1876323"
+         y="83.832336"
+         x="-92.783363"
+         height="36.352386"
+         width="2.7897766"
+         id="rect3572"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:28.27051735px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#5a5a5a;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-11.910103"
+       y="-487.38947"
+       id="text3574"
+       transform="matrix(0,0.955188,-1.0469143,0,0,0)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3576"
+         x="-11.910103"
+         y="-487.38947"
+         style="stroke:#5a5a5a;stroke-width:1;stroke-opacity:1">USB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="245.02541"
+       y="291.66251"
+       id="text4270"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4272"
+         x="245.02541"
+         y="291.66251">(PWM / PB7) 15</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="317.3096"
+       y="265.9726"
+       id="text4274"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4276"
+         x="317.3096"
+         y="265.9726">(PB6) 14</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="317.24515"
+       y="239.77661"
+       id="text4278"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4280"
+         x="317.24515"
+         y="239.77661">(PB5) 13</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="245.3047"
+       y="213.4986"
+       id="text4282"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4284"
+         x="245.3047"
+         y="213.4986">(PWM / PB4) 12</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="245.73439"
+       y="188.02106"
+       id="text4286"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4288"
+         x="245.73439"
+         y="188.02106">(MISO / PB3) 11</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="236.6465"
+       y="161.84644"
+       id="text4290"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4292"
+         x="236.6465"
+         y="161.84644">(MOSI  / PB2) 10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="253.61916"
+       y="136.15115"
+       id="text4294"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4296"
+         x="253.61916"
+         y="136.15115">(SCLK / PB1) 9</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="281.7637"
+       y="109.95516"
+       id="text4298"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4300"
+         x="281.7637"
+         y="109.95516">(SS / PB0) 8</tspan></text>
+    <text
+       id="text4517"
+       y="82.746605"
+       x="302.49753"
+       style="font-size:24.9194355px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.9584398,1.0433623)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="82.746605"
+         x="302.49753"
+         id="tspan4519"
+         sodipodi:role="line">__</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="328.28812"
+       y="499.48416"
+       id="text4302"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4304"
+         x="328.28812"
+         y="499.48416">(PD7) 7</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="328.29886"
+       y="473.20615"
+       id="text4306"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4308"
+         x="328.29886"
+         y="473.20615">(PD6) 6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="328.16995"
+       y="447.72324"
+       id="text4310"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4312"
+         x="328.16995"
+         y="447.72324">(PD5) 5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="328.35257"
+       y="421.33731"
+       id="text4314"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4316"
+         x="328.35257"
+         y="421.33731">(PD4) 4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="215.83888"
+       y="395.8587"
+       id="text4318"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4320"
+         x="215.83888"
+         y="395.8587">(TX / INT3 / PD3) 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="213.5508"
+       y="369.66272"
+       id="text4322"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4324"
+         x="213.5508"
+         y="369.66272">(RX / INT2 / PD2) 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="129.63283"
+       y="343.32004"
+       id="text4326"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4328"
+         x="129.63283"
+         y="343.32004">(PWM / SDA / INT1 / PD1) 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="129.09572"
+       y="317.83713"
+       id="text4330"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4332"
+         x="129.09572"
+         y="317.83713">(PWM / SCL / INT0 / PD0) 0</tspan></text>
+    <g
+       id="g4553"
+       transform="translate(338.32315,595.80124)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="9.6613159"
+         y="242.58646"
+         x="-107.2961"
+         height="76.515312"
+         width="72.886589"
+         id="rect3521"
+         style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.50882041px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         xml:space="preserve"
+         style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         x="259.60535"
+         y="134.19907"
+         id="text3523"><tspan
+           sodipodi:role="line"
+           id="tspan3525"
+           x="259.60535"
+           y="134.19907">HWB</tspan></text>
+      <path
+         transform="matrix(0,-1,1,0,36.035351,413.70992)"
+         d="M 362.67858,244.80876 A 19.821428,19.821428 0 1 1 323.03572,244.80876 A 19.821428,19.821428 0 1 1 362.67858,244.80876 z"
+         sodipodi:ry="19.821428"
+         sodipodi:rx="19.821428"
+         sodipodi:cy="244.80876"
+         sodipodi:cx="342.85715"
+         id="path2570"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.19230772"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4559"
+       transform="translate(116.18026,595.3619)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <text
+         xml:space="preserve"
+         style="font-size:18px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         x="361.70871"
+         y="134.19907"
+         id="text3515"><tspan
+           sodipodi:role="line"
+           id="tspan3517"
+           x="361.70871"
+           y="134.19907">RESET</tspan></text>
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="9.6613159"
+         y="354.01501"
+         x="-107.95506"
+         height="76.515312"
+         width="72.886589"
+         id="rect3356"
+         style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#585858;stroke-width:1.50882041px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         transform="matrix(0,-1,1,0,147.46391,414.36888)"
+         d="M 362.67858,244.80876 A 19.821428,19.821428 0 1 1 323.03572,244.80876 A 19.821428,19.821428 0 1 1 362.67858,244.80876 z"
+         sodipodi:ry="19.821428"
+         sodipodi:rx="19.821428"
+         sodipodi:cy="244.80876"
+         sodipodi:cx="342.85715"
+         id="path3358"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.19230772"
+         sodipodi:type="arc" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="716.26208"
+       y="112.13583"
+       id="text5003"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan5005"
+         x="716.26208"
+         y="112.13583">AREF</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="355.44437"
+       y="734.86975"
+       id="text3603"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3605"
+         x="355.44437"
+         y="734.86975">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="316.10648"
+       y="577.54468"
+       id="text4246"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4248"
+         x="316.10648"
+         y="577.54468">(PC2) 34</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="243.95119"
+       y="629.14563"
+       id="text4254"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4256"
+         x="243.95119"
+         y="629.14563">(PWM / PC4) 36</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="243.94044"
+       y="655.34161"
+       id="text4258"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4260"
+         x="243.94044"
+         y="655.34161">(PWM / PC5) 37</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="243.90822"
+       y="681.03156"
+       id="text4262"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4264"
+         x="243.90822"
+         y="681.03156">(PWM / PC6) 38</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="316.0098"
+       y="707.20618"
+       id="text4266"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4268"
+         x="316.0098"
+         y="707.20618">(PC7) 39</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="316.20316"
+       y="525.68018"
+       id="text2854"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2856"
+         x="316.20316"
+         y="525.68018">(PC0) 32</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="316.04202"
+       y="551.82098"
+       id="text2858"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2860"
+         x="316.04202"
+         y="551.82098">(PC1) 33</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="315.92386"
+       y="603.02759"
+       id="text2862"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2864"
+         x="315.92386"
+         y="603.02759">(PC3) 35</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="713.83435"
+       y="136.15115"
+       id="text2944"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2946"
+         x="713.83435"
+         y="136.15115">16 (PF0 / AI0)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="395.85873"
+       id="text2956"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2958"
+         x="715.58533"
+         y="395.85873">26 (PA2)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="447.72327"
+       id="text2960"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2962"
+         x="715.58533"
+         y="447.72327">28 (PA4)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="473.20618"
+       id="text2964"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2966"
+         x="715.58533"
+         y="473.20618">29 (PA5)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.30603"
+       y="499.48419"
+       id="text2968"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2970"
+         x="715.30603"
+         y="499.48419">30 (PA6)</tspan><tspan
+         sodipodi:role="line"
+         x="715.30603"
+         y="526.98413"
+         id="tspan2806" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.30603"
+       y="525.68018"
+       id="text2972"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2974"
+         x="715.30603"
+         y="525.68018">31 (PA7)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="343.32004"
+       id="text3034"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3036"
+         x="715.58533"
+         y="343.32004">24 (PA0)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="369.66275"
+       id="text3038"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3040"
+         x="715.58533"
+         y="369.66275">25 (PA1)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="421.33731"
+       id="text3042"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3044"
+         x="715.58533"
+         y="421.33731">27 (PA3)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="732.68909"
+       id="text3488"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3490"
+         x="715.95056"
+         y="732.68909">47 (PE7 / INT7)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="714.53259"
+       y="707.20618"
+       id="text3492"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3494"
+         x="714.53259"
+         y="707.20618">DNU (PE6)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="681.03156"
+       id="text3496"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3498"
+         x="715.95056"
+         y="681.03156">45 (PE5 / INT5)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="655.34167"
+       id="text3500"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3502"
+         x="715.95056"
+         y="655.34167">44 (PE4 / INT4)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="629.14569"
+       id="text3504"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3506"
+         x="715.95056"
+         y="629.14569">43 (PE3)</tspan><tspan
+         sodipodi:role="line"
+         x="715.95056"
+         y="656.64569"
+         id="tspan2808" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="603.02759"
+       id="text3508"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3510"
+         x="715.95056"
+         y="603.02759">42 (PE2 / HWB)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="577.54468"
+       id="text3512"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3514"
+         x="715.95056"
+         y="577.54468">41 (PE1)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.95056"
+       y="551.37006"
+       id="text3517"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan3519"
+         x="715.95056"
+         y="551.37006">40 (PE0)</tspan></text>
+    <text
+       id="text3905"
+       y="735.68933"
+       x="640.71045"
+       style="font-size:33.10792542px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(1.2733819,0.7853104)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="735.68933"
+         x="640.71045"
+         id="tspan3907"
+         sodipodi:role="line">__</tspan></text>
+    <g
+       id="g3833"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect2623"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect2625"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3853"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="476.01822"
+         height="25.381186"
+         width="25.20178"
+         id="rect2643"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="481.19089"
+         height="14.811365"
+         width="14.8565"
+         id="rect2645"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3829"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect2627"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect2629"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3849"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="449.82224"
+         height="25.381186"
+         width="25.20178"
+         id="rect2647"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="454.9949"
+         height="14.811365"
+         width="14.8565"
+         id="rect2649"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3841"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect2631"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect2633"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3861"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="527.88275"
+         height="25.381186"
+         width="25.20178"
+         id="rect2651"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="533.05542"
+         height="14.811365"
+         width="14.8565"
+         id="rect2653"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3837"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect2635"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect2637"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3857"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="501.70813"
+         height="25.381186"
+         width="25.20178"
+         id="rect2655"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="506.8808"
+         height="14.811365"
+         width="14.8565"
+         id="rect2657"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3845"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect2639"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect2641"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3865"
+       transform="translate(1161.5377,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="553.36566"
+         height="25.381186"
+         width="25.20178"
+         id="rect2659"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="558.53833"
+         height="14.811365"
+         width="14.8565"
+         id="rect2661"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3869"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect3871"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect3873"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3875"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="476.01822"
+         height="25.381186"
+         width="25.20178"
+         id="rect3877"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="481.19089"
+         height="14.811365"
+         width="14.8565"
+         id="rect3879"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3881"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect3883"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect3885"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3887"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="449.82224"
+         height="25.381186"
+         width="25.20178"
+         id="rect3889"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="454.9949"
+         height="14.811365"
+         width="14.8565"
+         id="rect3891"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3893"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect3895"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect3897"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3899"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="527.88275"
+         height="25.381186"
+         width="25.20178"
+         id="rect3901"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="533.05542"
+         height="14.811365"
+         width="14.8565"
+         id="rect3903"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3905"
+       transform="translate(1161.5377,31.15637)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect3907"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect3909"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3911"
+       transform="translate(1161.5377,31.818612)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="501.70813"
+         height="25.381186"
+         width="25.20178"
+         id="rect3913"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="506.8808"
+         height="14.811365"
+         width="14.8565"
+         id="rect3915"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3917"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect3919"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect3921"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3923"
+       transform="translate(1161.5377,31.36768)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="553.36566"
+         height="25.381186"
+         width="25.20178"
+         id="rect3925"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="558.53833"
+         height="14.811365"
+         width="14.8565"
+         id="rect3927"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3929"
+       transform="translate(1161.5377,290.85061)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect3931"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect3933"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3941"
+       transform="translate(1161.5377,290.85061)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect3943"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect3945"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3953"
+       transform="translate(1161.5377,290.85061)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect3955"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect3957"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3965"
+       transform="translate(1161.5377,290.85061)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect3967"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect3969"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g3977"
+       transform="translate(1161.5377,290.85061)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect3979"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect3981"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4135"
+       transform="translate(1161.5377,-254.52565)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect4137"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect4139"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="309.08109"
+       y="85.950058"
+       id="text4141"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan4143"
+         x="309.08109"
+         y="85.950058">VBUS-5V</tspan></text>
+    <g
+       id="g4310"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect4312"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect4314"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4316"
+       transform="translate(1430.4722,-227.74873)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="476.01822"
+         height="25.381186"
+         width="25.20178"
+         id="rect4318"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="481.19089"
+         height="14.811365"
+         width="14.8565"
+         id="rect4320"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4322"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect4324"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect4326"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4328"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="449.82224"
+         height="25.381186"
+         width="25.20178"
+         id="rect4330"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="454.9949"
+         height="14.811365"
+         width="14.8565"
+         id="rect4332"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4334"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect4336"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect4338"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4340"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="527.88275"
+         height="25.381186"
+         width="25.20178"
+         id="rect4342"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="533.05542"
+         height="14.811365"
+         width="14.8565"
+         id="rect4344"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4346"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect4348"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect4350"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4352"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="501.70813"
+         height="25.381186"
+         width="25.20178"
+         id="rect4354"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="506.8808"
+         height="14.811365"
+         width="14.8565"
+         id="rect4356"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4358"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect4360"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect4362"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4364"
+       transform="translate(1430.4722,-228.33988)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="553.36566"
+         height="25.381186"
+         width="25.20178"
+         id="rect4366"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="558.53833"
+         height="14.811365"
+         width="14.8565"
+         id="rect4368"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4370"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect4372"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect4374"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4376"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="476.01822"
+         height="25.381186"
+         width="25.20178"
+         id="rect4378"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="481.19089"
+         height="14.811365"
+         width="14.8565"
+         id="rect4380"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4382"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect4384"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect4386"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4388"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="449.82224"
+         height="25.381186"
+         width="25.20178"
+         id="rect4390"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="454.9949"
+         height="14.811365"
+         width="14.8565"
+         id="rect4392"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4394"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect4396"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect4398"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4400"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="527.88275"
+         height="25.381186"
+         width="25.20178"
+         id="rect4402"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="533.05542"
+         height="14.811365"
+         width="14.8565"
+         id="rect4404"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4406"
+       transform="translate(1430.4722,31.156383)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect4408"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect4410"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4412"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="501.70813"
+         height="25.381186"
+         width="25.20178"
+         id="rect4414"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="506.8808"
+         height="14.811365"
+         width="14.8565"
+         id="rect4416"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4418"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect4420"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect4422"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4424"
+       transform="translate(1430.4722,31.367693)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="553.36566"
+         height="25.381186"
+         width="25.20178"
+         id="rect4426"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="558.53833"
+         height="14.811365"
+         width="14.8565"
+         id="rect4428"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4430"
+       transform="translate(1430.4722,290.85062)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="346.19678"
+         height="25.381186"
+         width="25.20178"
+         id="rect4432"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="351.36945"
+         height="14.811365"
+         width="14.8565"
+         id="rect4434"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4436"
+       transform="translate(1430.4722,290.85062)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect4438"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect4440"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4442"
+       transform="translate(1430.4722,290.85062)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="398.06131"
+         height="25.381186"
+         width="25.20178"
+         id="rect4444"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="403.23398"
+         height="14.811365"
+         width="14.8565"
+         id="rect4446"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4448"
+       transform="translate(1430.4722,290.85062)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="371.88669"
+         height="25.381186"
+         width="25.20178"
+         id="rect4450"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="377.05936"
+         height="14.811365"
+         width="14.8565"
+         id="rect4452"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4454"
+       transform="translate(1430.4722,290.85062)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="423.54422"
+         height="25.381186"
+         width="25.20178"
+         id="rect4456"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="428.71689"
+         height="14.811365"
+         width="14.8565"
+         id="rect4458"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4460"
+       transform="translate(1430.4722,-254.52565)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect4462"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect4464"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4971"
+       transform="translate(2052.352,-344.60876)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <g
+         id="g4929">
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1578.0248"
+           y="816.95557"
+           id="text4353"><tspan
+             sodipodi:role="line"
+             id="tspan4355"
+             x="-1578.0248"
+             y="816.95557">TDO</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1467.5052"
+           y="816.9502"
+           id="text4357"><tspan
+             sodipodi:role="line"
+             id="tspan4359"
+             x="-1467.5052"
+             y="816.9502">VCC</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1577.8744"
+           y="843.21124"
+           id="text4361"><tspan
+             sodipodi:role="line"
+             id="tspan4363"
+             x="-1577.8744"
+             y="843.21124">TMS</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1469.1381"
+           y="843.21124"
+           id="text4365"><tspan
+             sodipodi:role="line"
+             id="tspan4367"
+             x="-1469.1381"
+             y="843.21124">RESET</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1578.1644"
+           y="869.30231"
+           id="text4369"><tspan
+             sodipodi:role="line"
+             id="tspan4371"
+             x="-1578.1644"
+             y="869.30231">VCC</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1566.0365"
+           y="895.45844"
+           id="text4377"><tspan
+             sodipodi:role="line"
+             id="tspan4379"
+             x="-1566.0365"
+             y="895.45844">TDI</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1468.5795"
+           y="895.45844"
+           id="text4381"><tspan
+             sodipodi:role="line"
+             id="tspan4383"
+             x="-1468.5795"
+             y="895.45844">GND</tspan></text>
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4385"
+           width="25.20178"
+           height="25.381186"
+           x="796.47528"
+           y="1500.8987"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4387"
+           width="14.8565"
+           height="14.811365"
+           x="801.64795"
+           y="1506.1836"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4389"
+           width="25.20178"
+           height="25.381186"
+           x="770.27936"
+           y="1500.8987"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4391"
+           width="14.8565"
+           height="14.811365"
+           x="775.45203"
+           y="1506.1836"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4393"
+           width="25.20178"
+           height="25.381186"
+           x="848.82739"
+           y="1500.8987"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4395"
+           width="14.8565"
+           height="14.811365"
+           x="854.00006"
+           y="1506.1836"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4397"
+           width="25.20178"
+           height="25.381186"
+           x="822.73633"
+           y="1500.8987"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4399"
+           width="14.8565"
+           height="14.811365"
+           x="827.909"
+           y="1506.1836"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4401"
+           width="25.20178"
+           height="25.381186"
+           x="874.98352"
+           y="1500.8987"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4403"
+           width="14.8565"
+           height="14.811365"
+           x="880.15619"
+           y="1506.1836"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4405"
+           width="25.20178"
+           height="25.381186"
+           x="796.47528"
+           y="1474.6704"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4407"
+           width="14.8565"
+           height="14.811365"
+           x="801.64795"
+           y="1479.9553"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4409"
+           width="25.20178"
+           height="25.381186"
+           x="770.27936"
+           y="1474.6704"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4411"
+           width="14.8565"
+           height="14.811365"
+           x="775.45203"
+           y="1479.9553"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4413"
+           width="25.20178"
+           height="25.381186"
+           x="848.82739"
+           y="1474.6704"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4415"
+           width="14.8565"
+           height="14.811365"
+           x="854.00006"
+           y="1479.9553"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4417"
+           width="25.20178"
+           height="25.381186"
+           x="822.73633"
+           y="1474.6704"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4419"
+           width="14.8565"
+           height="14.811365"
+           x="827.909"
+           y="1479.9553"
+           ry="7.4056826" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect4421"
+           width="25.20178"
+           height="25.381186"
+           x="874.98352"
+           y="1474.6704"
+           ry="2.7099738" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect4423"
+           width="14.8565"
+           height="14.811365"
+           x="880.15619"
+           y="1479.9553"
+           ry="7.4056826" />
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1468.5795"
+           y="790.75427"
+           id="text4425"><tspan
+             sodipodi:role="line"
+             id="tspan4427"
+             x="-1468.5795"
+             y="790.75427">GND</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1576.5316"
+           y="790.75427"
+           id="text4429"><tspan
+             sodipodi:role="line"
+             id="tspan4431"
+             x="-1576.5316"
+             y="790.75427">TCK</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="-1528.9081"
+           y="765.71851"
+           id="text4925"><tspan
+             sodipodi:role="line"
+             id="tspan4927"
+             x="-1528.9081"
+             y="765.71851">JTAG</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g5130"
+       transform="matrix(0.7071068,-0.7071068,0.7071068,0.7071068,612.76752,-9.9669196)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="330.88083"
+         x="158.87219"
+         height="25.381186"
+         width="25.20178"
+         id="rect5094"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="336.16574"
+         x="164.04483"
+         height="14.811365"
+         width="14.8565"
+         id="rect5096"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="2.7099738"
+         y="330.88083"
+         x="132.68642"
+         height="25.381186"
+         width="25.20178"
+         id="rect5100"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="336.16574"
+         x="137.85905"
+         height="14.811365"
+         width="14.8565"
+         id="rect5102"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <text
+         id="text5112"
+         y="149.58223"
+         x="-329.08673"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12px"
+           y="149.58223"
+           x="-329.08673"
+           id="tspan5114"
+           sodipodi:role="line">GND</tspan></text>
+      <text
+         id="text5116"
+         y="174.65179"
+         x="-329.04572"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="174.65179"
+           x="-329.04572"
+           id="tspan5118"
+           sodipodi:role="line">USB_CONN_Select</tspan></text>
+    </g>
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.26909924px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5144"
+       width="201.10126"
+       height="83.079376"
+       x="461.01318"
+       y="79.391159"
+       ry="1.2100821"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#e1e1e1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5152"
+       width="184.49327"
+       height="17.510319"
+       x="469.17242"
+       y="132.82536"
+       ry="1.0930471"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#5a5a5a;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="537.6748"
+       y="112.04691"
+       id="text5160"
+       transform="scale(0.955188,1.0469143)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan5162"
+         x="537.6748"
+         y="112.04691"
+         style="font-size:32px;stroke:#5a5a5a;stroke-width:1;stroke-opacity:1">USB-A</tspan></text>
+    <rect
+       style="fill:#b3b337;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5185"
+       width="21.479908"
+       height="5.0096827"
+       x="567.74634"
+       y="127.64503"
+       ry="0.31271952"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#b3b337;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5189"
+       width="21.479908"
+       height="5.0096827"
+       x="616.31787"
+       y="127.64503"
+       ry="0.31271952"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#b3b337;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5191"
+       width="21.479908"
+       height="5.0096827"
+       x="531.29669"
+       y="127.64503"
+       ry="0.31271952"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:#b3b337;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.28502357px;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5193"
+       width="21.479908"
+       height="5.0096827"
+       x="481.96765"
+       y="127.64503"
+       ry="0.31271952"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:26px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#5a5a5a;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-14.314262"
+       y="-461.67639"
+       id="text5206"
+       transform="matrix(0,0.955188,-1.0469143,0,0,0)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan5208"
+         x="-14.314262"
+         y="-461.67639"
+         style="font-size:26px;stroke:#5a5a5a;stroke-width:1;stroke-opacity:1">miniB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="716.13318"
+       y="85.950058"
+       id="text5280"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan5282"
+         x="716.13318"
+         y="85.950058">VCC</tspan></text>
+    <g
+       id="g3164"
+       transform="matrix(2.1960206,0,0,2.3938651,408.94149,-1010.5528)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         inkscape:transform-center-y="3.3612355"
+         inkscape:transform-center-x="-2.9017857"
+         ry="2.3889713"
+         y="500.70166"
+         x="22.946426"
+         height="24.82143"
+         width="15.625"
+         id="rect3162"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         ry="0.82496852"
+         y="501.95163"
+         x="24.508926"
+         height="8.5714293"
+         width="12.5"
+         id="rect3145"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         ry="0.82496852"
+         y="515.34454"
+         x="24.508926"
+         height="8.5714293"
+         width="12.5"
+         id="rect3160"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       id="text3190"
+       y="-535.69702"
+       x="217.47218"
+       style="font-size:16px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         y="-535.69702"
+         x="217.47218"
+         id="tspan3192"
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle">Enable</tspan><tspan
+         y="-515.69702"
+         x="217.47218"
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle"
+         id="tspan3219">Auto</tspan><tspan
+         y="-495.69705"
+         x="217.47218"
+         sodipodi:role="line"
+         id="tspan3217"
+         style="text-align:center;text-anchor:middle">OTG</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="180.98582"
+       y="-635.42126"
+       id="text2776"
+       transform="matrix(0,1,-1,0,0,0)"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2778"
+         x="180.98582"
+         y="-635.42126">Micropendous4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="713.83435"
+       y="161.84106"
+       id="text2778"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2780"
+         x="713.83435"
+         y="161.84106">17 (PF1 / AI1)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="713.83435"
+       y="188.01569"
+       id="text2782"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2784"
+         x="713.83435"
+         y="188.01569">18 (PF2 / AI2)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="713.83435"
+       y="213.4986"
+       id="text2786"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2788"
+         x="713.83435"
+         y="213.4986">19 (PF3 / AI3)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="239.77661"
+       id="text2790"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2792"
+         x="715.58533"
+         y="239.77661">20 (PF4 / AI4 / JTAG_TCK)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="266.56375"
+       id="text2794"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2796"
+         x="715.58533"
+         y="266.56375">21 (PF5 / AI5 / JTAG_TMS)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="291.66788"
+       id="text2798"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2800"
+         x="715.58533"
+         y="291.66788">22 (PF6 / AI6 / JTAG_TDO)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="715.58533"
+       y="317.83713"
+       id="text2802"
+       inkscape:export-filename=".\Micropendous4_LUFAduino-Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2804"
+         x="715.58533"
+         y="317.83713">23 (PF7 / AI7 / JTAG_TDI</tspan></text>
+  </g>
+</svg>
