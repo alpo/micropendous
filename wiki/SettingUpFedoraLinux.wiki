@@ -30,4 +30,4 @@ At a terminal:
 
 Back to [QuickStart]
 
-Proceed to [FirmwareDevelopment Firmware Development]
+Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
