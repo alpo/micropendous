@@ -14,4 +14,4 @@ Atmel also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769
 
 Back to [QuickStart]
 
-Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
+Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
