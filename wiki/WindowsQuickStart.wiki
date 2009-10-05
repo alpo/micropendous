@@ -11,4 +11,4 @@ In general, *Administrator* privileges are required on a Windows machine during 
 
 Back to [QuickStart]
 
-Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
+Proceed to [ProgramAndTestWindows Programming and Testing] Tutorial after your development system has been set up.
