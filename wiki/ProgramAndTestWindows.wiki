@@ -1,9 +1,8 @@
 #summary Programming and Testing Micropendous Boards on Windows
 
+DRAFT!
+
 A version of this page for Linux is also [ProgramAndTestLinux available].
-
-Partial DRAFT!
-
 
 Atmel also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Guide] for firmware uploading.
 
