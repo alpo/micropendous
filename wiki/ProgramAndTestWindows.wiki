@@ -1,5 +1,7 @@
 #summary Programming and Testing Micropendous Boards on Windows
 
+A version of this page for Linux is also [ProgramAndTestLinux available].
+
 Partial DRAFT!
 
 
