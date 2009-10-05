@@ -40,4 +40,6 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous2-J
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_LUFAduino-Pinout.jpg
 
 === [Micropendous4] ===
+Note that external SRAM requires at least pin PE6 to be high to disable SRAM.  If your application makes use of external SRAM, do not use Ports A, C, and PortE pins 0,1,2,6,7.  For more info refer to [SRAMUsage].
+
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous4/Micropendous4_LUFAduino-Pinout.jpg
