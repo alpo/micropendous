@@ -1,5 +1,7 @@
 #summary How to Set up various Linux distributions for Micropendous development.
 
+A version of this page for Windows is also [WindowsQuickStart available].
+
 == Ubuntu ==
 
 [SettingUpUbuntu904Linux] - Setting up [http://www.ubuntu.com/ Ubuntu] 9.04 Linux for USB firmware and software development.
