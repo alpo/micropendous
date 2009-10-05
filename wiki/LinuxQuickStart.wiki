@@ -18,4 +18,4 @@
 
 Back to [QuickStart]
 
-Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
+Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
