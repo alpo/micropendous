@@ -4,6 +4,8 @@ DRAFT!
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/SRAM_Test` directory.
 
+Instruction for using the external SRAM are [http://www.micropendous.org/SRAM available].
+
 SRAM_Test uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library to send random bytes of data to a Micropendous4 board's SRAM then checks to make sure it is read back correctly.  The firmware also runs internal SRAM tests.
 
 * Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
