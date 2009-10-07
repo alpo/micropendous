@@ -13,7 +13,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous4_Pinout_Pictu
   * Based on the [http://www.atmel.com Atmel] [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] USB AVR Microcontroller
   * USB Full Speed (12Mbit/s)
   * USB Device/Host/OTG Modes are supported
-  * 124kb of available FLASH memory for your programs (4kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
+  * 120kb of available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 8 kbytes SRAM, 4 kbytes of EEPROM, 128kbytes external SRAM ([SRAMUsage 112kbytes usable])
   * USB powered
   * 16MHz crystal (8MHz version also possible)
