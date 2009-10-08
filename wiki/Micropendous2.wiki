@@ -1,6 +1,6 @@
 #summary Open Hardware Development Board for the ATmega32U4
 
-Micropendous2 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] USB AVR Microcontroller.
+Micropendous2 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] USB AVR Microcontroller and features a microSD connector in SPI Mode.
 
 The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous2-JTAG` directory.
 
@@ -15,7 +15,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Pictu
   * 28kb of available FLASH memory for your programs (4kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 2.5 kbytes SRAM, 1 kbytes of EEPROM
   * USB powered
-  * microSD connector wired up for SPI-mode SD
+  * microSD connector wired up for SPI-mode MMC/SD
   * 8MHz crystal (16MHz version also possible but must run at 5V)
   * 26 General Purpose IO Pins
   * !Vcc_Sel jumper selects 5V or 3.3V operation and powers external devices through Vcc pins (500mA at 5V, 500mA at 3.3V)
@@ -33,6 +33,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Pictu
  * the !Vcc_Sel jumper should *ALWAYS* be in place.  Board may be damaged if you remove the jumper while the board is powered.
  * the board's 3.3V regulator supplies 3.3V +/- 5% up to 500mA
  * *DO NOT* connect *GND* and *VCC*.  This will short your computer's USB power supply and may damage your computer and your Micropendous2
+ * the board can be powered externally through the VCC pin when not connected to USB.  Set the !Vcc_Sel jumper to 5V.
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then HWB
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * the RESET pin is accessible on the outer header to enable programming of the bootloader with an AVR ISP programmer such as [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s AVRISP firmware
