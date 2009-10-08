@@ -57,8 +57,22 @@ F_CPU = 16000000
     #endif
 }}}
 
-== Switching Active Connector ==
+== Switching Active USB Connector ==
 
-The *USB-B/^A* connector has two pins, one `GND`, and one connected to the USB switch control.  If the USB switch control is left open or set to logic *HIGH*, the USB-miniB connector is active (left picture below).  If it is `GND`ed or set to logic *LOW*, the USB-A connector is active (right picture below).  Both connectors share GND and VBUS.
+The board has two USB connectors selectable with the *USB-B/^A* header, USB-miniB (device mode) and USB-A (host mode).
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous4_USB-Connector-Selection.jpg
+The *USB-B/^A* header has two pins, one `GND`, and one connected to the USB switch control.  If the USB switch control is left open or set to logic *HIGH*, the USB-miniB connector is active (left picture below).  If it is `GND`ed or set to logic *LOW*, the USB-A connector is active (right picture below).  Both connectors share GND and VBUS.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/Connector_Switch_Micropendous4.jpg
+
+== Enabling OTG ==
+
+On-The-Go (OTG) is a USB mode where connected devices negotiate which will be the host and which will be the device.  For example, a photo printer might host a camera but will become a device when connected to a PC.  To enable OTG mode the ENG resistor must be mounted.  This resistor connects the miniB USB connector's _ID_ pin to pin PE3 of the USB AVR.  Note that mounting this resistor will mean you cannot use pin PE3 in your application.  The ENH resistor is a standard 0805 resistor and can be any value between 0 and 100 Ohm.  You can also just short the two pads with some wire or solder.  Be careful not to solder to the USB-A connector's shield.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/Enable_OTG_Micropendous4.jpg
+
+== Removing your Micropendous4 from a Breadboard ==
+
+Be careful when removing your Micropendous4 from a Breadboard.  Make sure not to damage the SRAM IC.  Use a mini screwdriver to pry one corner, then another, then another, etc...  It should take you about 20 or so careful corner nudges before the Micropendous4 will separate from a breadboard.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/Remove_From_Breadboard_Micropendous4.jpg
