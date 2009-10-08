@@ -1,0 +1,5 @@
+#summary Mass Storage Firmware Demo using MMC/SD Cards in SPI Mode
+
+DRAFT!
+
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/MassStorage_MMC_SD_SPI_Mode` directory.
