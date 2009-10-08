@@ -4,6 +4,7 @@ DRAFT!
 
 A version of this page for Windows is also [ProgramAndTestWindows available].
 
+http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
 
 == Next ==
