@@ -3,3 +3,16 @@
 DRAFT!
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/MassStorage_MMC_SD_SPI_Mode` directory.
+
+*Targets*: [Micropendous2] or any USB AVR with 1kb+ SRAM connected to a MMC/SD Card via SPI
+
+*USB Mode*: Device-class enumerating as Mass Storage
+
+*Status*: Working
+
+
+== Usage ==
+
+Current version must be recompiled for each new microSD card you plan to use.  Need to set the number of blocks.
+
+== Firmware Design ==
