@@ -1,10 +1,13 @@
 #summary Programming and Testing Micropendous Boards on Windows
 
-DRAFT!
-
 A version of this page for Linux is also [ProgramAndTestLinux available].
 
-Atmel also has a detailed [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Guide] for firmware uploading.
+
+== Loading Firmware ==
+
+The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
+
+
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
