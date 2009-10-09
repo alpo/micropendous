@@ -27,5 +27,16 @@ The first step is to choose which Operating System you will be using for develop
     * [USBVirtualSerial] Program AVR directly and customize USB handling
     * [LoopBack] Program AVR directly and use custom USB class
      * [SetupLibUSBWindows] Setting up for [http://libusb-win32.sourceforge.net/ LibUSB-Win32] development under Windows
-   * [USBVirtualSerial_ADC] Get the current value of ADC pins using serial port software
-   * More firmware examples will be added soon!
+
+  * More Firmware Examples Included in the latest [http://code.google.com/p/micropendous/downloads/list Distribution]:
+   * [AVRISP] - LUFA AVR ISP mkII clone AVR programmer
+   * [BootloaderDFU] - LUFA Bootloader for the USB AVRs
+   * [MassStorage_MMC_SD_SPI_Mode] - Mass Storage device demo that read/writes data to a MMC or SD card connected in SPI mode
+   * [Micropendous] - Virtual Serial Port loopback and Keyboard based on LUFAduino and [MicropendousKeyboardTest].  GND'ing pins types their name.
+   * [MicropendousKeyboardTest] - Keyboard demo to test pin connectivity.  GND'ing pins types their name.
+   * [SRAM_Test] - firmware and software to test a [Micropendous4]'s external SRAM
+   * [SpeedTest] - firmware and software to test USB throughput written by [http:// www.ilmarin.info ilmarin]
+   * [USBVirtualSerial_ADC] - Get the current value of ADC pins using serial port software
+   * [USBVirtualSerial_I2C] - Virtual Serial Port to [http://en.wikipedia.org/wiki/I2c I2C] interface
+   * [USBVirtualSerial_LCD] - Virtual Serial Port to [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780 Character LCD] interface
+   * [USBVirtualSerial_SPI] - Virtual Serial Port to [http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus SPI] interface
