@@ -56,7 +56,7 @@ After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-02_gtkterm.jpg
 
-You can also manually change port settings from the _Preferences_ -> _Port_ menu
+You can also manually change port settings from the _Configuration_ -> _Port_ menu
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-03_gtkterm_Port_Settings.jpg
 
