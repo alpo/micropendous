@@ -35,7 +35,7 @@ The first step is to choose which Operating System you will be using for develop
    * [Micropendous] - Virtual Serial Port loopback and Keyboard based on LUFAduino and [MicropendousKeyboardTest].  GND'ing pins types their name.
    * [MicropendousKeyboardTest] - Keyboard demo to test pin connectivity.  GND'ing pins types their name.
    * [SRAM_Test] - firmware and software to test a [Micropendous4]'s external SRAM
-   * [SpeedTest] - firmware and software to test USB throughput written by [http:// www.ilmarin.info ilmarin]
+   * [SpeedTest] - firmware and software to test USB throughput written by [http://www.ilmarin.info ilmarin]
    * [USBVirtualSerial_ADC] - Get the current value of ADC pins using serial port software
    * [USBVirtualSerial_I2C] - Virtual Serial Port to [http://en.wikipedia.org/wiki/I2c I2C] interface
    * [USBVirtualSerial_LCD] - Virtual Serial Port to [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780 Character LCD] interface
