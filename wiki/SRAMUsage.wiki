@@ -106,4 +106,4 @@ SELECT_EXTSRAM_BANK0;
 
 == Complex Way - All 128kbytes made available ==
 
-To use addresses lower than the tail 56kbytes you will have to control the address lines manually.  There is no simple and efficient way to do this automatically and is not worth the effort unless you absolutely need the additional 16kbytes.  If you have some clever and efficient solution, please post a comment!
+To use addresses lower than the tail 56kbytes you will have to control the address lines manually.  There is no simple and efficient way to do this automatically and is not worth the effort unless you absolutely need the additional 16kbytes.  If you know of some clever and efficient solution or a simple solution, please post a comment!
