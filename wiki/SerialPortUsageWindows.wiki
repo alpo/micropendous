@@ -66,7 +66,7 @@ If you do not want to install any new software you can use Windows' built-in !Hy
    http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-HyperTerminal-3.jpg
  # For a connected device running [USBVirtualSerial] firmware these settings are irrelevant.  Just click OK.
    http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-HyperTerminal-4.jpg
- # [USBVirtualSerial] firmware will echo back any characters you type and also send you the current value of its Timer1 every once in a while after you type a character.
+ # [USBVirtualSerial] firmware will echo back any characters you type.  Some versions may also print the current Timer1 value.
    http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-HyperTerminal-6.jpg
 
 
