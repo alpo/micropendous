@@ -12,7 +12,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
   http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
  * 
-
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-02.jpg
@@ -23,10 +23,14 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
   http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_FixPATH.jpg
   http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_NoArgs.jpg
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Failure.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-01.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-02.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-03.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-04.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-06.jpg
 
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
 [AddingFLIPtoPATH]
 
