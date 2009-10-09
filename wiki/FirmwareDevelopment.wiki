@@ -45,7 +45,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
 *Advantages*
   * communicate with the board using standard Serial Port software and techniques
   * direct access to AVR architecture
-  * fast- throughput about 16kbytes/s
+  * fast - throughput about 16kbytes/s
 
 *Disadvantages*
   * must be careful not to interfere with USB functions
