@@ -17,7 +17,7 @@ Great for those with [http://www.arduino.cc Arduino] experience.  All USB Virtua
   * allows the use of delay() functions
 
 *Disadvantages*
-  * slow
+  * slow - throughput about 12kbytes/s
   * Timer1 required by underlying code so fewer PWM channels 
   * still in development
   * requires 2kbytes+ of SRAM
@@ -45,7 +45,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
 *Advantages*
   * communicate with the board using standard Serial Port software and techniques
   * direct access to AVR architecture
-  * fast
+  * fast- throughput about 16kbytes/s
 
 *Disadvantages*
   * must be careful not to interfere with USB functions
@@ -56,7 +56,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
 Program AVR directly and directly control USB communication on both the host and device.
 
 *Advantages*
-  * fast
+  * very fast - throughput can approach 1000kbytes/s, see [SpeedTest]
 
 *Disadvantages*
   * requires custom host-side software such as that based on LibUSB
