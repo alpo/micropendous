@@ -15,7 +15,7 @@ A version of this page for Windows is also [ProgramAndTestWindows available].
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_lsusb.jpg 
 
   {{{
-Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
+    Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
   }}}
   The above is the code for the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] on the [Micropendous2].  If something similar does not show up, try entering the bootloader again or using a different USB cable or USB port.
 
@@ -30,12 +30,9 @@ Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_gedit.jpg
 
   {{{
-MCU = atmega32u4
-
-F_CPU = 8000000
-
-
-BOARD  = USER
+    MCU = atmega32u4
+    F_CPU = 8000000
+    BOARD  = USER
   }}}
 
   * now compile and load the firmware.  If you get errors, try running `make clean` before `make dfu`.
