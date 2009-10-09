@@ -14,7 +14,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
  * 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardware_StatusBar.jpg
 
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
