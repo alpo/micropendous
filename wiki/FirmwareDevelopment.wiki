@@ -59,7 +59,7 @@ Program AVR directly and directly control USB communication on both the host and
   * very fast - throughput can approach 1000kbytes/s, see [SpeedTest]
 
 *Disadvantages*
-  * requires custom host-side software such as that based on LibUSB
+  * requires custom host-side software based on [http://libusb.sourceforge.net/ LibUSB].  Demo software included.
   * [SetupLibUSBWindows LibUSB Setup for Windows] is complicated
 
 
