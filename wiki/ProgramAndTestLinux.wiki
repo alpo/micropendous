@@ -1,14 +1,67 @@
 #summary Programming and Testing Micropendous Boards on Linux
 
-DRAFT!
-
 A version of this page for Windows is also [ProgramAndTestWindows available].
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
+== Loading Firmware ==
 
+  * Download and extract the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution]
+
+  * Plug in your Micropendous board and enter bootloader mode by pressing the RESET and HWB buttons, then release the RESET button, then release the HWB button.  HWB stands for _Hardware Bootloader_ and is connected to pin PE2 on Micropendous boards (except on the [Micropendous1] board where it is connected to PD7).
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
+
+  * open a terminal and run `lsusb` to show connected devices
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_lsusb.jpg 
+
+  {{{
+Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
+  }}}
+  The above is the code for the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] on the [Micropendous2].  If something similar does not show up, try entering the bootloader again or using a different USB cable or USB port.
+
+  * change to the directory of the firmware you wish to upload.  In the case of testing, this would be MicropendousKeyboardTest in the `/Micropendous/Firmware/MicropendousKeyboardTest`
+
+  * now edit the `makefile` for your current USB AVR.  *gedit* is a simple text editor with code editing capability included with Ubuntu Linux.
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_change_directory.jpg 
+
+  * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [ATmega32U4] and has an 8MHz clock.
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_gedit.jpg
+
+  {{{
+MCU = atmega32u4
+
+F_CPU = 8000000
+
+
+BOARD  = USER
+  }}}
+
+  * now compile and load the firmware.  If you get errors, try running `make clean` before `make dfu`.
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_compile_load.jpg
+
+  The above is a successful firmware upload.  Depending on your version of _dfu-programmer_ you may need to manually RESET the board.
+
+== Testing ==
+
+Now that your firmware is loaded, connect GPIO pins to GND to type the corresponding pin's name.  For example, GND'ing pin PB2 will type `b2`.  Pressing the HWB button will type `e2` as it is connected to pin PE2.  *DO NOT Connect GND and VCC or VBUS* as this will short your PC's USB power supply and may damage your computer or your Micropendous board.
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_HWB_button.jpg
+
+== Communication Testing ==
+
+Keyboard firmware may be useful but it is limited to transferring a maximum of 6 characters per keyboard report.  There is also significant overhead in the HID (Human Interface Device) USB class.
+
+More useful are the firmware examples based on USB Virtual Serial which appear as serial ports on your computer and can be communicated with using a serial terminal or standard serial port software.
+
+Try loading your board using the above technique with one of [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous] firmware demos.  The follow the instructions in [SerialPortUsageLinux] to test communication.
 
 == Next ==
 
-Back to [QuickStart]
+[SerialPortUsageLinux] to test serial communication.
 
-Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
+Now that all necessary software is installed and your Micropendous board has been tested, proceed to [FirmwareDevelopment Firmware Development] tutorials.
+
+Back to [QuickStart]
