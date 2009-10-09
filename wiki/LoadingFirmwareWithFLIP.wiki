@@ -1,0 +1,3 @@
+#summary Instructions for Loading Firmware using Atmel's FLIP
+
+Atmel has a similar [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Tutorial] for firmware uploading.
