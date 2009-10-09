@@ -46,7 +46,7 @@ SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="206
 BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="206f", MODE="660", GROUP="plugdev"
 }}}
 
-Save the file.  Permissions have been set up.
+Save the file.  Permissions have been set up.  You can also add more permissions for devices with different Vendor and Product IDs.
 
 = Communicating with Serial Devices using gtkterm =
 
