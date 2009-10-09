@@ -1,6 +1,4 @@
-#summary What is the best way to develop firmware for your Micropendous?
-
-DRAFT!
+#summary What is the best way to develop firmware and software for your Micropendous?
 
 Firmware development for the Micropendous is C/C++ and [http://en.wikipedia.org/wiki/Make_(software) makefile] based.  This allows you to use your favorite code editor and easily add new libraries.
 
