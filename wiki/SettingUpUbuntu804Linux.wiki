@@ -12,11 +12,11 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
     * then run `sudo apt-get -y update`
  # Install software:
    `sudo apt-get -y install build-essential texinfo flex byacc bison automake gcc libc6-dev  binutils gcc-avr avr-libc gdb-avr python python-dev libusb-dev autoconf avrdude libtool rapidsvn tofrodos gtkterm rapidsvn subversion`
- # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.1.tar.gz dfu-programmer]
-   * `tar xvf dfu-programmer-0.5.1.tar.gz`
-   * `cd dfu-programmer-0.5.1`
+ # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.2.tar.gz dfu-programmer]
+   * `tar xvf dfu-programmer-0.5.2.tar.gz`
+   * `cd dfu-programmer-0.5.2`
    * `./configure --prefix=/usr ; make ; sudo make install`
-   * `sudo chmod 775 /usr/local/bin/dfu-programmer`
+   * `sudo chmod 775 /usr/bin/dfu-programmer`
  # Install latest [http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.6.2.tar.bz2 avr-libc] (contains necessary `util/atomic.h`)
    * `tar xvf avr-libc-1.6.2.tar.bz2`
    * `cd avr-libc-1.6.2/`
