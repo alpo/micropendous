@@ -2,8 +2,7 @@
 
 A version of this page for Linux is also [ProgramAndTestLinux available].
 
-
-== Loading Firmware ==
+= Loading Firmware =
 
 The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [http://en.wikipedia.org/wiki/Make_(software) makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
 
@@ -11,13 +10,23 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
- * 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
+== Installing Drivers ==
+
+ * Windows should notice your Micropendous board in bootloader mode and ask for Driver installation
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardware_StatusBar.jpg
 
+ * DO NOT let Windows search as it will find nothing.  
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
+
+ * 
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
+
+
+
+
+
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-02.jpg
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-03.jpg
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-04.jpg
