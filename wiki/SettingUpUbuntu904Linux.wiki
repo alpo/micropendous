@@ -18,8 +18,8 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
    * `./configure --prefix=/usr ; make ; sudo make install`
    * `sudo chmod 775 /usr/bin/dfu-programmer`
  # Install [http://developer.berlios.de/project/showfiles.php?group_id=4354&release_id=13488 PyUSB]
-   * `tar xvf pyusb-0.4.1.tar.gz`
-   * `cd pyusb-0.4.1`
+   * `tar xvf pyusb-0.4.2.tar.gz`
+   * `cd pyusb-0.4.2`
    * `sudo python setup.py install`
  # Install [http://downloads.sourceforge.net/pyserial/pyserial-2.4.tar.gz PySerial]
    * `tar xvf pyserial-2.4.tar.gz`
