@@ -22,6 +22,13 @@ You may need to be logged in as Administrator to perform the following.
 
 Plug in your USB Virtual Serial device.  Windows' _New Hardware Wizard_ should appear.  You should proceed by telling Windows to install its own Virtual Serial port drivers.  This is done using a specially crafted `.inf` file which simply tells Windows which USB device should use which Windows drivers.  An `.inf` file specific to the device firmware you are using is in the associated directory.  For example, the `.inf` file for [USBVirtualSerial] firmware is in the `/Micropendous/Firmware/USBVirtualSerial` directory of the latest Micropendous [http://code.google.com/p/micropendous/downloads/list release].
 
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-01.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-02.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-03.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-04.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-06.jpg
+
  # DO NOT let Windows search as it will not find anything.
    http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-1.jpg
  # Select _Install from a specific location_
