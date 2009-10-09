@@ -22,11 +22,11 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
     * `sudo gedit /etc/apt/sources.list` and revert to the original `deb` line: `deb http://archive.ubuntu.com/ubuntu intrepid main universe`
     * uncomment the `deb-src` line you commented out earlier.
  # run `sudo apt-get -y update` yet again
- # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.1.tar.gz dfu-programmer]
-   * `tar xvf dfu-programmer-0.5.1.tar.gz`
-   * `cd dfu-programmer-0.5.1`
+ # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.2.tar.gz dfu-programmer]
+   * `tar xvf dfu-programmer-0.5.2.tar.gz`
+   * `cd dfu-programmer-0.5.2`
    * `./configure --prefix=/usr ; make ; sudo make install`
-   * `sudo chmod 775 /usr/local/bin/dfu-programmer`
+   * `sudo chmod 775 /usr/bin/dfu-programmer`
  # Install [http://developer.berlios.de/project/showfiles.php?group_id=4354&release_id=13488 PyUSB]
    * `tar xvf pyusb-0.4.1.tar.gz`
    * `cd pyusb-0.4.1`
