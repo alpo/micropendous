@@ -1,6 +1,6 @@
 #summary What is the best way to develop firmware and software for your Micropendous?
 
-Firmware development for the Micropendous is C/C++ and [http://en.wikipedia.org/wiki/Make_(software) makefile] based.  This allows you to use your favorite code editor and easily add new libraries.
+Firmware development for the Micropendous is C/C++ and [http://en.wikipedia.org/wiki/Make_(software) makefile] based.  This is an industry standard development process and allows you to use your favorite code editor and easily add new libraries.
 
 There are several ways to approach firmware development and which is best depends on your experience and requirements.  Developing projects based on USB Virtual Serial Port firmware is the easiest and most versatile option as you can use traditional Serial Port software and techniques.  Choose one of the following to begin.
 
