@@ -114,6 +114,6 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [FirmwareDevelopment Firmware Development]
+
+Back to [QuickStart]
