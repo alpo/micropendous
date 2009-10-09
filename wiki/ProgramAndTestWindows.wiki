@@ -18,6 +18,19 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
  * DO NOT let Windows search as it will find nothing.  
 
+  http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-1.jpg
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-2_ATmega32U4.jpg
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-3_AtmelFLIPUSBDriver.jpg
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-4.jpg
+
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
+
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
 
  * 
