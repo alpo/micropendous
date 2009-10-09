@@ -103,7 +103,7 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 `ser.write('www.Micropendous.org')` sends the characters `www.Micropendous.org` to the `ser` serial port.
 
-`print ser.read(20)`: `ser.read(19)` reads 20 characters from the `ser` serial port and the data is used by the `print` function to print the data to the screen.  Note that `.read()` will block until is receives 20 characters of data so make sure you get this value correct.
+`print ser.read(20)`: `ser.read(20)` reads 20 characters from the `ser` serial port and the data is used by the `print` function to print the data to the screen.  Note that `.read()` will block until is receives 20 characters of data so make sure you get this value correct.
 
 `ser.write('www.Micropendous.org\n')` sends the line `www.Micropendous.org\n` to the serial port.  Note the `\n` newline character.
 
