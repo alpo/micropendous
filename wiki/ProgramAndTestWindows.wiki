@@ -5,11 +5,28 @@ A version of this page for Linux is also [ProgramAndTestLinux available].
 
 == Loading Firmware ==
 
-The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
+The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [http://en.wikipedia.org/wiki/Make_(software) makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
+
+ * Plug in your Micropendous board and enter bootloader mode by pressing the RESET and HWB buttons, then release the RESET button, then release the HWB button. HWB stands for Hardware Bootloader and is connected to pin PE2 on Micropendous boards (except on the [Micropendous1] board where it is connected to PD7). 
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
+
+ * 
 
 
+  http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-02.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-03.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-04.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-05.jpg
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_FixPATH.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_NoArgs.jpg
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Failure.jpg
+
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
 [AddingFLIPtoPATH]
 
