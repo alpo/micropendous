@@ -4,35 +4,61 @@ A version of this page for Linux is also [ProgramAndTestLinux available].
 
 = Loading Firmware =
 
+*Table of Contents*
+ * Installing Drivers
+ * Loading Firmware
+
 The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [http://en.wikipedia.org/wiki/Make_(software) makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
 
  * Plug in your Micropendous board and enter bootloader mode by pressing the RESET and HWB buttons, then release the RESET button, then release the HWB button. HWB stands for Hardware Bootloader and is connected to pin PE2 on Micropendous boards (except on the [Micropendous1] board where it is connected to PD7). 
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
-== Installing Drivers ==
+=== Installing Drivers ===
 
  * Windows should notice your Micropendous board in bootloader mode and ask for Driver installation
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardware_StatusBar.jpg
 
- * DO NOT let Windows search as it will find nothing.  
+ * DO NOT let Windows search as it will find nothing.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-1.jpg
 
+ * You want to install from a custom location.
+
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-2_ATmega32U4.jpg
+
+ * Atmel's [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3886 FLIP] Driver is in the `\usb` directory wherever you installed FLIP.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-3_AtmelFLIPUSBDriver.jpg
 
+ * Proceed to install.  If installation asks for `libusb0.dll` or ``libusb0.sys`, they are also in the `\usb` directory where you installed FLIP.
+
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-4.jpg
 
+ * Installation was successful.  Restarting your computer may be required.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
+
+=== Loading Firmware ===
+
+ * Start a Command Prompt.  If you do not have shortcut, run it via _Start_ -> _Run_ -> `cmd`
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
+
+ * check to make sure FLIP was correctly installed by trying to run the `batchisp.exe` command.
+
+  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_NoArgs.jpg
+
+   * the above means everything is O.K.  If you get other output, either add FLIP to your `PATH` [AddingFLIPtoPATH permanently] or temporarily with the following command:
+     http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_FixPATH.jpg
+     Replace `C:\Program Files\Atmel\Flip 3.3.1` with whatever directory you installed FLIP into.
+
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
 
  * 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
+
 
 
 
@@ -43,14 +69,13 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-04.jpg
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-05.jpg
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_FixPATH.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_NoArgs.jpg
 
 
 
 
 
-[AddingFLIPtoPATH]
+
+
 
 [AddingWinAVRtoPATH]
 
