@@ -4,7 +4,7 @@ There is a similar version of this page for [SerialPortUsageWindows Windows].
 
 = Introduction =
 
-Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware.
+Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with one of the [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware demos: [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous].
 
 = Table of Contents =
 
@@ -15,7 +15,9 @@ Instructions for setting up and communicating with serial port devices in Linux 
 
 = Listing Connected Devices =
 
-After plugging in a USB Virtual Serial device, run `dmesg` in a terminal to find the device's address:
+After plugging in a USB Virtual Serial device, run `dmesg` in a terminal to find the newly connected device's address:
+http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-01_Find_Enumerated_Serial_Port.jpg
+
 {{{
 [17653.103108] cdc_acm 1-2:1.0: ttyACM0: USB ACM device
 }}}
@@ -25,10 +27,7 @@ Run `lsusb` to list connected USB devices and their Vendor and Product IDs:
 Bus 001 Device 001: ID 03eb:204b Atmel Corp.
 }}}
 
-
 From the above, we know that this particular device enumerated as `/dev/ttyACM0` and has Vendor ID `03eb` and Product ID `204b`.
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/UbuntuTerminal_dmesg_lsusb.jpg
 
 = Setting Up Serial Port Security =
 
@@ -51,7 +50,11 @@ Save the file.  Permissions have been set up.
 
 After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial] firmware anything you type will echo back.
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/UbuntuTerminal_gtkterm.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-02_gtkterm.jpg
+
+You can also manually change port settings from the _Preferences_ -> _Port_ menu
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-03_gtkterm_Port_Settings.jpg
 
 = Writing Communication Software with Python =
 
@@ -99,6 +102,6 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [FirmwareDevelopment Firmware Development]
+
+Back to [QuickStart]
