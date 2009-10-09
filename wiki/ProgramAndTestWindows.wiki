@@ -52,7 +52,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
    * the above means everything is O.K.  If you get other output, either add FLIP to your `PATH` [AddingFLIPtoPATH permanently] or temporarily with the following command:
      http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_FixPATH.jpg
-     Replace `C:\Program Files\Atmel\Flip 3.3.1` with whatever directory you installed FLIP into.
+   Replace `C:\Program Files\Atmel\Flip 3.3.1` with whatever directory you installed FLIP into.
 
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
