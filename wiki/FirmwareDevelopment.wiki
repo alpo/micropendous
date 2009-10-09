@@ -6,7 +6,7 @@ Firmware development for the Micropendous is C/C++ and [http://en.wikipedia.org/
 
 There are several ways to approach firmware development and which is best depends on your experience and requirements.  Developing projects based on USB Virtual Serial Port firmware is the easiest and most versatile option as you can use traditional Serial Port software and techniques.  Choose one of the following to begin.
 
-== [LUFAduino] ==
+= [LUFAduino] =
 
 Great for those with [http://www.arduino.cc Arduino] experience.  All USB Virtual Serial Port functionality is hidden behind the `Serial` class.  Built on [USBVirtualSerial_FreeRTOS].
 
@@ -23,7 +23,7 @@ Great for those with [http://www.arduino.cc Arduino] experience.  All USB Virtua
   * requires 2kbytes+ of SRAM
 
 
-== [USBVirtualSerial_FreeRTOS] ==
+= [USBVirtualSerial_FreeRTOS] =
 
 Program AVR directly but ignore USB functionality.  Send and receive data over the USB Virtual Serial Port using three simple functions: `haveData()`, `sendData(uint8_t)`, `getData()`.
 
@@ -38,7 +38,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
   * requires 2kbytes+ of SRAM
 
 
-== [USBVirtualSerial] ==
+= [USBVirtualSerial] =
 
 Program AVR directly but ignore USB functionality.  Send and receive data over the USB Virtual Serial Port using three simple functions: `haveData()`, `sendData(uint8_t)`, `getData()`.
 
@@ -51,7 +51,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
   * must be careful not to interfere with USB functions
 
 
-== [LoopBack] ==
+= [LoopBack] =
 
 Program AVR directly and directly control USB communication on both the host and device.
 
