@@ -4,7 +4,7 @@ There is a similar version of this page for [SerialPortUsageWindows Windows].
 
 = Introduction =
 
-Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with one of the [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware demos: [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous].
+Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with one of the [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware demos: [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], or [LUFAduino].
 
 = Table of Contents =
 
@@ -52,7 +52,7 @@ Save the file.  Permissions have been set up.
 
 *gtkterm* is already installed on your system if you have followed the instructions in [LinuxQuickStart].
 
-After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous] firmware anything you type will echo back.
+After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], or [LUFAduino] firmware then anything you type will echo back.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-02_gtkterm.jpg
 
