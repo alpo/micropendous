@@ -16,7 +16,6 @@ Instructions for setting up and communicating with serial port devices in Linux 
 = Listing Connected Devices =
 
 After plugging in a USB Virtual Serial device, run `dmesg` in a terminal to find the newly connected device's address:
-http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-01_Find_Enumerated_Serial_Port.jpg
 
 {{{
 [17653.103108] cdc_acm 1-2:1.0: ttyACM0: USB ACM device
@@ -26,6 +25,8 @@ Run `lsusb` to list connected USB devices and their Vendor and Product IDs:
 {{{
 Bus 001 Device 001: ID 03eb:204b Atmel Corp.
 }}}
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-01_Find_Enumerated_Serial_Port.jpg
 
 From the above, we know that this particular device enumerated as `/dev/ttyACM0` and has Vendor ID `03eb` and Product ID `204b`.
 
