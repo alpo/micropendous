@@ -19,7 +19,7 @@ Folder: $(ProjectPath)
 Parameters: flip
 }}}
    http://micropendous.googlecode.com/svn/trunk/Pictures/Programmers_Notepad-6.jpg
- # Click O.K and the new command is now ready.  Click _Tools_ and _Make Flip_ to compile and program the firmware.  More detailed instructions for firmware loading are in [Loading_Firmware].
+ # Click O.K and the new command is now ready.  Click _Tools_ and _Make Flip_ to compile and program the firmware.  More detailed instructions for firmware loading are in [ProgramAndTestWindows].
    http://micropendous.googlecode.com/svn/trunk/Pictures/Programmers_Notepad-7.jpg
  # If successful, the _Output_ window should show a process exit code of `0`.
    http://micropendous.googlecode.com/svn/trunk/Pictures/Programmers_Notepad-8.jpg
