@@ -11,9 +11,7 @@ A version of this page for Windows is also [ProgramAndTestWindows available].
   http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
   * open a terminal and run `lsusb` to show connected devices
-
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_lsusb.jpg 
-
   {{{
 Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
   }}}
@@ -26,9 +24,7 @@ Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_change_directory.jpg 
 
   * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [ATmega32U4] and has an 8MHz clock.
-
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_gedit.jpg
-
   {{{
 MCU = atmega32u4
 F_CPU = 8000000
