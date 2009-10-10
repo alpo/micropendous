@@ -8,9 +8,12 @@ Instruction for using the external SRAM are [http://www.micropendous.org/SRAM av
 
 SRAM_Test uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library to send random bytes of data to a Micropendous4 board's SRAM then checks to make sure it is read back correctly.  The firmware also runs internal SRAM tests.
 
+*Targets*: [Micropendous4] with 128kbytes of external SRAM
+
+*USB Mode*: Device-class enumerating as USB Virtual Serial Port
+
 * Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
-* Targets: * Micropendous4
 
 
 == Usage ==
@@ -19,22 +22,3 @@ SRAM_Test uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library 
 
 == Firmware Design ==
 
-
-DRAFT!
-
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/SOMETHING` directory.
-
-*Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
-
-*USB Mode*: Device-class enumerating as 
-
-*Status*: Working
-
-
-== Usage ==
-
-How to use.
-
-== Firmware Design ==
-
-How it was coded.
