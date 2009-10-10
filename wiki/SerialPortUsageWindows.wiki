@@ -20,7 +20,7 @@ One useful link is [http://code.google.com/p/micropendous/wiki/UninstallingDrive
 
 You may need to be logged in as Administrator to perform the following.
 
-Plug in your Micropendous board [ProgramTestWindows loaded] with [USBVirtualSerial]-based firmware.  Windows' _New Hardware Wizard_ should appear.  You should proceed by telling Windows to install its own Virtual Serial port drivers.  This is done using a specially crafted `.inf` file which simply tells Windows which USB device should use which Windows drivers.  An `.inf` file specific to the device firmware you are using is in the associated directory.  For example, the `.inf` file for [USBVirtualSerial] firmware is in the `/Micropendous/Firmware/USBVirtualSerial` directory of the latest Micropendous [http://code.google.com/p/micropendous/downloads/list release].
+Plug in your Micropendous board [ProgramAndTestWindows loaded] with [USBVirtualSerial]-based firmware.  Windows' _New Hardware Wizard_ should appear.  You should proceed by telling Windows to install its own Virtual Serial port drivers.  This is done using a specially crafted `.inf` file which simply tells Windows which USB device should use which Windows drivers.  An `.inf` file specific to the device firmware you are using is in the associated directory.  For example, the `.inf` file for [USBVirtualSerial] firmware is in the `/Micropendous/Firmware/USBVirtualSerial` directory of the latest Micropendous [http://code.google.com/p/micropendous/downloads/list release].
 
  # Once your device is plugged in Windows should notice your device and ask for drivers.
    http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-01.jpg
