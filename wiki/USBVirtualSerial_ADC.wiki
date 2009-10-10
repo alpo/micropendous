@@ -51,7 +51,7 @@ To run under Windows install:
 
 == Usage ==
 
-Run the software with:
+In a Command Prompt or Terminal change to the `/Micropendous/Firmware/USBVirtualSerial_ADC` directory and run the software with:
 {{{
 python PlotADCData.py COM5  128
 }}}
