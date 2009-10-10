@@ -4,7 +4,7 @@ There is a similar version of this page for [SerialPortUsageWindows Windows].
 
 = Introduction =
 
-Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with one of the [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware demos: [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], or [LUFAduino].
+Instructions for setting up and communicating with serial port devices in Linux with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with one of the [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware demos: [USBVirtualSerial], [USBVirtualSerial_FreeRTOS], or [LUFAduino].
 
 = Table of Contents =
 
