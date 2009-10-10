@@ -1,12 +1,12 @@
-#summary something
+#summary USB Virtual Serial to HD44780 Character LCD Interface
 
 DRAFT!
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/SOMETHING` directory.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_LCD ` directory.
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
-*USB Mode*: Device-class enumerating as 
+*USB Mode:* Device-mode enumerating as USB Virtual Serial Port 
 
 *Status*: Working
 
