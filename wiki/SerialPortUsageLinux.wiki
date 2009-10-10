@@ -42,6 +42,9 @@ BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="204b", MO
 SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2044", MODE="660", GROUP="plugdev"
 BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2044", MODE="660", GROUP="plugdev"
 
+SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="204f", MODE="660", GROUP="plugdev"
+BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="204f", MODE="660", GROUP="plugdev"
+
 SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="206f", MODE="660", GROUP="plugdev"
 BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="206f", MODE="660", GROUP="plugdev"
 }}}
