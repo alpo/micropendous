@@ -7,9 +7,9 @@ A version of this page for Linux is also [ProgramAndTestLinux available].
 *Table of Contents*
  * Installing Drivers
  * Loading Firmware
+ * Using a GUI Editor for Development
  * Testing
  * Communication Testing
- * Using a GUI Editor for the Above
 
 The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [http://en.wikipedia.org/wiki/Make_(software) makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
 
@@ -83,9 +83,9 @@ BOARD = USER
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-05.jpg
 
 
-=== Using a GUI Editor for the Above ===
+=== Using a GUI Editor for Development ===
 
-If you feel more comfortable in a graphical environment, read [SettingUpProgrammersNotepad] for instructions on using [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad] for development.  It comes with [http://winavr.sourceforge.net/ WinAVR] and allows the above firmware uploading to be automated by a single menu item.
+If you feel more comfortable in a graphical environment, read [SettingUpProgrammersNotepad] for instructions on using [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad] for development.  It comes with [http://winavr.sourceforge.net/ WinAVR] and allows the above firmware uploading to be automated by a single menu item once the above set-up is performed.
 
 
 === Testing ===
