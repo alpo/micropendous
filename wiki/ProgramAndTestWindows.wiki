@@ -97,6 +97,9 @@ More useful are the firmware examples based on USB Virtual Serial which appear a
 Try loading your board using the above technique with one of [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous] firmware demos.  Then follow the instructions in [SerialPortUsageWindows] to test communication (included details on serial driver installation).
 
 == Next ==
+
+[SerialPortUsageWindows] to test serial communication. 
+
 Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
 
 Back to [QuickStart]
