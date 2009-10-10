@@ -53,7 +53,7 @@ Keyboard firmware may be useful but it is limited to transferring a maximum of 6
 
 More useful are the firmware examples based on USB Virtual Serial which appear as serial ports on your computer and can be communicated with using a serial terminal or standard serial port software.
 
-Try loading your board using the above technique with one of [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous] firmware demos.  The follow the instructions in [SerialPortUsageLinux] to test communication.
+Try loading your board using the above technique with one of [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], [LUFAduino], or [Micropendous] firmware demos.  Then follow the instructions in [SerialPortUsageLinux] to test communication.
 
 == Next ==
 
