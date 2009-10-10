@@ -13,8 +13,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 == Usage ==
 
 || *Micropendous* || *UART* ||
-|| PD0 _(TXD)_ || TX ||
-|| PD1 _(RXD)_ || RX ||
+|| PD2 _(RXD1)_ || RX ||
+|| PD3 _(TXD1)_ || TX ||
 || GND || GND ||
 
 == Testing ==
