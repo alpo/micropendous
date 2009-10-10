@@ -4,7 +4,7 @@ There is a similar version of this page for [SerialPortUsageLinux Linux].
 
 = Introduction =
 
-Instructions for setting up and communicating with serial port devices in Windows with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware.
+Instructions for setting up and communicating with serial port devices in Windows with emphasis on USB Virtual Serial Ports.  Hardware is assumed to be programmed with [http://www.fourwalledcubicle.com/LUFA.php LUFA] or [http://code.google.com/p/micropendous/downloads/list Micropendous] USB Virtual Serial firmware.  Firmware upload is explained in detail in [ProgramAndTestWindows].
 
 One useful link is [http://code.google.com/p/micropendous/wiki/UninstallingDriversInWindows UninstallingDriversInWindows] if you ever need to un-install drivers in Windows.
 
@@ -22,20 +22,24 @@ You may need to be logged in as Administrator to perform the following.
 
 Plug in your USB Virtual Serial device.  Windows' _New Hardware Wizard_ should appear.  You should proceed by telling Windows to install its own Virtual Serial port drivers.  This is done using a specially crafted `.inf` file which simply tells Windows which USB device should use which Windows drivers.  An `.inf` file specific to the device firmware you are using is in the associated directory.  For example, the `.inf` file for [USBVirtualSerial] firmware is in the `/Micropendous/Firmware/USBVirtualSerial` directory of the latest Micropendous [http://code.google.com/p/micropendous/downloads/list release].
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-01.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-02.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-03.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-04.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
-  http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-06.jpg
 
+
+
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-04.jpg
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-06.jpg
+ # Once your device is plugged in Windows should notice your device and ask for drivers.
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-01.jpg
  # DO NOT let Windows search as it will not find anything.
-   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-1.jpg
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-02.jpg
  # Select _Install from a specific location_
-   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-2_USBVirtualSerial.jpg
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-03.jpg
  # Find the `.inf` file for your device.  As mentioned, for [USBVirtualSerial] it would be in the `/Micropendous/Firmware/USBVirtualSerial` directory.
-   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-3_GeneralLocation.jpg
- # Windows should proceed to install drivers.  If everything is successful unplug and then plug in your device again (or RESET the device) and proceed to find out what Windows has decided to call it.
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-04.jpg
+ # Windows should proceed to install drivers.  Note that the `.inf` file does not contain any code.  You are installing Windows' own drivers.  You are forcing Windows to communicate with [USBVirtualSerial]-loaded Micropendous boards using standard USB CDC class communication.
+   http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
+
+If everything is successful unplug and then plug in your device again (or RESET the device) and proceed to find out what Windows has decided to call it.
 
 = Listing Connected Devices =
 
