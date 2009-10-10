@@ -1,4 +1,4 @@
-#summary LUFAduino and HID Keyboard for combined Testing
+#summary LUFAduino and HID Keyboard for Compound Device Testing
 
 DRAFT!
 
