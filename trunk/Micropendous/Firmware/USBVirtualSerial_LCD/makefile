@@ -572,12 +572,9 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 	$(COPY) $(TARGET).eep $(TARGET)eep.hex
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(TARGET)eep.hex
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
 	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
-	dfu-programmer $(MCU) reset
 
 
 # Generate avr-gdb config/init file which does the following:
