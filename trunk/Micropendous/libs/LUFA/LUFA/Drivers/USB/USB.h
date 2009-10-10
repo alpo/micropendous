@@ -85,6 +85,7 @@
 		#endif
 		
 	/* Includes: */
+		#include "MissingDefines.h"
 		#include "HighLevel/USBMode.h"
 		#include "HighLevel/USBTask.h"
 		#include "HighLevel/USBInterrupt.h"
