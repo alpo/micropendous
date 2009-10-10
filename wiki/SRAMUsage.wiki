@@ -34,7 +34,7 @@ XMCRB = 0;
 }}}
 
 
-Then simply use `malloc()` to allocate SRAM.
+Then simply use [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to allocate SRAM.
 
 
 == Slightly Complex Way - 112kbytes made available ==
