@@ -1,10 +1,8 @@
-#summary One-sentence summary of this page.
+#summary USB Virtual Serial to UART Interface
 
 DRAFT!
 
-DRAFT!
-
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/SOMETHING` directory.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBtoSerial` directory.
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
