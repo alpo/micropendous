@@ -11,7 +11,7 @@ AVRs have 16-bit addresses so a total of 64kbytes of memory space is available. 
 
 == Simple Way - 56kbytes made available ==
 
-Allow the linker and `malloc()` to take care of everything.
+Allow the linker and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.
 
 Enable external memory space in the `makefile`:
 
