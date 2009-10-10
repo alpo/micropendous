@@ -2,34 +2,45 @@
 
 Atmel has a similar [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Tutorial] for firmware uploading.
 
+
+
 = Loading Firmware =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-01.jpg
+This Tutorial assumes you have already compiled your firmware by following the instructions in [ProgramAndTestWindows].
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-02.jpg
+ # Plug in your Micropendous board and enter the bootloader.  Press the RESET and HWB buttons, then release the RESET button, then release the HWB button.  If Windows' Driver Installation begins, refer to [ProgramAndTestWindows].
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
+ # Start Atmel FLIP
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-01.jpg
+ # Under the _Device_ menu, select _Select_.
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-02.jpg
+ #  Choose your Micropendous board's corresponding MCU.  The picture below assumes a [Micropendous4] with an [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] MCU will be programmed.
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-03.jpg
+ # Under the _Communication_ menu, select _USB_.
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-04.jpg
+ # Click _Open_ to establish communication with your board.
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-05.jpg
+ # From the _File_ menu select _Load HEX File..._
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-06.jpg
+ # Find and Open the firmware file you want to upload
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-07.jpg
+ # Select the _Erase_, _Program_, and _Verify_ options and click Run
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-08.jpg
+ # If successful all the tasks should have a green dot next to them.  You can now click _Start Application_ to start running the new firmware on your board
+  http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-09.jpg
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-03.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-04.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-05.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-06.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-07.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-08.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-09.jpg
 
 = Loading EEPROM =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-1.jpg
+The EEPROM of a Micropendous board can similarly be programmed.  The following assumes you have already entered the bootloader, selected your target device, and opened USB communication as explained above.
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-2.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-3.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-4.jpg
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-5.jpg
+ # Click the _Select EEPROM_ button to switch to EEPROM mode
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-1.jpg
+ # Choose the _Program_ and _Verify_ options
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-2.jpg
+ # Find and load your EEPROM `.hex` file
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-3.jpg
+ # Click _Run_ to upload to EEPROM
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-4.jpg
+ # If successful all the tasks should have a green dot next to them.  You can now click _Start Application_ to start running the new firmware on your board
+  http://micropendous.googlecode.com/svn/trunk/Pictures/Atmel_FLIP_Programming_EEPROM-5.jpg
