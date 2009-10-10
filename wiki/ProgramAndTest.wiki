@@ -1,4 +1,5 @@
 #summary Instructions for Programming and Testing Micropendous Boards
+#labels Featured
 
 [ProgramAndTestLinux] - Programming and Testing Micropendous Boards on Linux
 
