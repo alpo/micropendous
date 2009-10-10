@@ -43,9 +43,9 @@ sudo apt-get install python-matplotlib python-numpy python-wxversion
 }}}
 
 To run under Windows install:
- * [http://python.org/download/releases/2.5.4/ Python 2.5.4]
+ * [http://python.org/download/releases/2.5.4/ Python 2.5.4] - may already have installed
+ * [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial] - may already have installed
  * [http://downloads.sourceforge.net/wxpython/wxPython2.8-win32-unicode-2.8.10.1-py25.exe wxPython]
- * [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial]
  * [http://downloads.sourceforge.net/matplotlib/matplotlib-0.98.5.3.win32-py2.5.exe matplotlib]
  * [http://downloads.sourceforge.net/numpy/numpy-1.3.0-win32-superpack-python2.5.exe numpy]
 
