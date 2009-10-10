@@ -18,6 +18,6 @@ A version of this page for Windows is also [WindowsQuickStart available].
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
+
+Back to [QuickStart]
