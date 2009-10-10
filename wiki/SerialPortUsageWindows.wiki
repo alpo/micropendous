@@ -62,7 +62,7 @@ If you have connected a device running [USBVirtualSerial] firmware then anything
 http://micropendous.googlecode.com/svn/trunk/Pictures/PuTTY_USBtoSerial_Test.jpg
 
 
-= Communicating with Serial Devices using HyperTerminal =
+= Communicating with Serial Devices using !HyperTerminal =
 
 If you do not want to install any new software you can use Windows' built-in !HyperTerminal.
 
