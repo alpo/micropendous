@@ -51,11 +51,14 @@ To run under Windows install:
 
 == Usage ==
 
-Before running the software you will need to set it up for your system.  The only necessary change is the serial port name.  Uncomment one of the following lines near the top of `PlotADCData.py` and change the serial port accordingly.  For more on Serial Port usage see [SerialPortUsageWindows] or [SerialPortUsageLinux].
+Run the software with:
 {{{
-ser = serial.Serial(2)                 # COM3 under Windows
-ser = serial.Serial('/dev/ttyACM0')    # /dev/ttyACM0 - found with dmesg
+python PlotADCData.py COM5  128
 }}}
+
+`COM5` is the Serial Port where the device enumerated to.  Under Linux it would be something like `/dev/ttyACM0`.  See [SerialPortUsageWindows] or [SerialPortUsageLinux] for instructions on determining serial port.
+
+`128` is the number of data points per frame.
 
 To test the ADC a simple voltage divider circuit with a 50k Ohm potentiometer is used.  To avoid shorting VCC and GND, 5.1k Ohm resistors pull the "signal" up to VCC and down to GND.  Turning the potentiometer control quickly produces the following data plot:
 
