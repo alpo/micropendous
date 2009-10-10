@@ -44,6 +44,6 @@ make
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [FirmwareDevelopment Firmware Development] if all necessary software is installed.
+
+Back to [QuickStart]
