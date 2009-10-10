@@ -51,6 +51,6 @@ BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ff3", MO
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
+
+Back to [QuickStart]
