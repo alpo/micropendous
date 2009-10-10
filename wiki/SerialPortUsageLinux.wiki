@@ -55,7 +55,7 @@ Save the file.  Permissions have been set up.  You can also add more permissions
 
 *gtkterm* is already installed on your system if you have followed the instructions in [LinuxQuickStart].
 
-After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial], [USBVirtualSerial-FreeRTOS], or [LUFAduino] firmware then anything you type will echo back.
+After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial], [USBVirtualSerial_FreeRTOS], or [LUFAduino] firmware then anything you type will echo back.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-02_gtkterm.jpg
 
