@@ -40,3 +40,4 @@ The first step is to choose which Operating System you will be using for develop
    * [USBVirtualSerial_I2C] - Virtual Serial Port to [http://en.wikipedia.org/wiki/I2c I2C] interface
    * [USBVirtualSerial_LCD] - Virtual Serial Port to [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780 Character LCD] interface
    * [USBVirtualSerial_SPI] - Virtual Serial Port to [http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus SPI] interface
+   * [USBtoSerial] - Virtual Serial Port to [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART] interface
