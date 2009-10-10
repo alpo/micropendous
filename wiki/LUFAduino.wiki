@@ -7,6 +7,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 * Status: * _Under Development_.  Serial, pin definitions, digitalIn/Out, and analogOut are functional.  Please help out by posting any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
+*USB Mode*: Device-mode enumerating as USB Virtual Serial
+
 * Targets: * Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with more than 2kbytes of SRAM.
 
 == Usage ==
