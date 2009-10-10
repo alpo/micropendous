@@ -4,11 +4,11 @@ DRAFT!
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/BootloaderDFU` directory.  Copied directly from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project.
 
-*Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
+*Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as custom USB class
 
-*Status*: Working
+*Status:* _Working_
 
 
 == Usage ==
