@@ -1,4 +1,4 @@
-#summary something
+#summary LUFA AVR ISP mkII clone AVR programmer
 
 DRAFT!
 
