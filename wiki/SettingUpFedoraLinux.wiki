@@ -28,6 +28,6 @@ At a terminal:
 
 == Next ==
 
-Back to [QuickStart]
-
 Proceed to [ProgramAndTestLinux Programming and Testing] Tutorial after your development system has been set up.
+
+Back to [QuickStart]
