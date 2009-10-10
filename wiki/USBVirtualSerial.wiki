@@ -8,6 +8,8 @@ USBVirtualSerial is based on the [http://www.fourwalledcubicle.com/LUFA.php LUFA
 
 * Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
+*USB Mode*: Device-class enumerating as USB Virtual Serial Port
+
 * Targets: * Micropendous1, Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards
 
 == Usage ==
