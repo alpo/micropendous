@@ -63,3 +63,6 @@ python PlotADCData.py COM5  128
 To test the ADC a simple voltage divider circuit with a 50k Ohm potentiometer is used.  To avoid shorting VCC and GND, 5.1k Ohm resistors pull the "signal" up to VCC and down to GND.  Turning the potentiometer control quickly produces the following data plot:
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_PotentiometerTest.jpg
+
+
+_Note_: The source `.svg` file for the ADC notes above is [http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_Note.svg available] under the [http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution License]
