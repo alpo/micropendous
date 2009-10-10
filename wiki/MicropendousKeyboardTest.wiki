@@ -6,7 +6,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
-*USB Mode*: Device-class enumerating as HID (Human Interface Device) Keyboard
+*USB Mode*: Device-mode enumerating as HID (Human Interface Device) Keyboard
 
 *Status*: Working
 
