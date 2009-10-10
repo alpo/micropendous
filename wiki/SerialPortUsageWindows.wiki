@@ -34,7 +34,7 @@ Plug in your USB Virtual Serial device.  Windows' _New Hardware Wizard_ should a
    http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-05.jpg
  # If everything is successful unplug and then plug in your device again (or RESET the device) and proceed to find out what Windows has decided to call it.
    http://micropendous.googlecode.com/svn/trunk/Pictures/SerialInstallTutorial_Windows-06.jpg
-
+ # Restart Windows.
    http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
 
 
