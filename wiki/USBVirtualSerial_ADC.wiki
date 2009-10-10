@@ -56,7 +56,7 @@ Run the software with:
 python PlotADCData.py COM5  128
 }}}
 
-`COM5` is the Serial Port where the device enumerated to.  Under Linux it would be something like `/dev/ttyACM0`.  See [SerialPortUsageWindows] or [SerialPortUsageLinux] for instructions on determining serial port.
+`COM5` is the Serial Port where the device enumerated to.  Under Linux it would be something like `/dev/ttyACM0`.  See *Listing Connected Devices* in [SerialPortUsageWindows] or [SerialPortUsageLinux] for instructions on determining serial port.
 
 `128` is the number of data points per frame.
 
