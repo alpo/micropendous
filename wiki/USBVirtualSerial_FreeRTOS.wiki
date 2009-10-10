@@ -8,7 +8,7 @@ USBVirtualSerial_FreeRTOS combines the [http://www.fourwalledcubicle.com/LUFA.ph
 
 * Status: * _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
-*USB Mode*: Device-class enumerating as USB Virtual Serial Port
+*USB Mode*: Device-mode enumerating as USB Virtual Serial
 
 * Targets: * Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with more than 2kbytes of SRAM.
 
