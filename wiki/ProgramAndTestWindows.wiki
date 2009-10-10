@@ -34,7 +34,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-3_AtmelFLIPUSBDriver.jpg
 
- * Proceed to install.  If installation asks for `libusb0.dll` or ``libusb0.sys`, they are also in the `\usb` directory where you installed FLIP.
+ * Proceed to install.  If installation asks for `libusb0.dll` or `libusb0.sys`, they are also in the `\usb` directory where you installed FLIP.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Windows_FoundNewHardwareWizard-4.jpg
 
