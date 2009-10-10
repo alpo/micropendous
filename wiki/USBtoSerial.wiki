@@ -8,10 +8,17 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port
 
-*Status*: Working
+*Status*: _Working_
 
 == Usage ==
 
+|| *Micropendous* || *UART* ||
+|| PD0 _(TXD)_ || TX ||
+|| PD1 _(RXD)_ || RX ||
+|| GND || GND ||
+
 == Testing ==
+
+Create a loopback by connectong
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialLoopback_D0D1_Micropendous4.jpg
