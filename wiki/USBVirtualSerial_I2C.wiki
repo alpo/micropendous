@@ -56,7 +56,7 @@ Included in `/Micropendous/Firmware/USBVirtualSerial-I2C` is `i2cfuncs.py` which
 
 Make sure to uncomment and/or alter the serial port to communicate with.
 {{{
-#ser = serial.Serial(6)  # Open Serial Port 7 on Windows (0...6)
+#ser = serial.Serial('COM7')  # Open Serial Port COM7 on Windows
 ser = serial.Serial('/dev/ttyACM0') # on Linux, find with dmesg
 }}}
 
@@ -67,7 +67,7 @@ import serial            # for accessing the serial port on multiple platforms
 import i2cfuncs          # useful i2c functions
 import time              # needed for sleep function
 
-#ser = serial.Serial(2)  # Open 3rd Serial Port, COM3 on Windows (0...6)
+#ser = serial.Serial('COM7')  # Open Serial Port COM7 on Windows
 ser = serial.Serial('/dev/ttyACM0') # on Linux, find with dmesg
 
 print ser                # dump all info regarding serial port being used
