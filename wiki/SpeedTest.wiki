@@ -38,7 +38,19 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
 
 _* Linux - ATmega32U4 with 8Mhz Crystal*_
 {{{
-
+Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
+   16,	    5.33,	    5.33
+   32,	   10.67,	   10.67
+   64,	   21.33,	   21.33
+  128,	   42.67,	   42.67
+  256,	   85.35,	   85.35
+  512,	  170.72,	  170.72
+ 1024,	  256.06,	  341.34
+ 2048,	  409.76,	  512.02
+ 4096,	  511.00,	  682.70
+ 8192,	  585.47,	  819.24
+16384,	  628.64,	  910.27
+32768,	  630.53,	  910.25
 }}}
 
 _* Windows - AT90USB1287 with 16Mhz Crystal*_
