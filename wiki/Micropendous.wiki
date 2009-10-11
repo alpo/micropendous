@@ -1,20 +1,22 @@
 #summary LUFAduino and HID Keyboard for Compound Device Testing
 
-DRAFT!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/Micropendous` directory.
 
-*Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
+*Purpose:* Combine [LUFAduino] with [MicropendousKeyboardTest] to allow both Serial communication and Keyboard testing of a Micropendous board.
 
-*USB Mode*: Device-mode enumerating as Compound USB Device -  USB Virtual Serial Port and HID Keyboard
+*Targets:* [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware with 2kb+ of SRAM
 
-*Status*: Works under Windows, fails under Linux
+*USB Mode:* Device-mode enumerating as Compound USB Device -  USB Virtual Serial Port and HID Keyboard
+
+*Status:* Works under Windows, fails under Linux.  Still under development.
 
 
 == Usage ==
 
-How to use.
+Compile and load the Micropendous firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
+Just as with [MicropendousKeyboardTest], GND'ing pins will type their name.  Also, you can use the techniques in [Serial] to communicate with the board, which is programmed to loop back any data.
 
 == Firmware Design ==
 
-How it was coded.
+[LUFAduino] and [MicropendousKeyboardTest] mashed together.  An elaborated explanation will follow when the firmware attains stable and cross-platform functionality.
