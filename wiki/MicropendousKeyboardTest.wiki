@@ -30,6 +30,7 @@ Then a mass of code in `CreateKeyboardReport()` to test which pin is GND'ed:
 } else if (~PINB & (1 << PINB1)) {
   ReportData->KeyCode[0] = 0x05; //b
   ReportData->KeyCode[1] = 0x1E; //1
+}
 }}}
 
 The `ReportData->KeyCode[1]` array can store up to 6 characters.  However, most Operating Systems ignore rapidly typed characters so each adjacent character in the array must be different.
