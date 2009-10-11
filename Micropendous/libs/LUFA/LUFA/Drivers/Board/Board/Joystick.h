@@ -57,7 +57,7 @@
 
 
 	/* Micropendous boards do not have a Joystick */
-	#warning Micropendous boards do not have a Joystick, so the LUFA Joystick code does nothing.
+//	#warning Micropendous boards do not have a Joystick, so the LUFA Joystick code does nothing.
 
 
 	/* Preprocessor Checks: */
