@@ -1,22 +1,17 @@
 #summary USB Virtual Serial to I2C Interface
 
-DRAFT!
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_I2C ` directory.
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/ USBVirtualSerial_I2C ` directory.
+*Purpose:* Allows you to use software that interacts with a serial port to write and read data over [http://en.wikipedia.org/wiki/I2C I2C].  This firmware acts as an I2C master.  It uses [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html avrlib's] [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib i2csw].
 
-*Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
+*Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port 
 
-*Status*: Working
+*Status:* Working
 
-
-= Introduction =
-
-This firmware allows you to use software that interacts with a serial port to write and read data over [http://en.wikipedia.org/wiki/I2C I2C].  This firmware acts as an I2C master.  It uses [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html avrlib's] [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib i2csw].
-
-
-= Pinout =
+= Usage =
+== Pinout ==
 
 Connections between an Micropendous board and an I2C device are as follows:
 
@@ -28,9 +23,9 @@ Connections between an Micropendous board and an I2C device are as follows:
 
 [http://en.wikipedia.org/wiki/Pull-up_resistor Pull-up] resistors on SCL and SDA are not required as the AVR's IOs are [http://en.wikipedia.org/wiki/Push%E2%80%93pull push-pull] as opposed to the [http://en.wikipedia.org/wiki/Open_drain open drain] configuration of a standard I2C IO pin.
 
-= Protocol =
+== Protocol ==
 
-The firmware enumerates as an `USB Virutal Serial Port`.  It then waits for packets such as:
+The firmware enumerates as an `USB Virutal Serial Port`.  It then waits for packets formatted according to:
 
 Packet: <R/^W , !DeviceAddress , Sub-Address/Register , !DataLength , !DataBytesArray>
 Where the bytes are as follows:
@@ -44,18 +39,18 @@ After processing, the firmware returns a byte which denotes the number of bytes 
 
 Make sure to read each returned byte or flush the serial buffer before continuing.
 
-= Setup and Serial Port Usage =
+== Setup and Serial Port Usage ==
 
-[ProgramAndTest Program] an Micropendous board with the USBVirutalSerial-I2C firmware.
+[ProgramAndTest Program] a Micropendous board with the USBVirutalSerial-I2C firmware.
 
-See the instructions for [SerialPortUsageWindows Windows] or [SerialPortUsageLinux Linux] usage of serial ports before continuing.  You will need to be able to determine where the firmware enumerates to.  See [DevelopingFirmware] if you are unfamiliar with Micropendous firmware development.
+See the [Serial] instructions for usage of serial ports before continuing.  You will need to be able to determine where the device enumerates to.
 
 
 = Working with Serial Ports in Python =
 
 Communicating with an I2C EEPROM.  Note the 24AA08 has no address selector so pins 1 to 3 are left open.
 
-Under Windows you will need to have [http://python.org/download/releases/2.5.4/ Python 2.5.4] and [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial] installed.  Under Linux, these are already installed if you followed [SettingUpLinux] instructions.
+Under Windows you will need to have [http://python.org/download/releases/2.5.4/ Python 2.5.4] and [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial] installed.  Under Linux, these are already installed if you followed the [LinuxQuickStart] tutorial.
 
 Included in `/Micropendous/Firmware/USBVirtualSerial-I2C` is `i2cfuncs.py` which is some Python code to read and write data over I2C and format the output.  [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-I2C/serialpy.py serialpy.py] is a usage example for `i2cfuncs.py`.  The following simplified version of the `serialpy.py` code writes some data to a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=24AA08-I/P-ND 24AA08] [http://en.wikipedia.org/wiki/EEPROM EEPROM].  The delays between the writes are required as avrlib's !I2Csw code does not handle `ACK` bits in the manner the EEPROM does.  The EEPROM `ACK`s when data is fully written but the avrlib I2C code ignores the `ACK` value (at least in the send function).  Therefore a delay is required to allow data to be written to the EEPROM.
 
@@ -89,24 +84,23 @@ i2cfuncs.i2c_readprint(ser, TRGT_ADDRESS, 5, (0x05,))
 ser.close()    
 }}}
 
-The above is included as `serialpy.py`.  The above code produces:
+A more useful version of the above with command-line Serial Port selection is included as `Test_I2C_EEPROM.py`.
 
 {{{
 
-C:\Micropendous\Firmware\USBVirtualSerial-I2C>python serialpy.py
-Serial<id=0xba60d0, open=True>(port='COM3', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None, xonxoff=0, rtscts=0, dsrdtr=0)
-
+C:\Micropendous\Firmware\USBVirtualSerial-I2C>python  Test_I2C_EEPROM.py  COM3
+    Serial<id=0xba60d0, open=True>(port='COM3', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None, xonxoff=0, rtscts=0, dsrdtr=0)
 76543210 - Hex- Int - Read from DeviceAddress: 0x50 SubAddress: 0x5 Length: 01 Data: ['c']
-01100011 - 63 - 099
+01100011 - 77 - 099
 
-Wrote to DeviceAddress: 0x50 SubAddress: 0x77 Length: 02 Data: 0x5,0x77,
+Wrote to DeviceAddress: 0x50 SubAddress: 0x77 Length: 02 Data: 0x5,0x42,
 
-Wrote to DeviceAddress: 0x50 SubAddress: 0x79 Length: 02 Data: 0x7,0x79,
+Wrote to DeviceAddress: 0x50 SubAddress: 0x79 Length: 02 Data: 0x7,0x47,
 
-76543210 - Hex- Int - Read from DeviceAddress: 0x50 SubAddress: 0x5 Length: 05 Data: ['w', '\xff', 'y', '\xff', '\xff']
-01110111 - 77 - 119
+76543210 - Hex- Int - Read from DeviceAddress: 0x50 SubAddress: 0x5 Length: 05 Data: ['B', '\xff', 'G', '\xff', '\xff']
+01110111 - 42 - 66
 11111111 - ff - 255
-01111001 - 79 - 121
+01111001 - 47 - 71
 11111111 - ff - 255
 11111111 - ff - 255
 }}}
