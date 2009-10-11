@@ -1,7 +1,5 @@
 #summary Communicate with Micropendous board using Serial Port software and techniques
 
-Partial Draft!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_FreeRTOS` directory.
 
 *Purpose:* USBVirtualSerial_FreeRTOS combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with the preemptive [http://www.freertos.org/ FreeRTOS] kernel to enable programming Micropendous boards without worrying about USB.  All USB functionality is hidden.  The preemptive FreeRTOS kernel allows for multitasking user code and LUFA USB functions.
