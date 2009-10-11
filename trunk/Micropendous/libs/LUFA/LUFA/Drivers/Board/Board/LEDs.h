@@ -57,7 +57,7 @@
 
 
 	/* Micropendous boards do not have any LEDs */
-	#warning Micropendous boards have no LEDs, so the LUFA LED code does nothing.
+//	#warning Micropendous boards have no LEDs, so the LUFA LED code does nothing.
 
 
 	/* Preprocessor Checks: */
