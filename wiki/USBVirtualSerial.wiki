@@ -26,8 +26,10 @@ Note that your code should not busy-loop or block as this will interfere with US
 
 On the host side, `serialpy.py` is an example of serial communication and is explained in [Serial].
 
+The following is the core of this firmware and where your code should be placed.
+
 {{{
-/* Main_Task will run at lowest priority once initialization is complete */
+/* Main_Task will run periodically once initialization is complete */
 void Main_Task(void)
 {
   int localTempByte = 0;  // temporary storage - integer (16-bit)
