@@ -17,7 +17,7 @@ Compile and load the [MicropendousKeyboardTest] firmware onto your USB AVR by fo
 
 == Firmware Design ==
 
-Copied from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project's [Keyboard] demo with code to test which pin is currently being GND'ed and send its name.
+Copied from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project's Keyboard demo with code to test which pin is currently being GND'ed and send its name.
 
 Some setup code in `main()` to make all relevant pins input pins:
 {{{
