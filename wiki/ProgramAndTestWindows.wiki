@@ -92,7 +92,7 @@ If you feel more comfortable in a graphical environment, read [SettingUpProgramm
 
 Now that your firmware is loaded, connect GPIO pins to GND to type the corresponding pin's name.  For example, GND'ing pin PB2 will type `b2`.  Pressing the HWB button will type `e2` as it is connected to pin PE2.  *DO NOT Connect GND and VCC or VBUS* as this will short your PC's USB power supply and may damage your computer or your Micropendous board.
 
-  http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_HWB_button.jpg
+  http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsQuickStart_HWB_button.jpg
 
 === Communication Testing ===
 
