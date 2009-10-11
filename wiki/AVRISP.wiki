@@ -1,7 +1,5 @@
 #summary LUFA AVR ISP mkII clone AVR programmer
 
-DRAFT!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/AVRISP` directory.  Copied directly from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project.
 
 *Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808 AVRISP mkII In-System Programmer].  Allows in-system programming of other AVRs, including another Micropendous board's [BootloaderDFU USB Bootloader].
@@ -33,11 +31,21 @@ You can either program your target AVR using [http://www.atmel.com/dyn/products/
 Start a *Command Prompt* under _Windows_ or a *Terminal* under _Linux_.  Change to the directory with the firmware you will upload to the target AVR.  You may need to run the following with `sudo` under _Linux_.  Run the following command:
 
 {{{
-avrdude -vv -F -P usb -c avrispmkII -p usb1287
+avrdude -vv -F -P usb -c avrispmkII -p m32
 }}}
 
-which will check the connection to an AT90USB1287 IC.  To program a file called "FIRMWARE.hex", run the following command:
+which will check the connection to an ATmega32 IC.  To program a file called "FIRMWARE.hex", run the following command:
 
 {{{
-avrdude -vv -F -P usb -c avrispmkII -p usb1287 -U flash:w:FIRMWARE.hex
+avrdude -vv -F -P usb -c avrispmkII -p m32 -U flash:w:FIRMWARE.hex
+}}}
+
+Remember to change `m32` to your target AVR's nickname.
+
+=== Using AVRdude to Program the Bootloader of another Micropendous Board ===
+
+Change to the `/Micropendous/Firmware/BootloaderDFU` directory.  Edit the `makefile` to create a bootloader for your target AVR.  Run `make` to compile.  Run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
+
+{{{
+avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:FIRMWARE.hex
 }}}
