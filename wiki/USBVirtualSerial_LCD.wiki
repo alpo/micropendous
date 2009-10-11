@@ -10,25 +10,15 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Status*: Working
 
+= Uasge =
 
-== Usage ==
-
-How to use.
-
-== Firmware Design ==
-
-How it was coded.
-
-
-== Introduction ==
+Compile and load the USBVirtualSerial_LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 The HD44780 LCD pictured below is a [http://www.lumex.com/pdf/LCM-S01602DTR+M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=67-1781-ND Digi-Key.com] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD-1.jpg
+== Connecting a Micropendous Board to a HD44780 LCD ==
 
-== Connecting an Micropendous to a HD44780 LCD ==
-
-To save pins the 4-bit HD44780 communication protocol is used.  You can modify the port being used and associated pins in `/Micropendous/Firmware/USBVirtualSerial-LCD/lcdconf.h`.
+To save pins the 4-bit HD44780 communication protocol is used.  You can modify the port being used and associated pins in `/Micropendous/Firmware/USBVirtualSerial-LCD/lcdconf.h`.  This is explained later.
 
 The connections are as follows for the standard firmware:
 
@@ -44,13 +34,11 @@ The connections are as follows for the standard firmware:
 || PB6 || Data6 || 13 ||
 || PB7 || Data7 || 14 ||
 
+== Testing ==
 
+Plug your Micropendous board into your PC.  Connect to the board with a serial port terminal following the [Serial] instructions.  Anything you type will echo back to the terminal and will also be displayed on the LCD.
 
-== Usage ==
-
-Plug the Micropendous board into your PC.  Connect to the board with a serial port terminal (instructions for [SerialPortUsageWindows Windows] and [SerialPortUsageLinux Linux] are available).  Anything you type will echo back to the terminal and will also be displayed on the LCD.
-
-== Firmware Design Overview ==
+= Firmware Design =
 
 The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBVirtualSerial] firmware.
 
