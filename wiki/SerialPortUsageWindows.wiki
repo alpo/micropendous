@@ -86,7 +86,7 @@ The following is Python code for basic Serial Port Communication:
 {{{
 import serial
 
-ser = serial.Serial(4)
+ser = serial.Serial('COM7')
 
 print ser
 
@@ -99,13 +99,13 @@ print ser.readline()
 ser.close()
 }}}
 
-To run the above Python code, save it into a text file with the file extension`.py`.  For example `SerialPy.py`.  A slightly more complex version with command-line COM port selection is [http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBVirtualSerial/serialpy.py available].  You can run the code from a _Command Prompt_ with `python serialpy.py COM7`.
+To run the above Python code, save it into a text file with the file extension`.py`.  For example `SerialPy.py`.  A slightly more complex version with command-line COM port selection is [http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBVirtualSerial/serialpy.py available].  You can run the code from a _Command Prompt_ with `python serialpy.py  COM7`.
 
 Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/Object_oriented Object-Oriented].
 
 `import serial` adds the !PySerial library to your Python code.
 
-`ser = serial.Serial(4)` creates a `Serial` object attached to the 5th COM port, COM5 (note counting starts at 0).  This object is named `ser`.  The code for the serial object is in the `serial` library imported on the previous line, hence the `serial.`.
+`ser = serial.Serial('COM7')` creates a `Serial` object attached to the COM7 port.  This object is named `ser`.  The code for the serial object is in the `serial` library imported on the previous line, hence the `serial.`.
 
 `print ser` just dumps all information regarding the serial port you have attached the `ser` object to.  It is not necessary but useful for debugging.
 
