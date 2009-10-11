@@ -2,8 +2,6 @@
 
 A version of this page for Linux is also [ProgramAndTestLinux available].
 
-= Loading Firmware =
-
 *Table of Contents*
  * Installing Drivers
  * Loading Firmware
@@ -17,7 +15,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Enter_Bootloader.jpg
 
-=== Installing Drivers ===
+= Installing Drivers =
 
  * Windows should notice your Micropendous board in bootloader mode and ask for Driver installation
 
@@ -43,7 +41,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsDriverInstallTutorial_FoundNewHardware.jpg
 
-=== Loading Firmware ===
+= Loading Firmware =
 
  * Start a Command Prompt.  If you do not have shortcut, run it via _Start_ -> _Run_ -> `cmd`
 
@@ -83,18 +81,18 @@ BOARD = USER
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-05.jpg
 
 
-=== Using a GUI Editor for Development ===
+= Using a GUI Editor for Development =
 
 If you feel more comfortable in a graphical environment, read [SettingUpProgrammersNotepad] for instructions on using [http://sourceforge.net/projects/pnotepad/ Programmer's Notepad] for development.  It comes with [http://winavr.sourceforge.net/ WinAVR] and allows the above firmware uploading to be automated by a single menu item once the above set-up is performed.
 
 
-=== Testing ===
+= Testing =
 
 Now that your firmware is loaded, connect GPIO pins to GND to type the corresponding pin's name.  For example, GND'ing pin PB2 will type `b2`.  Pressing the HWB button will type `e2` as it is connected to pin PE2.  *DO NOT Connect GND and VCC or VBUS* as this will short your PC's USB power supply and may damage your computer or your Micropendous board.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/WindowsQuickStart_HWB_button.jpg
 
-=== Communication Testing ===
+= Communication Testing =
 
 Keyboard firmware may be useful but it is limited to transferring a maximum of 6 characters per keyboard report.  There is also significant overhead in the HID (Human Interface Device) USB class.
 
