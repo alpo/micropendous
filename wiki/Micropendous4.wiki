@@ -73,6 +73,6 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Enable_OTG_Micropendous4.j
 
 == Removing your Micropendous4 from a Breadboard ==
 
-Be careful when removing your Micropendous4 from a Breadboard.  Make sure not to damage the SRAM IC.  Use a mini screwdriver to pry one corner, then another, then another, etc...  It should take you about 20 or so careful corner nudges before the Micropendous4 will separate from a breadboard.
+Be careful when removing your Micropendous4 from a Breadboard.  Be careful not to damage the SRAM IC.  Use a mini screwdriver to pry one corner, then another, then another, then start from the first, etc...  It should take you about 20 or so careful corner nudges before the Micropendous3 will separate from a breadboard.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/Remove_From_Breadboard_Micropendous4.jpg
