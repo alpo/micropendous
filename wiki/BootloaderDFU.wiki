@@ -13,4 +13,4 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Edit the project's `makefile` for your target USB AVR.  Make sure to alter the `MCU`, `BOOT_START`, `F_CPU`, and `BOARD` settings if necessary.  Then compile the firmware and program it onto your USB AVR by following the instructions in [AVRISP].
+Edit the project's `makefile` for your target USB AVR.  Make sure to alter the `MCU`, `BOOT_START`, `F_CPU`, and `BOARD` settings if necessary.  Then compile the firmware and program it onto your USB AVR by following the instructions in [AVRISP].  Or use some other AVR programmer.  All the USB AVRs support ISP programming.
