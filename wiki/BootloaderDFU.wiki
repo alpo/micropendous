@@ -1,20 +1,16 @@
 #summary USB Bootloader for Micropendous Boards
 
-DRAFT!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/BootloaderDFU` directory.  Copied directly from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project.
+
+*Purpose:* Allows new firmware to be uploaded to your Micropendous board over its USB connection.  No need for an external programmer.
 
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
-*USB Mode:* Device-mode enumerating as custom USB class
+*USB Mode:* Device-mode enumerating as Custom-Class USB device
 
 *Status:* _Working_
 
 
 == Usage ==
 
-How to use.
-
-== Firmware Design ==
-
-How it was coded.
+Edit the project's `makefile` for your target USB AVR.  Make sure to alter the `MCU`, `BOOT_START`, `F_CPU`, and `BOARD` settings if necessary.  Then compile the firmware and program it onto your USB AVR by following the instructions in [AVRISP].
