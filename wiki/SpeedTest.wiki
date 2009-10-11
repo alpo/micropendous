@@ -13,13 +13,27 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Under Linux you would run the throughput tests using `make linux` after programming your Micropendous board with the SpeedTest firmware.  Under Windows it would be `make win`.  Under Windows you first need to install [http://www.mingw.org/ MingW] and [http://libusb-win32.sourceforge.net/ LibUSB-Win32] according to [SetupLibUSBWindows].
+Compile and load the SpeedTest firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
+Under Linux you would run the throughput tests using `sudo make linux` after programming your Micropendous board with the SpeedTest firmware.  Under Windows it would be `make win`.  Under Windows you first need to install [http://www.mingw.org/ MingW] and [http://libusb-win32.sourceforge.net/ LibUSB-Win32] according to [SetupLibUSBWindows].
 
 === Throughput Testing Results ===
 
 _* Linux - AT90USB1287 with 16Mhz Crystal*_
 {{{
-
+Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
+   16,	    5.33,	    5.33
+   32,	   10.66,	   10.66
+   64,	   21.33,	   21.33
+  128,	   42.61,	   42.59
+  256,	   85.15,	   85.00
+  512,	  128.02,	  170.70
+ 1024,	  204.16,	  256.06
+ 2048,	  290.46,	  408.49
+ 4096,	  372.50,	  585.48
+ 8192,	  431.34,	  683.12
+16384,	  468.32,	  743.16
+32768,	  468.32,	  745.27
 }}}
 
 _* Linux - ATmega32U4 with 8Mhz Crystal*_
@@ -63,19 +77,30 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
 
 === Throughput Testing Explanation ===
 
+You may want to first read [BasicUSBDeviceOverview] for a basic overview of USB.  The following is the legend used in later diagrams.
 
-USB_Transfers_Legend.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_Legend.jpg
 
-USB_Transfers_SinglePacket.jpg
+USB is a bussed architecture so all devices share the same connection but communicate through different addresses.  There is also a 0 address which newly connected devices use to make their presence known.  The USB Host controls all communication and tries to fairly share the bus among all connected devices.  For Full Speed USB (12Mbit/s) each second is partitioned into millisecond (1000ms = 1second) chunks and allocated to each connected device.  If you only have one device connected then each ms (aside from the occasional 0 address requests for new devices) the host will start communicating with your device.  Either asking if it has data or wants to receive data.  This is why small transfers top out at their transfer size.  For example, if using 16byte blocks then 1000 times per second 16 bytes will be transferred for a throughput of 16kbytes/s.  The rest of the time the USB bus is idle or sending control data.
 
-USB_Transfers_MultiplePackets.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_SinglePacket.jpg
 
+Larger block sizes require the connection to remain opened as more data is transferred per transaction.
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_MultiplePackets.jpg
+
+The declining throughput of the USB AVRs using the 8MHz crystal are the result of the AVR not being able to keep up.  Note the USB AVRs are not rated to run at 3.3V when using a 16MHz crystal so there is a trade-off between functionality.  However, even the 16MHz clocked USB AVRs cannot do significantly more than just this basic read/write.  Any data required for sending must be already stored in SRAM as any delays will cause more overhead on the USB bus as your USB AVR signals to the host it has stalled.  Maximum throughput for your particular application can be attained through trial-and-error of the different settings.
 
 _Note_: The source `.svg` file for the USB transfer notes above is [http://code.google.com/p/micropendous/source/browse/trunk/Pictures/USB_Transfers.svg available] under the [http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution License].
 
 
-The USB_Transfers.svg
 
 == Firmware Design ==
 
-How it was coded.
+This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s AudioInput firmware demo.  This firmware and the throughput testing software was written by [http://www.ilmarin.info ilmarin].
+
+There are two `// TODO` lines near the bottom of `SpeedTest.c` which just transfer a count value stored in the `temp` variable.  These are the only lines that need to be altered to adapt the firmware to your own project.
+
+`DeviceAccessC.c` is the cross-platform [http://libusb.sourceforge.net/ LibUSB]-based software that performs the throughput testing.  The functions `run_write_benchmark` and `run_read_benchmark` loop over the size of the main buffer and send a `block_size` chunk each transfer.  You can adapt these functions to your application by simply filling the `buffer` with your own data.
+
+In `main()` the `for(i=4;i<16;i++)` loop runs the above functions with different block sizes.  You can adapt this to your own application by changing what happens in this loop.  The rest of the code sets up the USB interface.  The `usb_set_debug(255);` line can be commented out if you do not want USB debugging messages.
