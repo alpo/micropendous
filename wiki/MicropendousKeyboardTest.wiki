@@ -2,6 +2,8 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/ MicropendousKeyboardTest` directory.
 
+*Purpose:* Test pin connectivity or use as a keyboard that sends custom test depending on which pin is GND'ed.
+
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as HID (Human Interface Device) Keyboard
@@ -29,3 +31,5 @@ Then a mass of code in `CreateKeyboardReport()` to test which pin is GND'ed:
   ReportData->KeyCode[0] = 0x05; //b
   ReportData->KeyCode[1] = 0x1E; //1
 }}}
+
+The `ReportData->KeyCode[1]` array can store up to 6 characters.  However, most Operating Systems ignore rapidly typed characters so each adjacent character in the array must be different.
