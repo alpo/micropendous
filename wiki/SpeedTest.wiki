@@ -89,7 +89,7 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
 
 === Throughput Testing Explanation ===
 
-You may want to first read [BasicUSBDeviceOverview] for a basic overview of USB.  The following is the legend used in later diagrams.
+You may want to first read [BasicUSBDeviceOverview] for a basic overview of USB.  Or read [http://www.beyondlogic.org/usbnutshell/ USB in a Nutshell] for a more thorough overview of USB which the following is based on.  The following is the legend used in later diagrams.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_Legend.jpg
 
