@@ -13,7 +13,92 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-How to use.
+Under Linux you would run the throughput tests using `make linux` after programming your Micropendous board with the SpeedTest firmware.  Under Windows it would be `make win`.  Under Windows you first need to install [http://www.mingw.org/ MingW] and [http://libusb-win32.sourceforge.net/ LibUSB-Win32] according to [SetupLibUSBWindows].
+
+=== Throughput Testing Results ===
+
+* Linux - AT90USB1287 with 16Mhz Crystal*
+{{{
+
+}}}
+
+* Linux - ATmega32U4 with 8Mhz Crystal*
+{{{
+
+}}}
+
+* Windows - AT90USB1287 with 16Mhz Crystal*
+{{{
+Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
+
+   16,     16.00,          16.00
+
+   32,     31.97,          31.99
+
+   64,     63.97,          64.04
+
+  128,    128.07,         128.07
+
+  256,    255.17,         256.14
+
+  512,    512.28,         512.28
+
+ 1024,   1016.80,         512.28
+
+ 2048,   1016.80,         684.78
+
+ 4096,   1016.80,         818.40
+
+ 8192,   1016.80,         906.88
+
+16384,   1016.80,         906.88
+
+32768,   1016.80,         945.20
+}}}
+
+* Windows - ATmega32U4 with 8Mhz Crystal*
+{{{
+Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
+
+   16,     16.00,          16.00
+
+   32,     31.99,          32.00
+
+   64,     63.97,          64.04
+
+  128,    128.07,         128.07
+
+  256,    255.17,         256.14
+
+  512,    512.28,         512.28
+
+ 1024,    512.28,         512.28
+
+ 2048,    684.78,         684.78
+
+ 4096,    818.40,         818.40
+
+ 8192,    818.40,         818.40
+
+16384,    818.40,         860.37
+
+32768,    838.86,         883.01
+}}}
+
+=== Throughput Testing Explanation ===
+
+
+USB_Transfers_Legend.jpg
+
+USB_Transfers_SinglePacket.jpg
+
+USB_Transfers_MultiplePackets.jpg
+
+
+_Note_: The source `.svg` file for the USB transfer notes above is [http://code.google.com/p/micropendous/source/browse/trunk/Pictures/USB_Transfers.svg available] under the [http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution License].
+
+
+The USB_Transfers.svg
 
 == Firmware Design ==
 
