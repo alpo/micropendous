@@ -43,11 +43,11 @@ uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 static ParameterItem_t ParameterTable[] = 
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
-		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8),
+		  .ParamValue       = (1 >> 8),	// had to remove LUFA_VERSION_INTEGER as it was not compiling
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_BUILD_NUMBER_HIGH,
-		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),
+		  .ParamValue       = (1 & 0xFF), // had to remove LUFA_VERSION_INTEGER as it was not compiling
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_HW_VER,
