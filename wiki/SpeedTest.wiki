@@ -109,7 +109,7 @@ _Note_: The source `.svg` file for the USB transfer notes above is [http://code.
 
 == Firmware Design ==
 
-This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s AudioInput firmware demo.  This firmware and the throughput testing software was written by [http://www.ilmarin.info ilmarin].
+This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !AudioInput firmware demo.  This firmware and the throughput testing software was written by [http://www.ilmarin.info ilmarin].
 
 There are two `// TODO` lines near the bottom of `SpeedTest.c` which just transfer a count value stored in the `temp` variable.  These are the only lines that need to be altered to adapt the firmware to your own project.
 
