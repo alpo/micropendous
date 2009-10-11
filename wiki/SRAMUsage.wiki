@@ -1,7 +1,5 @@
 #summary How to use the External SRAM on a Micropendous4 board.
 
-DRAFT!
-
 The SRAM IC used is the [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D] which has 17-bit address space.
 
 Note pin PE6 controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.  If you must use these other pins, make sure the SRAM chip is disabled by setting PE6 high.
