@@ -25,4 +25,4 @@ Run the Python test program with `python TestSRAM.py COM5 0` where `COM5` is the
 
 This is just [USBVirtualSerial] with a command interface for reading and writing to the external SRAM.  More info on how the SRAM is accessed is [http://www.micropendous.org/SRAM available].  SRAM is accessed via the _"Slightly Complex"_ array method.
 
-The `TestEXTSRAM()` also function performs several tests on the external SRAM.
+The `TestEXTSRAM()` function also performs pattern tests on the external SRAM.
