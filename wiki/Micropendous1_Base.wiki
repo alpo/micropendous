@@ -1,6 +1,6 @@
 #summary Open Hardware Development Board for the AT90USB162
 
-Micropendous1-Base is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB162 AT90USB162] USB AVR Microcontroller.  It is designed to be very thin an yet still allow prototyping with wire.
+Micropendous1-Base is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB162 AT90USB162] USB AVR Microcontroller.  It is designed to be very thin and yet still allow prototyping with wire.
 
 The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous1-Base` directory.
 
