@@ -8,7 +8,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as Compound USB Device -  USB Virtual Serial Port and HID Keyboard
 
-*Status:* Works under Windows, fails under Linux.  Still under development.
+*Status:* _Under Development._.  Works under Windows, fails under Linux.
 
 
 == Usage ==
