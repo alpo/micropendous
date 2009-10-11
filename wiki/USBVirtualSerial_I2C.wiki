@@ -89,7 +89,7 @@ A more useful version of the above with command-line Serial Port selection is in
 {{{
 
 C:\Micropendous\Firmware\USBVirtualSerial-I2C>python  Test_I2C_EEPROM.py  COM3
-    Serial<id=0xba60d0, open=True>(port='COM3', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None, xonxoff=0, rtscts=0, dsrdtr=0)
+Serial<id=0xba60d0, open=True>(port='COM3', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=None, xonxoff=0, rtscts=0, dsrdtr=0)
 76543210 - Hex- Int - Read from DeviceAddress: 0x50 SubAddress: 0x5 Length: 01 Data: ['c']
 01100011 - 77 - 099
 
