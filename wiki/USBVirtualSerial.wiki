@@ -34,7 +34,7 @@ void Main_Task(void)
 {
   int localTempByte = 0;  // temporary storage - integer (16-bit)
 
-  // If the host has sent data then process it - need this to prevent busy-looping
+  // If the host has sent data then process it - need this to prevent the use of busy-loops
   while (haveData()) {
       // store data temporarily then send it right back - raw binary
       localTempByte = getData(stdin); // store received binary data
