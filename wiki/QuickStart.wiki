@@ -31,7 +31,7 @@ The first step is to choose which Operating System you will be using for develop
   * More Firmware Examples Included in the latest [http://code.google.com/p/micropendous/downloads/list Distribution]:
    * [AVRISP] - LUFA AVR ISP mkII clone AVR programmer
    * [BootloaderDFU] - LUFA Bootloader for the USB AVRs
-   * [MassStorage_MMC_SD_SPI_Mode] - Mass Storage device demo that read/writes data to a MMC or SD card connected in SPI mode
+   * [MassStorage_MMC_SD_SPI_Mode] - Mass Storage device demo using MMC or SD card connected in SPI mode
    * [Micropendous] - Combined [LUFAduino] and [MicropendousKeyboardTest].  GND'ing pins types their name.
    * [MicropendousKeyboardTest] - Keyboard demo to test pin connectivity.  GND'ing pins types their name.
    * [SRAM_Test] - firmware and software to test a [http://www.Micropendous.org/Micropendous4 Micropendous4]'s external [http://www.Micropendous.org/SRAM SRAM]
