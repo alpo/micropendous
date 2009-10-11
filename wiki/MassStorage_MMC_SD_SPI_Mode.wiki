@@ -8,7 +8,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as Mass Storage device
 
-*Status:* Working
+*Status:* _Working_
 
 
 == Usage ==
