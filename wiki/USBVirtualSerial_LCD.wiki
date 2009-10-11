@@ -24,16 +24,7 @@ How it was coded.
 
 The HD44780 LCD pictured below is a [http://www.lumex.com/pdf/LCM-S01602DTR+M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=67-1781-ND Digi-Key.com] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.
 
-
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD-1.jpg
-
-== Table of Contents ==
-
- * Connecting an Micropendous to a HD44780 LCD
- * Usage
- * Connecting an Micropendous to a HD44780 LCD using 2 Ports
- * Firmware Design Overview
- * Using Python to Control the LCD
 
 == Connecting an Micropendous to a HD44780 LCD ==
 
@@ -59,11 +50,100 @@ The connections are as follows for the standard firmware:
 
 Plug the Micropendous board into your PC.  Connect to the board with a serial port terminal (instructions for [SerialPortUsageWindows Windows] and [SerialPortUsageLinux Linux] are available).  Anything you type will echo back to the terminal and will also be displayed on the LCD.
 
-== Connecting an Micropendous to a HD44780 LCD using 2 Ports ==
+== Firmware Design Overview ==
 
-The version that uses a full 8-bit data bus is slightly faster.
+The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBVirtualSerial] firmware.
 
-In directory:
+The first step is to examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
+
+Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial_LCD` directory.
+
+Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting.  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
+
+{{{
+TARGET = USBVirtualSerial_LCD
+}}}
+
+{{{
+SRC = $(TARGET).c            \
+    Descriptors.c            \
+    Lib/RingBuff.c           \
+    $(AVRLIB_PATH)/rprintf.c \
+    $(AVRLIB_PATH)/lcd.c     \
+    $(AVRLIB_PATH)/timer.c   \
+...
+}}}
+
+Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 20 characters.  Data is sent over `PortB` using a 4bit interface.  This configuration was chosen as `PortB` exists on all USB AVRs.
+
+{{{
+#ifdef LCD_PORT_INTERFACE
+    #define LCD_CTRL_PORT   PORTB
+    #define LCD_CTRL_DDR    DDRB
+    #define LCD_CTRL_RS     0
+    #define LCD_CTRL_RW     1
+    #define LCD_CTRL_E      2
+    // port you will use for data lines
+    #define LCD_DATA_POUT   PORTB
+    #define LCD_DATA_PIN    PINB
+    #define LCD_DATA_DDR    DDRB
+    // access mode you will use (default is 8bit unless 4bit is selected)
+    #define LCD_DATA_4BIT
+    ...
+
+#define LCD_LINES           2
+#define LCD_LINE_LENGTH     20
+
+}}}
+
+
+Next `global.h` must be edited to remove `F_CPU` defines, as the `makefile` defines this variable.
+
+Next, in `main()` of `USBVirtualSerial_LCD.c`, the LCD functions must be initialized:
+
+{{{
+  lcdInit();
+  rprintfInit(lcdDataWrite); // direct rprintf to LCD
+  rprintf("Welcome to AVRlib!");
+  lcdClear();
+}}}
+
+Finally, while data from the host is in the input buffer, send it to the LCD and back to the host.  Make sure characters past the end of the second line get sent back to the start.
+
+{{{
+void Main_Task(void)
+{
+  uint8_t tempChar = 0;   // temporary storage - unsigned 8-bit integer
+
+  // while the buffer has elements, write them to the LCD
+  while (haveData()) {
+  /* Basically each character is written sequentially, first to the top line, then to the next, etc... */
+    tempChar = getData(stdin);
+    sendData(tempChar, stdout); // send char back for echo'ing on terminal
+    rprintfChar(tempChar);
+    character_count++;
+    // once we hit the end of a single line, loop to next line
+    if (character_count >= LCD_LINE_LENGTH) {
+      character_count = 0;
+      current_line++;
+      // once we hit the end of the last line, loop to the first line
+      if (current_line >= LCD_LINES) {
+        current_line = 0;
+      }
+      lcdGotoXY(0, current_line);
+    }
+  }
+}
+}}}
+
+Note that there are also some global `define`s, for `character_count` and `current_line`.
+
+The firmware will not function unless an LCD display is connected as `lcdInit()` blocks.
+
+
+= Connecting a Micropendous to a HD44780 LCD using 2 Ports =
+
+The version that uses a full 8-bit data bus is slightly faster.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
 
 The connections are as follows:
 
@@ -83,96 +163,27 @@ The connections are as follows:
 || PB6 || Data6 || 13 ||
 || PB7 || Data7 || 14 ||
 
-
-== Firmware Design Overview ==
-
-The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBtoSerial] firmware.
-
-The first step is to examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
-
-Files `global.h` and `lcdconf.h` must be copied to the `USBtoSerial` directory.
-
-Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting.  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
-
-{{{
-TARGET = USB_Serial_Port-LCD
-}}}
-
-{{{
-SRC = $(TARGET).c                   \
-          Descriptors.c             \
-          RingBuff.c                \
-          ../../avrlib/rprintf.c    \
-          ../../avrlib/lcd.c        \
-          ../../avrlib/timer.c      \
-...
-
-}}}
-
-Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 20 characters.  Data is sent over `PortB` and control signals are on `PortC`.  This configuration was chosen as `PortD` has an external pull-up resistor on PD7 (HWB), to disable bootloader during reset.
+You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to the following in order for USBVirtualSerial-LCD firmware to use 2 ports.  The key settings are:
 
 {{{
 #ifdef LCD_PORT_INTERFACE
+  #ifndef LCD_CTRL_PORT
+    // port and pins you will use for control lines
     #define LCD_CTRL_PORT   PORTC
     #define LCD_CTRL_DDR    DDRC
     #define LCD_CTRL_RS     7
     #define LCD_CTRL_RW     6
     #define LCD_CTRL_E      5
+  #endif
+  #ifndef LCD_DATA_POUT
     // port you will use for data lines
     #define LCD_DATA_POUT   PORTB
     #define LCD_DATA_PIN    PINB
     #define LCD_DATA_DDR    DDRB
-    ...
-
-#define LCD_LINES           2
-#define LCD_LINE_LENGTH     20
-
+    // access mode you will use (default is 8bit unless 4bit is selected)
+    //#define LCD_DATA_4BIT
+  #endif
+#endif
 }}}
 
-
-Next `global.h` must be edited to remove `F_CPU` defines, as the `makefile` defines this variable.
-
-
-Next, in `main()` of `USB_Serial_Port-LCD.c`, the LCD functions must be initialized:
-
-{{{
-    lcdInit();
-    rprintfInit(lcdDataWrite); // direct rprintf to LCD
-    rprintf("Welcome to AVRlib!");
-    lcdClear();
-}}}
-
-Finally, each time data is received from the host, send it to the LCD.  Make sure characters past the end of the second line get sent back to the start.
-
-{{{
-TASK(CDC_Task)
-{
-    ...
-    if (USB_IsConnected)
-    {
-        ....
-        if (Endpoint_ReadWriteAllowed())
-            ...
-            while (Endpoint_BytesInEndpoint())
-                ...
-                while (!((BUFF_STATICSIZE - Rx_Buffer.Elements)));
-                        
-                    Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
-
-                    tempchar = Buffer_GetElement(&Rx_Buffer);
-                    Buffer_StoreElement(&Tx_Buffer, tempchar); // echo character back
-                    rprintfChar(tempchar);
-                    character_count++;
-                    if (character_count >= LCD_LINE_LENGTH) {
-                        character_count = 0;
-                        current_line++;
-                        if (current_line >= LCD_LINES) {
-                            current_line = 0;
-                        }
-                        lcdGotoXY(0, current_line);
-                    }
-}}}
-
-Note that there are also some global `define`s, for `character_count` and `current_line`.
-
-The firmware will not function unless an LCD display is connected as `lcdInit()` blocks.
+Unlike the 1 port version `#define LCD_DATA_4BIT` needs to be commented out and the `LCD_CTRL` port settings must use PortC pins 5,6,7.
