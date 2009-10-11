@@ -22,10 +22,10 @@ The first step is to choose which Operating System you will be using for develop
 
   * Develop Firmware:
    * [FirmwareDevelopment Choose Development Complexity]
-    * [LUFAduino] Use [http://www.arduino.cc Arduino] code and style
-    * [USBVirtualSerial_FreeRTOS] Program AVR directly but ignore USB
-    * [USBVirtualSerial] Program AVR directly and customize USB handling
-    * [LoopBack] Program AVR directly and use custom USB class
+    * [LUFAduino] - Use [http://www.arduino.cc Arduino] code and style
+    * [USBVirtualSerial_FreeRTOS] - Program AVR directly but ignore USB
+    * [USBVirtualSerial] - Program AVR directly and customize USB handling
+    * [LoopBack] - Program AVR directly and use custom USB class for maximum throughput
      * [SetupLibUSBWindows] Setting up for [http://libusb-win32.sourceforge.net/ LibUSB-Win32] development under Windows
 
   * More Firmware Examples Included in the latest [http://code.google.com/p/micropendous/downloads/list Distribution]:
