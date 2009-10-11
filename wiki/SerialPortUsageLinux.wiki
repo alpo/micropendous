@@ -105,11 +105,14 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 `ser.close()` just closes the serial port so that other programs may access it.
 
-*Some useful Python resources:*
+=== Some useful Python resources ===
 
 [http://rgruet.free.fr/PQR25/PQR2.5.html Python Quick Reference] is very handy.
+
 [http://pypi.python.org/pypi Python Package Index] has Open Source Python libraries for just about any task you could think of.
+
 [http://pyserial.wiki.sourceforge.net/pySerial PySerial Wiki] has more info on the !PySerial library.
+
 
 == Next ==
 
