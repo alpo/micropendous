@@ -13,7 +13,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 = Quick Start =
 
-Plug in Micropendous board [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows loaded with USBVirtualSerial-ADC firmware] into a PC.  Connect to it with a serial port terminal (instructions for [SerialPortUsageWindows Windows] and [SerialPortUsageLinux Linux] are available), then type 0 or 1 to get back the value of ADC channel 0 or 1, respectively.  The first value is the ADC value and the second is the 32-bit value of Timer1.
+Plug in your Micropendous board [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows loaded] with USBVirtualSerial-ADC firmware into a PC.  Connect to it with a serial port terminal.  [Serial Serial instructions] are available.  Then type 0 or 1 to get back the value of ADC channel 0 or 1, respectively.  The first value is the ADC value and the second is the 32-bit value of Timer1.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_PuTTY-2.jpg
 
