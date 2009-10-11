@@ -15,7 +15,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 Current version of this firmware must be recompiled for each new MMC or SD card you plan to use.  Need to set the number of blocks.  Format your MMC or SD card using a standard Card Reader then note the number of bytes under the device's properties.  Divide the number by 512 to get the number of pages, then open `MassStorage_MMC_SD_SPI_Mode.h` and change `#define DATAFLASH_PAGES  1986976` to the number of pages for your specific card.
 
-Now compile and load the MassStorage_MMC_SD_SPI_Mode firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Now compile and load the !MassStorage_MMC_SD_SPI_Mode firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 == Firmware Design ==
 
