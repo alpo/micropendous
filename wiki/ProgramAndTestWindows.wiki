@@ -61,7 +61,7 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
 
- * There are three settings that need to be set: `MCU`, `F_CPU`, and `BOARD`.  For a Micropendous4 board based on the AT90USB1287 with a 16MHz clock, the settings would be:
+ * There are three settings that need to be set: `MCU`, `F_CPU`, and `BOARD`.  For a [Micropendous4] board based on the AT90USB1287 with a 16MHz clock, the settings would be:
   {{{
 MCU = at90usb1287
 F_CPU = 16000000
