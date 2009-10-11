@@ -6,7 +6,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port
 
-*Targets:* Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with more than 2kbytes of SRAM.
+*Targets:* [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards with more than 2kbytes of SRAM.
 
 *Status:* _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
@@ -20,9 +20,9 @@ USBVirtualSerial-FreeRTOS programmed devices will enumerate as a Virtual Serial 
 
 This firmware is based on [USBVirtualSerial].  The preemptive [http://www.freertos.org/FreeRTOS] kernel was added to allow multi-tasking and hide USB functionality from the programmer.  Standard `stdin` and `stdout/stderr` streams are created in `main()` and linked to the USB Virtual Serial Port.  This means you can use standard `printf` and `getchar` functions to read and write data over the USB connection.  Just place your code in `Main_Task()`.  See [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html avr-libc stdio] for detailed instructions on using these functions.
 
-On the host side, `serialpy.py` is an example of serial communication and is explained in [Serial].
-
 _Note:_ DO NOT alter Timer1 settings as it is used by FreeRTOS.
+
+The example is very simple.  `haveData()` checks if data has been received from the host and then `getData()` and `sendData()` send it back over the USB serial connection.
 
 {{{
 /* Main_Task will run at lowest priority once initialization is complete */
@@ -44,6 +44,8 @@ void Main_Task(void)
 }
 }}}
 
-The above example is very simple.  `haveData()` checks if data has been received from the host and then `getData()` and `sendData()` send it back over the USB serial connection.
-
 Commented out are `printf()` and `getchar()` functions which perform the same task.  Note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store any constant strings.
+
+FreeRTOS use is accomplished by using `xTaskCreate()` to add `USB`, `CDC`, and `Main_Task` functions to the FreeRTOS kernel and then starting the kernel with `vTaskStartScheduler()` in `main()`.  Thus FreeRTOS handles the USB and user functions and separates their functionality.  User code (even if it busy-loops) cannot interfere with USB functionality as FreeRTOS pre-empts it by running USB functions periodically.
+
+On the host side, `serialpy.py` is an example of serial communication and is explained in [Serial].
