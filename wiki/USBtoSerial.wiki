@@ -1,8 +1,8 @@
 #summary USB Virtual Serial to UART Interface
 
-DRAFT!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBtoSerial` directory.
+
+*Purpose:* Communicate with other electronic devices over [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART].
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
@@ -12,13 +12,19 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
+Compile and load USBtoSerial firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
+Connections to other devices are as follows:
+
 || *Micropendous* || *UART* ||
-|| PD2 _(RXD1)_ || RX ||
-|| PD3 _(TXD1)_ || TX ||
-|| GND || GND ||
+|| PD2 _(RXD1)_   || RX ||
+|| PD3 _(TXD1)_   || TX ||
+|| GND            || GND ||
 
 == Testing ==
 
 Create a loopback by connecting PD2 _(RXD1)_ and PD3 _(TXD1)_ (the picture below is incorrect but you get the idea).
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/SerialLoopback_D0D1_Micropendous4.jpg
+
+Follow the instructions in [Serial] to connect to the device using a serial terminal and any characters you type will be looped back but only while the loopback wire is in place.
