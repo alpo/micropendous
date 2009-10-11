@@ -19,7 +19,7 @@ Under Linux you would run the throughput tests using `sudo make linux` after pro
 
 === Throughput Testing Results ===
 
-_* Linux - AT90USB1287 with 16Mhz Crystal*_
+_* Linux i686 - AT90USB1287 with 16Mhz Crystal*_
 {{{
 Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
    16,	    5.33,	    5.33
@@ -36,7 +36,7 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
 32768,	  468.32,	  745.27
 }}}
 
-_* Linux - ATmega32U4 with 8Mhz Crystal*_
+_* Linux i686 - ATmega32U4 with 8Mhz Crystal*_
 {{{
 Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
    16,	    5.33,	    5.33
