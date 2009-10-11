@@ -1,8 +1,10 @@
 #summary How to communicate over Serial using Micropendous USB Virtual Serial Ports
 
 
-Choose an Operating System:
+Choose the Operating System you are using:
 
 [SerialPortUsageLinux Linux]
 
 [SerialPortUsageWindows Windows]
+
+Go to [QuickStart] if you are lost.
