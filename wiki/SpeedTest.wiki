@@ -13,7 +13,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and load the SpeedTest firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the SpeedTest firmware onto your USB AVR by following the [ProgramAndTest] tutorial.  Windows drivers for SpeedTest are included in `/Micropendous/Firmware/SpeedTest`.
 
 Under Linux you would run the throughput tests using `sudo make linux` after programming your Micropendous board with the SpeedTest firmware.  Under Windows it would be `make win`.  Under Windows you first need to install [http://www.mingw.org/ MingW] and [http://libusb-win32.sourceforge.net/ LibUSB-Win32] according to [SetupLibUSBWindows].
 
