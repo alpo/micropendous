@@ -39,7 +39,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
  * PE2 (HWB) is pulled up to Vcc with a 47k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
- * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The four key variables you need to be mindful of are:
+ * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
 {{{
 MCU = at90usb646
 BOARD  = USER
