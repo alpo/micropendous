@@ -1,17 +1,81 @@
 #summary Custom-Class USB Device Firmware and Software Demo
 
-Draft!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/LoopBack` directory.
 
-* Status: * _Working_.
+*Purpose:* Communicate directly with a USB AVR device
 
-* USB Mode: * Device-mode enumerating as USB Virtual Serial
+*Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
-* Targets: * Micropendous1, Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards
+*USB Mode:* Device-mode enumerating as a Custom-Class USB device
+
+*Status:* Working
+
 
 == Usage ==
 
+Compile and load the LoopBack firmware onto your USB AVR by following the [ProgramAndTest] tutorial.  Windows drivers for LoopBack are included in `/Micropendous/Firmware/LoopBack/WindowsDriver`.
+
+Under Linux you would run the software communication example using `sudo make linux` after programming your Micropendous board with the LoopBack firmware.  Under Windows it would be `make win`.  Under Windows you first need to install [http://www.mingw.org/ MingW] and [http://libusb-win32.sourceforge.net/ LibUSB-Win32] according to [SetupLibUSBWindows].
+
+The software and firmware demos simply transfer data between the host and device.
 
 
 == Firmware Design ==
+
+This firmware is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !AudioInput firmware demo.
+
+The firmware is set up so that any data received from the host is placed into the `dataReceived` buffer and any data to be sent to the host is stored in the `dataToSend` buffer.  `ReceiveDataFromHost()` and `SendDataToHost()` perform the actually buffer receiving/sending.  `Main_Task()` runs periodically and in this demo simply transfers data from one buffer to the other, creating a loopback.
+
+{{{
+/** Main_Task will only run if USB is connected */
+void Main_Task(void)
+{
+  uint8_t i = 0;
+
+  if (USB_DeviceState != DEVICE_STATE_Configured) { return; }
+
+  ReceiveDataFromHost();  
+
+  for (i = 0; i < OUT_EP_SIZE; i++) {
+    dataToSend[i] = (uint8_t)(dataReceived[i]);
+  }
+
+  SendDataToHost();
+}
+}}}
+
+`DeviceAccessC.c` is the cross-platform [http://libusb.sourceforge.net/ LibUSB]-based software that communicates with your device.  The `for()` loop in `main()` is where all the actual data transfer occurs.  This is what you should alter.  See [http://libusb.sourceforge.net/doc/ libUSB Documentation] for more information.
+
+{{{
+/* TODO: this for() loop is where you should place your device interaction code */
+for (i = 0; i < 10 ; i++) {
+  // read data from the device...
+  ret = usb_interrupt_read(udev, IN_EP, buffer, IN_EP_SIZE, TIMEOUT);
+  printf("[Read] returned: %d bytes, first 8 bytes are:  \
+      (%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d)\n", \
+      ret, buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], \
+      buffer[6], buffer[7]);
+
+  // ...and then send the data back to the device
+  ret = usb_interrupt_write(udev, OUT_EP, buffer, OUT_EP_SIZE, TIMEOUT);
+  printf("[Write] returned: %d bytes successfully written\n", ret);
+}
+}}}
+
+There are also some important `#defines` for critical communication parameters such as addresses and endpoints.
+
+{{{
+#define VENDORID           0x03eb
+#define PRODUCTID          0x204F
+#define IN_EP              0x81
+#define IN_EP_SIZE         64
+#define OUT_EP             0x02
+#define OUT_EP_SIZE        64
+#define CONFIGNUM          1
+#define INTERFACENUM       0
+#define TIMEOUT            1500
+}}}
+
+The `usb_set_debug(255);` line can be commented out if you do not want USB debugging messages.  All other code is basic to libUSB functionality and should no be altered.
+
+`DeviceAccessPy.py` is a version of `DeviceAccessC.c` written in Python.  It requires [http://www.python.org/download/releases/2.5.4/ Python 2.5.4] and [http://developer.berlios.de/projects/pyusb/ PyUSB] to be installed.
