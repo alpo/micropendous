@@ -34,7 +34,7 @@ The first step is to choose which Operating System you will be using for develop
    * [MassStorage_MMC_SD_SPI_Mode] - Mass Storage device demo that read/writes data to a MMC or SD card connected in SPI mode
    * [Micropendous] - Virtual Serial Port loopback and Keyboard based on [LUFAduino] and [MicropendousKeyboardTest].  GND'ing pins types their name.
    * [MicropendousKeyboardTest] - Keyboard demo to test pin connectivity.  GND'ing pins types their name.
-   * [SRAM_Test] - firmware and software to test a [Micropendous4]'s external [http://www.Micropendous.org/SRAM SRAM]
+   * [SRAM_Test] - firmware and software to test a [http://www.Micropendous.org/Micropendous4]'s external [http://www.Micropendous.org/SRAM SRAM]
    * [SpeedTest] - firmware and software to test USB throughput written by [http://www.ilmarin.info ilmarin]
    * [USBVirtualSerial_ADC] - Get the current value of ADC pins using serial port software
    * [USBVirtualSerial_I2C] - Virtual Serial Port to [http://en.wikipedia.org/wiki/I2c I2C] interface
