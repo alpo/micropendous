@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBtoSerial` directory.
 
-*Purpose:* Communicate with other electronic devices over [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART].
+*Purpose:* Communicate with other electronic devices over the [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART] interface.
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
