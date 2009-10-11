@@ -9,7 +9,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial
 
-*Targets:* Micropendous2, Micropendous3, or Micropendous4, or other USB AVR boards with more than 2kbytes of SRAM.
+*Targets:* [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards with more than 2kbytes of SRAM.
 
 == Usage ==
 
