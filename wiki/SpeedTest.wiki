@@ -17,71 +17,47 @@ Under Linux you would run the throughput tests using `make linux` after programm
 
 === Throughput Testing Results ===
 
-* Linux - AT90USB1287 with 16Mhz Crystal*
+_* Linux - AT90USB1287 with 16Mhz Crystal*_
 {{{
 
 }}}
 
-* Linux - ATmega32U4 with 8Mhz Crystal*
+_* Linux - ATmega32U4 with 8Mhz Crystal*_
 {{{
 
 }}}
 
-* Windows - AT90USB1287 with 16Mhz Crystal*
+_* Windows - AT90USB1287 with 16Mhz Crystal*_
 {{{
 Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
-
    16,     16.00,          16.00
-
    32,     31.97,          31.99
-
    64,     63.97,          64.04
-
   128,    128.07,         128.07
-
   256,    255.17,         256.14
-
   512,    512.28,         512.28
-
  1024,   1016.80,         512.28
-
  2048,   1016.80,         684.78
-
  4096,   1016.80,         818.40
-
  8192,   1016.80,         906.88
-
 16384,   1016.80,         906.88
-
 32768,   1016.80,         945.20
 }}}
 
-* Windows - ATmega32U4 with 8Mhz Crystal*
+_* Windows - ATmega32U4 with 8Mhz Crystal*_
 {{{
 Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
-
    16,     16.00,          16.00
-
    32,     31.99,          32.00
-
    64,     63.97,          64.04
-
   128,    128.07,         128.07
-
   256,    255.17,         256.14
-
   512,    512.28,         512.28
-
  1024,    512.28,         512.28
-
  2048,    684.78,         684.78
-
  4096,    818.40,         818.40
-
  8192,    818.40,         818.40
-
 16384,    818.40,         860.37
-
 32768,    838.86,         883.01
 }}}
 
