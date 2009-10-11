@@ -1,18 +1,22 @@
 #summary Mass Storage Firmware Demo using MMC/SD Cards in SPI Mode
 
-DRAFT!
-
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/MassStorage_MMC_SD_SPI_Mode` directory.
 
-*Targets*: [Micropendous2] or any USB AVR with 1kb+ SRAM connected to a MMC/SD Card via SPI
+*Purpose:* Use your USB AVR to interface to a MMC or SD card.  More likely this firmware will be used to store data onto a MMC or SD card while the board is disconnected from a host and then use the USB Mass Storage interface to read the data from a PC.  For example, a sensor logger.
 
-*USB Mode*: Device-class enumerating as Mass Storage
+*Targets:* [Micropendous2] or any USB AVR with 1kb+ SRAM connected to a MMC/SD Card via SPI
 
-*Status*: Working
+*USB Mode:* Device-mode enumerating as Mass Storage device
+
+*Status:* Working
 
 
 == Usage ==
 
-Current version must be recompiled for each new microSD card you plan to use.  Need to set the number of blocks.
+Current version of this firmware must be recompiled for each new MMC or SD card you plan to use.  Need to set the number of blocks.  Format your MMC or SD card using a standard Card Reader then note the number of bytes under the device's properties.  Divide the number by 512 to get the number of pages, then open `MassStorage_MMC_SD_SPI_Mode.h` and change `#define DATAFLASH_PAGES  1986976` to the number of pages for your specific card.
+
+Now compile and load the MassStorage_MMC_SD_SPI_Mode firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 == Firmware Design ==
+
+Almost an exact copy of [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !MassStorage demo with the !DataFLASH code replaced by MMC and SD SPI mode code.  `DataflashManager.c/.h` were replaced by `MMC_SD_SPI.c/.h`.  MMC and SD SPI Mode functionality is taken from [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib/mmc.c mmc.c].
