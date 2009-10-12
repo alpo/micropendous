@@ -5,7 +5,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:*  [http://www.arduino.cc/ Arduino] is a popular physical computing platform with a [http://en.wikipedia.org/wiki/Arduino C/C++-based] API that simplifies programming of microcontrollers.  LUFAduino combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library, the [http://www.arduino.cc/ Arduino] library, and the preemptive [http://www.freertos.org/ FreeRTOS] kernel to enable programming Micropendous boards in Arduino code.  All USB functionality is hidden and USB Virtual Serial behaves like standard Serial on an Arduino board.  The preemptive FreeRTOS kernel allows the use of delays without interfering with USB functionality.  It also allows for multiple `loop()`s and multitasking.
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/LUFAduino view] or [http://www.Micropendous.org/Distribution download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/LUFAduino View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets:* [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards with more than 2kbytes of SRAM.
 
