@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/SpeedTest` directory.
 
-*Purpose:* Test various settings to determine the maximum throughput of your USB AVR.
+*Purpose:* Test various settings to determine the maximum throughput of your USB AVR.  This firmware and the throughput testing software was written by [http://www.ilmarin.info ilmarin].
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SpeedTest View] or [http://www.Micropendous.org/Distribution Download]
 
@@ -111,7 +111,7 @@ _Note_: The source `.svg` file for the USB transfer notes above is [http://code.
 
 == Firmware Design ==
 
-This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !AudioInput firmware demo.  This firmware and the throughput testing software was written by [http://www.ilmarin.info ilmarin].
+This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !AudioInput firmware demo.
 
 There are two `// TODO` lines near the bottom of `SpeedTest.c` which just transfer a count value stored in the `temp` variable.  These are the only lines that need to be altered to adapt the firmware to your own project.
 
