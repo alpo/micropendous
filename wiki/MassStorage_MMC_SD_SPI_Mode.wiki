@@ -21,4 +21,4 @@ Now compile and load the !MassStorage_MMC_SD_SPI_Mode firmware onto your USB AVR
 
 == Firmware Design ==
 
-Almost an exact copy of [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !MassStorage demo with the !DataFLASH code replaced by MMC and SD SPI mode code.  `DataflashManager.c/.h` were replaced by `MMC_SD_SPI.c/.h`.  MMC and SD SPI Mode functionality is taken from [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib/mmc.c mmc.c].
+Almost an exact copy of [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !MassStorage demo with the DataFLASH code replaced by MMC and SD SPI mode code.  `DataflashManager.c/.h` were replaced by `MMC_SD_SPI.c/.h`.  MMC and SD SPI Mode functionality is taken from [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib/mmc.c mmc.c].
