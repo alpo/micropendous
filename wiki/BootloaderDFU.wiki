@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Allows new firmware to be uploaded to your Micropendous board over its USB connection.  No need for an external programmer.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU View] or [http://www.Micropendous.org/Distribution Download]
+
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as Custom-Class USB device
