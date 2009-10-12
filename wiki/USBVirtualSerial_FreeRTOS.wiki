@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* USBVirtualSerial_FreeRTOS combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with the preemptive [http://www.freertos.org/ FreeRTOS] kernel to enable programming Micropendous boards without worrying about USB.  All USB functionality is hidden.  The preemptive FreeRTOS kernel allows for multitasking user code and LUFA USB functions.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial_FreeRTOS View] or [http://www.Micropendous.org/Distribution Download]
+
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port
 
 *Targets:* [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards with more than 2kbytes of SRAM.
