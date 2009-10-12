@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Combine [LUFAduino] with [MicropendousKeyboardTest] to allow both Serial communication and Keyboard testing of a Micropendous board.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/Micropendous View] or [http://www.Micropendous.org/Distribution Download]
+
 *Targets:* [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware with 2kb+ of SRAM
 
 *USB Mode:* Device-mode enumerating as Compound USB Device -  USB Virtual Serial Port and HID Keyboard
