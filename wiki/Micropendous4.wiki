@@ -31,6 +31,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous4_Pinout_Pictu
 == !QuickNotes ==
  * *DO NOT* connect *GND* and *VCC*.  This will short your computer's USB power supply and may damage your computer and your Micropendous4
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then HWB
+ * If you are not using the external SRAM, disable it by setting PE6 high.
  * Leaving the USB_CONN_Select pin open or setting it to logic High will enable the USB-miniB connector.  Setting it to logic Low or connecting it to the adjacent GND pin will enable the USB-A connector.  See "Switching Active Connector" notes below.
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * PE2 (HWB) is pulled up to Vcc with a 47k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
@@ -73,6 +74,6 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Enable_OTG_Micropendous4.j
 
 == Removing your Micropendous4 from a Breadboard ==
 
-Be careful when removing your Micropendous4 from a Breadboard.  Be careful not to damage the SRAM IC.  Use a mini screwdriver to pry one corner, then another, then another, then start from the first, etc...  It should take you about 20 or so careful corner nudges before the Micropendous3 will separate from a breadboard.
+Be careful when removing your Micropendous4 from a Breadboard.  Be careful not to damage the SRAM IC.  Use a mini screwdriver to pry one corner, then another, then another, then start from the first, etc...  It should take you about 20 or so careful corner nudges before the Micropendous4 will separate from a breadboard.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/Remove_From_Breadboard_Micropendous4.jpg
