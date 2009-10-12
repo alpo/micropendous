@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Use your USB AVR to interface to a MMC or SD card.  More likely this firmware will be used to store data onto a MMC or SD card while the board is disconnected from a host and then use the USB Mass Storage interface to read the data from a PC.  For example, a sensor logger.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/MassStorage_MMC_SD_SPI_Mode View] or [http://www.Micropendous.org/Distribution Download]
+
 *Targets:* [Micropendous2] or any USB AVR with 1kb+ SRAM connected to a MMC/SD Card via SPI
 
 *USB Mode:* Device-mode enumerating as Mass Storage device
