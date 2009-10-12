@@ -4,9 +4,11 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* USBVirtualSerial is a demonstration of USB Virtual Serial Port communication.  Data sent to a device loaded with this firmware will be echoed back.
 
-*USB Mode:* Device-mode enumerating as USB Virtual Serial Port
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards
+
+*USB Mode:* Device-mode enumerating as USB Virtual Serial Port
 
 *Status:* _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
