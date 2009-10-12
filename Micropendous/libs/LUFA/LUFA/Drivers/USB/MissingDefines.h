@@ -116,17 +116,21 @@
 #endif
 
 // missing avr-libc Linux defines
-#ifndef clock_prescale_set
+//#ifndef clock_prescale_set
+#if (__AVR_LIBC_VERSION__ < 10606UL)
 
-#define clock_div_1	0
-#define clock_div_2	1
-#define clock_div_4	2
-#define clock_div_8	3
-#define clock_div_16	4
-#define clock_div_32	5
-#define clock_div_64	6
-#define clock_div_128	7
-#define clock_div_256	8
+typedef enum
+{
+    clock_div_1 = 0,
+    clock_div_2 = 1,
+    clock_div_4 = 2,
+    clock_div_8 = 3,
+    clock_div_16 = 4,
+    clock_div_32 = 5,
+    clock_div_64 = 6,
+    clock_div_128 = 7,
+    clock_div_256 = 8
+} clock_div_t;
 
 #define clock_prescale_set(x) \
 { \
