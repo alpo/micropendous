@@ -32,6 +32,8 @@
 #ifndef __MISSING_DEFINES__
 #define __MISSING_DEFINES__
 
+#include <avr/version.h>
+
 /* Missing WinAVR include defines */
 /* WinAVR does not define these for the ATmega??u4*/
 #if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
@@ -119,18 +121,16 @@
 //#ifndef clock_prescale_set
 #if (__AVR_LIBC_VERSION__ < 10606UL)
 
-typedef enum
-{
-    clock_div_1 = 0,
-    clock_div_2 = 1,
-    clock_div_4 = 2,
-    clock_div_8 = 3,
-    clock_div_16 = 4,
-    clock_div_32 = 5,
-    clock_div_64 = 6,
-    clock_div_128 = 7,
-    clock_div_256 = 8
-} clock_div_t;
+#define clock_div_1	0
+#define clock_div_2	1
+#define clock_div_4	2
+#define clock_div_8	3
+#define clock_div_16	4
+#define clock_div_32	5
+#define clock_div_64	6
+#define clock_div_128	7
+#define clock_div_256	8
+
 
 #define clock_prescale_set(x) \
 { \
