@@ -6,7 +6,7 @@ Instructions for using the external SRAM are [http://www.micropendous.org/SRAM a
 
 *Purpose:* SRAM_Test uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library to send random bytes of data to a [http://www.micropendous.org/Micropendous4 Micropendous4] board's SRAM then checks to make sure it is read back correctly.  The firmware also runs internal SRAM tests.
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SRAM_TestView] or [http://www.Micropendous.org/Distribution Download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SRAM_Test View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets:* [Micropendous4] with 128kbytes of external SRAM
 
