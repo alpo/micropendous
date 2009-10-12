@@ -2,10 +2,11 @@
 
 The SRAM IC used is the [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D] which has 17-bit address space.
 
-Note pin PE6 controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.  If you must use these other pins, make sure the SRAM chip is disabled by setting PE6 high.
-
 AVRs have 16-bit addresses so a total of 64kbytes of memory space is available.  The AVR uses memory-mapped IO so some of the address space is used by peripherals.  The AVR's internal SRAM also uses some of the address space, 8kbytes in the case of the AT90USB1287.  This means that the full 128kbytes of external SRAM cannot be easily accessed.  Several options are available.
 
+Note pin PE6 controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.  If you must use these other pins, make sure the SRAM chip is disabled by setting PE6 high.
+
+If you do not need to make use of the external SRAM, disable it by setting PE6 high.
 
 == Simple Way - 56kbytes made available ==
 
