@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* USBVirtualSerial_ADC uses the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library to send [http://en.wikipedia.org/wiki/Analog-to-digital_converter ADC] data to a host system for further processing.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial_ADC View] or [http://www.Micropendous.org/Distribution Download]
+
 * Targets: * [Micropendous2], [Micropendous3], or [Micropendous4], or other USB AVR boards with ADC.
 
 *USB Mode:* Device-class enumerating as USB Virtual Serial Port
