@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Allows you to use software that interacts with a serial port to write and read data over [http://en.wikipedia.org/wiki/I2C I2C].  This firmware acts as an I2C master.  It uses [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html avrlib's] [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib i2csw].
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial_I2C View] or [http://www.Micropendous.org/Distribution Download]
+
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port 
