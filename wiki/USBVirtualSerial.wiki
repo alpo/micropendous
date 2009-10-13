@@ -52,4 +52,4 @@ void Main_Task(void)
 
 The above example is very simple.  `haveData()` checks if data has been received from the host and then `getData()` and `sendData()` send it back over the USB serial connection.
 
-Commented out are `printf()` and `getchar()` functions which perform the same task.  Note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store any constant strings.
+Commented out are `printf()` and `getchar()` functions which perform the same task.  Note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store any constant strings.  See my [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
