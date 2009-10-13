@@ -4,6 +4,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Communicate with electronic devices over the [http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus SPI] interface.
 
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial_SPI View] or [http://www.Micropendous.org/Distribution Download]
+
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port
