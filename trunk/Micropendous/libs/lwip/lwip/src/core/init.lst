@@ -1,0 +1,40 @@
+   1               		.file	"init.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.lwip_init,"ax",@progbits
+  17               	.global	lwip_init
+  19               	lwip_init:
+  20               	.LFB2:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LSM1:
+  25 0000 0E94 0000 		call mem_init
+  26               	.LSM2:
+  27 0004 0E94 0000 		call memp_init
+  28               	.LSM3:
+  29 0008 0E94 0000 		call autoip_init
+  30               	/* epilogue start */
+  31               	.LSM4:
+  32 000c 0895      		ret
+  33               	.LFE2:
+  59               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 init.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc0AdB7g.s:19     .text.lwip_init:00000000 lwip_init
+
+UNDEFINED SYMBOLS
+mem_init
+memp_init
+autoip_init

@@ -1,0 +1,208 @@
+   1               		.file	"slipif.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.slipif_init,"ax",@progbits
+  17               	.global	slipif_init
+  19               	slipif_init:
+  20               	.LFB4:
+  21               	.LSM0:
+  22               	.LVL0:
+  23 0000 0F93      		push r16
+  24 0002 1F93      		push r17
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27 0004 8C01      		movw r16,r24
+  28               	.LSM1:
+  29 0006 83E7      		ldi r24,lo8(115)
+  30               	.LVL1:
+  31 0008 F801      		movw r30,r16
+  32 000a 84A3      		std Z+36,r24
+  33               	.LSM2:
+  34 000c 8CE6      		ldi r24,lo8(108)
+  35 000e 85A3      		std Z+37,r24
+  36               	.LSM3:
+  37 0010 80E0      		ldi r24,lo8(gs(slipif_output))
+  38 0012 90E0      		ldi r25,hi8(gs(slipif_output))
+  39 0014 918B      		std Z+17,r25
+  40 0016 808B      		std Z+16,r24
+  41               	.LSM4:
+  42 0018 8CED      		ldi r24,lo8(1500)
+  43 001a 95E0      		ldi r25,hi8(1500)
+  44 001c 92A3      		std Z+34,r25
+  45 001e 81A3      		std Z+33,r24
+  46               	.LSM5:
+  47 0020 84E0      		ldi r24,lo8(4)
+  48 0022 83A3      		std Z+35,r24
+  49               	.LSM6:
+  50 0024 86A1      		ldd r24,Z+38
+  51 0026 0E94 0000 		call sio_open
+  52 002a F801      		movw r30,r16
+  53 002c 958B      		std Z+21,r25
+  54 002e 848B      		std Z+20,r24
+  55               	.LSM7:
+  56 0030 892B      		or r24,r25
+  57 0032 01F0      		breq .L2
+  58 0034 80E0      		ldi r24,lo8(0)
+  59 0036 00C0      		rjmp .L3
+  60               	.L2:
+  61 0038 85EF      		ldi r24,lo8(-11)
+  62               	.L3:
+  63               	/* epilogue start */
+  64               	.LSM8:
+  65 003a 1F91      		pop r17
+  66 003c 0F91      		pop r16
+  67               	.LVL2:
+  68 003e 0895      		ret
+  69               	.LFE4:
+  71               		.section	.text.slipif_output,"ax",@progbits
+  72               	.global	slipif_output
+  74               	slipif_output:
+  75               	.LFB2:
+  76               	.LSM9:
+  77               	.LVL3:
+  78 0000 EF92      		push r14
+  79 0002 FF92      		push r15
+  80 0004 0F93      		push r16
+  81 0006 1F93      		push r17
+  82 0008 CF93      		push r28
+  83 000a DF93      		push r29
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86 000c 7C01      		movw r14,r24
+  87 000e 162F      		mov r17,r22
+  88 0010 072F      		mov r16,r23
+  89               	.LVL4:
+  90               	.LSM10:
+  91 0012 FC01      		movw r30,r24
+  92 0014 6489      		ldd r22,Z+20
+  93 0016 7589      		ldd r23,Z+21
+  94               	.LVL5:
+  95 0018 80EC      		ldi r24,lo8(-64)
+  96               	.LVL6:
+  97 001a 0E94 0000 		call sio_send
+  98               	.LVL7:
+  99 001e 212F      		mov r18,r17
+ 100               	.LVL8:
+ 101 0020 302F      		mov r19,r16
+ 102               	.LVL9:
+ 103 0022 C901      		movw r24,r18
+ 104               	.LVL10:
+ 105 0024 EC01      		movw r28,r24
+ 106               	.LVL11:
+ 107 0026 00C0      		rjmp .L6
+ 108               	.LVL12:
+ 109               	.L11:
+ 110               	.LSM11:
+ 111 0028 EA81      		ldd r30,Y+2
+ 112 002a FB81      		ldd r31,Y+3
+ 113 002c E00F      		add r30,r16
+ 114 002e F11F      		adc r31,r17
+ 115 0030 8081      		ld r24,Z
+ 116               	.LVL13:
+ 117               	.LSM12:
+ 118 0032 803C      		cpi r24,lo8(-64)
+ 119 0034 01F0      		breq .L8
+ 120 0036 F701      		movw r30,r14
+ 121 0038 6489      		ldd r22,Z+20
+ 122 003a 7589      		ldd r23,Z+21
+ 123 003c 8B3D      		cpi r24,lo8(-37)
+ 124 003e 01F4      		brne .L15
+ 125 0040 00C0      		rjmp .L16
+ 126               	.L8:
+ 127               	.LSM13:
+ 128 0042 F701      		movw r30,r14
+ 129 0044 6489      		ldd r22,Z+20
+ 130 0046 7589      		ldd r23,Z+21
+ 131 0048 8BED      		ldi r24,lo8(-37)
+ 132               	.LVL14:
+ 133 004a 0E94 0000 		call sio_send
+ 134               	.LVL15:
+ 135               	.LSM14:
+ 136 004e F701      		movw r30,r14
+ 137 0050 6489      		ldd r22,Z+20
+ 138 0052 7589      		ldd r23,Z+21
+ 139 0054 8CED      		ldi r24,lo8(-36)
+ 140 0056 00C0      		rjmp .L15
+ 141               	.LVL16:
+ 142               	.L16:
+ 143               	.LSM15:
+ 144 0058 8BED      		ldi r24,lo8(-37)
+ 145               	.LVL17:
+ 146 005a 0E94 0000 		call sio_send
+ 147               	.LVL18:
+ 148               	.LSM16:
+ 149 005e F701      		movw r30,r14
+ 150 0060 6489      		ldd r22,Z+20
+ 151 0062 7589      		ldd r23,Z+21
+ 152 0064 8DED      		ldi r24,lo8(-35)
+ 153               	.LVL19:
+ 154               	.L15:
+ 155               	.LSM17:
+ 156 0066 0E94 0000 		call sio_send
+ 157               	.LVL20:
+ 158               	.LSM18:
+ 159 006a 0F5F      		subi r16,lo8(-(1))
+ 160 006c 1F4F      		sbci r17,hi8(-(1))
+ 161               	.LVL21:
+ 162               	.L13:
+ 163 006e 8E81      		ldd r24,Y+6
+ 164 0070 9F81      		ldd r25,Y+7
+ 165 0072 0817      		cp r16,r24
+ 166 0074 1907      		cpc r17,r25
+ 167 0076 00F0      		brlo .L11
+ 168               	.LSM19:
+ 169 0078 0990      		ld __tmp_reg__,Y+
+ 170 007a D881      		ld r29,Y
+ 171 007c C02D      		mov r28,__tmp_reg__
+ 172               	.LVL22:
+ 173               	.L6:
+ 174 007e 2097      		sbiw r28,0
+ 175 0080 01F0      		breq .L12
+ 176 0082 00E0      		ldi r16,lo8(0)
+ 177 0084 10E0      		ldi r17,hi8(0)
+ 178               	.LVL23:
+ 179 0086 00C0      		rjmp .L13
+ 180               	.LVL24:
+ 181               	.L12:
+ 182               	.LSM20:
+ 183 0088 F701      		movw r30,r14
+ 184 008a 6489      		ldd r22,Z+20
+ 185 008c 7589      		ldd r23,Z+21
+ 186 008e 80EC      		ldi r24,lo8(-64)
+ 187 0090 0E94 0000 		call sio_send
+ 188               	.LVL25:
+ 189               	.LSM21:
+ 190 0094 80E0      		ldi r24,lo8(0)
+ 191               	/* epilogue start */
+ 192 0096 DF91      		pop r29
+ 193 0098 CF91      		pop r28
+ 194               	.LVL26:
+ 195 009a 1F91      		pop r17
+ 196               	.LVL27:
+ 197 009c 0F91      		pop r16
+ 198               	.LVL28:
+ 199 009e FF90      		pop r15
+ 200 00a0 EF90      		pop r14
+ 201               	.LVL29:
+ 202 00a2 0895      		ret
+ 203               	.LFE2:
+ 237               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 slipif.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:19     .text.slipif_init:00000000 slipif_init
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccsdbIGa.s:74     .text.slipif_output:00000000 slipif_output
+
+UNDEFINED SYMBOLS
+sio_open
+sio_send

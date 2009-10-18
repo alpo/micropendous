@@ -1,0 +1,3670 @@
+   1               		.file	"dhcp.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.dhcp_set_state,"ax",@progbits
+  18               	dhcp_set_state:
+  19               	.LFB22:
+  20               	.LSM0:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 FC01      		movw r30,r24
+  25               	.LSM1:
+  26 0002 8081      		ld r24,Z
+  27               	.LVL1:
+  28 0004 6817      		cp r22,r24
+  29 0006 01F0      		breq .L3
+  30               	.LSM2:
+  31 0008 6083      		st Z,r22
+  32               	.LSM3:
+  33 000a 1182      		std Z+1,__zero_reg__
+  34               	.L3:
+  35 000c 0895      		ret
+  36               	.LFE22:
+  38               		.section	.text.dhcp_option,"ax",@progbits
+  40               	dhcp_option:
+  41               	.LFB23:
+  42               	.LSM4:
+  43               	.LVL2:
+  44               	/* prologue: function */
+  45               	/* frame size = 0 */
+  46 0000 DC01      		movw r26,r24
+  47               	.LSM5:
+  48 0002 5496      		adiw r26,20
+  49 0004 8D91      		ld r24,X+
+  50 0006 9C91      		ld r25,X
+  51 0008 5597      		sbiw r26,20+1
+  52               	.LVL3:
+  53 000a 5296      		adiw r26,18
+  54 000c ED91      		ld r30,X+
+  55 000e FC91      		ld r31,X
+  56 0010 5397      		sbiw r26,18+1
+  57 0012 E80F      		add r30,r24
+  58 0014 F91F      		adc r31,r25
+  59 0016 E051      		subi r30,lo8(-(240))
+  60 0018 FF4F      		sbci r31,hi8(-(240))
+  61 001a 6083      		st Z,r22
+  62 001c 0196      		adiw r24,1
+  63               	.LSM6:
+  64 001e 5296      		adiw r26,18
+  65 0020 ED91      		ld r30,X+
+  66 0022 FC91      		ld r31,X
+  67 0024 5397      		sbiw r26,18+1
+  68 0026 E80F      		add r30,r24
+  69 0028 F91F      		adc r31,r25
+  70 002a E051      		subi r30,lo8(-(240))
+  71 002c FF4F      		sbci r31,hi8(-(240))
+  72 002e 4083      		st Z,r20
+  73 0030 0196      		adiw r24,1
+  74 0032 5596      		adiw r26,20+1
+  75 0034 9C93      		st X,r25
+  76 0036 8E93      		st -X,r24
+  77 0038 5497      		sbiw r26,20
+  78               	/* epilogue start */
+  79               	.LSM7:
+  80 003a 0895      		ret
+  81               	.LFE23:
+  83               		.section	.text.dhcp_option_byte,"ax",@progbits
+  85               	dhcp_option_byte:
+  86               	.LFB24:
+  87               	.LSM8:
+  88               	.LVL4:
+  89               	/* prologue: function */
+  90               	/* frame size = 0 */
+  91 0000 DC01      		movw r26,r24
+  92               	.LSM9:
+  93 0002 5496      		adiw r26,20
+  94 0004 8D91      		ld r24,X+
+  95 0006 9C91      		ld r25,X
+  96 0008 5597      		sbiw r26,20+1
+  97               	.LVL5:
+  98 000a 5296      		adiw r26,18
+  99 000c ED91      		ld r30,X+
+ 100 000e FC91      		ld r31,X
+ 101 0010 5397      		sbiw r26,18+1
+ 102 0012 E80F      		add r30,r24
+ 103 0014 F91F      		adc r31,r25
+ 104 0016 E051      		subi r30,lo8(-(240))
+ 105 0018 FF4F      		sbci r31,hi8(-(240))
+ 106 001a 6083      		st Z,r22
+ 107 001c 0196      		adiw r24,1
+ 108 001e 5596      		adiw r26,20+1
+ 109 0020 9C93      		st X,r25
+ 110 0022 8E93      		st -X,r24
+ 111 0024 5497      		sbiw r26,20
+ 112               	/* epilogue start */
+ 113               	.LSM10:
+ 114 0026 0895      		ret
+ 115               	.LFE24:
+ 117               		.section	.text.dhcp_option_short,"ax",@progbits
+ 119               	dhcp_option_short:
+ 120               	.LFB25:
+ 121               	.LSM11:
+ 122               	.LVL6:
+ 123               	/* prologue: function */
+ 124               	/* frame size = 0 */
+ 125 0000 DC01      		movw r26,r24
+ 126               	.LSM12:
+ 127 0002 5496      		adiw r26,20
+ 128 0004 8D91      		ld r24,X+
+ 129 0006 9C91      		ld r25,X
+ 130 0008 5597      		sbiw r26,20+1
+ 131               	.LVL7:
+ 132 000a 5296      		adiw r26,18
+ 133 000c ED91      		ld r30,X+
+ 134 000e FC91      		ld r31,X
+ 135 0010 5397      		sbiw r26,18+1
+ 136 0012 E80F      		add r30,r24
+ 137 0014 F91F      		adc r31,r25
+ 138 0016 E051      		subi r30,lo8(-(240))
+ 139 0018 FF4F      		sbci r31,hi8(-(240))
+ 140 001a 7083      		st Z,r23
+ 141               	.LVL8:
+ 142 001c 0196      		adiw r24,1
+ 143               	.LSM13:
+ 144 001e 5296      		adiw r26,18
+ 145 0020 ED91      		ld r30,X+
+ 146 0022 FC91      		ld r31,X
+ 147 0024 5397      		sbiw r26,18+1
+ 148 0026 E80F      		add r30,r24
+ 149 0028 F91F      		adc r31,r25
+ 150 002a E051      		subi r30,lo8(-(240))
+ 151 002c FF4F      		sbci r31,hi8(-(240))
+ 152 002e 6083      		st Z,r22
+ 153 0030 0196      		adiw r24,1
+ 154 0032 5596      		adiw r26,20+1
+ 155 0034 9C93      		st X,r25
+ 156 0036 8E93      		st -X,r24
+ 157 0038 5497      		sbiw r26,20
+ 158               	/* epilogue start */
+ 159               	.LSM14:
+ 160 003a 0895      		ret
+ 161               	.LFE25:
+ 163               		.section	.text.dhcp_option_long,"ax",@progbits
+ 165               	dhcp_option_long:
+ 166               	.LFB26:
+ 167               	.LSM15:
+ 168               	.LVL9:
+ 169 0000 0F93      		push r16
+ 170 0002 1F93      		push r17
+ 171               	/* prologue: function */
+ 172               	/* frame size = 0 */
+ 173 0004 8C01      		movw r16,r24
+ 174               	.LSM16:
+ 175 0006 DC01      		movw r26,r24
+ 176 0008 5496      		adiw r26,20
+ 177 000a 2D91      		ld r18,X+
+ 178 000c 3C91      		ld r19,X
+ 179 000e 5597      		sbiw r26,20+1
+ 180 0010 5296      		adiw r26,18
+ 181 0012 ED91      		ld r30,X+
+ 182 0014 FC91      		ld r31,X
+ 183 0016 5397      		sbiw r26,18+1
+ 184 0018 E20F      		add r30,r18
+ 185 001a F31F      		adc r31,r19
+ 186 001c E051      		subi r30,lo8(-(240))
+ 187 001e FF4F      		sbci r31,hi8(-(240))
+ 188 0020 872F      		mov r24,r23
+ 189 0022 9927      		clr r25
+ 190 0024 AA27      		clr r26
+ 191 0026 BB27      		clr r27
+ 192               	.LVL10:
+ 193 0028 8083      		st Z,r24
+ 194 002a 2F5F      		subi r18,lo8(-(1))
+ 195 002c 3F4F      		sbci r19,hi8(-(1))
+ 196               	.LSM17:
+ 197 002e D801      		movw r26,r16
+ 198 0030 5296      		adiw r26,18
+ 199 0032 ED91      		ld r30,X+
+ 200 0034 FC91      		ld r31,X
+ 201 0036 5397      		sbiw r26,18+1
+ 202 0038 E20F      		add r30,r18
+ 203 003a F31F      		adc r31,r19
+ 204 003c E051      		subi r30,lo8(-(240))
+ 205 003e FF4F      		sbci r31,hi8(-(240))
+ 206 0040 6083      		st Z,r22
+ 207               	.LVL11:
+ 208 0042 2F5F      		subi r18,lo8(-(1))
+ 209 0044 3F4F      		sbci r19,hi8(-(1))
+ 210               	.LSM18:
+ 211 0046 5296      		adiw r26,18
+ 212 0048 ED91      		ld r30,X+
+ 213 004a FC91      		ld r31,X
+ 214 004c 5397      		sbiw r26,18+1
+ 215 004e E20F      		add r30,r18
+ 216 0050 F31F      		adc r31,r19
+ 217 0052 E051      		subi r30,lo8(-(240))
+ 218 0054 FF4F      		sbci r31,hi8(-(240))
+ 219 0056 5083      		st Z,r21
+ 220               	.LVL12:
+ 221 0058 2F5F      		subi r18,lo8(-(1))
+ 222 005a 3F4F      		sbci r19,hi8(-(1))
+ 223               	.LSM19:
+ 224 005c 5296      		adiw r26,18
+ 225 005e ED91      		ld r30,X+
+ 226 0060 FC91      		ld r31,X
+ 227 0062 5397      		sbiw r26,18+1
+ 228 0064 E20F      		add r30,r18
+ 229 0066 F31F      		adc r31,r19
+ 230 0068 E051      		subi r30,lo8(-(240))
+ 231 006a FF4F      		sbci r31,hi8(-(240))
+ 232 006c 4083      		st Z,r20
+ 233 006e 2F5F      		subi r18,lo8(-(1))
+ 234 0070 3F4F      		sbci r19,hi8(-(1))
+ 235 0072 5596      		adiw r26,20+1
+ 236 0074 3C93      		st X,r19
+ 237 0076 2E93      		st -X,r18
+ 238 0078 5497      		sbiw r26,20
+ 239               	/* epilogue start */
+ 240               	.LSM20:
+ 241 007a 1F91      		pop r17
+ 242 007c 0F91      		pop r16
+ 243               	.LVL13:
+ 244 007e 0895      		ret
+ 245               	.LFE26:
+ 247               		.section	.text.dhcp_option_trailer,"ax",@progbits
+ 249               	dhcp_option_trailer:
+ 250               	.LFB32:
+ 251               	.LSM21:
+ 252               	.LVL14:
+ 253               	/* prologue: function */
+ 254               	/* frame size = 0 */
+ 255 0000 DC01      		movw r26,r24
+ 256               	.LSM22:
+ 257 0002 0097      		sbiw r24,0
+ 258 0004 01F0      		breq .L16
+ 259               	.LSM23:
+ 260 0006 5496      		adiw r26,20
+ 261 0008 8D91      		ld r24,X+
+ 262 000a 9C91      		ld r25,X
+ 263 000c 5597      		sbiw r26,20+1
+ 264               	.LVL15:
+ 265 000e 5296      		adiw r26,18
+ 266 0010 ED91      		ld r30,X+
+ 267 0012 FC91      		ld r31,X
+ 268 0014 5397      		sbiw r26,18+1
+ 269 0016 E80F      		add r30,r24
+ 270 0018 F91F      		adc r31,r25
+ 271 001a E051      		subi r30,lo8(-(240))
+ 272 001c FF4F      		sbci r31,hi8(-(240))
+ 273 001e 2FEF      		ldi r18,lo8(-1)
+ 274 0020 2083      		st Z,r18
+ 275 0022 0196      		adiw r24,1
+ 276 0024 5596      		adiw r26,20+1
+ 277 0026 9C93      		st X,r25
+ 278 0028 8E93      		st -X,r24
+ 279 002a 5497      		sbiw r26,20
+ 280 002c 00C0      		rjmp .L14
+ 281               	.L15:
+ 282               	.LSM24:
+ 283 002e 5296      		adiw r26,18
+ 284 0030 ED91      		ld r30,X+
+ 285 0032 FC91      		ld r31,X
+ 286 0034 5397      		sbiw r26,18+1
+ 287 0036 E20F      		add r30,r18
+ 288 0038 F31F      		adc r31,r19
+ 289 003a E051      		subi r30,lo8(-(240))
+ 290 003c FF4F      		sbci r31,hi8(-(240))
+ 291 003e 1082      		st Z,__zero_reg__
+ 292 0040 2F5F      		subi r18,lo8(-(1))
+ 293 0042 3F4F      		sbci r19,hi8(-(1))
+ 294 0044 5596      		adiw r26,20+1
+ 295 0046 3C93      		st X,r19
+ 296 0048 2E93      		st -X,r18
+ 297 004a 5497      		sbiw r26,20
+ 298               	.L14:
+ 299               	.LSM25:
+ 300 004c 5496      		adiw r26,20
+ 301 004e 2D91      		ld r18,X+
+ 302 0050 3C91      		ld r19,X
+ 303 0052 5597      		sbiw r26,20+1
+ 304 0054 2434      		cpi r18,68
+ 305 0056 3105      		cpc r19,__zero_reg__
+ 306 0058 00F0      		brlo .L15
+ 307 005a C901      		movw r24,r18
+ 308 005c 8370      		andi r24,lo8(3)
+ 309 005e 9070      		andi r25,hi8(3)
+ 310 0060 892B      		or r24,r25
+ 311 0062 01F4      		brne .L15
+ 312               	.LVL16:
+ 313               	.L16:
+ 314 0064 0895      		ret
+ 315               	.LFE32:
+ 317               		.section	.text.dhcp_get_option_ptr,"ax",@progbits
+ 319               	dhcp_get_option_ptr:
+ 320               	.LFB33:
+ 321               	.LSM26:
+ 322               	.LVL17:
+ 323 0000 1F93      		push r17
+ 324               	/* prologue: function */
+ 325               	/* frame size = 0 */
+ 326 0002 DC01      		movw r26,r24
+ 327 0004 162F      		mov r17,r22
+ 328               	.LSM27:
+ 329 0006 1C96      		adiw r26,12
+ 330 0008 4D91      		ld r20,X+
+ 331 000a 5C91      		ld r21,X
+ 332 000c 1D97      		sbiw r26,12+1
+ 333 000e 4115      		cp r20,__zero_reg__
+ 334 0010 5105      		cpc r21,__zero_reg__
+ 335 0012 01F4      		brne .+2
+ 336 0014 00C0      		rjmp .L18
+ 337               	.LVL18:
+ 338 0016 1E96      		adiw r26,14
+ 339 0018 6D91      		ld r22,X+
+ 340 001a 7C91      		ld r23,X
+ 341 001c 1F97      		sbiw r26,14+1
+ 342 001e 6115      		cp r22,__zero_reg__
+ 343 0020 7105      		cpc r23,__zero_reg__
+ 344 0022 01F4      		brne .+2
+ 345 0024 00C0      		rjmp .L18
+ 346               	.LBB2:
+ 347               	.LSM28:
+ 348 0026 30E0      		ldi r19,lo8(0)
+ 349               	.LVL19:
+ 350 0028 80E0      		ldi r24,lo8(0)
+ 351 002a 90E0      		ldi r25,hi8(0)
+ 352               	.LVL20:
+ 353 002c 00C0      		rjmp .L30
+ 354               	.L23:
+ 355               	.LSM29:
+ 356 002e 2433      		cpi r18,lo8(52)
+ 357 0030 01F4      		brne .L20
+ 358               	.LSM30:
+ 359 0032 FA01      		movw r30,r20
+ 360 0034 E80F      		add r30,r24
+ 361 0036 F91F      		adc r31,r25
+ 362 0038 3281      		ldd r19,Z+2
+ 363 003a 0396      		adiw r24,3
+ 364 003c 00C0      		rjmp .L30
+ 365               	.L20:
+ 366               	.LSM31:
+ 367 003e 2117      		cp r18,r17
+ 368 0040 01F4      		brne .+2
+ 369 0042 00C0      		rjmp .L21
+ 370               	.LSM32:
+ 371 0044 0196      		adiw r24,1
+ 372               	.LVL21:
+ 373               	.LSM33:
+ 374 0046 FA01      		movw r30,r20
+ 375 0048 E80F      		add r30,r24
+ 376 004a F91F      		adc r31,r25
+ 377 004c 2081      		ld r18,Z
+ 378 004e 0196      		adiw r24,1
+ 379               	.LVL22:
+ 380 0050 820F      		add r24,r18
+ 381 0052 911D      		adc r25,__zero_reg__
+ 382               	.L30:
+ 383               	.LSM34:
+ 384 0054 8617      		cp r24,r22
+ 385 0056 9707      		cpc r25,r23
+ 386 0058 00F4      		brsh .L22
+ 387 005a FA01      		movw r30,r20
+ 388 005c E80F      		add r30,r24
+ 389 005e F91F      		adc r31,r25
+ 390 0060 2081      		ld r18,Z
+ 391 0062 2F3F      		cpi r18,lo8(-1)
+ 392 0064 01F4      		brne .L23
+ 393               	.L22:
+ 394               	.LSM35:
+ 395 0066 3323      		tst r19
+ 396 0068 01F0      		breq .L18
+ 397               	.LBB3:
+ 398               	.LSM36:
+ 399 006a 3130      		cpi r19,lo8(1)
+ 400 006c 01F4      		brne .L24
+ 401               	.LSM37:
+ 402 006e 1A96      		adiw r26,10
+ 403 0070 4D91      		ld r20,X+
+ 404 0072 5C91      		ld r21,X
+ 405 0074 1B97      		sbiw r26,10+1
+ 406               	.LVL23:
+ 407 0076 4459      		subi r20,lo8(-(108))
+ 408 0078 5F4F      		sbci r21,hi8(-(108))
+ 409 007a A0E8      		ldi r26,lo8(128)
+ 410 007c B0E0      		ldi r27,hi8(128)
+ 411               	.LVL24:
+ 412 007e 00C0      		rjmp .L25
+ 413               	.LVL25:
+ 414               	.L24:
+ 415 0080 1A96      		adiw r26,10
+ 416 0082 8D91      		ld r24,X+
+ 417 0084 9C91      		ld r25,X
+ 418 0086 1B97      		sbiw r26,10+1
+ 419               	.LVL26:
+ 420               	.LSM38:
+ 421 0088 3230      		cpi r19,lo8(2)
+ 422 008a 01F4      		brne .L26
+ 423               	.LSM39:
+ 424 008c AC01      		movw r20,r24
+ 425               	.LVL27:
+ 426 008e 445D      		subi r20,lo8(-(44))
+ 427 0090 5F4F      		sbci r21,hi8(-(44))
+ 428 0092 A0E4      		ldi r26,lo8(64)
+ 429 0094 B0E0      		ldi r27,hi8(64)
+ 430               	.LVL28:
+ 431 0096 00C0      		rjmp .L25
+ 432               	.LVL29:
+ 433               	.L26:
+ 434               	.LSM40:
+ 435 0098 AC01      		movw r20,r24
+ 436               	.LVL30:
+ 437 009a 445D      		subi r20,lo8(-(44))
+ 438 009c 5F4F      		sbci r21,hi8(-(44))
+ 439 009e A0EC      		ldi r26,lo8(192)
+ 440 00a0 B0E0      		ldi r27,hi8(192)
+ 441               	.LVL31:
+ 442               	.L25:
+ 443 00a2 80E0      		ldi r24,lo8(0)
+ 444 00a4 90E0      		ldi r25,hi8(0)
+ 445               	.LVL32:
+ 446 00a6 00C0      		rjmp .L27
+ 447               	.L28:
+ 448               	.LSM41:
+ 449 00a8 2117      		cp r18,r17
+ 450 00aa 01F0      		breq .L21
+ 451               	.LSM42:
+ 452 00ac 0196      		adiw r24,1
+ 453               	.LVL33:
+ 454               	.LSM43:
+ 455 00ae FA01      		movw r30,r20
+ 456 00b0 E80F      		add r30,r24
+ 457 00b2 F91F      		adc r31,r25
+ 458 00b4 2081      		ld r18,Z
+ 459 00b6 0196      		adiw r24,1
+ 460               	.LVL34:
+ 461 00b8 820F      		add r24,r18
+ 462 00ba 911D      		adc r25,__zero_reg__
+ 463               	.LSM44:
+ 464 00bc 8A17      		cp r24,r26
+ 465 00be 9B07      		cpc r25,r27
+ 466 00c0 00F4      		brsh .L18
+ 467               	.L27:
+ 468 00c2 FA01      		movw r30,r20
+ 469 00c4 E80F      		add r30,r24
+ 470 00c6 F91F      		adc r31,r25
+ 471 00c8 2081      		ld r18,Z
+ 472 00ca 2F3F      		cpi r18,lo8(-1)
+ 473 00cc 01F4      		brne .L28
+ 474               	.LVL35:
+ 475               	.L18:
+ 476 00ce E0E0      		ldi r30,lo8(0)
+ 477 00d0 F0E0      		ldi r31,hi8(0)
+ 478               	.L21:
+ 479               	.LBE3:
+ 480               	.LBE2:
+ 481               	.LSM45:
+ 482 00d2 CF01      		movw r24,r30
+ 483               	.LVL36:
+ 484               	/* epilogue start */
+ 485 00d4 1F91      		pop r17
+ 486               	.LVL37:
+ 487 00d6 0895      		ret
+ 488               	.LFE33:
+ 490               		.section	.text.dhcp_get_option_byte,"ax",@progbits
+ 492               	dhcp_get_option_byte:
+ 493               	.LFB34:
+ 494               	.LSM46:
+ 495               	.LVL38:
+ 496               	/* prologue: function */
+ 497               	/* frame size = 0 */
+ 498 0000 FC01      		movw r30,r24
+ 499               	.LSM47:
+ 500 0002 8081      		ld r24,Z
+ 501               	.LVL39:
+ 502               	/* epilogue start */
+ 503 0004 0895      		ret
+ 504               	.LFE34:
+ 506               		.section	.text.dhcp_get_option_long,"ax",@progbits
+ 508               	dhcp_get_option_long:
+ 509               	.LFB35:
+ 510               	.LSM48:
+ 511               	.LVL40:
+ 512 0000 CF93      		push r28
+ 513 0002 DF93      		push r29
+ 514               	/* prologue: function */
+ 515               	/* frame size = 0 */
+ 516 0004 9C01      		movw r18,r24
+ 517               	.LSM49:
+ 518 0006 FC01      		movw r30,r24
+ 519 0008 8191      		ld r24,Z+
+ 520               	.LVL41:
+ 521 000a 90E0      		ldi r25,lo8(0)
+ 522 000c A0E0      		ldi r26,lo8(0)
+ 523 000e B0E0      		ldi r27,hi8(0)
+ 524 0010 B82F      		mov r27,r24
+ 525 0012 AA27      		clr r26
+ 526 0014 9927      		clr r25
+ 527 0016 8827      		clr r24
+ 528               	.LVL42:
+ 529               	.LSM50:
+ 530 0018 E901      		movw r28,r18
+ 531 001a 2981      		ldd r18,Y+1
+ 532 001c 30E0      		ldi r19,lo8(0)
+ 533 001e 40E0      		ldi r20,lo8(0)
+ 534 0020 50E0      		ldi r21,hi8(0)
+ 535 0022 A901      		movw r20,r18
+ 536 0024 3327      		clr r19
+ 537 0026 2227      		clr r18
+ 538 0028 282B      		or r18,r24
+ 539 002a 392B      		or r19,r25
+ 540 002c 4A2B      		or r20,r26
+ 541 002e 5B2B      		or r21,r27
+ 542               	.LSM51:
+ 543 0030 8181      		ldd r24,Z+1
+ 544               	.LVL43:
+ 545 0032 90E0      		ldi r25,lo8(0)
+ 546 0034 A0E0      		ldi r26,lo8(0)
+ 547 0036 B0E0      		ldi r27,hi8(0)
+ 548 0038 BA2F      		mov r27,r26
+ 549 003a A92F      		mov r26,r25
+ 550 003c 982F      		mov r25,r24
+ 551 003e 8827      		clr r24
+ 552 0040 282B      		or r18,r24
+ 553 0042 392B      		or r19,r25
+ 554 0044 4A2B      		or r20,r26
+ 555 0046 5B2B      		or r21,r27
+ 556 0048 8281      		ldd r24,Z+2
+ 557 004a 90E0      		ldi r25,lo8(0)
+ 558 004c A0E0      		ldi r26,lo8(0)
+ 559 004e B0E0      		ldi r27,hi8(0)
+ 560 0050 282B      		or r18,r24
+ 561 0052 392B      		or r19,r25
+ 562 0054 4A2B      		or r20,r26
+ 563 0056 5B2B      		or r21,r27
+ 564               	.LSM52:
+ 565 0058 B901      		movw r22,r18
+ 566 005a CA01      		movw r24,r20
+ 567               	/* epilogue start */
+ 568 005c DF91      		pop r29
+ 569 005e CF91      		pop r28
+ 570 0060 0895      		ret
+ 571               	.LFE35:
+ 573               		.section	.text.dhcp_delete_request,"ax",@progbits
+ 575               	dhcp_delete_request:
+ 576               	.LFB31:
+ 577               	.LSM53:
+ 578               	.LVL44:
+ 579 0000 CF93      		push r28
+ 580 0002 DF93      		push r29
+ 581               	/* prologue: function */
+ 582               	/* frame size = 0 */
+ 583 0004 FC01      		movw r30,r24
+ 584               	.LSM54:
+ 585 0006 0097      		sbiw r24,0
+ 586 0008 01F0      		breq .L38
+ 587               	.LSM55:
+ 588 000a C689      		ldd r28,Z+22
+ 589 000c D789      		ldd r29,Z+23
+ 590               	.LVL45:
+ 591               	.LSM56:
+ 592 000e 2097      		sbiw r28,0
+ 593 0010 01F0      		breq .L38
+ 594               	.LVL46:
+ 595               	.LSM57:
+ 596 0012 8889      		ldd r24,Y+16
+ 597 0014 9989      		ldd r25,Y+17
+ 598 0016 0097      		sbiw r24,0
+ 599 0018 01F0      		breq .L37
+ 600               	.LSM58:
+ 601 001a 0E94 0000 		call pbuf_free
+ 602               	.LVL47:
+ 603               	.L37:
+ 604               	.LSM59:
+ 605 001e 198A      		std Y+17,__zero_reg__
+ 606 0020 188A      		std Y+16,__zero_reg__
+ 607               	.LSM60:
+ 608 0022 1B8A      		std Y+19,__zero_reg__
+ 609 0024 1A8A      		std Y+18,__zero_reg__
+ 610               	.LVL48:
+ 611               	.L38:
+ 612               	/* epilogue start */
+ 613               	.LSM61:
+ 614 0026 DF91      		pop r29
+ 615 0028 CF91      		pop r28
+ 616               	.LVL49:
+ 617 002a 0895      		ret
+ 618               	.LFE31:
+ 620               		.section	.text.dhcp_free_reply,"ax",@progbits
+ 622               	dhcp_free_reply:
+ 623               	.LFB28:
+ 624               	.LSM62:
+ 625               	.LVL50:
+ 626 0000 CF93      		push r28
+ 627 0002 DF93      		push r29
+ 628               	/* prologue: function */
+ 629               	/* frame size = 0 */
+ 630 0004 EC01      		movw r28,r24
+ 631               	.LSM63:
+ 632 0006 8A85      		ldd r24,Y+10
+ 633 0008 9B85      		ldd r25,Y+11
+ 634               	.LVL51:
+ 635 000a 0097      		sbiw r24,0
+ 636 000c 01F0      		breq .L40
+ 637               	.LSM64:
+ 638 000e 0E94 0000 		call mem_free
+ 639               	.LSM65:
+ 640 0012 1B86      		std Y+11,__zero_reg__
+ 641 0014 1A86      		std Y+10,__zero_reg__
+ 642               	.L40:
+ 643               	.LSM66:
+ 644 0016 8C85      		ldd r24,Y+12
+ 645 0018 9D85      		ldd r25,Y+13
+ 646 001a 0097      		sbiw r24,0
+ 647 001c 01F0      		breq .L42
+ 648               	.LSM67:
+ 649 001e 0E94 0000 		call mem_free
+ 650               	.LSM68:
+ 651 0022 1D86      		std Y+13,__zero_reg__
+ 652 0024 1C86      		std Y+12,__zero_reg__
+ 653               	.LSM69:
+ 654 0026 1F86      		std Y+15,__zero_reg__
+ 655 0028 1E86      		std Y+14,__zero_reg__
+ 656               	.L42:
+ 657               	/* epilogue start */
+ 658               	.LSM70:
+ 659 002a DF91      		pop r29
+ 660 002c CF91      		pop r28
+ 661               	.LVL52:
+ 662 002e 0895      		ret
+ 663               	.LFE28:
+ 665               		.section	.text.dhcp_stop,"ax",@progbits
+ 666               	.global	dhcp_stop
+ 668               	dhcp_stop:
+ 669               	.LFB21:
+ 670               	.LSM71:
+ 671               	.LVL53:
+ 672 0000 0F93      		push r16
+ 673 0002 1F93      		push r17
+ 674 0004 CF93      		push r28
+ 675 0006 DF93      		push r29
+ 676               	/* prologue: function */
+ 677               	/* frame size = 0 */
+ 678 0008 8C01      		movw r16,r24
+ 679               	.LSM72:
+ 680 000a FC01      		movw r30,r24
+ 681 000c C689      		ldd r28,Z+22
+ 682 000e D789      		ldd r29,Z+23
+ 683               	.LVL54:
+ 684               	.LSM73:
+ 685 0010 0097      		sbiw r24,0
+ 686 0012 01F0      		breq .L47
+ 687               	.LSM74:
+ 688 0014 2097      		sbiw r28,0
+ 689 0016 01F0      		breq .L47
+ 690               	.LSM75:
+ 691 0018 8E81      		ldd r24,Y+6
+ 692 001a 9F81      		ldd r25,Y+7
+ 693               	.LVL55:
+ 694 001c 0097      		sbiw r24,0
+ 695 001e 01F0      		breq .L45
+ 696               	.LSM76:
+ 697 0020 0E94 0000 		call udp_remove
+ 698               	.LSM77:
+ 699 0024 1F82      		std Y+7,__zero_reg__
+ 700 0026 1E82      		std Y+6,__zero_reg__
+ 701               	.L45:
+ 702               	.LSM78:
+ 703 0028 8885      		ldd r24,Y+8
+ 704 002a 9985      		ldd r25,Y+9
+ 705 002c 0097      		sbiw r24,0
+ 706 002e 01F0      		breq .L46
+ 707               	.LSM79:
+ 708 0030 0E94 0000 		call pbuf_free
+ 709               	.LSM80:
+ 710 0034 1986      		std Y+9,__zero_reg__
+ 711 0036 1886      		std Y+8,__zero_reg__
+ 712               	.L46:
+ 713               	.LSM81:
+ 714 0038 CE01      		movw r24,r28
+ 715 003a 0E94 0000 		call dhcp_free_reply
+ 716               	.LSM82:
+ 717 003e CE01      		movw r24,r28
+ 718 0040 0E94 0000 		call mem_free
+ 719               	.LSM83:
+ 720 0044 F801      		movw r30,r16
+ 721 0046 178A      		std Z+23,__zero_reg__
+ 722 0048 168A      		std Z+22,__zero_reg__
+ 723               	.LVL56:
+ 724               	.L47:
+ 725               	/* epilogue start */
+ 726               	.LSM84:
+ 727 004a DF91      		pop r29
+ 728 004c CF91      		pop r28
+ 729               	.LVL57:
+ 730 004e 1F91      		pop r17
+ 731 0050 0F91      		pop r16
+ 732               	.LVL58:
+ 733 0052 0895      		ret
+ 734               	.LFE21:
+ 736               		.section	.text.dhcp_create_request,"ax",@progbits
+ 738               	dhcp_create_request:
+ 739               	.LFB30:
+ 740               	.LSM85:
+ 741               	.LVL59:
+ 742 0000 EF92      		push r14
+ 743 0002 FF92      		push r15
+ 744 0004 0F93      		push r16
+ 745 0006 1F93      		push r17
+ 746 0008 CF93      		push r28
+ 747 000a DF93      		push r29
+ 748               	/* prologue: function */
+ 749               	/* frame size = 0 */
+ 750 000c 7C01      		movw r14,r24
+ 751               	.LSM86:
+ 752 000e 0097      		sbiw r24,0
+ 753 0010 01F4      		brne .L49
+ 754 0012 87EF      		ldi r24,lo8(-9)
+ 755               	.LVL60:
+ 756 0014 00C0      		rjmp .L50
+ 757               	.LVL61:
+ 758               	.L49:
+ 759               	.LSM87:
+ 760 0016 DC01      		movw r26,r24
+ 761 0018 5696      		adiw r26,22
+ 762 001a CD91      		ld r28,X+
+ 763 001c DC91      		ld r29,X
+ 764 001e 5797      		sbiw r26,22+1
+ 765               	.LVL62:
+ 766               	.LSM88:
+ 767 0020 2097      		sbiw r28,0
+ 768 0022 01F4      		brne .L51
+ 769 0024 88EF      		ldi r24,lo8(-8)
+ 770               	.LVL63:
+ 771 0026 00C0      		rjmp .L50
+ 772               	.LVL64:
+ 773               	.L51:
+ 774               	.LSM89:
+ 775 0028 80E0      		ldi r24,lo8(0)
+ 776               	.LVL65:
+ 777 002a 64E3      		ldi r22,lo8(308)
+ 778 002c 71E0      		ldi r23,hi8(308)
+ 779 002e 40E0      		ldi r20,lo8(0)
+ 780 0030 0E94 0000 		call pbuf_alloc
+ 781 0034 FC01      		movw r30,r24
+ 782 0036 998B      		std Y+17,r25
+ 783 0038 888B      		std Y+16,r24
+ 784               	.LSM90:
+ 785 003a 0097      		sbiw r24,0
+ 786 003c 01F4      		brne .L52
+ 787 003e 8FEF      		ldi r24,lo8(-1)
+ 788 0040 00C0      		rjmp .L50
+ 789               	.L52:
+ 790               	.LSM91:
+ 791 0042 8091 0000 		lds r24,xid
+ 792 0046 9091 0000 		lds r25,(xid)+1
+ 793 004a A091 0000 		lds r26,(xid)+2
+ 794 004e B091 0000 		lds r27,(xid)+3
+ 795 0052 8A83      		std Y+2,r24
+ 796 0054 9B83      		std Y+3,r25
+ 797 0056 AC83      		std Y+4,r26
+ 798 0058 BD83      		std Y+5,r27
+ 799 005a 0196      		adiw r24,1
+ 800 005c A11D      		adc r26,__zero_reg__
+ 801 005e B11D      		adc r27,__zero_reg__
+ 802 0060 8093 0000 		sts xid,r24
+ 803 0064 9093 0000 		sts (xid)+1,r25
+ 804 0068 A093 0000 		sts (xid)+2,r26
+ 805 006c B093 0000 		sts (xid)+3,r27
+ 806               	.LSM92:
+ 807 0070 0280      		ldd __tmp_reg__,Z+2
+ 808 0072 F381      		ldd r31,Z+3
+ 809 0074 E02D      		mov r30,__tmp_reg__
+ 810 0076 FB8B      		std Y+19,r31
+ 811 0078 EA8B      		std Y+18,r30
+ 812               	.LSM93:
+ 813 007a 81E0      		ldi r24,lo8(1)
+ 814 007c 8083      		st Z,r24
+ 815               	.LSM94:
+ 816 007e EA89      		ldd r30,Y+18
+ 817 0080 FB89      		ldd r31,Y+19
+ 818 0082 8183      		std Z+1,r24
+ 819               	.LSM95:
+ 820 0084 EA89      		ldd r30,Y+18
+ 821 0086 FB89      		ldd r31,Y+19
+ 822 0088 86E0      		ldi r24,lo8(6)
+ 823 008a 8283      		std Z+2,r24
+ 824               	.LSM96:
+ 825 008c EA89      		ldd r30,Y+18
+ 826 008e FB89      		ldd r31,Y+19
+ 827 0090 1382      		std Z+3,__zero_reg__
+ 828               	.LSM97:
+ 829 0092 0A89      		ldd r16,Y+18
+ 830 0094 1B89      		ldd r17,Y+19
+ 831 0096 6A81      		ldd r22,Y+2
+ 832 0098 7B81      		ldd r23,Y+3
+ 833 009a 8C81      		ldd r24,Y+4
+ 834 009c 9D81      		ldd r25,Y+5
+ 835 009e 0E94 0000 		call htonl
+ 836 00a2 F801      		movw r30,r16
+ 837 00a4 6483      		std Z+4,r22
+ 838 00a6 7583      		std Z+5,r23
+ 839 00a8 8683      		std Z+6,r24
+ 840 00aa 9783      		std Z+7,r25
+ 841               	.LSM98:
+ 842 00ac EA89      		ldd r30,Y+18
+ 843 00ae FB89      		ldd r31,Y+19
+ 844 00b0 1186      		std Z+9,__zero_reg__
+ 845 00b2 1086      		std Z+8,__zero_reg__
+ 846               	.LSM99:
+ 847 00b4 1386      		std Z+11,__zero_reg__
+ 848 00b6 1286      		std Z+10,__zero_reg__
+ 849               	.LSM100:
+ 850 00b8 D701      		movw r26,r14
+ 851 00ba 1296      		adiw r26,2
+ 852 00bc 2D91      		ld r18,X+
+ 853 00be 3D91      		ld r19,X+
+ 854 00c0 4D91      		ld r20,X+
+ 855 00c2 5C91      		ld r21,X
+ 856 00c4 1597      		sbiw r26,2+3
+ 857 00c6 2487      		std Z+12,r18
+ 858 00c8 3587      		std Z+13,r19
+ 859 00ca 4687      		std Z+14,r20
+ 860 00cc 5787      		std Z+15,r21
+ 861               	.LSM101:
+ 862 00ce 108A      		std Z+16,__zero_reg__
+ 863 00d0 118A      		std Z+17,__zero_reg__
+ 864 00d2 128A      		std Z+18,__zero_reg__
+ 865 00d4 138A      		std Z+19,__zero_reg__
+ 866               	.LSM102:
+ 867 00d6 148A      		std Z+20,__zero_reg__
+ 868 00d8 158A      		std Z+21,__zero_reg__
+ 869 00da 168A      		std Z+22,__zero_reg__
+ 870 00dc 178A      		std Z+23,__zero_reg__
+ 871               	.LSM103:
+ 872 00de 108E      		std Z+24,__zero_reg__
+ 873 00e0 118E      		std Z+25,__zero_reg__
+ 874 00e2 128E      		std Z+26,__zero_reg__
+ 875 00e4 138E      		std Z+27,__zero_reg__
+ 876 00e6 20E0      		ldi r18,lo8(0)
+ 877 00e8 30E0      		ldi r19,hi8(0)
+ 878               	.LVL66:
+ 879               	.L55:
+ 880               	.LSM104:
+ 881 00ea 4A89      		ldd r20,Y+18
+ 882 00ec 5B89      		ldd r21,Y+19
+ 883 00ee F701      		movw r30,r14
+ 884 00f0 828D      		ldd r24,Z+26
+ 885 00f2 90E0      		ldi r25,lo8(0)
+ 886 00f4 2817      		cp r18,r24
+ 887 00f6 3907      		cpc r19,r25
+ 888 00f8 00F0      		brlo .L53
+ 889 00fa 80E0      		ldi r24,lo8(0)
+ 890 00fc 00C0      		rjmp .L54
+ 891               	.L53:
+ 892 00fe 5B96      		adiw r26,27
+ 893 0100 8C91      		ld r24,X
+ 894 0102 5B97      		sbiw r26,27
+ 895               	.L54:
+ 896 0104 420F      		add r20,r18
+ 897 0106 531F      		adc r21,r19
+ 898 0108 FA01      		movw r30,r20
+ 899 010a 848F      		std Z+28,r24
+ 900               	.LSM105:
+ 901 010c 2F5F      		subi r18,lo8(-(1))
+ 902 010e 3F4F      		sbci r19,hi8(-(1))
+ 903 0110 1196      		adiw r26,1
+ 904 0112 2031      		cpi r18,16
+ 905 0114 3105      		cpc r19,__zero_reg__
+ 906 0116 01F4      		brne .L55
+ 907 0118 80E0      		ldi r24,lo8(0)
+ 908 011a 90E0      		ldi r25,hi8(0)
+ 909               	.LVL67:
+ 910               	.L56:
+ 911               	.LSM106:
+ 912 011c EA89      		ldd r30,Y+18
+ 913 011e FB89      		ldd r31,Y+19
+ 914 0120 E80F      		add r30,r24
+ 915 0122 F91F      		adc r31,r25
+ 916 0124 14A6      		std Z+44,__zero_reg__
+ 917               	.LSM107:
+ 918 0126 0196      		adiw r24,1
+ 919 0128 8034      		cpi r24,64
+ 920 012a 9105      		cpc r25,__zero_reg__
+ 921 012c 01F4      		brne .L56
+ 922 012e 80E0      		ldi r24,lo8(0)
+ 923 0130 90E0      		ldi r25,hi8(0)
+ 924               	.LVL68:
+ 925               	.L57:
+ 926               	.LSM108:
+ 927 0132 EA89      		ldd r30,Y+18
+ 928 0134 FB89      		ldd r31,Y+19
+ 929 0136 E80F      		add r30,r24
+ 930 0138 F91F      		adc r31,r25
+ 931 013a E459      		subi r30,lo8(-(108))
+ 932 013c FF4F      		sbci r31,hi8(-(108))
+ 933 013e 1082      		st Z,__zero_reg__
+ 934               	.LSM109:
+ 935 0140 0196      		adiw r24,1
+ 936 0142 8038      		cpi r24,128
+ 937 0144 9105      		cpc r25,__zero_reg__
+ 938 0146 01F4      		brne .L57
+ 939               	.LSM110:
+ 940 0148 0A89      		ldd r16,Y+18
+ 941 014a 1B89      		ldd r17,Y+19
+ 942 014c 63E6      		ldi r22,lo8(1669485411)
+ 943 014e 73E5      		ldi r23,hi8(1669485411)
+ 944 0150 82E8      		ldi r24,hlo8(1669485411)
+ 945 0152 93E6      		ldi r25,hhi8(1669485411)
+ 946 0154 0E94 0000 		call htonl
+ 947               	.LVL69:
+ 948 0158 0451      		subi r16,lo8(-(236))
+ 949 015a 1F4F      		sbci r17,hi8(-(236))
+ 950 015c D801      		movw r26,r16
+ 951 015e 6D93      		st X+,r22
+ 952 0160 7D93      		st X+,r23
+ 953 0162 8D93      		st X+,r24
+ 954 0164 9C93      		st X,r25
+ 955 0166 1397      		sbiw r26,3
+ 956               	.LSM111:
+ 957 0168 1D8A      		std Y+21,__zero_reg__
+ 958 016a 1C8A      		std Y+20,__zero_reg__
+ 959 016c 80E0      		ldi r24,lo8(0)
+ 960 016e 90E0      		ldi r25,hi8(0)
+ 961               	.LVL70:
+ 962               	.L58:
+ 963               	.LSM112:
+ 964 0170 EA89      		ldd r30,Y+18
+ 965 0172 FB89      		ldd r31,Y+19
+ 966 0174 E80F      		add r30,r24
+ 967 0176 F91F      		adc r31,r25
+ 968 0178 E051      		subi r30,lo8(-(240))
+ 969 017a FF4F      		sbci r31,hi8(-(240))
+ 970 017c 8083      		st Z,r24
+ 971               	.LSM113:
+ 972 017e 0196      		adiw r24,1
+ 973 0180 8434      		cpi r24,68
+ 974 0182 9105      		cpc r25,__zero_reg__
+ 975 0184 01F4      		brne .L58
+ 976 0186 80E0      		ldi r24,lo8(0)
+ 977               	.LVL71:
+ 978               	.L50:
+ 979               	/* epilogue start */
+ 980               	.LSM114:
+ 981 0188 DF91      		pop r29
+ 982 018a CF91      		pop r28
+ 983               	.LVL72:
+ 984 018c 1F91      		pop r17
+ 985 018e 0F91      		pop r16
+ 986 0190 FF90      		pop r15
+ 987 0192 EF90      		pop r14
+ 988               	.LVL73:
+ 989 0194 0895      		ret
+ 990               	.LFE30:
+ 992               		.section	.text.dhcp_release,"ax",@progbits
+ 993               	.global	dhcp_release
+ 995               	dhcp_release:
+ 996               	.LFB20:
+ 997               	.LSM115:
+ 998               	.LVL74:
+ 999 0000 DF92      		push r13
+ 1000 0002 EF92      		push r14
+ 1001 0004 FF92      		push r15
+ 1002 0006 0F93      		push r16
+ 1003 0008 1F93      		push r17
+ 1004 000a CF93      		push r28
+ 1005 000c DF93      		push r29
+ 1006               	/* prologue: function */
+ 1007               	/* frame size = 0 */
+ 1008 000e 7C01      		movw r14,r24
+ 1009               	.LSM116:
+ 1010 0010 FC01      		movw r30,r24
+ 1011 0012 C689      		ldd r28,Z+22
+ 1012 0014 D789      		ldd r29,Z+23
+ 1013               	.LVL75:
+ 1014               	.LSM117:
+ 1015 0016 CE01      		movw r24,r28
+ 1016               	.LVL76:
+ 1017 0018 6DE0      		ldi r22,lo8(13)
+ 1018 001a 0E94 0000 		call dhcp_set_state
+ 1019               	.LSM118:
+ 1020 001e 1C8E      		std Y+28,__zero_reg__
+ 1021 0020 1D8E      		std Y+29,__zero_reg__
+ 1022 0022 1E8E      		std Y+30,__zero_reg__
+ 1023 0024 1F8E      		std Y+31,__zero_reg__
+ 1024               	.LSM119:
+ 1025 0026 1CA2      		std Y+36,__zero_reg__
+ 1026 0028 1DA2      		std Y+37,__zero_reg__
+ 1027 002a 1EA2      		std Y+38,__zero_reg__
+ 1028 002c 1FA2      		std Y+39,__zero_reg__
+ 1029 002e 18A2      		std Y+32,__zero_reg__
+ 1030 0030 19A2      		std Y+33,__zero_reg__
+ 1031 0032 1AA2      		std Y+34,__zero_reg__
+ 1032 0034 1BA2      		std Y+35,__zero_reg__
+ 1033               	.LSM120:
+ 1034 0036 1CA6      		std Y+44,__zero_reg__
+ 1035 0038 1DA6      		std Y+45,__zero_reg__
+ 1036 003a 1EA6      		std Y+46,__zero_reg__
+ 1037 003c 1FA6      		std Y+47,__zero_reg__
+ 1038 003e 18A6      		std Y+40,__zero_reg__
+ 1039 0040 19A6      		std Y+41,__zero_reg__
+ 1040 0042 1AA6      		std Y+42,__zero_reg__
+ 1041 0044 1BA6      		std Y+43,__zero_reg__
+ 1042               	.LSM121:
+ 1043 0046 CC5B      		subi r28,lo8(-(68))
+ 1044 0048 DF4F      		sbci r29,hi8(-(68))
+ 1045 004a 1882      		st Y,__zero_reg__
+ 1046 004c 1982      		std Y+1,__zero_reg__
+ 1047 004e 1A82      		std Y+2,__zero_reg__
+ 1048 0050 1B82      		std Y+3,__zero_reg__
+ 1049 0052 1A92      		st -Y,__zero_reg__
+ 1050 0054 1A92      		st -Y,__zero_reg__
+ 1051 0056 1A92      		st -Y,__zero_reg__
+ 1052 0058 1A92      		st -Y,__zero_reg__
+ 1053 005a C054      		subi r28,lo8(-(-64))
+ 1054 005c D040      		sbci r29,hi8(-(-64))
+ 1055 005e 1CAE      		std Y+60,__zero_reg__
+ 1056 0060 1DAE      		std Y+61,__zero_reg__
+ 1057 0062 1EAE      		std Y+62,__zero_reg__
+ 1058 0064 1FAE      		std Y+63,__zero_reg__
+ 1059               	.LSM122:
+ 1060 0066 18AA      		std Y+48,__zero_reg__
+ 1061 0068 19AA      		std Y+49,__zero_reg__
+ 1062 006a 1AAA      		std Y+50,__zero_reg__
+ 1063 006c 1BAA      		std Y+51,__zero_reg__
+ 1064               	.LSM123:
+ 1065 006e C701      		movw r24,r14
+ 1066 0070 0E94 0000 		call dhcp_create_request
+ 1067 0074 D82E      		mov r13,r24
+ 1068               	.LVL77:
+ 1069               	.LSM124:
+ 1070 0076 8823      		tst r24
+ 1071 0078 01F4      		brne .L65
+ 1072               	.LVL78:
+ 1073               	.LSM125:
+ 1074 007a CE01      		movw r24,r28
+ 1075               	.LVL79:
+ 1076 007c 65E3      		ldi r22,lo8(53)
+ 1077 007e 41E0      		ldi r20,lo8(1)
+ 1078 0080 0E94 0000 		call dhcp_option
+ 1079               	.LSM126:
+ 1080 0084 CE01      		movw r24,r28
+ 1081 0086 67E0      		ldi r22,lo8(7)
+ 1082 0088 0E94 0000 		call dhcp_option_byte
+ 1083               	.LSM127:
+ 1084 008c CE01      		movw r24,r28
+ 1085 008e 0E94 0000 		call dhcp_option_trailer
+ 1086               	.LSM128:
+ 1087 0092 6C89      		ldd r22,Y+20
+ 1088 0094 7D89      		ldd r23,Y+21
+ 1089 0096 6051      		subi r22,lo8(-(240))
+ 1090 0098 7F4F      		sbci r23,hi8(-(240))
+ 1091 009a 8889      		ldd r24,Y+16
+ 1092 009c 9989      		ldd r25,Y+17
+ 1093 009e 0E94 0000 		call pbuf_realloc
+ 1094               	.LSM129:
+ 1095 00a2 8E01      		movw r16,r28
+ 1096 00a4 045E      		subi r16,lo8(-(28))
+ 1097 00a6 1F4F      		sbci r17,hi8(-(28))
+ 1098 00a8 8E81      		ldd r24,Y+6
+ 1099 00aa 9F81      		ldd r25,Y+7
+ 1100 00ac B801      		movw r22,r16
+ 1101 00ae 43E4      		ldi r20,lo8(67)
+ 1102 00b0 50E0      		ldi r21,hi8(67)
+ 1103 00b2 0E94 0000 		call udp_connect
+ 1104               	.LSM130:
+ 1105 00b6 6889      		ldd r22,Y+16
+ 1106 00b8 7989      		ldd r23,Y+17
+ 1107 00ba 8E81      		ldd r24,Y+6
+ 1108 00bc 9F81      		ldd r25,Y+7
+ 1109 00be A801      		movw r20,r16
+ 1110 00c0 23E4      		ldi r18,lo8(67)
+ 1111 00c2 30E0      		ldi r19,hi8(67)
+ 1112 00c4 8701      		movw r16,r14
+ 1113 00c6 0E94 0000 		call udp_sendto_if
+ 1114               	.LSM131:
+ 1115 00ca C701      		movw r24,r14
+ 1116 00cc 0E94 0000 		call dhcp_delete_request
+ 1117               	.LVL80:
+ 1118               	.L65:
+ 1119               	.LSM132:
+ 1120 00d0 2981      		ldd r18,Y+1
+ 1121 00d2 2F5F      		subi r18,lo8(-(1))
+ 1122 00d4 2983      		std Y+1,r18
+ 1123               	.LSM133:
+ 1124 00d6 2A30      		cpi r18,lo8(10)
+ 1125 00d8 00F0      		brlo .L66
+ 1126 00da 40E1      		ldi r20,lo8(10000)
+ 1127 00dc 57E2      		ldi r21,hi8(10000)
+ 1128               	.LVL81:
+ 1129 00de 00C0      		rjmp .L67
+ 1130               	.LVL82:
+ 1131               	.L66:
+ 1132 00e0 30E0      		ldi r19,lo8(0)
+ 1133 00e2 88EE      		ldi r24,lo8(1000)
+ 1134 00e4 93E0      		ldi r25,hi8(1000)
+ 1135 00e6 289F      		mul r18,r24
+ 1136 00e8 A001      		movw r20,r0
+ 1137 00ea 299F      		mul r18,r25
+ 1138 00ec 500D      		add r21,r0
+ 1139 00ee 389F      		mul r19,r24
+ 1140 00f0 500D      		add r21,r0
+ 1141 00f2 1124      		clr r1
+ 1142               	.LVL83:
+ 1143               	.L67:
+ 1144               	.LSM134:
+ 1145 00f4 CA01      		movw r24,r20
+ 1146 00f6 8D50      		subi r24,lo8(-(499))
+ 1147 00f8 9E4F      		sbci r25,hi8(-(499))
+ 1148 00fa 64EF      		ldi r22,lo8(500)
+ 1149 00fc 71E0      		ldi r23,hi8(500)
+ 1150 00fe 0E94 0000 		call __udivmodhi4
+ 1151 0102 7F8B      		std Y+23,r23
+ 1152 0104 6E8B      		std Y+22,r22
+ 1153               	.LSM135:
+ 1154 0106 C701      		movw r24,r14
+ 1155 0108 0E94 0000 		call netif_set_down
+ 1156               	.LVL84:
+ 1157               	.LSM136:
+ 1158 010c C701      		movw r24,r14
+ 1159 010e 60E0      		ldi r22,lo8(ip_addr_any)
+ 1160 0110 70E0      		ldi r23,hi8(ip_addr_any)
+ 1161 0112 0E94 0000 		call netif_set_ipaddr
+ 1162               	.LSM137:
+ 1163 0116 C701      		movw r24,r14
+ 1164 0118 60E0      		ldi r22,lo8(ip_addr_any)
+ 1165 011a 70E0      		ldi r23,hi8(ip_addr_any)
+ 1166 011c 0E94 0000 		call netif_set_gw
+ 1167               	.LSM138:
+ 1168 0120 C701      		movw r24,r14
+ 1169 0122 60E0      		ldi r22,lo8(ip_addr_any)
+ 1170 0124 70E0      		ldi r23,hi8(ip_addr_any)
+ 1171 0126 0E94 0000 		call netif_set_netmask
+ 1172               	.LSM139:
+ 1173 012a 8D2D      		mov r24,r13
+ 1174               	/* epilogue start */
+ 1175 012c DF91      		pop r29
+ 1176 012e CF91      		pop r28
+ 1177               	.LVL85:
+ 1178 0130 1F91      		pop r17
+ 1179 0132 0F91      		pop r16
+ 1180 0134 FF90      		pop r15
+ 1181 0136 EF90      		pop r14
+ 1182               	.LVL86:
+ 1183 0138 DF90      		pop r13
+ 1184               	.LVL87:
+ 1185 013a 0895      		ret
+ 1186               	.LFE20:
+ 1188               		.section	.text.dhcp_renew,"ax",@progbits
+ 1189               	.global	dhcp_renew
+ 1191               	dhcp_renew:
+ 1192               	.LFB18:
+ 1193               	.LSM140:
+ 1194               	.LVL88:
+ 1195 0000 DF92      		push r13
+ 1196 0002 EF92      		push r14
+ 1197 0004 FF92      		push r15
+ 1198 0006 0F93      		push r16
+ 1199 0008 1F93      		push r17
+ 1200 000a CF93      		push r28
+ 1201 000c DF93      		push r29
+ 1202               	/* prologue: function */
+ 1203               	/* frame size = 0 */
+ 1204 000e 7C01      		movw r14,r24
+ 1205               	.LSM141:
+ 1206 0010 FC01      		movw r30,r24
+ 1207 0012 C689      		ldd r28,Z+22
+ 1208 0014 D789      		ldd r29,Z+23
+ 1209               	.LVL89:
+ 1210               	.LSM142:
+ 1211 0016 CE01      		movw r24,r28
+ 1212               	.LVL90:
+ 1213 0018 65E0      		ldi r22,lo8(5)
+ 1214 001a 0E94 0000 		call dhcp_set_state
+ 1215               	.LSM143:
+ 1216 001e C701      		movw r24,r14
+ 1217 0020 0E94 0000 		call dhcp_create_request
+ 1218 0024 D82E      		mov r13,r24
+ 1219               	.LVL91:
+ 1220               	.LSM144:
+ 1221 0026 8823      		tst r24
+ 1222 0028 01F4      		brne .L70
+ 1223               	.LVL92:
+ 1224               	.LSM145:
+ 1225 002a CE01      		movw r24,r28
+ 1226               	.LVL93:
+ 1227 002c 65E3      		ldi r22,lo8(53)
+ 1228 002e 41E0      		ldi r20,lo8(1)
+ 1229 0030 0E94 0000 		call dhcp_option
+ 1230               	.LSM146:
+ 1231 0034 CE01      		movw r24,r28
+ 1232 0036 63E0      		ldi r22,lo8(3)
+ 1233 0038 0E94 0000 		call dhcp_option_byte
+ 1234               	.LSM147:
+ 1235 003c CE01      		movw r24,r28
+ 1236 003e 69E3      		ldi r22,lo8(57)
+ 1237 0040 42E0      		ldi r20,lo8(2)
+ 1238 0042 0E94 0000 		call dhcp_option
+ 1239               	.LSM148:
+ 1240 0046 CE01      		movw r24,r28
+ 1241 0048 60E4      		ldi r22,lo8(576)
+ 1242 004a 72E0      		ldi r23,hi8(576)
+ 1243 004c 0E94 0000 		call dhcp_option_short
+ 1244               	.LSM149:
+ 1245 0050 CE01      		movw r24,r28
+ 1246 0052 0E94 0000 		call dhcp_option_trailer
+ 1247               	.LSM150:
+ 1248 0056 6C89      		ldd r22,Y+20
+ 1249 0058 7D89      		ldd r23,Y+21
+ 1250 005a 6051      		subi r22,lo8(-(240))
+ 1251 005c 7F4F      		sbci r23,hi8(-(240))
+ 1252 005e 8889      		ldd r24,Y+16
+ 1253 0060 9989      		ldd r25,Y+17
+ 1254 0062 0E94 0000 		call pbuf_realloc
+ 1255               	.LSM151:
+ 1256 0066 8E01      		movw r16,r28
+ 1257 0068 045E      		subi r16,lo8(-(28))
+ 1258 006a 1F4F      		sbci r17,hi8(-(28))
+ 1259 006c 8E81      		ldd r24,Y+6
+ 1260 006e 9F81      		ldd r25,Y+7
+ 1261 0070 B801      		movw r22,r16
+ 1262 0072 43E4      		ldi r20,lo8(67)
+ 1263 0074 50E0      		ldi r21,hi8(67)
+ 1264 0076 0E94 0000 		call udp_connect
+ 1265               	.LSM152:
+ 1266 007a 6889      		ldd r22,Y+16
+ 1267 007c 7989      		ldd r23,Y+17
+ 1268 007e 8E81      		ldd r24,Y+6
+ 1269 0080 9F81      		ldd r25,Y+7
+ 1270 0082 A801      		movw r20,r16
+ 1271 0084 23E4      		ldi r18,lo8(67)
+ 1272 0086 30E0      		ldi r19,hi8(67)
+ 1273 0088 8701      		movw r16,r14
+ 1274 008a 0E94 0000 		call udp_sendto_if
+ 1275               	.LSM153:
+ 1276 008e C701      		movw r24,r14
+ 1277 0090 0E94 0000 		call dhcp_delete_request
+ 1278               	.LVL94:
+ 1279               	.L70:
+ 1280               	.LSM154:
+ 1281 0094 2981      		ldd r18,Y+1
+ 1282 0096 2F5F      		subi r18,lo8(-(1))
+ 1283 0098 2983      		std Y+1,r18
+ 1284               	.LSM155:
+ 1285 009a 2A30      		cpi r18,lo8(10)
+ 1286 009c 00F0      		brlo .L71
+ 1287 009e 40E2      		ldi r20,lo8(20000)
+ 1288 00a0 5EE4      		ldi r21,hi8(20000)
+ 1289               	.LVL95:
+ 1290 00a2 00C0      		rjmp .L72
+ 1291               	.LVL96:
+ 1292               	.L71:
+ 1293 00a4 30E0      		ldi r19,lo8(0)
+ 1294 00a6 80ED      		ldi r24,lo8(2000)
+ 1295 00a8 97E0      		ldi r25,hi8(2000)
+ 1296 00aa 289F      		mul r18,r24
+ 1297 00ac A001      		movw r20,r0
+ 1298 00ae 299F      		mul r18,r25
+ 1299 00b0 500D      		add r21,r0
+ 1300 00b2 389F      		mul r19,r24
+ 1301 00b4 500D      		add r21,r0
+ 1302 00b6 1124      		clr r1
+ 1303               	.LVL97:
+ 1304               	.L72:
+ 1305               	.LSM156:
+ 1306 00b8 CA01      		movw r24,r20
+ 1307 00ba 8D50      		subi r24,lo8(-(499))
+ 1308 00bc 9E4F      		sbci r25,hi8(-(499))
+ 1309 00be 64EF      		ldi r22,lo8(500)
+ 1310 00c0 71E0      		ldi r23,hi8(500)
+ 1311 00c2 0E94 0000 		call __udivmodhi4
+ 1312 00c6 7F8B      		std Y+23,r23
+ 1313 00c8 6E8B      		std Y+22,r22
+ 1314               	.LSM157:
+ 1315 00ca 8D2D      		mov r24,r13
+ 1316               	/* epilogue start */
+ 1317 00cc DF91      		pop r29
+ 1318 00ce CF91      		pop r28
+ 1319               	.LVL98:
+ 1320 00d0 1F91      		pop r17
+ 1321 00d2 0F91      		pop r16
+ 1322 00d4 FF90      		pop r15
+ 1323 00d6 EF90      		pop r14
+ 1324               	.LVL99:
+ 1325 00d8 DF90      		pop r13
+ 1326               	.LVL100:
+ 1327 00da 0895      		ret
+ 1328               	.LFE18:
+ 1330               		.section	.text.dhcp_rebind,"ax",@progbits
+ 1332               	dhcp_rebind:
+ 1333               	.LFB19:
+ 1334               	.LSM158:
+ 1335               	.LVL101:
+ 1336 0000 DF92      		push r13
+ 1337 0002 EF92      		push r14
+ 1338 0004 FF92      		push r15
+ 1339 0006 0F93      		push r16
+ 1340 0008 1F93      		push r17
+ 1341 000a CF93      		push r28
+ 1342 000c DF93      		push r29
+ 1343               	/* prologue: function */
+ 1344               	/* frame size = 0 */
+ 1345 000e 7C01      		movw r14,r24
+ 1346               	.LSM159:
+ 1347 0010 FC01      		movw r30,r24
+ 1348 0012 C689      		ldd r28,Z+22
+ 1349 0014 D789      		ldd r29,Z+23
+ 1350               	.LVL102:
+ 1351               	.LSM160:
+ 1352 0016 CE01      		movw r24,r28
+ 1353               	.LVL103:
+ 1354 0018 64E0      		ldi r22,lo8(4)
+ 1355 001a 0E94 0000 		call dhcp_set_state
+ 1356               	.LSM161:
+ 1357 001e C701      		movw r24,r14
+ 1358 0020 0E94 0000 		call dhcp_create_request
+ 1359 0024 D82E      		mov r13,r24
+ 1360               	.LVL104:
+ 1361               	.LSM162:
+ 1362 0026 8823      		tst r24
+ 1363 0028 01F4      		brne .L75
+ 1364               	.LVL105:
+ 1365               	.LSM163:
+ 1366 002a CE01      		movw r24,r28
+ 1367               	.LVL106:
+ 1368 002c 65E3      		ldi r22,lo8(53)
+ 1369 002e 41E0      		ldi r20,lo8(1)
+ 1370 0030 0E94 0000 		call dhcp_option
+ 1371               	.LSM164:
+ 1372 0034 CE01      		movw r24,r28
+ 1373 0036 63E0      		ldi r22,lo8(3)
+ 1374 0038 0E94 0000 		call dhcp_option_byte
+ 1375               	.LSM165:
+ 1376 003c CE01      		movw r24,r28
+ 1377 003e 69E3      		ldi r22,lo8(57)
+ 1378 0040 42E0      		ldi r20,lo8(2)
+ 1379 0042 0E94 0000 		call dhcp_option
+ 1380               	.LSM166:
+ 1381 0046 CE01      		movw r24,r28
+ 1382 0048 60E4      		ldi r22,lo8(576)
+ 1383 004a 72E0      		ldi r23,hi8(576)
+ 1384 004c 0E94 0000 		call dhcp_option_short
+ 1385               	.LSM167:
+ 1386 0050 CE01      		movw r24,r28
+ 1387 0052 0E94 0000 		call dhcp_option_trailer
+ 1388               	.LSM168:
+ 1389 0056 6C89      		ldd r22,Y+20
+ 1390 0058 7D89      		ldd r23,Y+21
+ 1391 005a 6051      		subi r22,lo8(-(240))
+ 1392 005c 7F4F      		sbci r23,hi8(-(240))
+ 1393 005e 8889      		ldd r24,Y+16
+ 1394 0060 9989      		ldd r25,Y+17
+ 1395 0062 0E94 0000 		call pbuf_realloc
+ 1396               	.LSM169:
+ 1397 0066 8E81      		ldd r24,Y+6
+ 1398 0068 9F81      		ldd r25,Y+7
+ 1399 006a 60E0      		ldi r22,lo8(ip_addr_any)
+ 1400 006c 70E0      		ldi r23,hi8(ip_addr_any)
+ 1401 006e 43E4      		ldi r20,lo8(67)
+ 1402 0070 50E0      		ldi r21,hi8(67)
+ 1403 0072 0E94 0000 		call udp_connect
+ 1404               	.LSM170:
+ 1405 0076 6889      		ldd r22,Y+16
+ 1406 0078 7989      		ldd r23,Y+17
+ 1407 007a 8E81      		ldd r24,Y+6
+ 1408 007c 9F81      		ldd r25,Y+7
+ 1409 007e 40E0      		ldi r20,lo8(ip_addr_broadcast)
+ 1410 0080 50E0      		ldi r21,hi8(ip_addr_broadcast)
+ 1411 0082 23E4      		ldi r18,lo8(67)
+ 1412 0084 30E0      		ldi r19,hi8(67)
+ 1413 0086 8701      		movw r16,r14
+ 1414 0088 0E94 0000 		call udp_sendto_if
+ 1415               	.LSM171:
+ 1416 008c C701      		movw r24,r14
+ 1417 008e 0E94 0000 		call dhcp_delete_request
+ 1418               	.LVL107:
+ 1419               	.L75:
+ 1420               	.LSM172:
+ 1421 0092 2981      		ldd r18,Y+1
+ 1422 0094 2F5F      		subi r18,lo8(-(1))
+ 1423 0096 2983      		std Y+1,r18
+ 1424               	.LSM173:
+ 1425 0098 2A30      		cpi r18,lo8(10)
+ 1426 009a 00F0      		brlo .L76
+ 1427 009c 40E1      		ldi r20,lo8(10000)
+ 1428 009e 57E2      		ldi r21,hi8(10000)
+ 1429               	.LVL108:
+ 1430 00a0 00C0      		rjmp .L77
+ 1431               	.LVL109:
+ 1432               	.L76:
+ 1433 00a2 30E0      		ldi r19,lo8(0)
+ 1434 00a4 88EE      		ldi r24,lo8(1000)
+ 1435 00a6 93E0      		ldi r25,hi8(1000)
+ 1436 00a8 289F      		mul r18,r24
+ 1437 00aa A001      		movw r20,r0
+ 1438 00ac 299F      		mul r18,r25
+ 1439 00ae 500D      		add r21,r0
+ 1440 00b0 389F      		mul r19,r24
+ 1441 00b2 500D      		add r21,r0
+ 1442 00b4 1124      		clr r1
+ 1443               	.LVL110:
+ 1444               	.L77:
+ 1445               	.LSM174:
+ 1446 00b6 CA01      		movw r24,r20
+ 1447 00b8 8D50      		subi r24,lo8(-(499))
+ 1448 00ba 9E4F      		sbci r25,hi8(-(499))
+ 1449 00bc 64EF      		ldi r22,lo8(500)
+ 1450 00be 71E0      		ldi r23,hi8(500)
+ 1451 00c0 0E94 0000 		call __udivmodhi4
+ 1452 00c4 7F8B      		std Y+23,r23
+ 1453 00c6 6E8B      		std Y+22,r22
+ 1454               	.LSM175:
+ 1455 00c8 8D2D      		mov r24,r13
+ 1456               	/* epilogue start */
+ 1457 00ca DF91      		pop r29
+ 1458 00cc CF91      		pop r28
+ 1459               	.LVL111:
+ 1460 00ce 1F91      		pop r17
+ 1461 00d0 0F91      		pop r16
+ 1462 00d2 FF90      		pop r15
+ 1463 00d4 EF90      		pop r14
+ 1464               	.LVL112:
+ 1465 00d6 DF90      		pop r13
+ 1466               	.LVL113:
+ 1467 00d8 0895      		ret
+ 1468               	.LFE19:
+ 1470               		.section	.text.dhcp_coarse_tmr,"ax",@progbits
+ 1471               	.global	dhcp_coarse_tmr
+ 1473               	dhcp_coarse_tmr:
+ 1474               	.LFB6:
+ 1475               	.LSM176:
+ 1476 0000 CF93      		push r28
+ 1477 0002 DF93      		push r29
+ 1478               	/* prologue: function */
+ 1479               	/* frame size = 0 */
+ 1480               	.LSM177:
+ 1481 0004 C091 0000 		lds r28,netif_list
+ 1482 0008 D091 0000 		lds r29,(netif_list)+1
+ 1483               	.LVL114:
+ 1484 000c 00C0      		rjmp .L80
+ 1485               	.L85:
+ 1486               	.LSM178:
+ 1487 000e EE89      		ldd r30,Y+22
+ 1488 0010 FF89      		ldd r31,Y+23
+ 1489 0012 3097      		sbiw r30,0
+ 1490 0014 01F0      		breq .L81
+ 1491               	.LSM179:
+ 1492 0016 828D      		ldd r24,Z+26
+ 1493 0018 938D      		ldd r25,Z+27
+ 1494 001a 0197      		sbiw r24,1
+ 1495 001c 938F      		std Z+27,r25
+ 1496 001e 828F      		std Z+26,r24
+ 1497 0020 0196      		adiw r24,1
+ 1498 0022 0197      		sbiw r24,1
+ 1499 0024 01F4      		brne .L82
+ 1500               	.LBB8:
+ 1501               	.LBB9:
+ 1502               	.LSM180:
+ 1503 0026 8081      		ld r24,Z
+ 1504 0028 8130      		cpi r24,lo8(1)
+ 1505 002a 01F0      		breq .L83
+ 1506 002c 8A30      		cpi r24,lo8(10)
+ 1507 002e 01F0      		breq .L83
+ 1508 0030 8530      		cpi r24,lo8(5)
+ 1509 0032 01F4      		brne .L81
+ 1510               	.L83:
+ 1511               	.LSM181:
+ 1512 0034 CE01      		movw r24,r28
+ 1513 0036 0E94 0000 		call dhcp_rebind
+ 1514 003a 00C0      		rjmp .L81
+ 1515               	.L82:
+ 1516               	.LBE9:
+ 1517               	.LBE8:
+ 1518               	.LSM182:
+ 1519 003c 808D      		ldd r24,Z+24
+ 1520 003e 918D      		ldd r25,Z+25
+ 1521 0040 0197      		sbiw r24,1
+ 1522 0042 918F      		std Z+25,r25
+ 1523 0044 808F      		std Z+24,r24
+ 1524 0046 0196      		adiw r24,1
+ 1525 0048 0197      		sbiw r24,1
+ 1526 004a 01F4      		brne .L81
+ 1527               	.LBB10:
+ 1528               	.LBB11:
+ 1529               	.LSM183:
+ 1530 004c 8081      		ld r24,Z
+ 1531 004e 8130      		cpi r24,lo8(1)
+ 1532 0050 01F0      		breq .L84
+ 1533 0052 8A30      		cpi r24,lo8(10)
+ 1534 0054 01F0      		breq .L84
+ 1535 0056 8530      		cpi r24,lo8(5)
+ 1536 0058 01F4      		brne .L81
+ 1537               	.L84:
+ 1538               	.LSM184:
+ 1539 005a CE01      		movw r24,r28
+ 1540 005c 0E94 0000 		call dhcp_renew
+ 1541               	.L81:
+ 1542               	.LBE11:
+ 1543               	.LBE10:
+ 1544               	.LSM185:
+ 1545 0060 0990      		ld __tmp_reg__,Y+
+ 1546 0062 D881      		ld r29,Y
+ 1547 0064 C02D      		mov r28,__tmp_reg__
+ 1548               	.L80:
+ 1549               	.LSM186:
+ 1550 0066 2097      		sbiw r28,0
+ 1551 0068 01F4      		brne .L85
+ 1552               	/* epilogue start */
+ 1553               	.LSM187:
+ 1554 006a DF91      		pop r29
+ 1555 006c CF91      		pop r28
+ 1556               	.LVL115:
+ 1557 006e 0895      		ret
+ 1558               	.LFE6:
+ 1560               		.section	.text.dhcp_arp_reply,"ax",@progbits
+ 1561               	.global	dhcp_arp_reply
+ 1563               	dhcp_arp_reply:
+ 1564               	.LFB14:
+ 1565               	.LSM188:
+ 1566               	.LVL116:
+ 1567 0000 EF92      		push r14
+ 1568 0002 FF92      		push r15
+ 1569 0004 0F93      		push r16
+ 1570 0006 1F93      		push r17
+ 1571 0008 CF93      		push r28
+ 1572 000a DF93      		push r29
+ 1573               	/* prologue: function */
+ 1574               	/* frame size = 0 */
+ 1575 000c 7C01      		movw r14,r24
+ 1576 000e FB01      		movw r30,r22
+ 1577               	.LSM189:
+ 1578 0010 0097      		sbiw r24,0
+ 1579 0012 01F4      		brne .+2
+ 1580 0014 00C0      		rjmp .L90
+ 1581               	.LVL117:
+ 1582               	.LSM190:
+ 1583 0016 DC01      		movw r26,r24
+ 1584 0018 5696      		adiw r26,22
+ 1585 001a CD91      		ld r28,X+
+ 1586 001c DC91      		ld r29,X
+ 1587 001e 5797      		sbiw r26,22+1
+ 1588 0020 2097      		sbiw r28,0
+ 1589 0022 01F4      		brne .+2
+ 1590 0024 00C0      		rjmp .L90
+ 1591 0026 8881      		ld r24,Y
+ 1592               	.LVL118:
+ 1593 0028 8830      		cpi r24,lo8(8)
+ 1594 002a 01F0      		breq .+2
+ 1595 002c 00C0      		rjmp .L90
+ 1596               	.LSM191:
+ 1597 002e 2081      		ld r18,Z
+ 1598 0030 3181      		ldd r19,Z+1
+ 1599 0032 4281      		ldd r20,Z+2
+ 1600 0034 5381      		ldd r21,Z+3
+ 1601 0036 88A1      		ldd r24,Y+32
+ 1602 0038 99A1      		ldd r25,Y+33
+ 1603 003a AAA1      		ldd r26,Y+34
+ 1604 003c BBA1      		ldd r27,Y+35
+ 1605 003e 2817      		cp r18,r24
+ 1606 0040 3907      		cpc r19,r25
+ 1607 0042 4A07      		cpc r20,r26
+ 1608 0044 5B07      		cpc r21,r27
+ 1609 0046 01F0      		breq .+2
+ 1610 0048 00C0      		rjmp .L90
+ 1611               	.LBB14:
+ 1612               	.LBB15:
+ 1613               	.LSM192:
+ 1614 004a CE01      		movw r24,r28
+ 1615 004c 6CE0      		ldi r22,lo8(12)
+ 1616 004e 0E94 0000 		call dhcp_set_state
+ 1617               	.LVL119:
+ 1618               	.LBE15:
+ 1619               	.LSM193:
+ 1620 0052 C701      		movw r24,r14
+ 1621 0054 0E94 0000 		call dhcp_create_request
+ 1622               	.LBB16:
+ 1623               	.LSM194:
+ 1624 0058 8823      		tst r24
+ 1625 005a 01F0      		breq .+2
+ 1626 005c 00C0      		rjmp .L89
+ 1627               	.LSM195:
+ 1628 005e CE01      		movw r24,r28
+ 1629 0060 65E3      		ldi r22,lo8(53)
+ 1630 0062 41E0      		ldi r20,lo8(1)
+ 1631 0064 0E94 0000 		call dhcp_option
+ 1632               	.LSM196:
+ 1633 0068 CE01      		movw r24,r28
+ 1634 006a 64E0      		ldi r22,lo8(4)
+ 1635 006c 0E94 0000 		call dhcp_option_byte
+ 1636               	.LSM197:
+ 1637 0070 CE01      		movw r24,r28
+ 1638 0072 69E3      		ldi r22,lo8(57)
+ 1639 0074 42E0      		ldi r20,lo8(2)
+ 1640 0076 0E94 0000 		call dhcp_option
+ 1641               	.LSM198:
+ 1642 007a CE01      		movw r24,r28
+ 1643 007c 60E4      		ldi r22,lo8(576)
+ 1644 007e 72E0      		ldi r23,hi8(576)
+ 1645 0080 0E94 0000 		call dhcp_option_short
+ 1646               	.LSM199:
+ 1647 0084 CE01      		movw r24,r28
+ 1648 0086 62E3      		ldi r22,lo8(50)
+ 1649 0088 44E0      		ldi r20,lo8(4)
+ 1650 008a 0E94 0000 		call dhcp_option
+ 1651               	.LBE16:
+ 1652               	.LSM200:
+ 1653 008e 68A1      		ldd r22,Y+32
+ 1654 0090 79A1      		ldd r23,Y+33
+ 1655 0092 8AA1      		ldd r24,Y+34
+ 1656 0094 9BA1      		ldd r25,Y+35
+ 1657 0096 0E94 0000 		call ntohl
+ 1658 009a AB01      		movw r20,r22
+ 1659 009c BC01      		movw r22,r24
+ 1660               	.LBB17:
+ 1661 009e CE01      		movw r24,r28
+ 1662 00a0 0E94 0000 		call dhcp_option_long
+ 1663               	.LSM201:
+ 1664 00a4 CE01      		movw r24,r28
+ 1665 00a6 0E94 0000 		call dhcp_option_trailer
+ 1666               	.LSM202:
+ 1667 00aa 6C89      		ldd r22,Y+20
+ 1668 00ac 7D89      		ldd r23,Y+21
+ 1669 00ae 6051      		subi r22,lo8(-(240))
+ 1670 00b0 7F4F      		sbci r23,hi8(-(240))
+ 1671 00b2 8889      		ldd r24,Y+16
+ 1672 00b4 9989      		ldd r25,Y+17
+ 1673 00b6 0E94 0000 		call pbuf_realloc
+ 1674               	.LSM203:
+ 1675 00ba 8E81      		ldd r24,Y+6
+ 1676 00bc 9F81      		ldd r25,Y+7
+ 1677 00be 60E0      		ldi r22,lo8(ip_addr_any)
+ 1678 00c0 70E0      		ldi r23,hi8(ip_addr_any)
+ 1679 00c2 43E4      		ldi r20,lo8(67)
+ 1680 00c4 50E0      		ldi r21,hi8(67)
+ 1681 00c6 0E94 0000 		call udp_connect
+ 1682               	.LSM204:
+ 1683 00ca 6889      		ldd r22,Y+16
+ 1684 00cc 7989      		ldd r23,Y+17
+ 1685 00ce 8E81      		ldd r24,Y+6
+ 1686 00d0 9F81      		ldd r25,Y+7
+ 1687 00d2 40E0      		ldi r20,lo8(ip_addr_broadcast)
+ 1688 00d4 50E0      		ldi r21,hi8(ip_addr_broadcast)
+ 1689 00d6 23E4      		ldi r18,lo8(67)
+ 1690 00d8 30E0      		ldi r19,hi8(67)
+ 1691 00da 8701      		movw r16,r14
+ 1692 00dc 0E94 0000 		call udp_sendto_if
+ 1693               	.LSM205:
+ 1694 00e0 C701      		movw r24,r14
+ 1695 00e2 0E94 0000 		call dhcp_delete_request
+ 1696               	.L89:
+ 1697               	.LSM206:
+ 1698 00e6 8981      		ldd r24,Y+1
+ 1699 00e8 8F5F      		subi r24,lo8(-(1))
+ 1700 00ea 8983      		std Y+1,r24
+ 1701               	.LSM207:
+ 1702 00ec 84E1      		ldi r24,lo8(20)
+ 1703 00ee 90E0      		ldi r25,hi8(20)
+ 1704 00f0 9F8B      		std Y+23,r25
+ 1705 00f2 8E8B      		std Y+22,r24
+ 1706               	.LVL120:
+ 1707               	.L90:
+ 1708               	/* epilogue start */
+ 1709               	.LBE17:
+ 1710               	.LBE14:
+ 1711               	.LSM208:
+ 1712 00f4 DF91      		pop r29
+ 1713 00f6 CF91      		pop r28
+ 1714 00f8 1F91      		pop r17
+ 1715 00fa 0F91      		pop r16
+ 1716 00fc FF90      		pop r15
+ 1717 00fe EF90      		pop r14
+ 1718               	.LVL121:
+ 1719 0100 0895      		ret
+ 1720               	.LFE14:
+ 1722               		.section	.text.dhcp_select,"ax",@progbits
+ 1724               	dhcp_select:
+ 1725               	.LFB5:
+ 1726               	.LSM209:
+ 1727               	.LVL122:
+ 1728 0000 DF92      		push r13
+ 1729 0002 EF92      		push r14
+ 1730 0004 FF92      		push r15
+ 1731 0006 0F93      		push r16
+ 1732 0008 1F93      		push r17
+ 1733 000a CF93      		push r28
+ 1734 000c DF93      		push r29
+ 1735               	/* prologue: function */
+ 1736               	/* frame size = 0 */
+ 1737 000e 7C01      		movw r14,r24
+ 1738               	.LSM210:
+ 1739 0010 FC01      		movw r30,r24
+ 1740 0012 C689      		ldd r28,Z+22
+ 1741 0014 D789      		ldd r29,Z+23
+ 1742               	.LVL123:
+ 1743               	.LSM211:
+ 1744 0016 0E94 0000 		call dhcp_create_request
+ 1745               	.LVL124:
+ 1746 001a D82E      		mov r13,r24
+ 1747               	.LVL125:
+ 1748               	.LSM212:
+ 1749 001c 8823      		tst r24
+ 1750 001e 01F0      		breq .+2
+ 1751 0020 00C0      		rjmp .L92
+ 1752               	.LVL126:
+ 1753               	.LSM213:
+ 1754 0022 CE01      		movw r24,r28
+ 1755               	.LVL127:
+ 1756 0024 65E3      		ldi r22,lo8(53)
+ 1757 0026 41E0      		ldi r20,lo8(1)
+ 1758 0028 0E94 0000 		call dhcp_option
+ 1759               	.LSM214:
+ 1760 002c CE01      		movw r24,r28
+ 1761 002e 63E0      		ldi r22,lo8(3)
+ 1762 0030 0E94 0000 		call dhcp_option_byte
+ 1763               	.LSM215:
+ 1764 0034 CE01      		movw r24,r28
+ 1765 0036 69E3      		ldi r22,lo8(57)
+ 1766 0038 42E0      		ldi r20,lo8(2)
+ 1767 003a 0E94 0000 		call dhcp_option
+ 1768               	.LSM216:
+ 1769 003e CE01      		movw r24,r28
+ 1770 0040 60E4      		ldi r22,lo8(576)
+ 1771 0042 72E0      		ldi r23,hi8(576)
+ 1772 0044 0E94 0000 		call dhcp_option_short
+ 1773               	.LSM217:
+ 1774 0048 CE01      		movw r24,r28
+ 1775 004a 62E3      		ldi r22,lo8(50)
+ 1776 004c 44E0      		ldi r20,lo8(4)
+ 1777 004e 0E94 0000 		call dhcp_option
+ 1778               	.LSM218:
+ 1779 0052 68A1      		ldd r22,Y+32
+ 1780 0054 79A1      		ldd r23,Y+33
+ 1781 0056 8AA1      		ldd r24,Y+34
+ 1782 0058 9BA1      		ldd r25,Y+35
+ 1783 005a 0E94 0000 		call ntohl
+ 1784 005e AB01      		movw r20,r22
+ 1785 0060 BC01      		movw r22,r24
+ 1786 0062 CE01      		movw r24,r28
+ 1787 0064 0E94 0000 		call dhcp_option_long
+ 1788               	.LSM219:
+ 1789 0068 CE01      		movw r24,r28
+ 1790 006a 66E3      		ldi r22,lo8(54)
+ 1791 006c 44E0      		ldi r20,lo8(4)
+ 1792 006e 0E94 0000 		call dhcp_option
+ 1793               	.LSM220:
+ 1794 0072 6C8D      		ldd r22,Y+28
+ 1795 0074 7D8D      		ldd r23,Y+29
+ 1796 0076 8E8D      		ldd r24,Y+30
+ 1797 0078 9F8D      		ldd r25,Y+31
+ 1798 007a 0E94 0000 		call ntohl
+ 1799 007e AB01      		movw r20,r22
+ 1800 0080 BC01      		movw r22,r24
+ 1801 0082 CE01      		movw r24,r28
+ 1802 0084 0E94 0000 		call dhcp_option_long
+ 1803               	.LSM221:
+ 1804 0088 CE01      		movw r24,r28
+ 1805 008a 67E3      		ldi r22,lo8(55)
+ 1806 008c 44E0      		ldi r20,lo8(4)
+ 1807 008e 0E94 0000 		call dhcp_option
+ 1808               	.LSM222:
+ 1809 0092 CE01      		movw r24,r28
+ 1810 0094 61E0      		ldi r22,lo8(1)
+ 1811 0096 0E94 0000 		call dhcp_option_byte
+ 1812               	.LSM223:
+ 1813 009a CE01      		movw r24,r28
+ 1814 009c 63E0      		ldi r22,lo8(3)
+ 1815 009e 0E94 0000 		call dhcp_option_byte
+ 1816               	.LSM224:
+ 1817 00a2 CE01      		movw r24,r28
+ 1818 00a4 6CE1      		ldi r22,lo8(28)
+ 1819 00a6 0E94 0000 		call dhcp_option_byte
+ 1820               	.LSM225:
+ 1821 00aa CE01      		movw r24,r28
+ 1822 00ac 66E0      		ldi r22,lo8(6)
+ 1823 00ae 0E94 0000 		call dhcp_option_byte
+ 1824               	.LSM226:
+ 1825 00b2 CE01      		movw r24,r28
+ 1826 00b4 0E94 0000 		call dhcp_option_trailer
+ 1827               	.LSM227:
+ 1828 00b8 6C89      		ldd r22,Y+20
+ 1829 00ba 7D89      		ldd r23,Y+21
+ 1830 00bc 6051      		subi r22,lo8(-(240))
+ 1831 00be 7F4F      		sbci r23,hi8(-(240))
+ 1832 00c0 8889      		ldd r24,Y+16
+ 1833 00c2 9989      		ldd r25,Y+17
+ 1834 00c4 0E94 0000 		call pbuf_realloc
+ 1835               	.LSM228:
+ 1836 00c8 6889      		ldd r22,Y+16
+ 1837 00ca 7989      		ldd r23,Y+17
+ 1838 00cc 8E81      		ldd r24,Y+6
+ 1839 00ce 9F81      		ldd r25,Y+7
+ 1840 00d0 40E0      		ldi r20,lo8(ip_addr_broadcast)
+ 1841 00d2 50E0      		ldi r21,hi8(ip_addr_broadcast)
+ 1842 00d4 23E4      		ldi r18,lo8(67)
+ 1843 00d6 30E0      		ldi r19,hi8(67)
+ 1844 00d8 8701      		movw r16,r14
+ 1845 00da 0E94 0000 		call udp_sendto_if
+ 1846               	.LSM229:
+ 1847 00de 8E81      		ldd r24,Y+6
+ 1848 00e0 9F81      		ldd r25,Y+7
+ 1849 00e2 60E0      		ldi r22,lo8(ip_addr_any)
+ 1850 00e4 70E0      		ldi r23,hi8(ip_addr_any)
+ 1851 00e6 43E4      		ldi r20,lo8(67)
+ 1852 00e8 50E0      		ldi r21,hi8(67)
+ 1853 00ea 0E94 0000 		call udp_connect
+ 1854               	.LSM230:
+ 1855 00ee C701      		movw r24,r14
+ 1856 00f0 0E94 0000 		call dhcp_delete_request
+ 1857               	.LSM231:
+ 1858 00f4 CE01      		movw r24,r28
+ 1859 00f6 61E0      		ldi r22,lo8(1)
+ 1860 00f8 0E94 0000 		call dhcp_set_state
+ 1861               	.LVL128:
+ 1862               	.L92:
+ 1863               	.LSM232:
+ 1864 00fc 2981      		ldd r18,Y+1
+ 1865 00fe 2F5F      		subi r18,lo8(-(1))
+ 1866 0100 2983      		std Y+1,r18
+ 1867               	.LSM233:
+ 1868 0102 2430      		cpi r18,lo8(4)
+ 1869 0104 00F0      		brlo .L93
+ 1870 0106 40EA      		ldi r20,lo8(4000)
+ 1871 0108 5FE0      		ldi r21,hi8(4000)
+ 1872               	.LVL129:
+ 1873 010a 00C0      		rjmp .L94
+ 1874               	.LVL130:
+ 1875               	.L93:
+ 1876 010c 30E0      		ldi r19,lo8(0)
+ 1877 010e 88EE      		ldi r24,lo8(1000)
+ 1878 0110 93E0      		ldi r25,hi8(1000)
+ 1879 0112 289F      		mul r18,r24
+ 1880 0114 A001      		movw r20,r0
+ 1881 0116 299F      		mul r18,r25
+ 1882 0118 500D      		add r21,r0
+ 1883 011a 389F      		mul r19,r24
+ 1884 011c 500D      		add r21,r0
+ 1885 011e 1124      		clr r1
+ 1886               	.LVL131:
+ 1887               	.L94:
+ 1888               	.LSM234:
+ 1889 0120 CA01      		movw r24,r20
+ 1890 0122 8D50      		subi r24,lo8(-(499))
+ 1891 0124 9E4F      		sbci r25,hi8(-(499))
+ 1892 0126 64EF      		ldi r22,lo8(500)
+ 1893 0128 71E0      		ldi r23,hi8(500)
+ 1894 012a 0E94 0000 		call __udivmodhi4
+ 1895 012e 7F8B      		std Y+23,r23
+ 1896 0130 6E8B      		std Y+22,r22
+ 1897               	.LSM235:
+ 1898 0132 8D2D      		mov r24,r13
+ 1899               	/* epilogue start */
+ 1900 0134 DF91      		pop r29
+ 1901 0136 CF91      		pop r28
+ 1902               	.LVL132:
+ 1903 0138 1F91      		pop r17
+ 1904 013a 0F91      		pop r16
+ 1905 013c FF90      		pop r15
+ 1906 013e EF90      		pop r14
+ 1907               	.LVL133:
+ 1908 0140 DF90      		pop r13
+ 1909               	.LVL134:
+ 1910 0142 0895      		ret
+ 1911               	.LFE5:
+ 1913               		.section	.text.dhcp_inform,"ax",@progbits
+ 1914               	.global	dhcp_inform
+ 1916               	dhcp_inform:
+ 1917               	.LFB13:
+ 1918               	.LSM236:
+ 1919               	.LVL135:
+ 1920 0000 CF92      		push r12
+ 1921 0002 DF92      		push r13
+ 1922 0004 EF92      		push r14
+ 1923 0006 FF92      		push r15
+ 1924 0008 0F93      		push r16
+ 1925 000a 1F93      		push r17
+ 1926 000c CF93      		push r28
+ 1927 000e DF93      		push r29
+ 1928               	/* prologue: function */
+ 1929               	/* frame size = 0 */
+ 1930 0010 7C01      		movw r14,r24
+ 1931               	.LSM237:
+ 1932 0012 FC01      		movw r30,r24
+ 1933 0014 C688      		ldd r12,Z+22
+ 1934 0016 D788      		ldd r13,Z+23
+ 1935               	.LVL136:
+ 1936               	.LSM238:
+ 1937 0018 89E4      		ldi r24,lo8(73)
+ 1938 001a 90E0      		ldi r25,hi8(73)
+ 1939               	.LVL137:
+ 1940 001c 0E94 0000 		call mem_malloc
+ 1941 0020 EC01      		movw r28,r24
+ 1942               	.LSM239:
+ 1943 0022 0097      		sbiw r24,0
+ 1944               	.LVL138:
+ 1945 0024 01F4      		brne .+2
+ 1946 0026 00C0      		rjmp .L101
+ 1947               	.LSM240:
+ 1948 0028 F701      		movw r30,r14
+ 1949 002a 978B      		std Z+23,r25
+ 1950 002c 868B      		std Z+22,r24
+ 1951               	.LSM241:
+ 1952 002e 89E4      		ldi r24,lo8(73)
+ 1953               	.LVL139:
+ 1954 0030 FE01      		movw r30,r28
+ 1955               	.LVL140:
+ 1956 0032 1192      		st Z+,__zero_reg__
+ 1957 0034 8A95      	        dec r24
+ 1958 0036 01F4      		brne .-6
+ 1959               	.LSM242:
+ 1960 0038 0E94 0000 		call udp_new
+ 1961 003c 9F83      		std Y+7,r25
+ 1962 003e 8E83      		std Y+6,r24
+ 1963               	.LSM243:
+ 1964 0040 892B      		or r24,r25
+ 1965 0042 01F4      		brne .L98
+ 1966               	.LSM244:
+ 1967 0044 CE01      		movw r24,r28
+ 1968 0046 0E94 0000 		call mem_free
+ 1969 004a 00C0      		rjmp .L101
+ 1970               	.L98:
+ 1971               	.LSM245:
+ 1972 004c C701      		movw r24,r14
+ 1973 004e 0E94 0000 		call dhcp_create_request
+ 1974               	.LSM246:
+ 1975 0052 8823      		tst r24
+ 1976 0054 01F0      		breq .+2
+ 1977 0056 00C0      		rjmp .L99
+ 1978               	.LSM247:
+ 1979 0058 CE01      		movw r24,r28
+ 1980 005a 65E3      		ldi r22,lo8(53)
+ 1981 005c 41E0      		ldi r20,lo8(1)
+ 1982 005e 0E94 0000 		call dhcp_option
+ 1983               	.LSM248:
+ 1984 0062 CE01      		movw r24,r28
+ 1985 0064 68E0      		ldi r22,lo8(8)
+ 1986 0066 0E94 0000 		call dhcp_option_byte
+ 1987               	.LSM249:
+ 1988 006a CE01      		movw r24,r28
+ 1989 006c 69E3      		ldi r22,lo8(57)
+ 1990 006e 42E0      		ldi r20,lo8(2)
+ 1991 0070 0E94 0000 		call dhcp_option
+ 1992               	.LSM250:
+ 1993 0074 CE01      		movw r24,r28
+ 1994 0076 60E4      		ldi r22,lo8(576)
+ 1995 0078 72E0      		ldi r23,hi8(576)
+ 1996 007a 0E94 0000 		call dhcp_option_short
+ 1997               	.LSM251:
+ 1998 007e CE01      		movw r24,r28
+ 1999 0080 0E94 0000 		call dhcp_option_trailer
+ 2000               	.LSM252:
+ 2001 0084 6C89      		ldd r22,Y+20
+ 2002 0086 7D89      		ldd r23,Y+21
+ 2003 0088 6051      		subi r22,lo8(-(240))
+ 2004 008a 7F4F      		sbci r23,hi8(-(240))
+ 2005 008c 8889      		ldd r24,Y+16
+ 2006 008e 9989      		ldd r25,Y+17
+ 2007 0090 0E94 0000 		call pbuf_realloc
+ 2008               	.LSM253:
+ 2009 0094 8E81      		ldd r24,Y+6
+ 2010 0096 9F81      		ldd r25,Y+7
+ 2011 0098 60E0      		ldi r22,lo8(ip_addr_any)
+ 2012 009a 70E0      		ldi r23,hi8(ip_addr_any)
+ 2013 009c 44E4      		ldi r20,lo8(68)
+ 2014 009e 50E0      		ldi r21,hi8(68)
+ 2015 00a0 0E94 0000 		call udp_bind
+ 2016               	.LSM254:
+ 2017 00a4 8E81      		ldd r24,Y+6
+ 2018 00a6 9F81      		ldd r25,Y+7
+ 2019 00a8 60E0      		ldi r22,lo8(ip_addr_broadcast)
+ 2020 00aa 70E0      		ldi r23,hi8(ip_addr_broadcast)
+ 2021 00ac 43E4      		ldi r20,lo8(67)
+ 2022 00ae 50E0      		ldi r21,hi8(67)
+ 2023 00b0 0E94 0000 		call udp_connect
+ 2024               	.LSM255:
+ 2025 00b4 6889      		ldd r22,Y+16
+ 2026 00b6 7989      		ldd r23,Y+17
+ 2027 00b8 8E81      		ldd r24,Y+6
+ 2028 00ba 9F81      		ldd r25,Y+7
+ 2029 00bc 40E0      		ldi r20,lo8(ip_addr_broadcast)
+ 2030 00be 50E0      		ldi r21,hi8(ip_addr_broadcast)
+ 2031 00c0 23E4      		ldi r18,lo8(67)
+ 2032 00c2 30E0      		ldi r19,hi8(67)
+ 2033 00c4 8701      		movw r16,r14
+ 2034 00c6 0E94 0000 		call udp_sendto_if
+ 2035               	.LSM256:
+ 2036 00ca 8E81      		ldd r24,Y+6
+ 2037 00cc 9F81      		ldd r25,Y+7
+ 2038 00ce 60E0      		ldi r22,lo8(ip_addr_any)
+ 2039 00d0 70E0      		ldi r23,hi8(ip_addr_any)
+ 2040 00d2 43E4      		ldi r20,lo8(67)
+ 2041 00d4 50E0      		ldi r21,hi8(67)
+ 2042 00d6 0E94 0000 		call udp_connect
+ 2043               	.LSM257:
+ 2044 00da C701      		movw r24,r14
+ 2045 00dc 0E94 0000 		call dhcp_delete_request
+ 2046               	.L99:
+ 2047               	.LSM258:
+ 2048 00e0 8E81      		ldd r24,Y+6
+ 2049 00e2 9F81      		ldd r25,Y+7
+ 2050 00e4 0097      		sbiw r24,0
+ 2051 00e6 01F0      		breq .L100
+ 2052               	.LSM259:
+ 2053 00e8 0E94 0000 		call udp_remove
+ 2054               	.L100:
+ 2055               	.LSM260:
+ 2056 00ec 1F82      		std Y+7,__zero_reg__
+ 2057 00ee 1E82      		std Y+6,__zero_reg__
+ 2058               	.LSM261:
+ 2059 00f0 CE01      		movw r24,r28
+ 2060 00f2 0E94 0000 		call mem_free
+ 2061               	.LSM262:
+ 2062 00f6 F701      		movw r30,r14
+ 2063 00f8 D78A      		std Z+23,r13
+ 2064 00fa C68A      		std Z+22,r12
+ 2065               	.LVL141:
+ 2066               	.L101:
+ 2067               	/* epilogue start */
+ 2068               	.LSM263:
+ 2069 00fc DF91      		pop r29
+ 2070 00fe CF91      		pop r28
+ 2071               	.LVL142:
+ 2072 0100 1F91      		pop r17
+ 2073 0102 0F91      		pop r16
+ 2074 0104 FF90      		pop r15
+ 2075 0106 EF90      		pop r14
+ 2076               	.LVL143:
+ 2077 0108 DF90      		pop r13
+ 2078 010a CF90      		pop r12
+ 2079               	.LVL144:
+ 2080 010c 0895      		ret
+ 2081               	.LFE13:
+ 2083               		.section	.text.dhcp_discover,"ax",@progbits
+ 2085               	dhcp_discover:
+ 2086               	.LFB16:
+ 2087               	.LSM264:
+ 2088               	.LVL145:
+ 2089 0000 DF92      		push r13
+ 2090 0002 EF92      		push r14
+ 2091 0004 FF92      		push r15
+ 2092 0006 0F93      		push r16
+ 2093 0008 1F93      		push r17
+ 2094 000a CF93      		push r28
+ 2095 000c DF93      		push r29
+ 2096               	/* prologue: function */
+ 2097               	/* frame size = 0 */
+ 2098 000e 7C01      		movw r14,r24
+ 2099               	.LSM265:
+ 2100 0010 FC01      		movw r30,r24
+ 2101 0012 C689      		ldd r28,Z+22
+ 2102 0014 D789      		ldd r29,Z+23
+ 2103               	.LVL146:
+ 2104               	.LSM266:
+ 2105 0016 8091 0000 		lds r24,ip_addr_any
+ 2106 001a 9091 0000 		lds r25,(ip_addr_any)+1
+ 2107 001e A091 0000 		lds r26,(ip_addr_any)+2
+ 2108 0022 B091 0000 		lds r27,(ip_addr_any)+3
+ 2109               	.LVL147:
+ 2110 0026 88A3      		std Y+32,r24
+ 2111 0028 99A3      		std Y+33,r25
+ 2112 002a AAA3      		std Y+34,r26
+ 2113 002c BBA3      		std Y+35,r27
+ 2114               	.LSM267:
+ 2115 002e C701      		movw r24,r14
+ 2116 0030 0E94 0000 		call dhcp_create_request
+ 2117 0034 D82E      		mov r13,r24
+ 2118               	.LVL148:
+ 2119               	.LSM268:
+ 2120 0036 8823      		tst r24
+ 2121 0038 01F0      		breq .+2
+ 2122 003a 00C0      		rjmp .L103
+ 2123               	.LVL149:
+ 2124               	.LSM269:
+ 2125 003c CE01      		movw r24,r28
+ 2126               	.LVL150:
+ 2127 003e 65E3      		ldi r22,lo8(53)
+ 2128 0040 41E0      		ldi r20,lo8(1)
+ 2129 0042 0E94 0000 		call dhcp_option
+ 2130               	.LSM270:
+ 2131 0046 CE01      		movw r24,r28
+ 2132 0048 61E0      		ldi r22,lo8(1)
+ 2133 004a 0E94 0000 		call dhcp_option_byte
+ 2134               	.LSM271:
+ 2135 004e CE01      		movw r24,r28
+ 2136 0050 69E3      		ldi r22,lo8(57)
+ 2137 0052 42E0      		ldi r20,lo8(2)
+ 2138 0054 0E94 0000 		call dhcp_option
+ 2139               	.LSM272:
+ 2140 0058 CE01      		movw r24,r28
+ 2141 005a 60E4      		ldi r22,lo8(576)
+ 2142 005c 72E0      		ldi r23,hi8(576)
+ 2143 005e 0E94 0000 		call dhcp_option_short
+ 2144               	.LSM273:
+ 2145 0062 CE01      		movw r24,r28
+ 2146 0064 67E3      		ldi r22,lo8(55)
+ 2147 0066 44E0      		ldi r20,lo8(4)
+ 2148 0068 0E94 0000 		call dhcp_option
+ 2149               	.LSM274:
+ 2150 006c CE01      		movw r24,r28
+ 2151 006e 61E0      		ldi r22,lo8(1)
+ 2152 0070 0E94 0000 		call dhcp_option_byte
+ 2153               	.LSM275:
+ 2154 0074 CE01      		movw r24,r28
+ 2155 0076 63E0      		ldi r22,lo8(3)
+ 2156 0078 0E94 0000 		call dhcp_option_byte
+ 2157               	.LSM276:
+ 2158 007c CE01      		movw r24,r28
+ 2159 007e 6CE1      		ldi r22,lo8(28)
+ 2160 0080 0E94 0000 		call dhcp_option_byte
+ 2161               	.LSM277:
+ 2162 0084 CE01      		movw r24,r28
+ 2163 0086 66E0      		ldi r22,lo8(6)
+ 2164 0088 0E94 0000 		call dhcp_option_byte
+ 2165               	.LSM278:
+ 2166 008c CE01      		movw r24,r28
+ 2167 008e 0E94 0000 		call dhcp_option_trailer
+ 2168               	.LSM279:
+ 2169 0092 6C89      		ldd r22,Y+20
+ 2170 0094 7D89      		ldd r23,Y+21
+ 2171 0096 6051      		subi r22,lo8(-(240))
+ 2172 0098 7F4F      		sbci r23,hi8(-(240))
+ 2173 009a 8889      		ldd r24,Y+16
+ 2174 009c 9989      		ldd r25,Y+17
+ 2175 009e 0E94 0000 		call pbuf_realloc
+ 2176               	.LSM280:
+ 2177 00a2 8E81      		ldd r24,Y+6
+ 2178 00a4 9F81      		ldd r25,Y+7
+ 2179 00a6 60E0      		ldi r22,lo8(ip_addr_any)
+ 2180 00a8 70E0      		ldi r23,hi8(ip_addr_any)
+ 2181 00aa 43E4      		ldi r20,lo8(67)
+ 2182 00ac 50E0      		ldi r21,hi8(67)
+ 2183 00ae 0E94 0000 		call udp_connect
+ 2184               	.LSM281:
+ 2185 00b2 6889      		ldd r22,Y+16
+ 2186 00b4 7989      		ldd r23,Y+17
+ 2187 00b6 8E81      		ldd r24,Y+6
+ 2188 00b8 9F81      		ldd r25,Y+7
+ 2189 00ba 40E0      		ldi r20,lo8(ip_addr_broadcast)
+ 2190 00bc 50E0      		ldi r21,hi8(ip_addr_broadcast)
+ 2191 00be 23E4      		ldi r18,lo8(67)
+ 2192 00c0 30E0      		ldi r19,hi8(67)
+ 2193 00c2 8701      		movw r16,r14
+ 2194 00c4 0E94 0000 		call udp_sendto_if
+ 2195               	.LSM282:
+ 2196 00c8 C701      		movw r24,r14
+ 2197 00ca 0E94 0000 		call dhcp_delete_request
+ 2198               	.LSM283:
+ 2199 00ce CE01      		movw r24,r28
+ 2200 00d0 66E0      		ldi r22,lo8(6)
+ 2201 00d2 0E94 0000 		call dhcp_set_state
+ 2202               	.LVL151:
+ 2203               	.L103:
+ 2204               	.LSM284:
+ 2205 00d6 8981      		ldd r24,Y+1
+ 2206 00d8 8F5F      		subi r24,lo8(-(1))
+ 2207 00da 8983      		std Y+1,r24
+ 2208               	.LSM285:
+ 2209 00dc 8930      		cpi r24,lo8(9)
+ 2210 00de 00F0      		brlo .L104
+ 2211 00e0 FE01      		movw r30,r28
+ 2212 00e2 E85B      		subi r30,lo8(-(72))
+ 2213 00e4 FF4F      		sbci r31,hi8(-(72))
+ 2214 00e6 8081      		ld r24,Z
+ 2215 00e8 8823      		tst r24
+ 2216 00ea 01F4      		brne .L104
+ 2217               	.LSM286:
+ 2218 00ec 81E0      		ldi r24,lo8(1)
+ 2219 00ee 8083      		st Z,r24
+ 2220               	.LSM287:
+ 2221 00f0 C701      		movw r24,r14
+ 2222 00f2 0E94 0000 		call autoip_start
+ 2223               	.L104:
+ 2224               	.LSM288:
+ 2225 00f6 8981      		ldd r24,Y+1
+ 2226 00f8 8430      		cpi r24,lo8(4)
+ 2227 00fa 00F0      		brlo .L105
+ 2228 00fc 40E1      		ldi r20,lo8(10000)
+ 2229 00fe 57E2      		ldi r21,hi8(10000)
+ 2230               	.LVL152:
+ 2231 0100 00C0      		rjmp .L106
+ 2232               	.LVL153:
+ 2233               	.L105:
+ 2234 0102 90E0      		ldi r25,lo8(0)
+ 2235 0104 0196      		adiw r24,1
+ 2236 0106 28EE      		ldi r18,lo8(1000)
+ 2237 0108 33E0      		ldi r19,hi8(1000)
+ 2238 010a 829F      		mul r24,r18
+ 2239 010c A001      		movw r20,r0
+ 2240 010e 839F      		mul r24,r19
+ 2241 0110 500D      		add r21,r0
+ 2242 0112 929F      		mul r25,r18
+ 2243 0114 500D      		add r21,r0
+ 2244 0116 1124      		clr r1
+ 2245               	.LVL154:
+ 2246               	.L106:
+ 2247               	.LSM289:
+ 2248 0118 CA01      		movw r24,r20
+ 2249 011a 8D50      		subi r24,lo8(-(499))
+ 2250 011c 9E4F      		sbci r25,hi8(-(499))
+ 2251 011e 64EF      		ldi r22,lo8(500)
+ 2252 0120 71E0      		ldi r23,hi8(500)
+ 2253 0122 0E94 0000 		call __udivmodhi4
+ 2254 0126 7F8B      		std Y+23,r23
+ 2255 0128 6E8B      		std Y+22,r22
+ 2256               	.LSM290:
+ 2257 012a 8D2D      		mov r24,r13
+ 2258               	/* epilogue start */
+ 2259 012c DF91      		pop r29
+ 2260 012e CF91      		pop r28
+ 2261               	.LVL155:
+ 2262 0130 1F91      		pop r17
+ 2263 0132 0F91      		pop r16
+ 2264 0134 FF90      		pop r15
+ 2265 0136 EF90      		pop r14
+ 2266               	.LVL156:
+ 2267 0138 DF90      		pop r13
+ 2268               	.LVL157:
+ 2269 013a 0895      		ret
+ 2270               	.LFE16:
+ 2272               		.section	.text.dhcp_start,"ax",@progbits
+ 2273               	.global	dhcp_start
+ 2275               	dhcp_start:
+ 2276               	.LFB12:
+ 2277               	.LSM291:
+ 2278               	.LVL158:
+ 2279 0000 0F93      		push r16
+ 2280 0002 1F93      		push r17
+ 2281 0004 CF93      		push r28
+ 2282 0006 DF93      		push r29
+ 2283               	/* prologue: function */
+ 2284               	/* frame size = 0 */
+ 2285 0008 8C01      		movw r16,r24
+ 2286               	.LSM292:
+ 2287 000a 0097      		sbiw r24,0
+ 2288 000c 01F4      		brne .L109
+ 2289 000e 97EF      		ldi r25,lo8(-9)
+ 2290               	.LVL159:
+ 2291 0010 00C0      		rjmp .L110
+ 2292               	.LVL160:
+ 2293               	.L109:
+ 2294               	.LSM293:
+ 2295 0012 FC01      		movw r30,r24
+ 2296 0014 C689      		ldd r28,Z+22
+ 2297 0016 D789      		ldd r29,Z+23
+ 2298               	.LVL161:
+ 2299               	.LSM294:
+ 2300 0018 83A1      		ldd r24,Z+35
+ 2301               	.LVL162:
+ 2302 001a 877F      		andi r24,lo8(-9)
+ 2303 001c 83A3      		std Z+35,r24
+ 2304               	.LSM295:
+ 2305 001e 2097      		sbiw r28,0
+ 2306 0020 01F4      		brne .L111
+ 2307               	.LSM296:
+ 2308 0022 89E4      		ldi r24,lo8(73)
+ 2309 0024 90E0      		ldi r25,hi8(73)
+ 2310 0026 0E94 0000 		call mem_malloc
+ 2311 002a EC01      		movw r28,r24
+ 2312               	.LSM297:
+ 2313 002c 0097      		sbiw r24,0
+ 2314 002e 01F0      		breq .L116
+ 2315               	.LVL163:
+ 2316               	.L112:
+ 2317               	.LSM298:
+ 2318 0030 F801      		movw r30,r16
+ 2319 0032 978B      		std Z+23,r25
+ 2320 0034 868B      		std Z+22,r24
+ 2321               	.LVL164:
+ 2322               	.L111:
+ 2323               	.LSM299:
+ 2324 0036 89E4      		ldi r24,lo8(73)
+ 2325 0038 FE01      		movw r30,r28
+ 2326 003a 1192      		st Z+,__zero_reg__
+ 2327 003c 8A95      	        dec r24
+ 2328 003e 01F4      		brne .-6
+ 2329               	.LSM300:
+ 2330 0040 0E94 0000 		call udp_new
+ 2331 0044 9F83      		std Y+7,r25
+ 2332 0046 8E83      		std Y+6,r24
+ 2333               	.LSM301:
+ 2334 0048 0097      		sbiw r24,0
+ 2335 004a 01F4      		brne .L113
+ 2336               	.LSM302:
+ 2337 004c CE01      		movw r24,r28
+ 2338 004e 0E94 0000 		call mem_free
+ 2339               	.LSM303:
+ 2340 0052 F801      		movw r30,r16
+ 2341 0054 178A      		std Z+23,__zero_reg__
+ 2342 0056 168A      		std Z+22,__zero_reg__
+ 2343               	.LVL165:
+ 2344               	.L116:
+ 2345 0058 9FEF      		ldi r25,lo8(-1)
+ 2346               	.LVL166:
+ 2347 005a 00C0      		rjmp .L110
+ 2348               	.LVL167:
+ 2349               	.L113:
+ 2350               	.LSM304:
+ 2351 005c 60E0      		ldi r22,lo8(ip_addr_any)
+ 2352 005e 70E0      		ldi r23,hi8(ip_addr_any)
+ 2353 0060 44E4      		ldi r20,lo8(68)
+ 2354 0062 50E0      		ldi r21,hi8(68)
+ 2355 0064 0E94 0000 		call udp_bind
+ 2356               	.LSM305:
+ 2357 0068 8E81      		ldd r24,Y+6
+ 2358 006a 9F81      		ldd r25,Y+7
+ 2359 006c 60E0      		ldi r22,lo8(ip_addr_any)
+ 2360 006e 70E0      		ldi r23,hi8(ip_addr_any)
+ 2361 0070 43E4      		ldi r20,lo8(67)
+ 2362 0072 50E0      		ldi r21,hi8(67)
+ 2363 0074 0E94 0000 		call udp_connect
+ 2364               	.LSM306:
+ 2365 0078 8E81      		ldd r24,Y+6
+ 2366 007a 9F81      		ldd r25,Y+7
+ 2367 007c 60E0      		ldi r22,lo8(gs(dhcp_recv))
+ 2368 007e 70E0      		ldi r23,hi8(gs(dhcp_recv))
+ 2369 0080 A801      		movw r20,r16
+ 2370 0082 0E94 0000 		call udp_recv
+ 2371               	.LSM307:
+ 2372 0086 C801      		movw r24,r16
+ 2373 0088 0E94 0000 		call dhcp_discover
+ 2374 008c 982F      		mov r25,r24
+ 2375               	.LVL168:
+ 2376               	.LSM308:
+ 2377 008e 8823      		tst r24
+ 2378 0090 01F0      		breq .L114
+ 2379               	.LVL169:
+ 2380               	.LSM309:
+ 2381 0092 C801      		movw r24,r16
+ 2382               	.LVL170:
+ 2383 0094 0E94 0000 		call dhcp_stop
+ 2384               	.LVL171:
+ 2385 0098 00C0      		rjmp .L116
+ 2386               	.LVL172:
+ 2387               	.L114:
+ 2388               	.LSM310:
+ 2389 009a F801      		movw r30,r16
+ 2390 009c 83A1      		ldd r24,Z+35
+ 2391               	.LVL173:
+ 2392 009e 8860      		ori r24,lo8(8)
+ 2393 00a0 83A3      		std Z+35,r24
+ 2394               	.LVL174:
+ 2395               	.L110:
+ 2396               	.LSM311:
+ 2397 00a2 892F      		mov r24,r25
+ 2398               	/* epilogue start */
+ 2399 00a4 DF91      		pop r29
+ 2400 00a6 CF91      		pop r28
+ 2401               	.LVL175:
+ 2402 00a8 1F91      		pop r17
+ 2403 00aa 0F91      		pop r16
+ 2404               	.LVL176:
+ 2405 00ac 0895      		ret
+ 2406               	.LFE12:
+ 2408               		.section	.text.dhcp_check,"ax",@progbits
+ 2410               	dhcp_check:
+ 2411               	.LFB3:
+ 2412               	.LSM312:
+ 2413               	.LVL177:
+ 2414 0000 0F93      		push r16
+ 2415 0002 1F93      		push r17
+ 2416               	/* prologue: function */
+ 2417               	/* frame size = 0 */
+ 2418 0004 FC01      		movw r30,r24
+ 2419               	.LSM313:
+ 2420 0006 0689      		ldd r16,Z+22
+ 2421 0008 1789      		ldd r17,Z+23
+ 2422               	.LVL178:
+ 2423               	.LSM314:
+ 2424 000a B801      		movw r22,r16
+ 2425 000c 605E      		subi r22,lo8(-(32))
+ 2426 000e 7F4F      		sbci r23,hi8(-(32))
+ 2427 0010 40E0      		ldi r20,lo8(0)
+ 2428 0012 50E0      		ldi r21,hi8(0)
+ 2429 0014 0E94 0000 		call etharp_query
+ 2430               	.LVL179:
+ 2431               	.LSM315:
+ 2432 0018 F801      		movw r30,r16
+ 2433 001a 8181      		ldd r24,Z+1
+ 2434 001c 8F5F      		subi r24,lo8(-(1))
+ 2435 001e 8183      		std Z+1,r24
+ 2436               	.LSM316:
+ 2437 0020 81E0      		ldi r24,lo8(1)
+ 2438 0022 90E0      		ldi r25,hi8(1)
+ 2439 0024 978B      		std Z+23,r25
+ 2440 0026 868B      		std Z+22,r24
+ 2441               	.LSM317:
+ 2442 0028 C801      		movw r24,r16
+ 2443 002a 68E0      		ldi r22,lo8(8)
+ 2444 002c 0E94 0000 		call dhcp_set_state
+ 2445               	/* epilogue start */
+ 2446               	.LSM318:
+ 2447 0030 1F91      		pop r17
+ 2448 0032 0F91      		pop r16
+ 2449               	.LVL180:
+ 2450 0034 0895      		ret
+ 2451               	.LFE3:
+ 2453               		.section	.text.dhcp_bind,"ax",@progbits
+ 2455               	dhcp_bind:
+ 2456               	.LFB17:
+ 2457               	.LSM319:
+ 2458               	.LVL181:
+ 2459 0000 AF92      		push r10
+ 2460 0002 BF92      		push r11
+ 2461 0004 CF92      		push r12
+ 2462 0006 DF92      		push r13
+ 2463 0008 EF92      		push r14
+ 2464 000a FF92      		push r15
+ 2465 000c 0F93      		push r16
+ 2466 000e 1F93      		push r17
+ 2467 0010 DF93      		push r29
+ 2468 0012 CF93      		push r28
+ 2469 0014 CDB7      		in r28,__SP_L__
+ 2470 0016 DEB7      		in r29,__SP_H__
+ 2471 0018 2897      		sbiw r28,8
+ 2472 001a 0FB6      		in __tmp_reg__,__SREG__
+ 2473 001c F894      		cli
+ 2474 001e DEBF      		out __SP_H__,r29
+ 2475 0020 0FBE      		out __SREG__,__tmp_reg__
+ 2476 0022 CDBF      		out __SP_L__,r28
+ 2477               	/* prologue: function */
+ 2478               	/* frame size = 8 */
+ 2479 0024 5C01      		movw r10,r24
+ 2480               	.LSM320:
+ 2481 0026 0097      		sbiw r24,0
+ 2482 0028 01F4      		brne .+2
+ 2483 002a 00C0      		rjmp .L129
+ 2484               	.LSM321:
+ 2485 002c FC01      		movw r30,r24
+ 2486 002e C688      		ldd r12,Z+22
+ 2487 0030 D788      		ldd r13,Z+23
+ 2488               	.LVL182:
+ 2489               	.LSM322:
+ 2490 0032 C114      		cp r12,__zero_reg__
+ 2491 0034 D104      		cpc r13,__zero_reg__
+ 2492 0036 01F4      		brne .+2
+ 2493 0038 00C0      		rjmp .L129
+ 2494               	.LSM323:
+ 2495 003a 20E4      		ldi r18,lo8(64)
+ 2496 003c 30E0      		ldi r19,hi8(64)
+ 2497 003e C20E      		add r12,r18
+ 2498 0040 D31E      		adc r13,r19
+ 2499 0042 F601      		movw r30,r12
+ 2500 0044 6081      		ld r22,Z
+ 2501 0046 7181      		ldd r23,Z+1
+ 2502 0048 8281      		ldd r24,Z+2
+ 2503 004a 9381      		ldd r25,Z+3
+ 2504 004c 20EC      		ldi r18,lo8(-64)
+ 2505 004e 3FEF      		ldi r19,hi8(-64)
+ 2506 0050 C20E      		add r12,r18
+ 2507 0052 D31E      		adc r13,r19
+ 2508 0054 6F3F      		cpi r22,lo8(-1)
+ 2509 0056 3FEF      		ldi r19,hi8(-1)
+ 2510 0058 7307      		cpc r23,r19
+ 2511 005a 3FEF      		ldi r19,hlo8(-1)
+ 2512 005c 8307      		cpc r24,r19
+ 2513 005e 3FEF      		ldi r19,hhi8(-1)
+ 2514 0060 9307      		cpc r25,r19
+ 2515 0062 01F0      		breq .L121
+ 2516               	.LSM324:
+ 2517 0064 625E      		subi r22,lo8(-(30))
+ 2518 0066 7F4F      		sbci r23,hi8(-(30))
+ 2519 0068 8F4F      		sbci r24,hlo8(-(30))
+ 2520 006a 9F4F      		sbci r25,hhi8(-(30))
+ 2521 006c 2CE3      		ldi r18,lo8(60)
+ 2522 006e 30E0      		ldi r19,hi8(60)
+ 2523 0070 40E0      		ldi r20,hlo8(60)
+ 2524 0072 50E0      		ldi r21,hhi8(60)
+ 2525 0074 0E94 0000 		call __udivmodsi4
+ 2526               	.LSM325:
+ 2527 0078 C901      		movw r24,r18
+ 2528               	.LVL183:
+ 2529 007a DA01      		movw r26,r20
+ 2530 007c 8030      		cpi r24,lo8(65536)
+ 2531 007e E0E0      		ldi r30,hi8(65536)
+ 2532 0080 9E07      		cpc r25,r30
+ 2533 0082 E1E0      		ldi r30,hlo8(65536)
+ 2534 0084 AE07      		cpc r26,r30
+ 2535 0086 E0E0      		ldi r30,hhi8(65536)
+ 2536 0088 BE07      		cpc r27,r30
+ 2537               	.LVL184:
+ 2538 008a 00F0      		brlo .L122
+ 2539 008c 8FEF      		ldi r24,lo8(65535)
+ 2540 008e 9FEF      		ldi r25,hi8(65535)
+ 2541 0090 A0E0      		ldi r26,hlo8(65535)
+ 2542 0092 B0E0      		ldi r27,hhi8(65535)
+ 2543               	.L122:
+ 2544 0094 F601      		movw r30,r12
+ 2545 0096 918F      		std Z+25,r25
+ 2546 0098 808F      		std Z+24,r24
+ 2547               	.LSM326:
+ 2548 009a 892B      		or r24,r25
+ 2549 009c 01F4      		brne .L121
+ 2550               	.LSM327:
+ 2551 009e 81E0      		ldi r24,lo8(1)
+ 2552 00a0 90E0      		ldi r25,hi8(1)
+ 2553               	.LVL185:
+ 2554 00a2 918F      		std Z+25,r25
+ 2555 00a4 808F      		std Z+24,r24
+ 2556               	.LVL186:
+ 2557               	.L121:
+ 2558               	.LSM328:
+ 2559 00a6 24E4      		ldi r18,lo8(68)
+ 2560 00a8 30E0      		ldi r19,hi8(68)
+ 2561 00aa C20E      		add r12,r18
+ 2562 00ac D31E      		adc r13,r19
+ 2563 00ae F601      		movw r30,r12
+ 2564 00b0 6081      		ld r22,Z
+ 2565 00b2 7181      		ldd r23,Z+1
+ 2566 00b4 8281      		ldd r24,Z+2
+ 2567 00b6 9381      		ldd r25,Z+3
+ 2568 00b8 2CEB      		ldi r18,lo8(-68)
+ 2569 00ba 3FEF      		ldi r19,hi8(-68)
+ 2570 00bc C20E      		add r12,r18
+ 2571 00be D31E      		adc r13,r19
+ 2572 00c0 6F3F      		cpi r22,lo8(-1)
+ 2573 00c2 3FEF      		ldi r19,hi8(-1)
+ 2574 00c4 7307      		cpc r23,r19
+ 2575 00c6 3FEF      		ldi r19,hlo8(-1)
+ 2576 00c8 8307      		cpc r24,r19
+ 2577 00ca 3FEF      		ldi r19,hhi8(-1)
+ 2578 00cc 9307      		cpc r25,r19
+ 2579 00ce 01F0      		breq .L123
+ 2580               	.LSM329:
+ 2581 00d0 625E      		subi r22,lo8(-(30))
+ 2582 00d2 7F4F      		sbci r23,hi8(-(30))
+ 2583 00d4 8F4F      		sbci r24,hlo8(-(30))
+ 2584 00d6 9F4F      		sbci r25,hhi8(-(30))
+ 2585 00d8 2CE3      		ldi r18,lo8(60)
+ 2586 00da 30E0      		ldi r19,hi8(60)
+ 2587 00dc 40E0      		ldi r20,hlo8(60)
+ 2588 00de 50E0      		ldi r21,hhi8(60)
+ 2589 00e0 0E94 0000 		call __udivmodsi4
+ 2590               	.LSM330:
+ 2591 00e4 C901      		movw r24,r18
+ 2592               	.LVL187:
+ 2593 00e6 DA01      		movw r26,r20
+ 2594 00e8 8030      		cpi r24,lo8(65536)
+ 2595 00ea E0E0      		ldi r30,hi8(65536)
+ 2596 00ec 9E07      		cpc r25,r30
+ 2597 00ee E1E0      		ldi r30,hlo8(65536)
+ 2598 00f0 AE07      		cpc r26,r30
+ 2599 00f2 E0E0      		ldi r30,hhi8(65536)
+ 2600 00f4 BE07      		cpc r27,r30
+ 2601               	.LVL188:
+ 2602 00f6 00F0      		brlo .L124
+ 2603 00f8 8FEF      		ldi r24,lo8(65535)
+ 2604 00fa 9FEF      		ldi r25,hi8(65535)
+ 2605 00fc A0E0      		ldi r26,hlo8(65535)
+ 2606 00fe B0E0      		ldi r27,hhi8(65535)
+ 2607               	.L124:
+ 2608 0100 F601      		movw r30,r12
+ 2609 0102 938F      		std Z+27,r25
+ 2610 0104 828F      		std Z+26,r24
+ 2611               	.LSM331:
+ 2612 0106 892B      		or r24,r25
+ 2613 0108 01F4      		brne .L123
+ 2614               	.LSM332:
+ 2615 010a 81E0      		ldi r24,lo8(1)
+ 2616 010c 90E0      		ldi r25,hi8(1)
+ 2617               	.LVL189:
+ 2618 010e 938F      		std Z+27,r25
+ 2619 0110 828F      		std Z+26,r24
+ 2620               	.LVL190:
+ 2621               	.L123:
+ 2622               	.LSM333:
+ 2623 0112 F601      		movw r30,r12
+ 2624 0114 84A1      		ldd r24,Z+36
+ 2625 0116 95A1      		ldd r25,Z+37
+ 2626 0118 A6A1      		ldd r26,Z+38
+ 2627 011a B7A1      		ldd r27,Z+39
+ 2628               	.LVL191:
+ 2629 011c 8983      		std Y+1,r24
+ 2630 011e 9A83      		std Y+2,r25
+ 2631 0120 AB83      		std Y+3,r26
+ 2632 0122 BC83      		std Y+4,r27
+ 2633               	.LSM334:
+ 2634 0124 0097      		sbiw r24,0
+ 2635 0126 A105      		cpc r26,__zero_reg__
+ 2636 0128 B105      		cpc r27,__zero_reg__
+ 2637 012a 01F4      		brne .L125
+ 2638               	.LBB18:
+ 2639               	.LSM335:
+ 2640 012c 60E0      		ldi r22,lo8(0)
+ 2641 012e 70E0      		ldi r23,hi8(0)
+ 2642 0130 80E0      		ldi r24,hlo8(0)
+ 2643 0132 90E0      		ldi r25,hhi8(0)
+ 2644 0134 0E94 0000 		call ntohl
+ 2645 0138 692F      		mov r22,r25
+ 2646 013a 7727      		clr r23
+ 2647 013c 8827      		clr r24
+ 2648 013e 9927      		clr r25
+ 2649               	.LSM336:
+ 2650 0140 67FD      		sbrc r22,7
+ 2651 0142 00C0      		rjmp .L126
+ 2652               	.LSM337:
+ 2653 0144 60E0      		ldi r22,lo8(-16777216)
+ 2654 0146 70E0      		ldi r23,hi8(-16777216)
+ 2655 0148 80E0      		ldi r24,hlo8(-16777216)
+ 2656 014a 9FEF      		ldi r25,hhi8(-16777216)
+ 2657 014c 00C0      		rjmp .L130
+ 2658               	.L126:
+ 2659               	.LSM338:
+ 2660 014e 603C      		cpi r22,lo8(-64)
+ 2661               	.LVL192:
+ 2662 0150 00F0      		brlo .L127
+ 2663               	.LSM339:
+ 2664 0152 60E0      		ldi r22,lo8(-256)
+ 2665 0154 7FEF      		ldi r23,hi8(-256)
+ 2666 0156 8FEF      		ldi r24,hlo8(-256)
+ 2667 0158 9FEF      		ldi r25,hhi8(-256)
+ 2668               	.LVL193:
+ 2669 015a 00C0      		rjmp .L130
+ 2670               	.LVL194:
+ 2671               	.L127:
+ 2672               	.LSM340:
+ 2673 015c 60E0      		ldi r22,lo8(-65536)
+ 2674 015e 70E0      		ldi r23,hi8(-65536)
+ 2675 0160 8FEF      		ldi r24,hlo8(-65536)
+ 2676 0162 9FEF      		ldi r25,hhi8(-65536)
+ 2677               	.LVL195:
+ 2678               	.L130:
+ 2679 0164 0E94 0000 		call htonl
+ 2680 0168 6983      		std Y+1,r22
+ 2681 016a 7A83      		std Y+2,r23
+ 2682 016c 8B83      		std Y+3,r24
+ 2683 016e 9C83      		std Y+4,r25
+ 2684               	.L125:
+ 2685               	.LBE18:
+ 2686               	.LSM341:
+ 2687 0170 F601      		movw r30,r12
+ 2688 0172 80A5      		ldd r24,Z+40
+ 2689 0174 91A5      		ldd r25,Z+41
+ 2690 0176 A2A5      		ldd r26,Z+42
+ 2691 0178 B3A5      		ldd r27,Z+43
+ 2692 017a 8D83      		std Y+5,r24
+ 2693 017c 9E83      		std Y+6,r25
+ 2694 017e AF83      		std Y+7,r26
+ 2695 0180 B887      		std Y+8,r27
+ 2696               	.LSM342:
+ 2697 0182 0097      		sbiw r24,0
+ 2698 0184 A105      		cpc r26,__zero_reg__
+ 2699 0186 B105      		cpc r27,__zero_reg__
+ 2700 0188 01F4      		brne .L128
+ 2701               	.LSM343:
+ 2702 018a E980      		ldd r14,Y+1
+ 2703 018c FA80      		ldd r15,Y+2
+ 2704 018e 0B81      		ldd r16,Y+3
+ 2705 0190 1C81      		ldd r17,Y+4
+ 2706 0192 80A1      		ldd r24,Z+32
+ 2707 0194 91A1      		ldd r25,Z+33
+ 2708 0196 A2A1      		ldd r26,Z+34
+ 2709 0198 B3A1      		ldd r27,Z+35
+ 2710 019a E822      		and r14,r24
+ 2711 019c F922      		and r15,r25
+ 2712 019e 0A23      		and r16,r26
+ 2713 01a0 1B23      		and r17,r27
+ 2714 01a2 ED82      		std Y+5,r14
+ 2715 01a4 FE82      		std Y+6,r15
+ 2716 01a6 0F83      		std Y+7,r16
+ 2717 01a8 1887      		std Y+8,r17
+ 2718               	.LSM344:
+ 2719 01aa 61E0      		ldi r22,lo8(1)
+ 2720 01ac 70E0      		ldi r23,hi8(1)
+ 2721 01ae 80E0      		ldi r24,hlo8(1)
+ 2722 01b0 90E0      		ldi r25,hhi8(1)
+ 2723 01b2 0E94 0000 		call htonl
+ 2724 01b6 E62A      		or r14,r22
+ 2725 01b8 F72A      		or r15,r23
+ 2726 01ba 082B      		or r16,r24
+ 2727 01bc 192B      		or r17,r25
+ 2728 01be ED82      		std Y+5,r14
+ 2729 01c0 FE82      		std Y+6,r15
+ 2730 01c2 0F83      		std Y+7,r16
+ 2731 01c4 1887      		std Y+8,r17
+ 2732               	.L128:
+ 2733               	.LSM345:
+ 2734 01c6 B601      		movw r22,r12
+ 2735 01c8 605E      		subi r22,lo8(-(32))
+ 2736 01ca 7F4F      		sbci r23,hi8(-(32))
+ 2737 01cc C501      		movw r24,r10
+ 2738 01ce 0E94 0000 		call netif_set_ipaddr
+ 2739               	.LSM346:
+ 2740 01d2 C501      		movw r24,r10
+ 2741 01d4 BE01      		movw r22,r28
+ 2742 01d6 6F5F      		subi r22,lo8(-(1))
+ 2743 01d8 7F4F      		sbci r23,hi8(-(1))
+ 2744 01da 0E94 0000 		call netif_set_netmask
+ 2745               	.LSM347:
+ 2746 01de C501      		movw r24,r10
+ 2747 01e0 BE01      		movw r22,r28
+ 2748 01e2 6B5F      		subi r22,lo8(-(5))
+ 2749 01e4 7F4F      		sbci r23,hi8(-(5))
+ 2750 01e6 0E94 0000 		call netif_set_gw
+ 2751               	.LSM348:
+ 2752 01ea C501      		movw r24,r10
+ 2753 01ec 0E94 0000 		call netif_set_up
+ 2754               	.LSM349:
+ 2755 01f0 C601      		movw r24,r12
+ 2756 01f2 6AE0      		ldi r22,lo8(10)
+ 2757 01f4 0E94 0000 		call dhcp_set_state
+ 2758               	.LVL196:
+ 2759               	.L129:
+ 2760               	/* epilogue start */
+ 2761               	.LSM350:
+ 2762 01f8 2896      		adiw r28,8
+ 2763 01fa 0FB6      		in __tmp_reg__,__SREG__
+ 2764 01fc F894      		cli
+ 2765 01fe DEBF      		out __SP_H__,r29
+ 2766 0200 0FBE      		out __SREG__,__tmp_reg__
+ 2767 0202 CDBF      		out __SP_L__,r28
+ 2768 0204 CF91      		pop r28
+ 2769 0206 DF91      		pop r29
+ 2770 0208 1F91      		pop r17
+ 2771 020a 0F91      		pop r16
+ 2772 020c FF90      		pop r15
+ 2773 020e EF90      		pop r14
+ 2774 0210 DF90      		pop r13
+ 2775 0212 CF90      		pop r12
+ 2776               	.LVL197:
+ 2777 0214 BF90      		pop r11
+ 2778 0216 AF90      		pop r10
+ 2779               	.LVL198:
+ 2780 0218 0895      		ret
+ 2781               	.LFE17:
+ 2783               		.section	.text.dhcp_recv,"ax",@progbits
+ 2785               	dhcp_recv:
+ 2786               	.LFB29:
+ 2787               	.LSM351:
+ 2788               	.LVL199:
+ 2789 0000 6F92      		push r6
+ 2790 0002 7F92      		push r7
+ 2791 0004 9F92      		push r9
+ 2792 0006 AF92      		push r10
+ 2793 0008 BF92      		push r11
+ 2794 000a CF92      		push r12
+ 2795 000c DF92      		push r13
+ 2796 000e EF92      		push r14
+ 2797 0010 FF92      		push r15
+ 2798 0012 0F93      		push r16
+ 2799               	.LVL200:
+ 2800 0014 1F93      		push r17
+ 2801 0016 CF93      		push r28
+ 2802 0018 DF93      		push r29
+ 2803               	/* prologue: function */
+ 2804               	/* frame size = 0 */
+ 2805 001a 3A01      		movw r6,r20
+ 2806               	.LSM352:
+ 2807 001c C82E      		mov r12,r24
+ 2808               	.LVL201:
+ 2809 001e D92E      		mov r13,r25
+ 2810               	.LVL202:
+ 2811               	.LSM353:
+ 2812 0020 D601      		movw r26,r12
+ 2813 0022 5696      		adiw r26,22
+ 2814 0024 ED90      		ld r14,X+
+ 2815 0026 FC90      		ld r15,X
+ 2816 0028 5797      		sbiw r26,22+1
+ 2817               	.LVL203:
+ 2818               	.LSM354:
+ 2819 002a FA01      		movw r30,r20
+ 2820 002c C281      		ldd r28,Z+2
+ 2821 002e D381      		ldd r29,Z+3
+ 2822               	.LVL204:
+ 2823               	.LSM355:
+ 2824 0030 D701      		movw r26,r14
+ 2825 0032 1996      		adiw r26,8+1
+ 2826 0034 5C93      		st X,r21
+ 2827 0036 4E93      		st -X,r20
+ 2828 0038 1897      		sbiw r26,8
+ 2829               	.LSM356:
+ 2830 003a 8881      		ld r24,Y
+ 2831               	.LVL205:
+ 2832 003c 8230      		cpi r24,lo8(2)
+ 2833 003e 01F0      		breq .+2
+ 2834 0040 00C0      		rjmp .L132
+ 2835               	.LSM357:
+ 2836 0042 F601      		movw r30,r12
+ 2837 0044 528D      		ldd r21,Z+26
+ 2838 0046 4C2D      		mov r20,r12
+ 2839               	.LVL206:
+ 2840 0048 DE01      		movw r26,r28
+ 2841 004a 8C2D      		mov r24,r12
+ 2842 004c 9C01      		movw r18,r24
+ 2843               	.LVL207:
+ 2844 004e F901      		movw r30,r18
+ 2845 0050 00C0      		rjmp .L133
+ 2846               	.L134:
+ 2847               	.LSM358:
+ 2848 0052 938D      		ldd r25,Z+27
+ 2849               	.LVL208:
+ 2850 0054 5C96      		adiw r26,28
+ 2851 0056 8C91      		ld r24,X
+ 2852 0058 5C97      		sbiw r26,28
+ 2853 005a 3196      		adiw r30,1
+ 2854 005c 1196      		adiw r26,1
+ 2855 005e 9817      		cp r25,r24
+ 2856 0060 01F0      		breq .+2
+ 2857 0062 00C0      		rjmp .L132
+ 2858               	.LVL209:
+ 2859               	.L133:
+ 2860               	.LSM359:
+ 2861 0064 8E2F      		mov r24,r30
+ 2862 0066 841B      		sub r24,r20
+ 2863 0068 8517      		cp r24,r21
+ 2864 006a 00F0      		brlo .L134
+ 2865               	.LSM360:
+ 2866 006c 6C81      		ldd r22,Y+4
+ 2867 006e 7D81      		ldd r23,Y+5
+ 2868 0070 8E81      		ldd r24,Y+6
+ 2869 0072 9F81      		ldd r25,Y+7
+ 2870               	.LVL210:
+ 2871 0074 0E94 0000 		call ntohl
+ 2872               	.LVL211:
+ 2873 0078 D701      		movw r26,r14
+ 2874 007a 1296      		adiw r26,2
+ 2875 007c 2D91      		ld r18,X+
+ 2876 007e 3D91      		ld r19,X+
+ 2877 0080 4D91      		ld r20,X+
+ 2878 0082 5C91      		ld r21,X
+ 2879 0084 1597      		sbiw r26,2+3
+ 2880 0086 6217      		cp r22,r18
+ 2881 0088 7307      		cpc r23,r19
+ 2882 008a 8407      		cpc r24,r20
+ 2883 008c 9507      		cpc r25,r21
+ 2884 008e 01F0      		breq .+2
+ 2885 0090 00C0      		rjmp .L132
+ 2886               	.LBB28:
+ 2887               	.LBB29:
+ 2888               	.LSM361:
+ 2889 0092 E114      		cp r14,__zero_reg__
+ 2890 0094 F104      		cpc r15,__zero_reg__
+ 2891 0096 01F4      		brne .+2
+ 2892 0098 00C0      		rjmp .L132
+ 2893               	.LSM362:
+ 2894 009a 1896      		adiw r26,8
+ 2895 009c 8D91      		ld r24,X+
+ 2896 009e 9C91      		ld r25,X
+ 2897 00a0 1997      		sbiw r26,8+1
+ 2898 00a2 892B      		or r24,r25
+ 2899 00a4 01F4      		brne .+2
+ 2900 00a6 00C0      		rjmp .L132
+ 2901               	.LSM363:
+ 2902 00a8 C701      		movw r24,r14
+ 2903 00aa 0E94 0000 		call dhcp_free_reply
+ 2904               	.LSM364:
+ 2905 00ae D701      		movw r26,r14
+ 2906 00b0 1896      		adiw r26,8
+ 2907 00b2 ED91      		ld r30,X+
+ 2908 00b4 FC91      		ld r31,X
+ 2909 00b6 1997      		sbiw r26,8+1
+ 2910 00b8 8481      		ldd r24,Z+4
+ 2911 00ba 9581      		ldd r25,Z+5
+ 2912 00bc 813F      		cpi r24,241
+ 2913 00be 9105      		cpc r25,__zero_reg__
+ 2914 00c0 00F0      		brlo .L135
+ 2915               	.LSM365:
+ 2916 00c2 805F      		subi r24,lo8(-(-240))
+ 2917 00c4 9040      		sbci r25,hi8(-(-240))
+ 2918 00c6 1F96      		adiw r26,14+1
+ 2919 00c8 9C93      		st X,r25
+ 2920 00ca 8E93      		st -X,r24
+ 2921 00cc 1E97      		sbiw r26,14
+ 2922               	.LBE29:
+ 2923               	.LSM366:
+ 2924 00ce 0E94 0000 		call mem_malloc
+ 2925               	.LBB30:
+ 2926 00d2 F701      		movw r30,r14
+ 2927 00d4 9587      		std Z+13,r25
+ 2928 00d6 8487      		std Z+12,r24
+ 2929               	.LSM367:
+ 2930 00d8 0097      		sbiw r24,0
+ 2931 00da 01F4      		brne .+2
+ 2932 00dc 00C0      		rjmp .L132
+ 2933               	.L135:
+ 2934               	.LBE30:
+ 2935               	.LSM368:
+ 2936 00de 80EF      		ldi r24,lo8(240)
+ 2937 00e0 90E0      		ldi r25,hi8(240)
+ 2938 00e2 0E94 0000 		call mem_malloc
+ 2939               	.LBB31:
+ 2940 00e6 BC01      		movw r22,r24
+ 2941 00e8 D701      		movw r26,r14
+ 2942 00ea 1B96      		adiw r26,10+1
+ 2943 00ec 9C93      		st X,r25
+ 2944 00ee 8E93      		st -X,r24
+ 2945 00f0 1A97      		sbiw r26,10
+ 2946               	.LSM369:
+ 2947 00f2 0097      		sbiw r24,0
+ 2948 00f4 01F4      		brne .L136
+ 2949               	.LSM370:
+ 2950 00f6 1C96      		adiw r26,12
+ 2951 00f8 8D91      		ld r24,X+
+ 2952 00fa 9C91      		ld r25,X
+ 2953 00fc 1D97      		sbiw r26,12+1
+ 2954 00fe 0E94 0000 		call mem_free
+ 2955               	.LSM371:
+ 2956 0102 F701      		movw r30,r14
+ 2957 0104 1586      		std Z+13,__zero_reg__
+ 2958 0106 1486      		std Z+12,__zero_reg__
+ 2959 0108 00C0      		rjmp .L132
+ 2960               	.L136:
+ 2961               	.LSM372:
+ 2962 010a D701      		movw r26,r14
+ 2963 010c 1896      		adiw r26,8
+ 2964 010e 8D91      		ld r24,X+
+ 2965 0110 9C91      		ld r25,X
+ 2966 0112 1997      		sbiw r26,8+1
+ 2967 0114 40EF      		ldi r20,lo8(240)
+ 2968 0116 50E0      		ldi r21,hi8(240)
+ 2969 0118 20E0      		ldi r18,lo8(0)
+ 2970 011a 30E0      		ldi r19,hi8(0)
+ 2971 011c 0E94 0000 		call pbuf_copy_partial
+ 2972               	.LSM373:
+ 2973 0120 F701      		movw r30,r14
+ 2974 0122 6485      		ldd r22,Z+12
+ 2975 0124 7585      		ldd r23,Z+13
+ 2976 0126 6115      		cp r22,__zero_reg__
+ 2977 0128 7105      		cpc r23,__zero_reg__
+ 2978 012a 01F4      		brne .+2
+ 2979 012c 00C0      		rjmp .L137
+ 2980               	.LSM374:
+ 2981 012e 4685      		ldd r20,Z+14
+ 2982 0130 5785      		ldd r21,Z+15
+ 2983 0132 8085      		ldd r24,Z+8
+ 2984 0134 9185      		ldd r25,Z+9
+ 2985 0136 20EF      		ldi r18,lo8(240)
+ 2986 0138 30E0      		ldi r19,hi8(240)
+ 2987 013a 0E94 0000 		call pbuf_copy_partial
+ 2988 013e 00C0      		rjmp .L137
+ 2989               	.LVL212:
+ 2990               	.L160:
+ 2991               	.LBE31:
+ 2992               	.LBE28:
+ 2993               	.LSM375:
+ 2994 0140 0296      		adiw r24,2
+ 2995               	.LVL213:
+ 2996 0142 0E94 0000 		call dhcp_get_option_byte
+ 2997               	.LSM376:
+ 2998 0146 8530      		cpi r24,lo8(5)
+ 2999               	.LVL214:
+ 3000 0148 01F0      		breq .+2
+ 3001 014a 00C0      		rjmp .L138
+ 3002               	.LSM377:
+ 3003 014c D701      		movw r26,r14
+ 3004 014e 8C91      		ld r24,X
+ 3005               	.LVL215:
+ 3006 0150 8130      		cpi r24,lo8(1)
+ 3007 0152 01F0      		breq .+2
+ 3008 0154 00C0      		rjmp .L139
+ 3009               	.LBB32:
+ 3010               	.LBB33:
+ 3011               	.LSM378:
+ 3012 0156 F601      		movw r30,r12
+ 3013 0158 C689      		ldd r28,Z+22
+ 3014 015a D789      		ldd r29,Z+23
+ 3015               	.LVL216:
+ 3016               	.LSM379:
+ 3017 015c 1CA2      		std Y+36,__zero_reg__
+ 3018 015e 1DA2      		std Y+37,__zero_reg__
+ 3019 0160 1EA2      		std Y+38,__zero_reg__
+ 3020 0162 1FA2      		std Y+39,__zero_reg__
+ 3021               	.LSM380:
+ 3022 0164 18A6      		std Y+40,__zero_reg__
+ 3023 0166 19A6      		std Y+41,__zero_reg__
+ 3024 0168 1AA6      		std Y+42,__zero_reg__
+ 3025 016a 1BA6      		std Y+43,__zero_reg__
+ 3026               	.LSM381:
+ 3027 016c 1CA6      		std Y+44,__zero_reg__
+ 3028 016e 1DA6      		std Y+45,__zero_reg__
+ 3029 0170 1EA6      		std Y+46,__zero_reg__
+ 3030 0172 1FA6      		std Y+47,__zero_reg__
+ 3031               	.LBE33:
+ 3032               	.LSM382:
+ 3033 0174 CE01      		movw r24,r28
+ 3034 0176 63E3      		ldi r22,lo8(51)
+ 3035 0178 0E94 0000 		call dhcp_get_option_ptr
+ 3036               	.LBB36:
+ 3037               	.LSM383:
+ 3038 017c 0097      		sbiw r24,0
+ 3039               	.LVL217:
+ 3040 017e 01F0      		breq .L140
+ 3041               	.LBE36:
+ 3042               	.LSM384:
+ 3043 0180 0296      		adiw r24,2
+ 3044               	.LVL218:
+ 3045 0182 0E94 0000 		call dhcp_get_option_long
+ 3046               	.LBB37:
+ 3047 0186 6CAF      		std Y+60,r22
+ 3048 0188 7DAF      		std Y+61,r23
+ 3049 018a 8EAF      		std Y+62,r24
+ 3050 018c 9FAF      		std Y+63,r25
+ 3051               	.LVL219:
+ 3052               	.L140:
+ 3053               	.LBE37:
+ 3054               	.LSM385:
+ 3055 018e CE01      		movw r24,r28
+ 3056               	.LVL220:
+ 3057 0190 6AE3      		ldi r22,lo8(58)
+ 3058 0192 0E94 0000 		call dhcp_get_option_ptr
+ 3059 0196 8E01      		movw r16,r28
+ 3060 0198 005C      		subi r16,lo8(-(64))
+ 3061 019a 1F4F      		sbci r17,hi8(-(64))
+ 3062               	.LBB38:
+ 3063               	.LSM386:
+ 3064 019c 0097      		sbiw r24,0
+ 3065               	.LVL221:
+ 3066 019e 01F0      		breq .L141
+ 3067               	.LBE38:
+ 3068               	.LSM387:
+ 3069 01a0 0296      		adiw r24,2
+ 3070               	.LVL222:
+ 3071 01a2 0E94 0000 		call dhcp_get_option_long
+ 3072               	.LBB39:
+ 3073 01a6 D801      		movw r26,r16
+ 3074 01a8 6D93      		st X+,r22
+ 3075 01aa 7D93      		st X+,r23
+ 3076 01ac 8D93      		st X+,r24
+ 3077 01ae 9C93      		st X,r25
+ 3078 01b0 1397      		sbiw r26,3
+ 3079 01b2 00C0      		rjmp .L142
+ 3080               	.LVL223:
+ 3081               	.L141:
+ 3082               	.LSM388:
+ 3083 01b4 8CAD      		ldd r24,Y+60
+ 3084 01b6 9DAD      		ldd r25,Y+61
+ 3085 01b8 AEAD      		ldd r26,Y+62
+ 3086 01ba BFAD      		ldd r27,Y+63
+ 3087               	.LVL224:
+ 3088 01bc B695      		lsr r27
+ 3089 01be A795      		ror r26
+ 3090 01c0 9795      		ror r25
+ 3091 01c2 8795      		ror r24
+ 3092 01c4 F801      		movw r30,r16
+ 3093 01c6 8083      		st Z,r24
+ 3094 01c8 9183      		std Z+1,r25
+ 3095 01ca A283      		std Z+2,r26
+ 3096 01cc B383      		std Z+3,r27
+ 3097               	.L142:
+ 3098               	.LBE39:
+ 3099               	.LSM389:
+ 3100 01ce CE01      		movw r24,r28
+ 3101 01d0 6BE3      		ldi r22,lo8(59)
+ 3102 01d2 0E94 0000 		call dhcp_get_option_ptr
+ 3103 01d6 8E01      		movw r16,r28
+ 3104 01d8 0C5B      		subi r16,lo8(-(68))
+ 3105 01da 1F4F      		sbci r17,hi8(-(68))
+ 3106               	.LBB40:
+ 3107               	.LSM390:
+ 3108 01dc 0097      		sbiw r24,0
+ 3109               	.LVL225:
+ 3110 01de 01F0      		breq .L143
+ 3111               	.LBE40:
+ 3112               	.LSM391:
+ 3113 01e0 0296      		adiw r24,2
+ 3114               	.LVL226:
+ 3115 01e2 0E94 0000 		call dhcp_get_option_long
+ 3116               	.LBB41:
+ 3117 01e6 D801      		movw r26,r16
+ 3118 01e8 6D93      		st X+,r22
+ 3119 01ea 7D93      		st X+,r23
+ 3120 01ec 8D93      		st X+,r24
+ 3121 01ee 9C93      		st X,r25
+ 3122 01f0 1397      		sbiw r26,3
+ 3123 01f2 00C0      		rjmp .L144
+ 3124               	.LVL227:
+ 3125               	.L143:
+ 3126               	.LSM392:
+ 3127 01f4 8CAD      		ldd r24,Y+60
+ 3128 01f6 9DAD      		ldd r25,Y+61
+ 3129 01f8 AEAD      		ldd r26,Y+62
+ 3130 01fa BFAD      		ldd r27,Y+63
+ 3131               	.LVL228:
+ 3132 01fc F801      		movw r30,r16
+ 3133 01fe 8083      		st Z,r24
+ 3134 0200 9183      		std Z+1,r25
+ 3135 0202 A283      		std Z+2,r26
+ 3136 0204 B383      		std Z+3,r27
+ 3137               	.L144:
+ 3138               	.LSM393:
+ 3139 0206 EA85      		ldd r30,Y+10
+ 3140 0208 FB85      		ldd r31,Y+11
+ 3141 020a CF01      		movw r24,r30
+ 3142 020c 4096      		adiw r24,16
+ 3143 020e 01F4      		brne .L145
+ 3144 0210 80E0      		ldi r24,lo8(0)
+ 3145 0212 90E0      		ldi r25,hi8(0)
+ 3146 0214 A0E0      		ldi r26,hlo8(0)
+ 3147 0216 B0E0      		ldi r27,hhi8(0)
+ 3148 0218 00C0      		rjmp .L146
+ 3149               	.L145:
+ 3150 021a 8089      		ldd r24,Z+16
+ 3151 021c 9189      		ldd r25,Z+17
+ 3152 021e A289      		ldd r26,Z+18
+ 3153 0220 B389      		ldd r27,Z+19
+ 3154               	.L146:
+ 3155 0222 88A3      		std Y+32,r24
+ 3156 0224 99A3      		std Y+33,r25
+ 3157 0226 AAA3      		std Y+34,r26
+ 3158 0228 BBA3      		std Y+35,r27
+ 3159               	.LBE41:
+ 3160               	.LSM394:
+ 3161 022a CE01      		movw r24,r28
+ 3162 022c 61E0      		ldi r22,lo8(1)
+ 3163 022e 0E94 0000 		call dhcp_get_option_ptr
+ 3164               	.LBB42:
+ 3165               	.LSM395:
+ 3166 0232 0097      		sbiw r24,0
+ 3167               	.LVL229:
+ 3168 0234 01F0      		breq .L147
+ 3169               	.LBE42:
+ 3170               	.LSM396:
+ 3171 0236 0296      		adiw r24,2
+ 3172               	.LVL230:
+ 3173 0238 0E94 0000 		call dhcp_get_option_long
+ 3174 023c 0E94 0000 		call htonl
+ 3175               	.LBB43:
+ 3176 0240 6CA3      		std Y+36,r22
+ 3177 0242 7DA3      		std Y+37,r23
+ 3178 0244 8EA3      		std Y+38,r24
+ 3179 0246 9FA3      		std Y+39,r25
+ 3180               	.LVL231:
+ 3181               	.L147:
+ 3182               	.LBE43:
+ 3183               	.LSM397:
+ 3184 0248 CE01      		movw r24,r28
+ 3185               	.LVL232:
+ 3186 024a 63E0      		ldi r22,lo8(3)
+ 3187 024c 0E94 0000 		call dhcp_get_option_ptr
+ 3188               	.LBB44:
+ 3189               	.LSM398:
+ 3190 0250 0097      		sbiw r24,0
+ 3191               	.LVL233:
+ 3192 0252 01F0      		breq .L148
+ 3193               	.LBE44:
+ 3194               	.LSM399:
+ 3195 0254 0296      		adiw r24,2
+ 3196               	.LVL234:
+ 3197 0256 0E94 0000 		call dhcp_get_option_long
+ 3198 025a 0E94 0000 		call htonl
+ 3199               	.LBB45:
+ 3200 025e 68A7      		std Y+40,r22
+ 3201 0260 79A7      		std Y+41,r23
+ 3202 0262 8AA7      		std Y+42,r24
+ 3203 0264 9BA7      		std Y+43,r25
+ 3204               	.LVL235:
+ 3205               	.L148:
+ 3206               	.LBE45:
+ 3207               	.LSM400:
+ 3208 0266 CE01      		movw r24,r28
+ 3209               	.LVL236:
+ 3210 0268 6CE1      		ldi r22,lo8(28)
+ 3211 026a 0E94 0000 		call dhcp_get_option_ptr
+ 3212               	.LBB46:
+ 3213               	.LSM401:
+ 3214 026e 0097      		sbiw r24,0
+ 3215               	.LVL237:
+ 3216 0270 01F0      		breq .L149
+ 3217               	.LBE46:
+ 3218               	.LSM402:
+ 3219 0272 0296      		adiw r24,2
+ 3220               	.LVL238:
+ 3221 0274 0E94 0000 		call dhcp_get_option_long
+ 3222 0278 0E94 0000 		call htonl
+ 3223               	.LBB47:
+ 3224 027c 6CA7      		std Y+44,r22
+ 3225 027e 7DA7      		std Y+45,r23
+ 3226 0280 8EA7      		std Y+46,r24
+ 3227 0282 9FA7      		std Y+47,r25
+ 3228               	.LVL239:
+ 3229               	.L149:
+ 3230               	.LBE47:
+ 3231               	.LSM403:
+ 3232 0284 CE01      		movw r24,r28
+ 3233               	.LVL240:
+ 3234 0286 66E0      		ldi r22,lo8(6)
+ 3235 0288 0E94 0000 		call dhcp_get_option_ptr
+ 3236 028c 5C01      		movw r10,r24
+ 3237               	.LVL241:
+ 3238               	.LBB48:
+ 3239               	.LSM404:
+ 3240 028e 0097      		sbiw r24,0
+ 3241 0290 01F4      		brne .+2
+ 3242 0292 00C0      		rjmp .L150
+ 3243               	.LVL242:
+ 3244               	.LBE48:
+ 3245               	.LSM405:
+ 3246 0294 0196      		adiw r24,1
+ 3247               	.LVL243:
+ 3248 0296 0E94 0000 		call dhcp_get_option_byte
+ 3249               	.LBB49:
+ 3250               	.LBB34:
+ 3251 029a 8695      		lsr r24
+ 3252 029c 8695      		lsr r24
+ 3253 029e 90E0      		ldi r25,lo8(0)
+ 3254 02a0 A0E0      		ldi r26,lo8(0)
+ 3255 02a2 B0E0      		ldi r27,hi8(0)
+ 3256 02a4 88AB      		std Y+48,r24
+ 3257 02a6 99AB      		std Y+49,r25
+ 3258 02a8 AAAB      		std Y+50,r26
+ 3259 02aa BBAB      		std Y+51,r27
+ 3260               	.LSM406:
+ 3261 02ac 0397      		sbiw r24,3
+ 3262 02ae A105      		cpc r26,__zero_reg__
+ 3263 02b0 B105      		cpc r27,__zero_reg__
+ 3264 02b2 00F0      		brlo .L151
+ 3265               	.LSM407:
+ 3266 02b4 82E0      		ldi r24,lo8(2)
+ 3267 02b6 90E0      		ldi r25,hi8(2)
+ 3268 02b8 A0E0      		ldi r26,hlo8(2)
+ 3269 02ba B0E0      		ldi r27,hhi8(2)
+ 3270 02bc 88AB      		std Y+48,r24
+ 3271 02be 99AB      		std Y+49,r25
+ 3272 02c0 AAAB      		std Y+50,r26
+ 3273 02c2 BBAB      		std Y+51,r27
+ 3274               	.L151:
+ 3275 02c4 9924      		clr r9
+ 3276               	.LVL244:
+ 3277 02c6 00C0      		rjmp .L152
+ 3278               	.LVL245:
+ 3279               	.L153:
+ 3280               	.LSM408:
+ 3281 02c8 092D      		mov r16,r9
+ 3282 02ca 10E0      		ldi r17,lo8(0)
+ 3283               	.LBE34:
+ 3284               	.LBE49:
+ 3285 02cc 000F      		lsl r16
+ 3286 02ce 111F      		rol r17
+ 3287 02d0 000F      		lsl r16
+ 3288 02d2 111F      		rol r17
+ 3289 02d4 C801      		movw r24,r16
+ 3290 02d6 0296      		adiw r24,2
+ 3291 02d8 8A0D      		add r24,r10
+ 3292 02da 9B1D      		adc r25,r11
+ 3293 02dc 0E94 0000 		call dhcp_get_option_long
+ 3294               	.LVL246:
+ 3295 02e0 0E94 0000 		call htonl
+ 3296               	.LBB50:
+ 3297               	.LBB35:
+ 3298 02e4 0C0F      		add r16,r28
+ 3299 02e6 1D1F      		adc r17,r29
+ 3300 02e8 D801      		movw r26,r16
+ 3301 02ea D496      		adiw r26,52
+ 3302 02ec 6D93      		st X+,r22
+ 3303 02ee 7D93      		st X+,r23
+ 3304 02f0 8D93      		st X+,r24
+ 3305 02f2 9C93      		st X,r25
+ 3306 02f4 D797      		sbiw r26,52+3
+ 3307               	.LSM409:
+ 3308 02f6 9394      		inc r9
+ 3309               	.L152:
+ 3310 02f8 292D      		mov r18,r9
+ 3311 02fa 30E0      		ldi r19,lo8(0)
+ 3312               	.LVL247:
+ 3313 02fc 40E0      		ldi r20,lo8(0)
+ 3314 02fe 50E0      		ldi r21,hi8(0)
+ 3315               	.LVL248:
+ 3316 0300 88A9      		ldd r24,Y+48
+ 3317 0302 99A9      		ldd r25,Y+49
+ 3318 0304 AAA9      		ldd r26,Y+50
+ 3319 0306 BBA9      		ldd r27,Y+51
+ 3320 0308 2817      		cp r18,r24
+ 3321 030a 3907      		cpc r19,r25
+ 3322 030c 4A07      		cpc r20,r26
+ 3323 030e 5B07      		cpc r21,r27
+ 3324 0310 00F0      		brlo .L153
+ 3325               	.LVL249:
+ 3326               	.L150:
+ 3327               	.LBE35:
+ 3328               	.LBE50:
+ 3329               	.LBE32:
+ 3330               	.LSM410:
+ 3331 0312 F701      		movw r30,r14
+ 3332 0314 178A      		std Z+23,__zero_reg__
+ 3333 0316 168A      		std Z+22,__zero_reg__
+ 3334               	.LSM411:
+ 3335 0318 C601      		movw r24,r12
+ 3336 031a 0E94 0000 		call dhcp_check
+ 3337               	.LVL250:
+ 3338 031e 00C0      		rjmp .L132
+ 3339               	.LVL251:
+ 3340               	.L139:
+ 3341               	.LSM412:
+ 3342 0320 8350      		subi r24,lo8(-(-3))
+ 3343 0322 8330      		cpi r24,lo8(3)
+ 3344 0324 00F0      		brlo .+2
+ 3345 0326 00C0      		rjmp .L132
+ 3346               	.LSM413:
+ 3347 0328 D701      		movw r26,r14
+ 3348 032a 5796      		adiw r26,22+1
+ 3349 032c 1C92      		st X,__zero_reg__
+ 3350 032e 1E92      		st -X,__zero_reg__
+ 3351 0330 5697      		sbiw r26,22
+ 3352               	.LSM414:
+ 3353 0332 C601      		movw r24,r12
+ 3354 0334 0E94 0000 		call dhcp_bind
+ 3355 0338 00C0      		rjmp .L132
+ 3356               	.LVL252:
+ 3357               	.L138:
+ 3358               	.LSM415:
+ 3359 033a 8630      		cpi r24,lo8(6)
+ 3360 033c 01F4      		brne .L154
+ 3361 033e F701      		movw r30,r14
+ 3362 0340 8081      		ld r24,Z
+ 3363               	.LVL253:
+ 3364 0342 8330      		cpi r24,lo8(3)
+ 3365 0344 01F0      		breq .L155
+ 3366 0346 8130      		cpi r24,lo8(1)
+ 3367 0348 01F0      		breq .L155
+ 3368 034a 8430      		cpi r24,lo8(4)
+ 3369 034c 01F0      		breq .L155
+ 3370 034e 8530      		cpi r24,lo8(5)
+ 3371 0350 01F0      		breq .+2
+ 3372 0352 00C0      		rjmp .L132
+ 3373               	.L155:
+ 3374               	.LSM416:
+ 3375 0354 D701      		movw r26,r14
+ 3376 0356 5796      		adiw r26,22+1
+ 3377 0358 1C92      		st X,__zero_reg__
+ 3378 035a 1E92      		st -X,__zero_reg__
+ 3379 035c 5697      		sbiw r26,22
+ 3380               	.LBB51:
+ 3381               	.LBB52:
+ 3382               	.LSM417:
+ 3383 035e F601      		movw r30,r12
+ 3384 0360 0689      		ldd r16,Z+22
+ 3385 0362 1789      		ldd r17,Z+23
+ 3386               	.LVL254:
+ 3387               	.LSM418:
+ 3388 0364 C601      		movw r24,r12
+ 3389 0366 0E94 0000 		call netif_set_down
+ 3390               	.LSM419:
+ 3391 036a C601      		movw r24,r12
+ 3392 036c 60E0      		ldi r22,lo8(ip_addr_any)
+ 3393 036e 70E0      		ldi r23,hi8(ip_addr_any)
+ 3394 0370 0E94 0000 		call netif_set_ipaddr
+ 3395               	.LSM420:
+ 3396 0374 C601      		movw r24,r12
+ 3397 0376 60E0      		ldi r22,lo8(ip_addr_any)
+ 3398 0378 70E0      		ldi r23,hi8(ip_addr_any)
+ 3399 037a 0E94 0000 		call netif_set_gw
+ 3400               	.LSM421:
+ 3401 037e C601      		movw r24,r12
+ 3402 0380 60E0      		ldi r22,lo8(ip_addr_any)
+ 3403 0382 70E0      		ldi r23,hi8(ip_addr_any)
+ 3404 0384 0E94 0000 		call netif_set_netmask
+ 3405               	.LSM422:
+ 3406 0388 C801      		movw r24,r16
+ 3407 038a 6CE0      		ldi r22,lo8(12)
+ 3408 038c 0E94 0000 		call dhcp_set_state
+ 3409               	.LSM423:
+ 3410 0390 C601      		movw r24,r12
+ 3411 0392 0E94 0000 		call dhcp_discover
+ 3412 0396 00C0      		rjmp .L132
+ 3413               	.LVL255:
+ 3414               	.L154:
+ 3415               	.LBE52:
+ 3416               	.LBE51:
+ 3417               	.LSM424:
+ 3418 0398 8230      		cpi r24,lo8(2)
+ 3419 039a 01F4      		brne .L132
+ 3420 039c D701      		movw r26,r14
+ 3421 039e 8C91      		ld r24,X
+ 3422               	.LVL256:
+ 3423 03a0 8630      		cpi r24,lo8(6)
+ 3424 03a2 01F4      		brne .L132
+ 3425               	.LSM425:
+ 3426 03a4 5796      		adiw r26,22+1
+ 3427 03a6 1C92      		st X,__zero_reg__
+ 3428 03a8 1E92      		st -X,__zero_reg__
+ 3429 03aa 5697      		sbiw r26,22
+ 3430               	.LBB53:
+ 3431               	.LBB54:
+ 3432               	.LSM426:
+ 3433 03ac F601      		movw r30,r12
+ 3434 03ae C689      		ldd r28,Z+22
+ 3435 03b0 D789      		ldd r29,Z+23
+ 3436               	.LVL257:
+ 3437               	.LBE54:
+ 3438               	.LSM427:
+ 3439 03b2 CE01      		movw r24,r28
+ 3440 03b4 66E3      		ldi r22,lo8(54)
+ 3441 03b6 0E94 0000 		call dhcp_get_option_ptr
+ 3442               	.LBB55:
+ 3443               	.LSM428:
+ 3444 03ba 0097      		sbiw r24,0
+ 3445               	.LVL258:
+ 3446 03bc 01F0      		breq .L132
+ 3447               	.LBE55:
+ 3448               	.LSM429:
+ 3449 03be 0296      		adiw r24,2
+ 3450               	.LVL259:
+ 3451 03c0 0E94 0000 		call dhcp_get_option_long
+ 3452 03c4 0E94 0000 		call htonl
+ 3453               	.LBB56:
+ 3454 03c8 6C8F      		std Y+28,r22
+ 3455 03ca 7D8F      		std Y+29,r23
+ 3456 03cc 8E8F      		std Y+30,r24
+ 3457 03ce 9F8F      		std Y+31,r25
+ 3458               	.LSM430:
+ 3459 03d0 EA85      		ldd r30,Y+10
+ 3460 03d2 FB85      		ldd r31,Y+11
+ 3461 03d4 CF01      		movw r24,r30
+ 3462 03d6 4096      		adiw r24,16
+ 3463 03d8 01F4      		brne .L156
+ 3464 03da 80E0      		ldi r24,lo8(0)
+ 3465 03dc 90E0      		ldi r25,hi8(0)
+ 3466 03de A0E0      		ldi r26,hlo8(0)
+ 3467 03e0 B0E0      		ldi r27,hhi8(0)
+ 3468 03e2 00C0      		rjmp .L157
+ 3469               	.L156:
+ 3470 03e4 8089      		ldd r24,Z+16
+ 3471 03e6 9189      		ldd r25,Z+17
+ 3472 03e8 A289      		ldd r26,Z+18
+ 3473 03ea B389      		ldd r27,Z+19
+ 3474               	.L157:
+ 3475 03ec 88A3      		std Y+32,r24
+ 3476 03ee 99A3      		std Y+33,r25
+ 3477 03f0 AAA3      		std Y+34,r26
+ 3478 03f2 BBA3      		std Y+35,r27
+ 3479               	.LSM431:
+ 3480 03f4 C601      		movw r24,r12
+ 3481 03f6 0E94 0000 		call dhcp_select
+ 3482               	.LVL260:
+ 3483               	.L132:
+ 3484               	.LBE56:
+ 3485               	.LBE53:
+ 3486               	.LSM432:
+ 3487 03fa C301      		movw r24,r6
+ 3488               	.LVL261:
+ 3489 03fc 0E94 0000 		call pbuf_free
+ 3490               	.LVL262:
+ 3491               	.LSM433:
+ 3492 0400 D701      		movw r26,r14
+ 3493 0402 1996      		adiw r26,8+1
+ 3494 0404 1C92      		st X,__zero_reg__
+ 3495 0406 1E92      		st -X,__zero_reg__
+ 3496 0408 1897      		sbiw r26,8
+ 3497               	/* epilogue start */
+ 3498               	.LSM434:
+ 3499 040a DF91      		pop r29
+ 3500 040c CF91      		pop r28
+ 3501               	.LVL263:
+ 3502 040e 1F91      		pop r17
+ 3503 0410 0F91      		pop r16
+ 3504               	.LVL264:
+ 3505 0412 FF90      		pop r15
+ 3506 0414 EF90      		pop r14
+ 3507               	.LVL265:
+ 3508 0416 DF90      		pop r13
+ 3509               	.LVL266:
+ 3510 0418 CF90      		pop r12
+ 3511               	.LVL267:
+ 3512 041a BF90      		pop r11
+ 3513 041c AF90      		pop r10
+ 3514               	.LVL268:
+ 3515 041e 9F90      		pop r9
+ 3516               	.LVL269:
+ 3517 0420 7F90      		pop r7
+ 3518 0422 6F90      		pop r6
+ 3519               	.LVL270:
+ 3520 0424 0895      		ret
+ 3521               	.LVL271:
+ 3522               	.L137:
+ 3523               	.LSM435:
+ 3524 0426 C701      		movw r24,r14
+ 3525 0428 65E3      		ldi r22,lo8(53)
+ 3526 042a 0E94 0000 		call dhcp_get_option_ptr
+ 3527               	.LSM436:
+ 3528 042e 0097      		sbiw r24,0
+ 3529               	.LVL272:
+ 3530 0430 01F0      		breq .+2
+ 3531 0432 00C0      		rjmp .L160
+ 3532 0434 00C0      		rjmp .L132
+ 3533               	.LFE29:
+ 3535               		.section	.text.dhcp_fine_tmr,"ax",@progbits
+ 3536               	.global	dhcp_fine_tmr
+ 3538               	dhcp_fine_tmr:
+ 3539               	.LFB7:
+ 3540               	.LSM437:
+ 3541 0000 CF93      		push r28
+ 3542 0002 DF93      		push r29
+ 3543               	/* prologue: function */
+ 3544               	/* frame size = 0 */
+ 3545               	.LSM438:
+ 3546 0004 C091 0000 		lds r28,netif_list
+ 3547 0008 D091 0000 		lds r29,(netif_list)+1
+ 3548               	.LVL273:
+ 3549 000c 00C0      		rjmp .L162
+ 3550               	.L173:
+ 3551               	.LSM439:
+ 3552 000e EE89      		ldd r30,Y+22
+ 3553 0010 FF89      		ldd r31,Y+23
+ 3554 0012 3097      		sbiw r30,0
+ 3555 0014 01F0      		breq .L163
+ 3556               	.LSM440:
+ 3557 0016 8689      		ldd r24,Z+22
+ 3558 0018 9789      		ldd r25,Z+23
+ 3559 001a 8230      		cpi r24,2
+ 3560 001c 9105      		cpc r25,__zero_reg__
+ 3561 001e 00F0      		brlo .L164
+ 3562               	.LSM441:
+ 3563 0020 0197      		sbiw r24,1
+ 3564 0022 978B      		std Z+23,r25
+ 3565 0024 868B      		std Z+22,r24
+ 3566 0026 00C0      		rjmp .L163
+ 3567               	.L164:
+ 3568               	.LSM442:
+ 3569 0028 0197      		sbiw r24,1
+ 3570 002a 01F4      		brne .L163
+ 3571               	.LSM443:
+ 3572 002c 178A      		std Z+23,__zero_reg__
+ 3573 002e 168A      		std Z+22,__zero_reg__
+ 3574               	.LBB59:
+ 3575               	.LBB60:
+ 3576               	.LSM444:
+ 3577 0030 8081      		ld r24,Z
+ 3578 0032 8C30      		cpi r24,lo8(12)
+ 3579 0034 01F0      		breq .L175
+ 3580 0036 8630      		cpi r24,lo8(6)
+ 3581 0038 01F0      		breq .L175
+ 3582               	.L166:
+ 3583               	.LSM445:
+ 3584 003a 8130      		cpi r24,lo8(1)
+ 3585 003c 01F4      		brne .L167
+ 3586               	.LSM446:
+ 3587 003e 8181      		ldd r24,Z+1
+ 3588 0040 8630      		cpi r24,lo8(6)
+ 3589 0042 00F4      		brsh .L172
+ 3590               	.LSM447:
+ 3591 0044 CE01      		movw r24,r28
+ 3592 0046 0E94 0000 		call dhcp_select
+ 3593 004a 00C0      		rjmp .L163
+ 3594               	.L167:
+ 3595               	.LSM448:
+ 3596 004c 8830      		cpi r24,lo8(8)
+ 3597 004e 01F4      		brne .L169
+ 3598               	.LSM449:
+ 3599 0050 8181      		ldd r24,Z+1
+ 3600 0052 8230      		cpi r24,lo8(2)
+ 3601 0054 00F4      		brsh .L170
+ 3602               	.LSM450:
+ 3603 0056 CE01      		movw r24,r28
+ 3604 0058 0E94 0000 		call dhcp_check
+ 3605 005c 00C0      		rjmp .L163
+ 3606               	.L170:
+ 3607               	.LSM451:
+ 3608 005e CE01      		movw r24,r28
+ 3609 0060 0E94 0000 		call dhcp_bind
+ 3610 0064 00C0      		rjmp .L163
+ 3611               	.L169:
+ 3612               	.LSM452:
+ 3613 0066 8530      		cpi r24,lo8(5)
+ 3614 0068 01F4      		brne .L171
+ 3615               	.LSM453:
+ 3616 006a CE01      		movw r24,r28
+ 3617 006c 0E94 0000 		call dhcp_renew
+ 3618 0070 00C0      		rjmp .L163
+ 3619               	.L171:
+ 3620               	.LSM454:
+ 3621 0072 8430      		cpi r24,lo8(4)
+ 3622 0074 01F4      		brne .L163
+ 3623               	.LSM455:
+ 3624 0076 8181      		ldd r24,Z+1
+ 3625 0078 8930      		cpi r24,lo8(9)
+ 3626 007a 00F4      		brsh .L172
+ 3627               	.LSM456:
+ 3628 007c CE01      		movw r24,r28
+ 3629 007e 0E94 0000 		call dhcp_rebind
+ 3630 0082 00C0      		rjmp .L163
+ 3631               	.L172:
+ 3632               	.LSM457:
+ 3633 0084 CE01      		movw r24,r28
+ 3634 0086 0E94 0000 		call dhcp_release
+ 3635               	.L175:
+ 3636               	.LSM458:
+ 3637 008a CE01      		movw r24,r28
+ 3638 008c 0E94 0000 		call dhcp_discover
+ 3639               	.L163:
+ 3640               	.LBE60:
+ 3641               	.LBE59:
+ 3642               	.LSM459:
+ 3643 0090 0990      		ld __tmp_reg__,Y+
+ 3644 0092 D881      		ld r29,Y
+ 3645 0094 C02D      		mov r28,__tmp_reg__
+ 3646               	.L162:
+ 3647               	.LSM460:
+ 3648 0096 2097      		sbiw r28,0
+ 3649 0098 01F0      		breq .+2
+ 3650 009a 00C0      		rjmp .L173
+ 3651               	/* epilogue start */
+ 3652               	.LSM461:
+ 3653 009c DF91      		pop r29
+ 3654 009e CF91      		pop r28
+ 3655               	.LVL274:
+ 3656 00a0 0895      		ret
+ 3657               	.LFE7:
+ 3659               		.data
+ 3662               	xid:
+ 3663 0000 00        		.byte	0
+ 3664 0001 00        		.byte	0
+ 3665 0002 CD        		.byte	-51
+ 3666 0003 AB        		.byte	-85
+ 3891               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 dhcp.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:18     .text.dhcp_set_state:00000000 dhcp_set_state
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:40     .text.dhcp_option:00000000 dhcp_option
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:85     .text.dhcp_option_byte:00000000 dhcp_option_byte
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:119    .text.dhcp_option_short:00000000 dhcp_option_short
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:165    .text.dhcp_option_long:00000000 dhcp_option_long
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:249    .text.dhcp_option_trailer:00000000 dhcp_option_trailer
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:319    .text.dhcp_get_option_ptr:00000000 dhcp_get_option_ptr
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:492    .text.dhcp_get_option_byte:00000000 dhcp_get_option_byte
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:508    .text.dhcp_get_option_long:00000000 dhcp_get_option_long
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:575    .text.dhcp_delete_request:00000000 dhcp_delete_request
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:622    .text.dhcp_free_reply:00000000 dhcp_free_reply
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:668    .text.dhcp_stop:00000000 dhcp_stop
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:738    .text.dhcp_create_request:00000000 dhcp_create_request
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:3662   .data:00000000 xid
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:995    .text.dhcp_release:00000000 dhcp_release
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1191   .text.dhcp_renew:00000000 dhcp_renew
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1332   .text.dhcp_rebind:00000000 dhcp_rebind
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1473   .text.dhcp_coarse_tmr:00000000 dhcp_coarse_tmr
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1563   .text.dhcp_arp_reply:00000000 dhcp_arp_reply
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1724   .text.dhcp_select:00000000 dhcp_select
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:1916   .text.dhcp_inform:00000000 dhcp_inform
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2085   .text.dhcp_discover:00000000 dhcp_discover
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2275   .text.dhcp_start:00000000 dhcp_start
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2785   .text.dhcp_recv:00000000 dhcp_recv
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2410   .text.dhcp_check:00000000 dhcp_check
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:2455   .text.dhcp_bind:00000000 dhcp_bind
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5j0KsO.s:3538   .text.dhcp_fine_tmr:00000000 dhcp_fine_tmr
+
+UNDEFINED SYMBOLS
+pbuf_free
+mem_free
+udp_remove
+pbuf_alloc
+htonl
+pbuf_realloc
+udp_connect
+udp_sendto_if
+__udivmodhi4
+netif_set_down
+ip_addr_any
+netif_set_ipaddr
+netif_set_gw
+netif_set_netmask
+ip_addr_broadcast
+netif_list
+ntohl
+mem_malloc
+udp_new
+udp_bind
+autoip_start
+udp_recv
+etharp_query
+__udivmodsi4
+netif_set_up
+pbuf_copy_partial
+__do_copy_data
