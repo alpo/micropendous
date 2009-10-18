@@ -1,0 +1,141 @@
+   1               		.file	"ip_addr.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.ip_addr_isbroadcast,"ax",@progbits
+  17               	.global	ip_addr_isbroadcast
+  19               	ip_addr_isbroadcast:
+  20               	.LFB2:
+  21               	.LSM0:
+  22               	.LVL0:
+  23 0000 EF92      		push r14
+  24 0002 FF92      		push r15
+  25 0004 0F93      		push r16
+  26 0006 1F93      		push r17
+  27 0008 CF93      		push r28
+  28 000a DF93      		push r29
+  29               	/* prologue: function */
+  30               	/* frame size = 0 */
+  31 000c FC01      		movw r30,r24
+  32 000e EB01      		movw r28,r22
+  33               	.LSM1:
+  34 0010 E080      		ld r14,Z
+  35 0012 F180      		ldd r15,Z+1
+  36 0014 0281      		ldd r16,Z+2
+  37 0016 1381      		ldd r17,Z+3
+  38               	.LVL1:
+  39               	.LSM2:
+  40 0018 D801      		movw r26,r16
+  41 001a C701      		movw r24,r14
+  42               	.LVL2:
+  43 001c 0197      		sbiw r24,1
+  44 001e A109      		sbc r26,__zero_reg__
+  45 0020 B109      		sbc r27,__zero_reg__
+  46 0022 8E5F      		subi r24,lo8(-2)
+  47 0024 9F4F      		sbci r25,hi8(-2)
+  48 0026 AF4F      		sbci r26,hlo8(-2)
+  49 0028 BF4F      		sbci r27,hhi8(-2)
+  50 002a 00F0      		brlo .L2
+  51               	.LVL3:
+  52 002c 21E0      		ldi r18,lo8(1)
+  53 002e 00C0      		rjmp .L3
+  54               	.L2:
+  55               	.LSM3:
+  56 0030 8BA1      		ldd r24,Y+35
+  57 0032 81FF      		sbrs r24,1
+  58 0034 00C0      		rjmp .L4
+  59               	.LSM4:
+  60 0036 2A81      		ldd r18,Y+2
+  61 0038 3B81      		ldd r19,Y+3
+  62 003a 4C81      		ldd r20,Y+4
+  63 003c 5D81      		ldd r21,Y+5
+  64 003e E216      		cp r14,r18
+  65 0040 F306      		cpc r15,r19
+  66 0042 0407      		cpc r16,r20
+  67 0044 1507      		cpc r17,r21
+  68 0046 01F0      		breq .L4
+  69               	.LSM5:
+  70 0048 6E81      		ldd r22,Y+6
+  71 004a 7F81      		ldd r23,Y+7
+  72 004c 8885      		ldd r24,Y+8
+  73 004e 9985      		ldd r25,Y+9
+  74 0050 2E25      		eor r18,r14
+  75 0052 3F25      		eor r19,r15
+  76 0054 4027      		eor r20,r16
+  77 0056 5127      		eor r21,r17
+  78 0058 2623      		and r18,r22
+  79 005a 3723      		and r19,r23
+  80 005c 4823      		and r20,r24
+  81 005e 5923      		and r21,r25
+  82 0060 2115      		cp r18,__zero_reg__
+  83 0062 3105      		cpc r19,__zero_reg__
+  84 0064 4105      		cpc r20,__zero_reg__
+  85 0066 5105      		cpc r21,__zero_reg__
+  86 0068 01F4      		brne .L4
+  87 006a DC01      		movw r26,r24
+  88 006c CB01      		movw r24,r22
+  89 006e 8095      		com r24
+  90 0070 9095      		com r25
+  91 0072 A095      		com r26
+  92 0074 B095      		com r27
+  93 0076 20E0      		ldi r18,lo8(0)
+  94 0078 E822      		and r14,r24
+  95 007a F922      		and r15,r25
+  96 007c 0A23      		and r16,r26
+  97 007e 1B23      		and r17,r27
+  98 0080 E816      		cp r14,r24
+  99 0082 F906      		cpc r15,r25
+ 100 0084 0A07      		cpc r16,r26
+ 101 0086 1B07      		cpc r17,r27
+ 102 0088 01F0      		breq .L5
+ 103 008a 21E0      		ldi r18,lo8(1)
+ 104               	.L5:
+ 105 008c 81E0      		ldi r24,lo8(1)
+ 106 008e 2827      		eor r18,r24
+ 107 0090 00C0      		rjmp .L3
+ 108               	.LVL4:
+ 109               	.L4:
+ 110 0092 20E0      		ldi r18,lo8(0)
+ 111               	.L3:
+ 112               	.LSM6:
+ 113 0094 822F      		mov r24,r18
+ 114               	/* epilogue start */
+ 115 0096 DF91      		pop r29
+ 116 0098 CF91      		pop r28
+ 117               	.LVL5:
+ 118 009a 1F91      		pop r17
+ 119 009c 0F91      		pop r16
+ 120 009e FF90      		pop r15
+ 121 00a0 EF90      		pop r14
+ 122               	.LVL6:
+ 123 00a2 0895      		ret
+ 124               	.LFE2:
+ 126               	.global	ip_addr_any
+ 127               		.data
+ 130               	ip_addr_any:
+ 131 0000 0000 0000 		.skip 4,0
+ 132               	.global	ip_addr_broadcast
+ 135               	ip_addr_broadcast:
+ 136 0004 FF        		.byte	-1
+ 137 0005 FF        		.byte	-1
+ 138 0006 FF        		.byte	-1
+ 139 0007 FF        		.byte	-1
+ 164               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ip_addr.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:2      *ABS*:0000003f __SREG__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:3      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:4      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:5      *ABS*:00000034 __CCP__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:19     .text.ip_addr_isbroadcast:00000000 ip_addr_isbroadcast
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:130    .data:00000000 ip_addr_any
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccaYp8wb.s:135    .data:00000004 ip_addr_broadcast
+
+UNDEFINED SYMBOLS
+__do_copy_data
