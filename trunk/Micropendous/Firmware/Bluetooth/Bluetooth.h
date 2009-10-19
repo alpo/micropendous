@@ -38,6 +38,7 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 		#include <avr/eeprom.h> 
+		#include <stdlib.h>
 
 		#include "Lib/BluetoothStack.h"
 
@@ -56,6 +57,26 @@
 		#include "croutine.h"
 		#include "FreeRTOSConfig.h"
 
+		/* Bluetooth related */
+		#include "lwip/mem.h"
+		#include "lwip/memp.h"
+
+		#include "lwip/stats.h"
+
+		#include "lwip/ip.h"
+		#include "lwip/udp.h"
+		#include "lwip/tcp.h"
+
+		#include "phybusif.h"
+		#include "netif/lwbt/lwbt_memp.h"
+		#include "netif/lwbt/hci.h"
+		#include "netif/lwbt/l2cap.h"
+		#include "netif/lwbt/sdp.h"
+		#include "netif/lwbt/rfcomm.h"
+		#include "netif/lwbt/ppp.h"
+
+		#include "httpd.h"
+
 
 	/* Macros: */
 		/* USB and CDC Tasks must run at same priority so that they do not interrupt each other 
@@ -65,7 +86,7 @@
 		#define MAIN_TASK_PRIORITY		( tskIDLE_PRIORITY + 1 )
 		#define USB_BT_TASK_PRIORITY		( tskIDLE_PRIORITY + 5 )
 
-		#define taskDelayPeriod			5
+		#define taskDelayPeriod			100
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY		LEDS_LED1
 
@@ -92,11 +113,11 @@
 
 	/* FreeRTOS Function Prototypes: */
 		void vApplicationIdleHook(void);
-		static void StckTask(void *pvParameters);
-		static void MgmtTask(void *pvParameters);
-		static void USBTask(void *pvParameters);
-		static void ScndTask(void *pvParameters);
-		static void MainTask(void *pvParameters);
+		void StckTask(void *pvParameters);
+		void MgmtTask(void *pvParameters);
+		void USBTask(void *pvParameters);
+		void ScndTask(void *pvParameters);
+		void MainTask(void *pvParameters);
 
 	/* Event Handlers: */
 		void EVENT_USB_Host_DeviceAttached(void);
