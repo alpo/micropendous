@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb647
+MCU = at90usb1287
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -110,11 +110,16 @@ OBJDIR = .
 
 # Path to the LUFA library
 LUFA_PATH = ../../libs/LUFA
-AVRLIB_PATH = ../../libs
+AVRLIB_PATH = ../../libs/avrlib
 FREERTOS_PATH = ../../libs/FreeRTOS
 FREERTOS_DEMO_DIR = $(FREERTOS_PATH)/Demo/Common/Minimal
 FREERTOS_SOURCE_DIR = $(FREERTOS_PATH)/Source
 FREERTOS_PORT_DIR = $(FREERTOS_PATH)/Source/portable/GCC/AT90USB
+ARDUINO = ../../libs/arduino/cores/micropendous
+ARDUINO_LIBS = ../../libs/arduino/libraries
+LWIPBT_PATH = ../../libs/lwip
+LWIPBT_SRC_PATH = $(LWIPBT_PATH)/lwip/src
+LWIPBT_APP_PATH = $(LWIPBT_PATH)/apps
 
 
 # LUFA library compile-time options
@@ -124,29 +129,69 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                   \
-	DeviceDescriptor.c                                          \
-	ConfigDescriptor.c                                          \
-	Lib/BluetoothStack.c                                        \
-	Lib/BluetoothHCICommands.c                                  \
-	Lib/BluetoothACLPackets.c                                   \
-	$(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
-	$(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
-	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
-	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
-	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
- 	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
-	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
-	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
-	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	$(FREERTOS_SOURCE_DIR)/tasks.c                              \
-	$(FREERTOS_SOURCE_DIR)/queue.c                              \
-	$(FREERTOS_SOURCE_DIR)/list.c                               \
-	$(FREERTOS_SOURCE_DIR)/portable/MemMang/heap_1.c            \
-	$(FREERTOS_PORT_DIR)/port.c                                 \
+SRC = $(TARGET).c \
+	DeviceDescriptor.c \
+	ConfigDescriptor.c \
+	Lib/BluetoothStack.c \
+	Lib/BluetoothHCICommands.c \
+	Lib/BluetoothACLPackets.c \
+	$(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c \
+	$(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c \
+ 	$(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c \
+	$(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c \
+	$(FREERTOS_SOURCE_DIR)/tasks.c \
+	$(FREERTOS_SOURCE_DIR)/queue.c \
+	$(FREERTOS_SOURCE_DIR)/list.c \
+	$(FREERTOS_SOURCE_DIR)/portable/MemMang/heap_1.c \
+	$(FREERTOS_PORT_DIR)/port.c \
+	$(LWIPBT_SRC_PATH)/api/api_lib.c \
+	$(LWIPBT_SRC_PATH)/api/api_msg.c \
+	$(LWIPBT_SRC_PATH)/api/err.c \
+	$(LWIPBT_SRC_PATH)/api/sockets.c \
+	$(LWIPBT_SRC_PATH)/api/tcpip.c \
+	$(LWIPBT_SRC_PATH)/core/dhcp.c \
+	$(LWIPBT_SRC_PATH)/core/init.c \
+	$(LWIPBT_SRC_PATH)/core/mem.c \
+	$(LWIPBT_SRC_PATH)/core/memp.c \
+	$(LWIPBT_SRC_PATH)/core/netif.c \
+	$(LWIPBT_SRC_PATH)/core/pbuf.c \
+	$(LWIPBT_SRC_PATH)/core/raw.c \
+	$(LWIPBT_SRC_PATH)/core/stats.c \
+	$(LWIPBT_SRC_PATH)/core/sys.c \
+	$(LWIPBT_SRC_PATH)/core/tcp.c \
+	$(LWIPBT_SRC_PATH)/core/tcp_in.c \
+	$(LWIPBT_SRC_PATH)/core/tcp_out.c \
+	$(LWIPBT_SRC_PATH)/core/udp.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/icmp.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/ip.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/inet.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/inet_chksum.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/ip_addr.c \
+	$(LWIPBT_SRC_PATH)/core/ipv4/ip_frag.c \
+	$(LWIPBT_SRC_PATH)/netif/etharp.c \
+	$(LWIPBT_SRC_PATH)/netif/ethernetif.c \
+	$(LWIPBT_SRC_PATH)/netif/loopif.c \
+	$(LWIPBT_SRC_PATH)/netif/slipif.c \
+	$(LWIPBT_SRC_PATH)/core/fcs.c \
+	$(LWIPBT_SRC_PATH)/core/hci.c \
+	$(LWIPBT_SRC_PATH)/core/l2cap.c \
+	$(LWIPBT_SRC_PATH)/core/lwbt_memp.c \
+	$(LWIPBT_SRC_PATH)/core/ppp.c \
+	$(LWIPBT_SRC_PATH)/core/rfcomm.c \
+	$(LWIPBT_SRC_PATH)/core/sdp.c \
+	$(LWIPBT_APP_PATH)/httpserver_raw/fs.c \
+	$(LWIPBT_APP_PATH)/httpserver_raw/httpd.c \
+	$(LWIPBT_APP_PATH)/httpserver_raw/http-strings.c \
+	bt_ip_dt.c \
+	$(LWIPBT_PATH)/ports/enc28j60/sys_arch.c \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -180,8 +225,14 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/ $(FREERTOS_SOURCE_DIR)/include/ \
-	$(FREERTOS_PORT_DIR)/ $(FREERTOS_PATH)/Demo/Common/include/
+EXTRAINCDIRS = $(LUFA_PATH)/ \
+	$(FREERTOS_SOURCE_DIR)/include/ \
+	$(FREERTOS_PORT_DIR)/ \
+	$(FREERTOS_PATH)/Demo/Common/include/ \
+	$(LWIPBT_SRC_PATH)/include/ \
+	$(LWIPBT_SRC_PATH)/include/ipv4/ \
+	$(LWIPBT_APP_PATH)/httpserver_raw/ \
+	$(AVRLIB_PATH)/ \
 
 
 # Compiler flag to set the C Standard level.
@@ -320,7 +371,7 @@ EXTMEMOPTS =
 # for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
 # 0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
 # SAFEST OPTION:
-#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
+EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
 
 
 
