@@ -1,5 +1,5 @@
 #summary Suggestions and Requests
-#labels Featured,Phase-Support
+#labels Phase-Support
 
 If you have any questions, comments, suggestions, or requests about this site they will be appreciated.
 
