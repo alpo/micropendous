@@ -25,23 +25,6 @@ _* Linux i686 - AT90USB1287 with 16Mhz Crystal*_
 {{{
 Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
    16,	    5.33,	    5.33
-   32,	   10.66,	   10.66
-   64,	   21.33,	   21.33
-  128,	   42.61,	   42.59
-  256,	   85.15,	   85.00
-  512,	  128.02,	  170.70
- 1024,	  204.16,	  256.06
- 2048,	  290.46,	  408.49
- 4096,	  372.50,	  585.48
- 8192,	  431.34,	  683.12
-16384,	  468.32,	  743.16
-32768,	  468.32,	  745.27
-}}}
-
-_* Linux i686 - ATmega32U4 with 8Mhz Crystal*_
-{{{
-Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
-   16,	    5.33,	    5.33
    32,	   10.67,	   10.67
    64,	   21.33,	   21.33
   128,	   42.67,	   42.67
@@ -53,6 +36,23 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
  8192,	  585.47,	  819.24
 16384,	  628.64,	  910.27
 32768,	  630.53,	  910.25
+}}}
+
+_* Linux i686 - ATmega32U4 with 8Mhz Crystal*_
+{{{
+Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1048576
+   16,	    5.33,	    5.33
+   32,	   10.66,	   10.66
+   64,	   21.33,	   21.33
+  128,	   42.61,	   42.59
+  256,	   85.15,	   85.00
+  512,	  128.02,	  170.70
+ 1024,	  204.16,	  256.06
+ 2048,	  290.46,	  408.49
+ 4096,	  372.50,	  585.48
+ 8192,	  431.34,	  683.12
+16384,	  468.32,	  743.16
+32768,	  468.32,	  745.27
 }}}
 
 _* Windows - AT90USB1287 with 16Mhz Crystal*_
@@ -114,6 +114,8 @@ _Note_: The source `.svg` file for the USB transfer notes above is [http://code.
 This firmware is based on the [LoopBack] firmware which is based on [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !AudioInput firmware demo.
 
 There are two `// TODO` lines near the bottom of `SpeedTest.c` which just transfer a count value stored in the `temp` variable.  These are the only lines that need to be altered to adapt the firmware to your own project.
+
+== Software Design ==
 
 `DeviceAccessC.c` is the cross-platform [http://libusb.sourceforge.net/ LibUSB]-based software that performs the throughput testing.  The functions `run_write_benchmark` and `run_read_benchmark` loop over the size of the main buffer and send a `block_size` chunk each transfer.  You can adapt these functions to your application by simply filling the `buffer` with your own data.
 
