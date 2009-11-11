@@ -91,11 +91,13 @@ Block_Size,Read_Speed(Kbytes/s),Write_Speed(Kbytes/s) - using transfer_size of 1
 
 === Throughput Testing Explanation ===
 
-You may want to first read [BasicUSBDeviceOverview] for a basic overview of USB.  Or read [http://www.beyondlogic.org/usbnutshell/ USB in a Nutshell] for a more thorough overview of USB which the following is based on.  The following is the legend used in later diagrams.
+You may want to first read [BasicUSBDeviceOverview] for a basic overview of USB.  Or read [http://www.beyondlogic.org/usbnutshell/ USB in a Nutshell] for a more thorough overview of USB which the following is based on.  The following is just a basic overview of the data transfer portion of a successful bulk transfer as in the firmware.  It omits many aspects of the USB protocol.
+
+The legend used in later diagrams:
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_Legend.jpg
 
-USB is a bussed architecture so all devices share the same connection but communicate through different addresses.  There is also a 0 address which newly connected devices use to make their presence known.  The USB Host controls all communication and tries to fairly share the bus among all connected devices.  For Full Speed USB (12Mbit/s) each second is partitioned into millisecond (1000ms = 1second) chunks and allocated to each connected device.  If you only have one device connected then each ms (aside from the occasional 0 address requests for new devices) the host will start communicating with your device.  Either asking if it has data or wants to receive data.  This is why small transfers top out at their transfer size.  For example, if using 16byte blocks then 1000 times per second 16 bytes will be transferred for a throughput of 16kbytes/s.  The rest of the time the USB bus is idle or sending control data.
+USB is a bussed architecture so all devices share the same connection but communicate through different addresses.  The USB Host controls all communication and the Operating System tries to fairly share the bus among all connected devices.  For Full Speed USB (12Mbit/s) each second is partitioned into millisecond (1000ms = 1second) chunks and fairly allocated to connected devices.  Control, Isochronous, and Interrupt transfers take priority while bulk transfers use up any remaining time.  This is why small transfers top out at their transfer size.  For example, if using 16byte blocks then 1000 times per second 16 bytes will be transferred for a throughput of 16kbytes/s.  Linux uses 3ms chunks for 16/3~=5kbytes/s.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_SinglePacket.jpg
 
@@ -103,10 +105,9 @@ Larger block sizes require the connection to remain opened as more data is trans
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_MultiplePackets.jpg
 
-The declining throughput of the USB AVRs using the 8MHz crystal are the result of the AVR not being able to keep up.  Note the USB AVRs are not rated to run at 3.3V when using a 16MHz crystal so there is a trade-off between functionality.  However, even the 16MHz clocked USB AVRs cannot do significantly more than just this basic read/write.  Any data required for sending must be already stored in SRAM as any delays will cause more overhead on the USB bus as your USB AVR signals to the host it has stalled.  Maximum throughput for your particular application can be attained through trial-and-error of the different settings.
+What does this mean?  To improve throughput simply increase the size of the data to be transferred per transfer in your host-side software.  However, note that your AVR needs to be able to keep up and generate data quickly enough.  Maximum throughput for your particular application can be attained through trial-and-error.
 
 _Note_: The source `.svg` file for the USB transfer notes above is [http://code.google.com/p/micropendous/source/browse/trunk/Pictures/USB_Transfers.svg available] under the [http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution License].
-
 
 
 == Firmware Design ==
