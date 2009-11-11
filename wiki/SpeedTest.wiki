@@ -97,7 +97,7 @@ The legend used in later diagrams:
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_Legend.jpg
 
-USB is a bussed architecture so all devices share the same connection but communicate through different addresses.  The USB Host controls all communication and the Operating System tries to fairly share the bus among all connected devices.  For Full Speed USB (12Mbit/s) each second is partitioned into millisecond (1000ms = 1second) chunks and fairly allocated to connected devices.  Control, Isochronous, and Interrupt transfers take priority while bulk transfers use up any remaining time.  This is why small transfers top out at their transfer size.  For example, if using 16byte blocks then 1000 times per second 16 bytes will be transferred for a throughput of 16kbytes/s.  Linux uses 3ms chunks for 16/3~=5kbytes/s.
+USB is a bussed architecture so all devices share the same connection but communicate through different addresses.  The USB Host controls all communication and the Operating System tries to fairly share the bus among all connected devices.  For Full Speed USB (12Mbit/s) each second is partitioned into millisecond (1000ms = 1second) chunks and fairly allocated to connected devices.  Control, Isochronous, and Interrupt transfers take priority while Bulk transfers use up any remaining time.  This is why small transfers top out at their transfer size.  For example, if using 16byte blocks then 1000 times per second 16 bytes will be transferred for a throughput of 16kbytes/s.  Linux uses 3ms chunks for 16/3~=5kbytes/s.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USB_Transfers_SinglePacket.jpg
 
