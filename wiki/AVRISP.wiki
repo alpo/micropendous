@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/AVRISP` directory.  Copied directly from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project.
 
-*Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808 AVRISP mkII In-System Programmer].  Allows in-system programming of other AVRs, including another Micropendous board's [BootloaderDFU USB Bootloader].
+*Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808 AVRISP mkII In-System Programmer].  Allows in-system programming of "In-System Programmable via SPI Port" AVRs, including another Micropendous board's [BootloaderDFU USB Bootloader].
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AVRISP View] or [http://www.Micropendous.org/Distribution Download]
 
