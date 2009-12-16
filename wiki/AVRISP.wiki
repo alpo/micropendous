@@ -49,5 +49,5 @@ Remember to change `m32` to your target AVR's nickname.
 Change to the `/Micropendous/Firmware/BootloaderDFU` directory.  Edit the `makefile` to create a bootloader for your target AVR.  Run `make` to compile.  Run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
 
 {{{
-avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:FIRMWARE.hex
+avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderDFU.hex
 }}}
