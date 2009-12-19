@@ -19,12 +19,12 @@ Compile and load the  AVRISP firmware onto your USB AVR by following the [Progra
 
 Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI:
 || *Micropendous* || *Target AVR*        ||
-|| `PB0(^SS)`    || `RESET`           ||
-|| `PB1(SCK)`    || `SCK`             ||
-|| `PB2(MOSI)`   || `MOSI/PDI`        ||
-|| `PB3(MISO)`   || `MISO/PDO`        ||
-|| `GND`         || `GND`+`AGND`      ||
-|| `Vcc`         || `Vcc`+`AVcc`      ||
+|| `PB4`          || `RESET`           ||
+|| `PB1(SCK)`     || `SCK`             ||
+|| `PB2(MOSI)`    || `MOSI/PDI`        ||
+|| `PB3(MISO)`    || `MISO/PDO`        ||
+|| `GND`          || `GND`+`AGND`      ||
+|| `Vcc`          || `Vcc`+`AVcc`      ||
 
 You can either program your target AVR using [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2725 AVRStudio] or using [http://savannah.nongnu.org/projects/avrdude AVRdude].
 
