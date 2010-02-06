@@ -1,0 +1,41 @@
+EESchema-DOCLIB  Version 2.0  2/6/2010 4:59:23 AM
+#
+$CMP C_MINI
+K Unpolarized Capacitor
+$ENDCMP
+#
+$CMP CONN_1
+D 1 pin
+K CONN
+$ENDCMP
+#
+$CMP CONN_2
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CONN_8
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CONN_8X2
+D ymbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP ESD_Zener
+D Double Shottky Diode - Common Cathodes
+K DEV DIODE
+$ENDCMP
+#
+$CMP TLV1117
+D LDO
+K POWER REGUL
+$ENDCMP
+#
+$CMP TXB0108
+K Voltage Level Translator TXS0108 ADG3300 MAX3002 TXB0108
+$ENDCMP
+#
+#End Doc Library
