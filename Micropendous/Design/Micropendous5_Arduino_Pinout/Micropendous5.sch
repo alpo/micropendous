@@ -14,7 +14,7 @@ Comment3 "By Opendous Inc."
 Comment4 "www.Micropendous.org"
 $EndDescr
 Text Notes 1250 6825 0    30   ~ 0
-Use a Logic Level P-CH MOSFET in SOT223
+Use a Logic Level Gate P-Channel MOSFET in DPAK (TO-252)
 Connection ~ 1850 7250
 Wire Wire Line
 	1550 7250 1850 7250
