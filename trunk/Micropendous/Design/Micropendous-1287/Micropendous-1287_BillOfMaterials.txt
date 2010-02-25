@@ -1,0 +1,23 @@
+Not yet complete.
+
+Open the design in KiCAD and CVpcb will list all footprints.
+
+Micropendous-1287_Assembly.svg shows component placement and values.
+
+Notes:	- this board is designed for the AT90USB1287-AU, the TQFP version
+	- 10uF capacitors are 0805 size and should be X5R +/-20% 10V or better
+	- all capacitors and resistors are 0805 unless otherwise noted
+	- precision components are noted as such, all other parts can be standard
+	- 16MHz Crystal - HC49-US +/- 30ppm ~20pF load
+	- the microSD connector is the 3M 290805, DigiKey Part# 3M5607CT-ND
+	- Schottky Rectifier Diode - MBR120VLSF or MBRX120 in SOD-123
+	- USB Switch - TS3USB221DRCR
+	- USB Power Switch - AP2161WG - Active Low SOT23-5 (SOT25) or similar
+	- Regulator - 300mA SOT23-5 (SOT25) such as the LDS3985M33R - check your
+	  regulator's datasheet to make sure pinout is compatible
+	- TXB0108 can be replaced with TXS0108, ADG3300, or MAX3002 - or any compatible
+          TSSOP20 bidirectional voltage translator operating at 4MBit/s or more
+	- USB-A vertical connector can be DigiKey Part# 151-1114-ND or similar
+	- USB-miniB can be DigiKey Part# H2959CT-ND or similar
+	- all other components are standard or have no footprint variations
+
