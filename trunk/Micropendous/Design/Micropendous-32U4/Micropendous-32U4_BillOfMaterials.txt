@@ -14,7 +14,7 @@ QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 2  , ?                      , 0.00 - L?? - FERRITE BEAD 33 OHM 0805
 1  , MBR120VLSFT1G          , 0.53 - D2 - DIODE SCHOTTKY 20V 1A SOD123FL
 2  , CG0603MLC-05LE         , 0.23 - CR? - SUPPRESSOR ESD 5VDC 0603 SMD
-1  , ?                      , 0.00 - U5 - 1117 REGULATOR LDO ADJUSTABLE SOT223
+1  , NCP1117STAT3G          , 0.55 - U5 - 1117 REGULATOR LDO ADJUSTABLE SOT223
 1  , UX60-MB-5ST            , 1.18 - U3 - CONN RECEPT MINI-B USB2.0 5POS
 1  , S3404-ND               , 0.00 - ?? - 0.1" 3POS Male Header Unshrouded
 1  , 3M9322-ND              , 0.00 - ?? - 0.1" Shunt Jumper
