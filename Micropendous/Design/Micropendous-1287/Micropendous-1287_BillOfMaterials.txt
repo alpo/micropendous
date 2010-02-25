@@ -1,23 +1,45 @@
-Not yet complete.
+QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 
-Open the design in KiCAD and CVpcb will list all footprints.
+2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 24pF 0805
+2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.01uF 0805
+9  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.1uF 0805
+2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 1uF 0805
+5  , LMK212BJ106KG-T        , 0.00 - C?? - CAPACITOR CERAMIC 10uF 0805 X5R 10V
+1  , ?                      , 0.00 - C?? - CAPACITOR TANTALUM 120uF 1206 6V+
+3  , ?                      , 0.00 - R?? - RESISTOR 0 OHM 0805
+2  , ?                      , 0.00 - R?? - RESISTOR 22 OHM 0805 1%
+2  , ?                      , 0.00 - R?? - RESISTOR 10K OHM 0805
+1  , ?                      , 0.00 - R?? - RESISTOR 15K OHM 0805
+2  , ?                      , 0.00 - R?? - RESISTOR 47K OHM 0805
+3  , CG0603MLC-05LE         , 0.23 - CR? - SUPPRESSOR ESD 5VDC 0603 SMD
+3  , ?                      , 0.00 - L?? - FERRITE BEAD 33 OHM 0805
+1  , ABLS-16.000MHZ         , 0.46 - X1 - CRYSTAL 16.000 MHZ 18PF HC49US 30ppm
+2  , P12940SCT-ND           , 0.30 - SW? - EVQ Push Button Switch 6.5mm x 6mm
+1  , UX60-MB-5ST            , 1.18 - U1 - CONN RECEPT MINI-B USB2.0 5POS
+1  , 151-1082-ND            , 1.10 - U2 - CONN USB JACK TYPE A VERT STR
+1  , 2908-05WB-MG           , 1.23 - U3 - CONN EJECT MICROSD PUSH-PUSH SMD
+1  , 609-3243-ND            , 0.35 - U4 - 5x2 0.1" Unshrouded Male Header
+1  , AT90USB1287-AU         ,15.00 - IC1 - AT90USB1287 USB AVR TQFP64
+1  , AP2161WG               , 0.00 - IC2 - USB Power Switch Active Low SOT23-5 (SOT25)
+1  , TS3USB221DRCR          , 2.10 - IC3 - IC USB SWITCH DUAL 1X2 10SON
+1  , 74VHC573               , 0.00 - IC4 - Latch SOIC20
+1  , 428-1965-ND            , 2.52 - IC5 - SRAM 5V 1MBIT CY7C1019D TSOPII32
+1  , TXB0108                , 2.00 - IC6 - 8Bit Bidirectional Buffer TSSOP20
+1  , LDS3985M33R            , 0.00 - IC7 - REGULATOR 3.3V SOT23-5 (SOT25)
+2  , ?                      , 0.00 - P? - Single Row 30x1 Unshrouded Male Headers
+1  , ?                      , 0.00 - P3 - 0.1" 3POS Female Receptacle
+-----------------------Total:
+
 
 Micropendous-1287_Assembly.svg shows component placement and values.
 
-Notes:	- this board is designed for the AT90USB1287-AU, the TQFP version
-	- 10uF capacitors are 0805 size and should be X5R +/-20% 10V or better
-	- all capacitors and resistors are 0805 unless otherwise noted
-	- precision components are noted as such, all other parts can be standard
-	- 16MHz Crystal - HC49-US +/- 30ppm ~20pF load
-	- the microSD connector is the 3M 290805, DigiKey Part# 3M5607CT-ND
-	- Schottky Rectifier Diode - MBR120VLSF or MBRX120 in SOD-123
-	- USB Switch - TS3USB221DRCR
-	- USB Power Switch - AP2161WG - Active Low SOT23-5 (SOT25) or similar
-	- Regulator - 300mA SOT23-5 (SOT25) such as the LDS3985M33R - check your
-	  regulator's datasheet to make sure pinout is compatible
+
+Notes:	- Component costs listed are for single quantity orders from DigiKey
+	- all components not specified can be standard stock
+	- the top and bottom edge headers - 36-Pin Single Row 0.1" 68000-436HLF
 	- TXB0108 can be replaced with TXS0108, ADG3300, or MAX3002 - or any compatible
           TSSOP20 bidirectional voltage translator operating at 4MBit/s or more
 	- USB-A vertical connector can be DigiKey Part# 151-1114-ND or similar
 	- USB-miniB can be DigiKey Part# H2959CT-ND or similar
-	- all other components are standard or have no footprint variations
-
+	- IC7 3.3V regulator can be any 200mA+ regulator in SOT23-5 with same pinout
+	- IC2 USB Power Switch - AP2161WG - Active Low SOT23-5 (SOT25) or similar

@@ -1,19 +1,36 @@
-Not yet complete.
+QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 
-Open the design in KiCAD and CVpcb will list all footprints.
+2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 24pF 0805
+1  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.01uF 0805
+4  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.1uF 0805
+4  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 1uF 0805
+1  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 4.7uF 0805
+2  , LMK212BJ106KG-T        , 0.00 - C?? - CAPACITOR CERAMIC 10uF 0805 X5R 10V
+1  , ?                      , 0.00 - C?? - CAPACITOR TANTALUM 22uF 1206 6V+
+2  , ?                      , 0.00 - R?? - RESISTOR 22 OHM 0805 1%
+1  , ?                      , 0.00 - R?? - RESISTOR 120 OHM 0805 1%
+1  , ?                      , 0.00 - R?? - RESISTOR 221 OHM 0805 1%
+2  , ?                      , 0.00 - R?? - RESISTOR 47K OHM 0805
+2  , ?                      , 0.00 - L?? - FERRITE BEAD 33 OHM 0805
+1  , MBR120VLSFT1G          , 0.53 - D2 - DIODE SCHOTTKY 20V 1A SOD123FL
+2  , CG0603MLC-05LE         , 0.23 - CR? - SUPPRESSOR ESD 5VDC 0603 SMD
+1  , ?                      , 0.00 - U5 - 1117 REGULATOR LDO ADJUSTABLE SOT223
+1  , UX60-MB-5ST            , 1.18 - U3 - CONN RECEPT MINI-B USB2.0 5POS
+1  , S3404-ND               , 0.00 - ?? - 0.1" 3POS Male Header Unshrouded
+1  , 3M9322-ND              , 0.00 - ?? - 0.1" Shunt Jumper
+1  , ABLS-8.000MHZ          , 0.46 - X1 - CRYSTAL 8.000 MHZ 18PF HC49US 30ppm
+1  , ATMEGA32U4-AU          , 4.73 - IC1 - ATmega32U4 USB AVR TQFP44
+1  , 2908-05WB-MG           , 1.23 - U3 - CONN EJECT MICROSD PUSH-PUSH SMD
+2  , P12940SCT-ND           , 0.30 - SW? - EVQ Push Button Switch 6.5mm x 6mm
+-----------------------Total:
+
 
 Micropendous-32U4_Assembly.svg shows component placement and values.
 
-Notes:	- this board is designed for the ATMEGA32U4-AU, the TQFP version
-	- 10uF capacitors are 0805 size and should be X5R +/-20% 10V or better
-	- all capacitors and resistors are 0805 unless otherwise noted
-	- precision components are noted as such, all other parts can be standard
-	- 8MHz Crystal - HC49-US +/- 30ppm ~20pF load
-	- the VCC_Sel Jumper and pins are DigiKey Part# S3404-ND, and 3M9322-ND
-	- the microSD connector is the 3M 290805, DigiKey Part# 3M5607CT-ND
-	- Schottky Rectifier Diode - MBR120VLSF or MBRX120 in SOD-123
-	- Regulator - 1117-Adj in SOT223 - check your regulator's datasheet for best value of the 1206 tantalum capacitor
-	- USB-A vertical connector can be DigiKey Part# 151-1114-ND or similar
-	- USB-miniB can be DigiKey Part# H2959CT-ND or similar
-	- all other components are standard or have no footprint variations
 
+Notes:	- Component costs listed are for single quantity orders from DigiKey
+	- all components not specified can be standard stock
+	- the 4.7uF capacitor can be replaced by a 10uF capacitor
+	- Schottky Rectifier Diode - MBR120VLSF or MBRX120 in SOD-123
+	- Regulator - 1117-Adj in SOT223 - check your regulator's datasheet for best
+	  value of the 1206 tantalum capacitor
