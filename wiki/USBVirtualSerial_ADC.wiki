@@ -31,7 +31,7 @@ The not-relative-to-scale graphic below attempts to illustrate the above.  Each 
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_SPS_FPS_Note.jpg
 
-The vertical scale of the signal is GND to VCC.  You can adjust this in `USBVirtualSerial-ADC.c` by changing the ADC reference from `ADC_REFERENCE_AVCC` which causes VCC to be used as a reference to `ADC_REFERENCE_AREF` which uses the AREF pin or `ADC_REFERENCE_INT2560MV` which uses an internal 2.56V reference.
+From above we know that the bandwidth of any input signals is 1kHz.  The input [http://en.wikipedia.org/wiki/Electrical_impedance impedance] of the ADC (per [http://www.atmel.com/dyn/Products/product_card.asp?part_id=3875 AT90USB1287 datasheet]) is 10k Ohm.  The vertical scale of the signal is GND to VCC.  You can adjust this in `USBVirtualSerial-ADC.c` by changing the ADC reference from `ADC_REFERENCE_AVCC` which causes VCC to be used as a reference to `ADC_REFERENCE_AREF` which uses the AREF pin or `ADC_REFERENCE_INT2560MV` which uses an internal 2.56V reference.
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-ADC_Bandwidth_Scale_Note.jpg
 
