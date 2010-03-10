@@ -64,7 +64,7 @@ SRC = $(TARGET).c            \
 ...
 }}}
 
-Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 20 characters.  Data is sent over `PortB` using a 4bit interface.  This configuration was chosen as `PortB` exists on all USB AVRs.
+Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 16 characters.  Data is sent over `PortB` using a 4bit interface.  This configuration was chosen as `PortB` exists on all USB AVRs.
 
 {{{
 #ifdef LCD_PORT_INTERFACE
@@ -82,7 +82,7 @@ Next `lcdconf.h` must be edited to work with the Micropendous and your particula
     ...
 
 #define LCD_LINES           2
-#define LCD_LINE_LENGTH     20
+#define LCD_LINE_LENGTH     16
 
 }}}
 
@@ -94,8 +94,8 @@ Next, in `main()` of `USBVirtualSerial_LCD.c`, the LCD functions must be initial
 {{{
   lcdInit();
   rprintfInit(lcdDataWrite); // direct rprintf to LCD
-  rprintf("Welcome to AVRlib!");
-  lcdClear();
+  lcdClear(); // clear the LCD
+  rprintf("AVRlib LCD");
 }}}
 
 Finally, while data from the host is in the input buffer, send it to the LCD and back to the host.  Make sure characters past the end of the second line get sent back to the start.
@@ -130,6 +130,38 @@ Note that there are also some global `define`s, for `character_count` and `curre
 
 The firmware will not function unless an LCD display is connected as `lcdInit()` blocks.
 
+=== Using AVRlib's LCD Functions ===
+{{{
+/* Print some text to the LCD */
+rprintf("Hello there")
+
+
+/* Print value of myValue in base 10 using 5 digits, it is
+ * FALSE that this value can be negative (it is positive),
+ * and pad the value to 5 digits using 0s if necessary
+ */
+rprintfNum(10, 5, FALSE, '0', myValue);
+
+
+/* Move to a particular cursor location */
+/* lcdGotoXY(cursorPositionInLine, whichLine); */
+/* In this case the 3rd position of line 2 (counting starts at 0) */
+lcdGotoXY(2, 1);
+
+
+/* Clear the LCD */
+lcdClear();
+
+
+/* Text and Numbers, the following would print "Value = 12345 of something" */
+uint16_t myValue = 12345;
+rprintf("Value = ")
+rprintfNum(10, 5, FALSE, '0', myValue);
+rprintf(" of something")
+
+}}}
+
+Do not use `\n` or `\r\n` newline characters as they are not properly handled.  Use `lcdGotoXY()` to position your text.
 
 = Connecting a Micropendous to a HD44780 LCD using 2 Ports =
 
