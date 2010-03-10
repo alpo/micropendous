@@ -209,3 +209,48 @@ You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to 
 }}}
 
 Unlike the 1 port version `#define LCD_DATA_4BIT` needs to be commented out and the `LCD_CTRL` port settings must use PortC pins 5,6,7.
+
+
+= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD using 2 Ports =
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
+
+The [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] cannot use `PORTB` for LCD control as it is being used by SPI FLASH.  You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to the following in order for USBVirtualSerial-LCD firmware to work on an AT90USBKey:
+
+{{{
+#ifdef LCD_PORT_INTERFACE
+
+    #ifndef LCD_CTRL_PORT
+
+        // port and pins you will use for control lines
+
+        #define LCD_CTRL_PORT	PORTD
+
+        #define LCD_CTRL_DDR	DDRD
+
+        #define LCD_CTRL_RS	0
+
+        #define LCD_CTRL_RW	1
+
+        #define LCD_CTRL_E	2
+
+    #endif
+
+    #ifndef LCD_DATA_POUT
+
+        // port you will use for data lines
+
+        #define LCD_DATA_POUT	PORTD
+
+        #define LCD_DATA_PIN	PIND
+
+        #define LCD_DATA_DDR	DDRD
+
+        // access mode you will use (default is 8bit unless 4bit is selected)
+
+        #define LCD_DATA_4BIT
+
+    #endif
+
+#endif
+}}}
