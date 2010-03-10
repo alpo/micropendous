@@ -238,11 +238,10 @@ The [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] c
 #endif
 }}}
 
-The LCD connections are then as follows:
+The LCD connections are then as follows.  Most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.
 
 || AT90USBKey  || LCD Name || LCD Pin ||
 || GND || GND || 1 ||
-|| Vcc || Vcc || 2 ||
 || GND || Contrast || 3 ||
 || PD0  || RS || 4 ||
 || PD1  || RW || 5 ||
