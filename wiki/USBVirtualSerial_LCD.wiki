@@ -219,38 +219,35 @@ The [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] c
 
 {{{
 #ifdef LCD_PORT_INTERFACE
-
     #ifndef LCD_CTRL_PORT
-
         // port and pins you will use for control lines
-
         #define LCD_CTRL_PORT	PORTD
-
         #define LCD_CTRL_DDR	DDRD
-
         #define LCD_CTRL_RS	0
-
         #define LCD_CTRL_RW	1
-
         #define LCD_CTRL_E	2
-
     #endif
-
     #ifndef LCD_DATA_POUT
-
         // port you will use for data lines
-
         #define LCD_DATA_POUT	PORTD
-
         #define LCD_DATA_PIN	PIND
-
         #define LCD_DATA_DDR	DDRD
-
         // access mode you will use (default is 8bit unless 4bit is selected)
-
         #define LCD_DATA_4BIT
-
     #endif
-
 #endif
 }}}
+
+The LCD connections are then as follows:
+
+|| AT90USBKey  || LCD Name || LCD Pin ||
+|| GND || GND || 1 ||
+|| Vcc || Vcc || 2 ||
+|| GND || Contrast || 3 ||
+|| PD0  || RS || 4 ||
+|| PD1  || RW || 5 ||
+|| PD2  || E || 6 ||
+|| PD4 || Data4 || 11 ||
+|| PD5 || Data5 || 12 ||
+|| PD6 || Data6 || 13 ||
+|| PD7 || Data7 || 14 ||
