@@ -61,20 +61,13 @@ Table of Contents:
 (3) Initial Testing
 -------------------
 
-  A fully built Micropendous comes pre-installed with Micropendous firmware.
-  Micropendous firmware enumerates as a compound USB device; a keyboard and a
-  USB Virtual Serial Port.  Connecting any IO pins to GND will cause the pin's
-  name to be typed.  For example, GND'ing B0 will type 'b0'.
+  A fully built Micropendous comes pre-installed with MicropendousKeyboardTest
+  firmware.  This firmware enumerates as a keyboard.  Connecting any IO pins
+  to GND will cause the pin's name to be typed.  For example, GND'ing B0 will
+  type 'b0'.
 
   *** Be careful NOT to connect GND and VCC/VBUS as this will short your board
   and may damage it or your computer! ***
-
-  The USB Virtual Serial Port is designed to loop back any data sent to it.
-  Connect to your Micropendous using a serial terminal and typed characters
-  will appear.  More info at www.Micropendous.org/Serial
-
-  The Micropendous firmware is based on LUFAduino which allows Arduino code to
-  run on a Micropendous board.  More info at www.Micropendous.org/LUFAduino
 
   Under Windows, the first time you plug in a board loaded with Micropendous
   firmware Windows will ask for a driver installation file.  This file is
@@ -140,6 +133,6 @@ Table of Contents:
 By Opendous Inc.
 www.Micropendous.org
 www.opendous.org
-October 2, 2009
+October 11, 2009
 Copyright Under the Creative Commons Attribution License
 http://creativecommons.org/licenses/by/3.0/
