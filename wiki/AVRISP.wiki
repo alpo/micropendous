@@ -15,20 +15,20 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
-
 Compile and load the  AVRISP firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI (you can even connect to another USB AVR board to program its' [BootloaderDFU bootloader]):
-|| *Micropendous* || *Target AVR*        ||
-|| `PB4`          || `RESET`           ||
-|| `PB1(SCK)`     || `SCK`             ||
-|| `PB2(MOSI)`    || `MOSI/PDI`        ||
-|| `PB3(MISO)`    || `MISO/PDO`        ||
-|| `GND`          || `GND`+`AGND`      ||
-|| `Vcc`          || `Vcc`+`AVcc`      ||
+|| *Micropendous* || *Target AVR* ||
+|| `PB4`          || `RESET`      ||
+|| `PB1(SCK)`     || `SCK`        ||
+|| `PB2(MOSI)`    || `MOSI/PDI`   ||
+|| `PB3(MISO)`    || `MISO/PDO`   ||
+|| `GND`          || `GND`+`AGND` ||
+|| `Vcc`          || `Vcc`+`AVcc` ||
 
-You can either program your target AVR using [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2725 AVRStudio] or using [http://savannah.nongnu.org/projects/avrdude AVRdude].
+http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
+
+You can either program your target AVR using [http://savannah.nongnu.org/projects/avrdude AVRdude] (which you already have installed if you have followed the [http://www.micropendous.org/QuickStart setup instructions]) or using [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2725 AVRStudio].
 
 === Using AVRdude ===
 
