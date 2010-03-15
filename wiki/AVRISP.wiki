@@ -19,7 +19,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.
 
 Compile and load the  AVRISP firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
-Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI:
+Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI (you can even connect to another USB AVR board to program its' [BootloaderDFU bootloader]):
 || *Micropendous* || *Target AVR*        ||
 || `PB4`          || `RESET`           ||
 || `PB1(SCK)`     || `SCK`             ||
