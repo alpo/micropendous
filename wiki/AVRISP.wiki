@@ -4,7 +4,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808 AVRISP mkII In-System Programmer].  Allows in-system programming of "In-System Programmable via SPI Port" AVRs, including another Micropendous board's [BootloaderDFU USB Bootloader].
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AVRISP View] or [http://www.Micropendous.org/Distribution Download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AVRISP-mkII View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
@@ -44,7 +44,7 @@ which will check the connection to an ATmega32 IC.  To program a file called "FI
 avrdude -vv -F -P usb -c avrispmkII -p m32 -U flash:w:FIRMWARE.hex
 }}}
 
-Remember to change `m32` to your target AVR's nickname.
+Remember to change `m32` to your target AVR's name.
 
 === Using AVRdude to Program the Bootloader of another Micropendous Board ===
 
