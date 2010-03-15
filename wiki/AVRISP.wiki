@@ -15,6 +15,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
+http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
+
 Compile and load the  AVRISP firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI:
