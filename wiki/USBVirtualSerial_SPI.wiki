@@ -14,8 +14,6 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 = Usage =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-SPI_Picture.jpg
-
 Compile and load the USBVirtualSerial_SPI firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 == Pinout ==
@@ -42,7 +40,9 @@ Changing "Stop-Bits" determines whether data will be MSB or LSB.  If the default
 
 == Testing ==
 
-Testing functionality is very simple.  Connect the `MOSI` (*PB2*) and `MISO` (*PB3*) pins together to form a loopback.  Then plug in your Micropendous, start a serial terminal program such as _gtkterm_ or _!HyperTerminal_, and anything you type will echo back.  See [Serial] for instructions on the usage of serial ports.  Or, run the included Python throughput testing script:
+=== Loopback ===
+
+Testing functionality is very simple.  Connect the `MOSI` (*PB2*) and `MISO` (*PB3*) pins together to form a loopback.  Then plug in your Micropendous, start a serial terminal program such as _gtkterm_ or _!HyperTerminal_, and anything you type will echo back.  See [Serial] for instructions on the usage of serial ports.  Or, run the included Python throughput testing script (replace COM5 with the port where your USB AVR board [http://www.micropendous.org/Serial enumerated to]):
 {{{
 python  TestThroughputUSBVirtualSerial.py  COM5  64  100
 }}}
@@ -51,7 +51,18 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/SPILoopback_B2B3_Micropend
 
 === 23K256 ===
 
-The usage picture near the top of this page is of a [http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en539039 23K256] SPI SRAM IC available from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=23K256-I/P-ND many] [http://ca.mouser.com/Search/Refine.aspx?Keyword=579-23K256-I/P suppliers].  
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-SPI_Picture.jpg
+
+The usage picture above is of a [http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en539039 23K256] SPI SRAM IC available from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=23K256-I/P-ND many] [http://ca.mouser.com/Search/Refine.aspx?Keyword=579-23K256-I/P suppliers].  You can test it using the included Python 23K256 testing script (replace COM5 with the port where your USB AVR board [http://www.micropendous.org/Serial enumerated to]):
+{{{
+python  Test_SPI_SRAM_23K256.py  COM5
+}}}
+
+=== SPI_AVRISP_Test ===
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
+
+[http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SPI_AVRISP_Test SPI_AVRISP_Test] firmware was developed to allow testing [AVRISP] and USBVirtualSerial_SPI firmware.  *DO NOT* connect the CS/PB4 line as in the above picture (image is being reused from [AVRISP] example).  All other connections are correct for an [http://www.atmel.com/dyn/products/product_card_mcu.asp?PN=ATtiny261A ATtiny261] available from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=ATTINY261-20PU-ND many] [http://ca.mouser.com/Search/Refine.aspx?Keyword=556-ATTINY261-20PU suppliers].
 
 == Python Usage ==
 
