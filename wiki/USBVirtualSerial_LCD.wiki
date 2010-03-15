@@ -4,7 +4,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Purpose:* Display text on a [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780] character LCD display.
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial_LCD View] or [http://www.Micropendous.org/Distribution Download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-LCD View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
@@ -16,9 +16,9 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Picture.jpg
 
-Compile and load the USBVirtualSerial_LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the USBVirtualSerial-LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
-The HD44780 LCD pictured below is a [http://www.lumex.com/pdf/LCM-S01602DTR+M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=67-1781-ND Digi-Key.com] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.
+The HD44780 LCD pictured is a [http://www.lumex.com/pdf/LCM-S01602DTR+M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=67-1781-ND Digi-Key.com] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.
 
 == Connecting a Micropendous Board to a HD44780 LCD ==
 
@@ -30,17 +30,17 @@ The connections are as follows for the standard firmware:
 || GND || GND || 1 ||
 || Vcc || Vcc || 2 ||
 || GND || Contrast || 3 ||
-|| PB0  || RS || 4 ||
-|| PB1  || RW || 5 ||
-|| PB2  || E || 6 ||
-|| PB4 || Data4 || 11 ||
-|| PB5 || Data5 || 12 ||
-|| PB6 || Data6 || 13 ||
-|| PB7 || Data7 || 14 ||
+|| PD0  || RS || 4 ||
+|| PD1  || RW || 5 ||
+|| PD2  || E || 6 ||
+|| PD4 || Data4 || 11 ||
+|| PD5 || Data5 || 12 ||
+|| PD6 || Data6 || 13 ||
+|| PD7 || Data7 || 14 ||
 
 == Testing ==
 
-Plug your Micropendous board into your PC.  Connect to the board with a serial port terminal following the [Serial] instructions.  Anything you type will echo back to the terminal and will also be displayed on the LCD.
+Connect your Micropendous board to your PC.  Connect to the board with a serial port terminal following the [Serial] instructions.  Anything you type will echo back to the terminal and will also be displayed on the LCD.
 
 = Firmware Design =
 
@@ -48,12 +48,12 @@ The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/inde
 
 The first step is to examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
 
-Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial_LCD` directory.
+Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
 
 Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting.  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
 
 {{{
-TARGET = USBVirtualSerial_LCD
+TARGET = USBVirtualSerial-LCD
 }}}
 
 {{{
@@ -66,19 +66,19 @@ SRC = $(TARGET).c            \
 ...
 }}}
 
-Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 16 characters.  Data is sent over `PortB` using a 4bit interface.  This configuration was chosen as `PortB` exists on all USB AVRs.
+Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey].
 
 {{{
 #ifdef LCD_PORT_INTERFACE
-    #define LCD_CTRL_PORT   PORTB
-    #define LCD_CTRL_DDR    DDRB
+    #define LCD_CTRL_PORT   PORTD
+    #define LCD_CTRL_DDR    DDRD
     #define LCD_CTRL_RS     0
     #define LCD_CTRL_RW     1
     #define LCD_CTRL_E      2
     // port you will use for data lines
-    #define LCD_DATA_POUT   PORTB
-    #define LCD_DATA_PIN    PINB
-    #define LCD_DATA_DDR    DDRB
+    #define LCD_DATA_POUT   PORTD
+    #define LCD_DATA_PIN    PIND
+    #define LCD_DATA_DDR    DDRD
     // access mode you will use (default is 8bit unless 4bit is selected)
     #define LCD_DATA_4BIT
     ...
@@ -89,15 +89,15 @@ Next `lcdconf.h` must be edited to work with the Micropendous and your particula
 }}}
 
 
-Next `global.h` must be edited to remove `F_CPU` defines, as the `makefile` defines this variable.
+Next, `global.h` is edited to remove `F_CPU` defines, as the `makefile` defines this variable.
 
-Next, in `main()` of `USBVirtualSerial_LCD.c`, the LCD functions must be initialized:
+Next, in `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
 
 {{{
   lcdInit();
   rprintfInit(lcdDataWrite); // direct rprintf to LCD
-  lcdClear(); // clear the LCD
-  rprintf("AVRlib LCD");
+  lcdClear();  // clear the LCD
+  rprintf("GO AVRlib!");
 }}}
 
 Finally, while data from the host is in the input buffer, send it to the LCD and back to the host.  Make sure characters past the end of the second line get sent back to the start.
@@ -109,11 +109,11 @@ void Main_Task(void)
 
   // while the buffer has elements, write them to the LCD
   while (haveData()) {
-  /* Basically each character is written sequentially, first to the top line, then to the next, etc... */
-    tempChar = getData(stdin);
-    sendData(tempChar, stdout); // send char back for echo'ing on terminal
-    rprintfChar(tempChar);
+    /* Basically each character is written sequentially, first to the top line, then to the next, etc... */
+    tempChar = getchar();
+    putchar(tempChar); // send char back for echo'ing on terminal
     character_count++;
+    rprintfChar(tempChar); // print char to the LCD
     // once we hit the end of a single line, loop to next line
     if (character_count >= LCD_LINE_LENGTH) {
       character_count = 0;
@@ -126,6 +126,7 @@ void Main_Task(void)
     }
   }
 }
+
 }}}
 
 Note that there are also some global `define`s, for `character_count` and `current_line`.
@@ -167,7 +168,7 @@ Do not use `\n` or `\r\n` newline characters as they are not properly handled.  
 
 = Connecting a Micropendous to a HD44780 LCD using 2 Ports =
 
-The version that uses a full 8-bit data bus is slightly faster.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
+The version that uses a full 8-bit data bus is slightly faster an is available in the `USBVirtualSerial-LCD_2PortVersion` directory.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
 
 The connections are as follows:
 
@@ -187,7 +188,7 @@ The connections are as follows:
 || PB6 || Data6 || 13 ||
 || PB7 || Data7 || 14 ||
 
-You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to the following in order for USBVirtualSerial-LCD firmware to use 2 ports.  The key settings are:
+The key settings that determine functionality are in `Micropendous/Firmware/USBVirtualSerial-LCD_2PortVersion/lcdconf.h`:
 
 {{{
 #ifdef LCD_PORT_INTERFACE
@@ -205,50 +206,14 @@ You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to 
     #define LCD_DATA_PIN    PINB
     #define LCD_DATA_DDR    DDRB
     // access mode you will use (default is 8bit unless 4bit is selected)
-    //#define LCD_DATA_4BIT
+    //#define LCD_DATA_4BIT // commented out to select 8-Bit
   #endif
 #endif
 }}}
 
-Unlike the 1 port version `#define LCD_DATA_4BIT` needs to be commented out and the `LCD_CTRL` port settings must use PortC pins 5,6,7.
 
-
-= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD using 2 Ports =
+= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD =
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
 
-The [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] cannot use `PORTB` for LCD control as it is being used by SPI FLASH.  You will need to edit `Micropendous/Firmware/USBVirtualSerial_LCD/lcdconf.h` to the following in order for USBVirtualSerial-LCD firmware to work on an AT90USBKey:
-
-{{{
-#ifdef LCD_PORT_INTERFACE
-    #ifndef LCD_CTRL_PORT
-        // port and pins you will use for control lines
-        #define LCD_CTRL_PORT	PORTD
-        #define LCD_CTRL_DDR	DDRD
-        #define LCD_CTRL_RS	0
-        #define LCD_CTRL_RW	1
-        #define LCD_CTRL_E	2
-    #endif
-    #ifndef LCD_DATA_POUT
-        // port you will use for data lines
-        #define LCD_DATA_POUT	PORTD
-        #define LCD_DATA_PIN	PIND
-        #define LCD_DATA_DDR	DDRD
-        // access mode you will use (default is 8bit unless 4bit is selected)
-        #define LCD_DATA_4BIT
-    #endif
-#endif
-}}}
-
-The LCD connections are then as follows.  Most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.
-
-|| AT90USBKey  || LCD Name || LCD Pin ||
-|| GND || GND || 1 ||
-|| GND || Contrast || 3 ||
-|| PD0  || RS || 4 ||
-|| PD1  || RW || 5 ||
-|| PD2  || E || 6 ||
-|| PD4 || Data4 || 11 ||
-|| PD5 || Data5 || 12 ||
-|| PD6 || Data6 || 13 ||
-|| PD7 || Data7 || 14 ||
+The current USBVirtualSerial-LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.  All non-Vcc other connections are standard.
