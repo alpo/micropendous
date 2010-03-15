@@ -48,7 +48,13 @@ Remember to change `m32` to your target AVR's name.
 
 === Using AVRdude to Program the Bootloader of another Micropendous Board ===
 
-Change to the `/Micropendous/Firmware/BootloaderDFU` directory.  Edit the `makefile` to create a bootloader for your target AVR.  Run `make` to compile.  Run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
+Connect your Micropendous board loader with AVRISP firmware to your target board.  Change to the `/Micropendous/Firmware/BootloaderDFU` directory.  Edit the `makefile` to create a bootloader for your target AVR.  You simply need to uncomment the correct `MCU` and `BOOT_START` values.  Run `make` to compile.  Run `make program` to load the firmware using _avrdude_.
+{{{
+make
+make program
+}}}
+
+  If using an older version of _avrdude_ run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
 
 {{{
 avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderDFU.hex
