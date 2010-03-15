@@ -19,7 +19,7 @@ Compile and load the USBVirtualSerial_SPI firmware onto your USB AVR by followin
 == Pinout ==
 
 || *Micropendous* || *SPI*        ||
-|| `PB0(^SS)`     || `^CS`        ||
+|| `PB4(^SS)`     || `^CS`        ||
 || `PB1(SCK)`     || `SCK`        ||
 || `PB2(MOSI)`    || `MOSI`       ||
 || `PB3(MISO)`    || `MISO`       ||
