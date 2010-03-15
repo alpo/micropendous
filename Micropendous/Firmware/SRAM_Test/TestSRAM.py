@@ -1,4 +1,4 @@
-#    Purpose: Test External SRAM on a Micropendous3 with random data
+#    Purpose: Test External SRAM on a Micropendous board with random data
 #        Visit www.Micropendous.org for more info.
 #    Created: 2009-08-23 by Opendous Inc.
 #    Last Edit: 2009-09-02 by Opendous Inc.

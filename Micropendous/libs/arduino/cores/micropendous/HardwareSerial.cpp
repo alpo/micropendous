@@ -56,14 +56,11 @@ inline void store_char(unsigned char c, ring_buffer *rx_buffer)
   }
 }
 
-
-
 SIGNAL(USART1_RX_vect)
 {
   unsigned char c = UDR1;
   store_char(c, &rx_buffer);
 }
-
 
 // Constructors ////////////////////////////////////////////////////////////////
 
@@ -94,7 +91,7 @@ void HardwareSerial::begin(long baud)
   bool use_u2x;
 
   // U2X mode is needed for baud rates higher than (CPU Hz / 16)
-  if ((unsigned long)baud > (unsigned long)(F_CPU / 16)) {
+  if (baud > (long)(F_CPU / 16)) {
     use_u2x = true;
   } else {
     // figure out if U2X mode would allow for a better connection
@@ -123,6 +120,13 @@ void HardwareSerial::begin(long baud)
   sbi(*_ucsrb, _rxen);
   sbi(*_ucsrb, _txen);
   sbi(*_ucsrb, _rxcie);
+}
+
+void HardwareSerial::end()
+{
+  cbi(*_ucsrb, _rxen);
+  cbi(*_ucsrb, _txen);
+  cbi(*_ucsrb, _rxcie);  
 }
 
 uint8_t HardwareSerial::available(void)
@@ -167,4 +171,3 @@ void HardwareSerial::write(uint8_t c)
 // Preinstantiate Objects //////////////////////////////////////////////////////
 
 HardwareSerial Serial1(&rx_buffer, &UBRR1H, &UBRR1L, &UCSR1A, &UCSR1B, &UDR1, RXEN1, TXEN1, RXCIE1, UDRE1, U2X1);
-

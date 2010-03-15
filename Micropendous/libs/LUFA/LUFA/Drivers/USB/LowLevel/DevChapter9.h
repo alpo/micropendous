@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,6 +48,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if defined(USE_SINGLE_DEVICE_CONFIGURATION)
@@ -82,23 +87,32 @@
 			 */
 			extern uint8_t USB_ConfigurationNumber;
 			
-			/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
-			 *  flag is cleared, the device should not issue remote wakeup events to the host.
-			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern bool USB_RemoteWakeupEnabled;
+			#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+				/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
+				 *  flag is cleared, the device should not issue remote wakeup events to the host.
+				 *
+				 *  \note This variable should be treated as read-only in the user application, and never manually
+				 *        changed in value.
+				 *
+				 *  \note To reduce FLASH usage of the compiled applications where Remote Wakeup is not supported,
+				 *        this global and the underlying management code can be disabled by defining the 
+				 *        NO_DEVICE_REMOTE_WAKEUP token in the project makefile and passing it to the compiler via
+				 *        the -D switch.
+				 *
+				 *  \ingroup Group_Device
+				 */
+				extern bool USB_RemoteWakeupEnabled;
+			#endif
 			
-			/** Indicates if the device is currently being powered by its own power supply, rather than being
-			 *  powered by the host's USB supply. This flag should remain cleared if the device does not
-			 *  support self powered mode, as indicated in the device descriptors.
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern bool USB_CurrentlySelfPowered;
+			#if !defined(NO_DEVICE_SELF_POWER)
+				/** Indicates if the device is currently being powered by its own power supply, rather than being
+				 *  powered by the host's USB supply. This flag should remain cleared if the device does not
+				 *  support self powered mode, as indicated in the device descriptors.
+				 *
+				 *  \ingroup Group_Device
+				 */
+				extern bool USB_CurrentlySelfPowered;
+			#endif
 	
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -115,7 +129,7 @@
 		/* Function Prototypes: */
 			void USB_Device_ProcessControlRequest(void);
 			
-			#if defined(INCLUDE_FROM_DEVCHAPTER9_C)
+			#if defined(__INCLUDE_FROM_DEVCHAPTER9_C)
 				static void USB_Device_SetAddress(void);
 				static void USB_Device_SetConfiguration(void);
 				static void USB_Device_GetConfiguration(void);

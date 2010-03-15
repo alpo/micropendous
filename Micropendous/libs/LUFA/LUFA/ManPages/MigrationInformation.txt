@@ -10,6 +10,52 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
+ * \section Sec_Migration100219 Migrating from 091223 to 100219
+ *
+ *  <b>Non-USB Library Components</b>
+ *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,
+ *      the ADC driver now has explicit masks for each of the standard ADC channels (see \ref Group_ADC). These masks should be used 
+ *      when calling the ADC functions to ensure proper operation across all AVR models. Note that the \ref ADC_SetupChannel() function 
+ *      is an exception, and should always be called with a channel number rather than a channel mask.
+ *
+ *  <b>Host Mode</b>
+ *    - The MIDI Host Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
+ *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
+ *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
+ *    - The Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
+ *      is set to denote IN endpoints. If the previous functionality where the direction is to be discounted is required, mask the endpoint
+ *      address against the \ref PIPE_EPNUM_MASK token before calling Pipe_IsEndpointBound().
+ *
+ *  <b>Device Mode</b>
+ *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
+ *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
+ *      endpoint bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      flush the queued event(s) to the host by calling \ref MIDI_Device_Flush().
+ *
+ * \section Sec_Migration091223 Migrating from 091122 to 091223
+ *
+ *  <b>Host Mode</b>
+ *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
+ *      now named \ref SImage_Host_USBTask() and \ref SImage_Host_ConfigurePipes() respectively.
+ *    - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
+ *      line with the rest of the library error codes.
+ *    - The HID Parser item usages no longer contain seperate minimum and maximum values, as this was a violation of the HID
+ *      specification. Instead, the values are distributed evenly across each item as its usage value, to ensure that all items
+ *      can be distinguished from oneanother.
+ *
+ *  <b>Device Mode</b>
+ *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
+ *      indicate the report type to generate. Existing applications may simply add and ignore this additional parameter.
+ *
+ * \section Sec_Migration091122 Migrating from 090924 to 091122
+ *  
+ *  <b>Host Mode</b>
+ *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
+ *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
+ *      user application, instead of just its attributes.
+ *    - The USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
+ *
  * \section Sec_Migration090924 Migrating from 090810 to 090924
  *
  *  <b>Non-USB Library Components</b>
@@ -20,7 +66,7 @@
  *      call to SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>
- *    - The \ref USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
+ *    - The USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
  *      application perform these intermediatary steps.
@@ -58,7 +104,7 @@
  *
  *  <b>Host Mode</b>
  *    - The HIDParser.c module has moved from LUFA/Drivers/USB/Class/ to LUFA/Drivers/USB/Class/Host/.
- *    - The \ref USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
+ *    - The USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
  *      parameter, to add support for multi-configuration devices. Existing code should use a configuration index of 1 to indicate the
  *      first configuration descriptor within the device.
  *    - The non-standard "Ready" host state has been removed. Existing \ref HOST_STATE_Configured code should be moved to the end of

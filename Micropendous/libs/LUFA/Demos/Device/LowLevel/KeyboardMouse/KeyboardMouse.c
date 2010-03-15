@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
 	  
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,15 +37,15 @@
  
 #include "KeyboardMouse.h"
 
-/* Global Variables */
 /** Global structure to hold the current keyboard interface HID report, for transmission to the host */
 USB_KeyboardReport_Data_t KeyboardReportData;
 
 /** Global structure to hold the current mouse interface HID report, for transmission to the host */
 USB_MouseReport_Data_t    MouseReportData;
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the USB management task.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -180,21 +180,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					  return;
 				}
 
-				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
-				uint8_t LEDMask   = LEDS_LED2;
-				
-				if (LEDStatus & 0x01) // NUM Lock
-				  LEDMask |= LEDS_LED1;
-				
-				if (LEDStatus & 0x02) // CAPS Lock
-				  LEDMask |= LEDS_LED3;
-
-				if (LEDStatus & 0x04) // SCROLL Lock
-				  LEDMask |= LEDS_LED4;
-
-				/* Set the status LEDs to the current HID LED status */
-				LEDs_SetAllLEDs(LEDMask);
+				/* Read in and process the LED report from the host */
+				Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
 
 				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
@@ -204,6 +191,28 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			
 			break;
 	}
+}
+
+/** Processes a given Keyboard LED report from the host, and sets the board LEDs to match. Since the Keyboard
+ *  LED report can be sent through either the control endpoint (via a HID SetReport request) or the HID OUT
+ *  endpoint, the processing code is placed here to avoid duplicating it and potentially having different
+ *  behaviour depending on the method used to sent it.
+ */
+void Keyboard_ProcessLEDReport(const uint8_t LEDStatus)
+{
+	uint8_t LEDMask = LEDS_LED2;
+	
+	if (LEDStatus & KEYBOARD_LED_NUMLOCK)
+	  LEDMask |= LEDS_LED1;
+	
+	if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
+	  LEDMask |= LEDS_LED3;
+
+	if (LEDStatus & KEYBOARD_LED_SCROLLLOCK)
+	  LEDMask |= LEDS_LED4;
+
+	/* Set the status LEDs to the current Keyboard LED status */
+	LEDs_SetAllLEDs(LEDMask);
 }
 
 /** Keyboard task. This generates the next keyboard HID report for the host, and transmits it via the
@@ -221,6 +230,9 @@ void Keyboard_HID_Task(void)
 	/* Check if board button is not pressed, if so mouse mode enabled */
 	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
+		/* Make sent key uppercase by indicating that the left shift key is pressed */
+		KeyboardReportData.Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+
 		if (JoyStatus_LCL & JOY_UP)
 		  KeyboardReportData.KeyCode[0] = 0x04; // A
 		else if (JoyStatus_LCL & JOY_DOWN)
@@ -257,21 +269,8 @@ void Keyboard_HID_Task(void)
 	/* Check if Keyboard LED Endpoint Ready for Read/Write */
 	if (Endpoint_IsReadWriteAllowed())
 	{		
-		/* Read in the LED report from the host */
-		uint8_t LEDStatus = Endpoint_Read_Byte();
-		uint8_t LEDMask   = LEDS_LED2;
-		
-		if (LEDStatus & 0x01) // NUM Lock
-		  LEDMask |= LEDS_LED1;
-		
-		if (LEDStatus & 0x02) // CAPS Lock
-		  LEDMask |= LEDS_LED3;
-
-		if (LEDStatus & 0x04) // SCROLL Lock
-		  LEDMask |= LEDS_LED4;
-
-		/* Set the status LEDs to the current Keyboard LED status */
-		LEDs_SetAllLEDs(LEDMask);
+		/* Read in and process the LED report from the host */
+		Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
 
 		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
 		Endpoint_ClearOUT();

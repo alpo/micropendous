@@ -1,48 +1,54 @@
 /*
-	FreeRTOS V5.4.2 - Copyright (C) 2009 Real Time Engineers Ltd.
+    FreeRTOS V6.0.3 - Copyright (C) 2010 Real Time Engineers Ltd.
 
-	This file is part of the FreeRTOS distribution.
+    ***************************************************************************
+    *                                                                         *
+    * If you are:                                                             *
+    *                                                                         *
+    *    + New to FreeRTOS,                                                   *
+    *    + Wanting to learn FreeRTOS or multitasking in general quickly       *
+    *    + Looking for basic training,                                        *
+    *    + Wanting to improve your FreeRTOS skills and productivity           *
+    *                                                                         *
+    * then take a look at the FreeRTOS eBook                                  *
+    *                                                                         *
+    *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
+    *                  http://www.FreeRTOS.org/Documentation                  *
+    *                                                                         *
+    * A pdf reference manual is also available.  Both are usually delivered   *
+    * to your inbox within 20 minutes to two hours when purchased between 8am *
+    * and 8pm GMT (although please allow up to 24 hours in case of            *
+    * exceptional circumstances).  Thank you for your support!                *
+    *                                                                         *
+    ***************************************************************************
 
-	FreeRTOS is free software; you can redistribute it and/or modify it	under 
-	the terms of the GNU General Public License (version 2) as published by the 
-	Free Software Foundation and modified by the FreeRTOS exception.
-	**NOTE** The exception to the GPL is included to allow you to distribute a
-	combined work that includes FreeRTOS without being obliged to provide the 
-	source code for proprietary components outside of the FreeRTOS kernel.  
-	Alternative commercial license and support terms are also available upon 
-	request.  See the licensing section of http://www.FreeRTOS.org for full 
-	license details.
+    This file is part of the FreeRTOS distribution.
 
-	FreeRTOS is distributed in the hope that it will be useful,	but WITHOUT
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	more details.
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    ***NOTE*** The exception to the GPL is included to allow you to distribute
+    a combined work that includes FreeRTOS without being obliged to provide the
+    source code for proprietary components outside of the FreeRTOS kernel.
+    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public 
+    License and the FreeRTOS license exception along with FreeRTOS; if not it 
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained 
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
 
-	You should have received a copy of the GNU General Public License along
-	with FreeRTOS; if not, write to the Free Software Foundation, Inc., 59
-	Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+    1 tab == 4 spaces!
 
+    http://www.FreeRTOS.org - Documentation, latest information, license and
+    contact details.
 
-	***************************************************************************
-	*                                                                         *
-	* Looking for a quick start?  Then check out the FreeRTOS eBook!          *
-	* See http://www.FreeRTOS.org/Documentation for details                   *
-	*                                                                         *
-	***************************************************************************
+    http://www.SafeRTOS.com - A version that is certified for use in safety
+    critical systems.
 
-	1 tab == 4 spaces!
-
-	Please ensure to read the configuration and relevant port sections of the
-	online documentation.
-
-	http://www.FreeRTOS.org - Documentation, latest information, license and
-	contact details.
-
-	http://www.SafeRTOS.com - A version that is certified for use in safety
-	critical systems.
-
-	http://www.OpenRTOS.com - Commercial support, development, porting,
-	licensing and training services.
+    http://www.OpenRTOS.com - Commercial support, development, porting,
+    licensing and training services.
 */
 
 /*
@@ -80,8 +86,8 @@
 #include "semtest.h"
 
 /* The value to which the shared variables are counted. */
-#define semtstBLOCKING_EXPECTED_VALUE		( ( unsigned portLONG ) 0xfff )
-#define semtstNON_BLOCKING_EXPECTED_VALUE	( ( unsigned portLONG ) 0xff  )
+#define semtstBLOCKING_EXPECTED_VALUE		( ( unsigned long ) 0xfff )
+#define semtstNON_BLOCKING_EXPECTED_VALUE	( ( unsigned long ) 0xff  )
 
 #define semtstSTACK_SIZE			configMINIMAL_STACK_SIZE
 
@@ -96,13 +102,13 @@ static portTASK_FUNCTION_PROTO( prvSemaphoreTest, pvParameters );
 typedef struct SEMAPHORE_PARAMETERS
 {
 	xSemaphoreHandle xSemaphore;
-	volatile unsigned portLONG *pulSharedVariable;
+	volatile unsigned long *pulSharedVariable;
 	portTickType xBlockTime;
 } xSemaphoreParameters;
 
 /* Variables used to check that all the tasks are still running without errors. */
-static volatile portSHORT sCheckVariables[ semtstNUM_TASKS ] = { 0 };
-static volatile portSHORT sNextCheckVariable = 0;
+static volatile short sCheckVariables[ semtstNUM_TASKS ] = { 0 };
+static volatile short sNextCheckVariable = 0;
 
 /*-----------------------------------------------------------*/
 
@@ -122,7 +128,7 @@ const portTickType xBlockTime = ( portTickType ) 100;
 		if( pxFirstSemaphoreParameters->xSemaphore != NULL )
 		{
 			/* Create the variable which is to be shared by the first two tasks. */
-			pxFirstSemaphoreParameters->pulSharedVariable = ( unsigned portLONG * ) pvPortMalloc( sizeof( unsigned portLONG ) );
+			pxFirstSemaphoreParameters->pulSharedVariable = ( unsigned long * ) pvPortMalloc( sizeof( unsigned long ) );
 
 			/* Initialise the share variable to the value the tasks expect. */
 			*( pxFirstSemaphoreParameters->pulSharedVariable ) = semtstNON_BLOCKING_EXPECTED_VALUE;
@@ -131,8 +137,8 @@ const portTickType xBlockTime = ( portTickType ) 100;
 			pxFirstSemaphoreParameters->xBlockTime = ( portTickType ) 0;
 
 			/* Spawn the first two tasks.  As they poll they operate at the idle priority. */
-			xTaskCreate( prvSemaphoreTest, ( signed portCHAR * ) "PolSEM1", semtstSTACK_SIZE, ( void * ) pxFirstSemaphoreParameters, tskIDLE_PRIORITY, ( xTaskHandle * ) NULL );
-			xTaskCreate( prvSemaphoreTest, ( signed portCHAR * ) "PolSEM2", semtstSTACK_SIZE, ( void * ) pxFirstSemaphoreParameters, tskIDLE_PRIORITY, ( xTaskHandle * ) NULL );
+			xTaskCreate( prvSemaphoreTest, ( signed char * ) "PolSEM1", semtstSTACK_SIZE, ( void * ) pxFirstSemaphoreParameters, tskIDLE_PRIORITY, ( xTaskHandle * ) NULL );
+			xTaskCreate( prvSemaphoreTest, ( signed char * ) "PolSEM2", semtstSTACK_SIZE, ( void * ) pxFirstSemaphoreParameters, tskIDLE_PRIORITY, ( xTaskHandle * ) NULL );
 		}
 	}
 
@@ -145,12 +151,12 @@ const portTickType xBlockTime = ( portTickType ) 100;
 
 		if( pxSecondSemaphoreParameters->xSemaphore != NULL )
 		{
-			pxSecondSemaphoreParameters->pulSharedVariable = ( unsigned portLONG * ) pvPortMalloc( sizeof( unsigned portLONG ) );
+			pxSecondSemaphoreParameters->pulSharedVariable = ( unsigned long * ) pvPortMalloc( sizeof( unsigned long ) );
 			*( pxSecondSemaphoreParameters->pulSharedVariable ) = semtstBLOCKING_EXPECTED_VALUE;
 			pxSecondSemaphoreParameters->xBlockTime = xBlockTime / portTICK_RATE_MS;
 
-			xTaskCreate( prvSemaphoreTest, ( signed portCHAR * ) "BlkSEM1", semtstSTACK_SIZE, ( void * ) pxSecondSemaphoreParameters, uxPriority, ( xTaskHandle * ) NULL );
-			xTaskCreate( prvSemaphoreTest, ( signed portCHAR * ) "BlkSEM2", semtstSTACK_SIZE, ( void * ) pxSecondSemaphoreParameters, uxPriority, ( xTaskHandle * ) NULL );
+			xTaskCreate( prvSemaphoreTest, ( signed char * ) "BlkSEM1", semtstSTACK_SIZE, ( void * ) pxSecondSemaphoreParameters, uxPriority, ( xTaskHandle * ) NULL );
+			xTaskCreate( prvSemaphoreTest, ( signed char * ) "BlkSEM2", semtstSTACK_SIZE, ( void * ) pxSecondSemaphoreParameters, uxPriority, ( xTaskHandle * ) NULL );
 		}
 	}
 
@@ -160,17 +166,17 @@ const portTickType xBlockTime = ( portTickType ) 100;
 	is not being used.  The call to vQueueAddToRegistry() will be removed
 	by the pre-processor if configQUEUE_REGISTRY_SIZE is not defined or is 
 	defined to be less than 1. */
-	vQueueAddToRegistry( ( xQueueHandle ) pxFirstSemaphoreParameters->xSemaphore, ( signed portCHAR * ) "Counting_Sem_1" );
-	vQueueAddToRegistry( ( xQueueHandle ) pxSecondSemaphoreParameters->xSemaphore, ( signed portCHAR * ) "Counting_Sem_2" );
+	vQueueAddToRegistry( ( xQueueHandle ) pxFirstSemaphoreParameters->xSemaphore, ( signed char * ) "Counting_Sem_1" );
+	vQueueAddToRegistry( ( xQueueHandle ) pxSecondSemaphoreParameters->xSemaphore, ( signed char * ) "Counting_Sem_2" );
 }
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION( prvSemaphoreTest, pvParameters )
 {
 xSemaphoreParameters *pxParameters;
-volatile unsigned portLONG *pulSharedVariable, ulExpectedValue;
-unsigned portLONG ulCounter;
-portSHORT sError = pdFALSE, sCheckVariableToUse;
+volatile unsigned long *pulSharedVariable, ulExpectedValue;
+unsigned long ulCounter;
+short sError = pdFALSE, sCheckVariableToUse;
 
 	/* See which check variable to use.  sNextCheckVariable is not semaphore 
 	protected! */
@@ -211,7 +217,7 @@ portSHORT sError = pdFALSE, sCheckVariableToUse;
 			/* Clear the variable, then count it back up to the expected value
 			before releasing the semaphore.  Would expect a context switch or
 			two during this time. */
-			for( ulCounter = ( unsigned portLONG ) 0; ulCounter <= ulExpectedValue; ulCounter++ )
+			for( ulCounter = ( unsigned long ) 0; ulCounter <= ulExpectedValue; ulCounter++ )
 			{
 				*pulSharedVariable = ulCounter;
 				if( *pulSharedVariable != ulCounter )
@@ -259,7 +265,7 @@ portSHORT sError = pdFALSE, sCheckVariableToUse;
 /* This is called to check that all the created tasks are still running. */
 portBASE_TYPE xAreSemaphoreTasksStillRunning( void )
 {
-static portSHORT sLastCheckVariables[ semtstNUM_TASKS ] = { 0 };
+static short sLastCheckVariables[ semtstNUM_TASKS ] = { 0 };
 portBASE_TYPE xTask, xReturn = pdTRUE;
 
 	for( xTask = 0; xTask < semtstNUM_TASKS; xTask++ )

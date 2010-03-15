@@ -29,6 +29,7 @@
 #endif
 
 // datatype definitions macros
+#ifndef _INTEGER
 typedef unsigned char  u08;
 typedef   signed char  s08;
 typedef unsigned short u16;
@@ -37,6 +38,8 @@ typedef unsigned long  u32;
 typedef   signed long  s32;
 typedef unsigned long long u64;
 typedef   signed long long s64;
+#endif
+
 
 /* use inttypes.h instead
 // C99 standard integer type definitions
@@ -65,6 +68,7 @@ typedef   signed long	int64_t;
 #define MAX_S32	2147483647
 
 #ifndef WIN32
+#ifndef _INTEGER
 	// more type redefinitions
 	typedef unsigned char   BOOL;
 	typedef unsigned char	BYTE;
@@ -79,6 +83,7 @@ typedef   signed long	int64_t;
 	typedef char			CHAR;
 	typedef int				INT;
 	typedef long			LONG;
+#endif
 #endif
 
 #endif

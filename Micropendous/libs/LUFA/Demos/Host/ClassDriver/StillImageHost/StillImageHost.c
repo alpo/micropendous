@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -45,13 +45,18 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+				
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
+				
 				.EventsPipeNumber       = 3,
+				.EventsPipeDoubleBank   = false,
 			},
 	};
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -71,8 +76,8 @@ int main(void)
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
-				if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                  sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
 					printf("Error Retrieving Configuration Descriptor.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -80,8 +85,8 @@ int main(void)
 					break;
 				}
 
-				if (SI_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
-				                           ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
+				if (SImage_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
+				                               ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
 				{
 					printf("Attached Device Not a Valid CDC Class Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -136,7 +141,7 @@ int main(void)
 				break;
 		}
 	
-		SI_Host_USBTask(&DigitalCamera_SI_Interface);
+		SImage_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}
 }

@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -75,14 +75,14 @@
 		 *  
 		 *  \param[in,out] Buffer  Bit buffer to initialize
 		 */
-		void BitBuffer_Init(BitBuffer_t* Buffer) ATTR_NON_NULL_PTR_ARG(1);
+		void BitBuffer_Init(BitBuffer_t* const Buffer) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Stores a bit into the next location inside a given bit buffer.
 		 *
 		 *  \param[in,out] Buffer  Bit buffer to store a bit into
 		 *  \param[in] Bit  Bit to store into the buffer
 		 */
-		void BitBuffer_StoreNextBit(BitBuffer_t* Buffer, bool Bit) ATTR_NON_NULL_PTR_ARG(1);
+		void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Retrieves a bit from the next location inside a given bit buffer.
 		 *
@@ -90,6 +90,6 @@
 		 *
 		 *  \return Next bit from the buffer
 		 */
-		bool BitBuffer_GetNextBit(BitBuffer_t* Buffer) ATTR_NON_NULL_PTR_ARG(1);
+		bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer) ATTR_NON_NULL_PTR_ARG(1);
 		
 #endif

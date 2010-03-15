@@ -44,8 +44,9 @@
 	/* Global Defines */
 		#define IN_EP                       1
 		#define OUT_EP                      2
-		#define IN_EP_SIZE                  64
-		#define OUT_EP_SIZE                 64
+		#define EP_SIZE                  	64
+		#define IN_EP_SIZE                  EP_SIZE
+		#define OUT_EP_SIZE                 EP_SIZE
 
 	/* Type Defines: */
 

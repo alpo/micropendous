@@ -7,8 +7,7 @@
 */
 
 /*
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
-	Based on code by Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010 Dean Camera (dean [at] fourwalledcubicle [dot] com)
 	Additional LoopBack demo code by Opendous Inc.
 
   Permission to use, copy, modify, and distribute this software
@@ -109,9 +108,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | IN_EP),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = EP_TYPE_INTERRUPT,
 			.EndpointSize           = IN_EP_SIZE,
-			.PollingIntervalMS      = 0x00
+			.PollingIntervalMS      = 0x01
 		},
 
 	.DataOUTEndpoint = 
@@ -119,9 +118,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | OUT_EP),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = EP_TYPE_INTERRUPT,
 			.EndpointSize           = OUT_EP_SIZE,
-			.PollingIntervalMS      = 0x00
+			.PollingIntervalMS      = 0x01
 		}
 };
 

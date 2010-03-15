@@ -1,22 +1,26 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Code for SRAM Testing by Opendous Inc. (www.opendous.org)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Altered for SRAM_Test by Opendous Inc. 2010-03
+  For more information visit:  www.Micropendous.org/SRAM
+
+  Look for TODO statements in the code for implementation hints
+
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,10 +33,31 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the SRAM_Test project. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "SRAM_Test.h"
 
-
 /* Defines related to SRAM */
+/* TODO - which Micropendous version are you using (they use different IO pins for SRAM control) */
+#if  0	// set to one if using the Micropendous-1287 which uses PE4 for CE and PE5 for bank select
+	#define ENABLE_EXTSRAM						PORTE &= ~(1 << PE4);
+	#define DISABLE_EXTSRAM						PORTE |= (1 << PE4);
+	#define SELECT_EXTSRAM_BANK0		PORTE &= ~(1 << PE5);
+	#define SELECT_EXTSRAM_BANK1		PORTE |= (1 << PE5);
+	#define PORTE_EXTSRAM_SETUP			PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
+#else	// otherwise you are using a Micropendous4 or 5 which use PE6 for CE and PE7 for bank select
+	#define ENABLE_EXTSRAM						PORTE &= ~(1 << PE6);
+	#define DISABLE_EXTSRAM						PORTE |= (1 << PE6);
+	#define SELECT_EXTSRAM_BANK0		PORTE &= ~(1 << PE7);
+	#define SELECT_EXTSRAM_BANK1		PORTE |= (1 << PE7);	
+	#define PORTE_EXTSRAM_SETUP			PORTE = ((0 << PE4) | (0 << PE5) | (1 << PE0) | (1 << PE1) | (1 << PE2));
+#endif
+
+	
 #if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB1286__))
 	#define EXT_SRAM_START		0x2100
 #elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB646__) || defined(__AVR_ATmega32U6__))
@@ -40,26 +65,7 @@
 #endif
 #define EXT_SRAM_END			0xFFFF
 #define EXT_SRAM_SIZE			(EXT_SRAM_END - EXT_SRAM_START)
-#define SELECT_EXTSRAM_BANK0		PORTE &= ~(1 << PE7);
-#define SELECT_EXTSRAM_BANK1		PORTE |= (1 << PE7);
 
-
-/* Globals: */
-/** Contains the current baud rate and other settings of the virtual serial port.
- *
- *  These values are set by the host via a class-specific request, and the physical USART should be reconfigured to match the
- *  new settings each time they are changed by the host.
- */
-CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
-                                   .CharFormat  = OneStopBit,
-                                   .ParityType  = Parity_None,
-                                   .DataBits    = 8            };
-
-/** Ring (circular) buffer to hold the RX data - data from the host to the attached device on the serial port. */
-RingBuff_t Rx_Buffer;
-
-/** Ring (circular) buffer to hold the TX data - data from the attached device on the serial port to the host. */
-RingBuff_t Tx_Buffer;
 
 /* Global pointer to the start of external memory */
 static uint8_t* ExtMemArray = (uint8_t*)EXT_SRAM_START;
@@ -70,25 +76,69 @@ volatile uint16_t EMAindex = 0;
 volatile uint16_t firstSRAMfailAddress = 0;
 volatile uint8_t SRAMTestStatus = 0;
 volatile uint8_t FillingRAM = 0;
+volatile uint8_t currentHelpPage = 0;
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+
+/** Circular buffer to hold data from the host before it is processed by MainTask using standard IO functions */
+RingBuff_t Host_to_Device_Buffer;
+
+/** Circular buffer to hold data before it is sent to the host. */
+RingBuff_t Device_to_Host_Buffer;
+
+/** LUFA CDC Class driver interface configuration and state information. This structure is
+ *  passed to all CDC Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
+	{
+		.Config = 
+			{
+				.ControlInterfaceNumber         = 0,
+
+				.DataINEndpointNumber           = CDC_TX_EPNUM,
+				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank       = false,
+
+				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
+				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank      = false,
+
+				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank = false,
+			},
+	};
+
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
  */
 int main(void)
 {
 	SetupHardware();
-
-	/* Ring buffer Initialization */
-	Buffer_Initialize(&Rx_Buffer);
-	Buffer_Initialize(&Tx_Buffer);
+	
+	Buffer_Initialize(&Host_to_Device_Buffer);
+	Buffer_Initialize(&Device_to_Host_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+
 	for (;;)
 	{
-		CDC_Task();
+		/* Read bytes from the USB OUT endpoint into the local buffer */
+		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
+		{
+			if (!(BUFF_STATICSIZE - Host_to_Device_Buffer.Elements))
+				break;
+			Buffer_StoreElement(&Host_to_Device_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+		}
+
+		/* Read bytes from the data buffer into the USB IN endpoint */
+		while (Device_to_Host_Buffer.Elements)
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Device_to_Host_Buffer));
+
+		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
-		Main_Task();
+
+		MainTask();
 	}
 }
 
@@ -102,301 +152,194 @@ void SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
+	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
+	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
+	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
+			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
+			defined(__AVR_ATmega32U6__)))
+		// note the JTD bit must be written twice within 4 clock cycles to disable JTAG
+		// you must also set the IVSEL bit at the same time, which requires IVCE to be set first
+		// port pull-up resistors are enabled - PUD(Pull Up Disable) = 0
+		MCUCR = (1 << JTD) | (1 << IVCE) | (0 << PUD);
+		MCUCR = (1 << JTD) | (0 << IVSEL) | (0 << IVCE) | (0 << PUD);
+	#endif
+
 	/* Hardware Initialization */
 	DDRA = 0;
-	PORTA = 0xFF; //input
+	PORTA = 0;
 	DDRB = 0;
-	PORTB = 0xFF; //input
+	PORTB = 0;
 	DDRC = 0;
-	PORTC = 0xFF; //input
+	PORTC = 0;
 	DDRD = 0;
-	PORTD = 0xFF; //input
-	DDRE = 0;
-	PORTE = 0xFF; //input
+	PORTD = 0;
+	DDRE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
+	PORTE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
 	DDRF = 0;
-	PORTF = 0xFF; //input
+	PORTF = 0;
+
+	/* Initialize stdout and stdin for printf and scanf */
+	fdevopen(sendData, getData);
 
 	/* Enable External SRAM */
-	DDRE = 0xFF;
-	// PE6 is chip enable (^CS - active low); PE7 is highest address bit (bank); PE0,1,2 are SRAM-related
-	PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
+	DDRE = 0xFF;	// PORTE is all output
+	PORTE_EXTSRAM_SETUP;
+	ENABLE_EXTSRAM;
 	// enable external SRAM with 0 wait states
 	XMCRA = ((1 << SRE));
 	XMCRB = 0;
 
 	SELECT_EXTSRAM_BANK0; // set bank 0 as current SRAM bank
-	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd);
+	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd); // test it
 	SELECT_EXTSRAM_BANK1;
 	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd);
 	SELECT_EXTSRAM_BANK0;
 
+	/* Hardware Initialization */
 	LEDs_Init();
-	rprintfInit(sendData); // rprintf allows sending formatted data to host
 	USB_Init();
 }
 
-/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
- *  starts the library USB task to begin the enumeration and USB management process.
- */
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
 {
-	/* Indicate USB enumerating */
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs and stops the USB management and CDC management tasks.
- */
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Device_Disconnect(void)
-{	
-	/* Reset Tx and Rx buffers, device disconnected */
-	Buffer_Initialize(&Rx_Buffer);
-	Buffer_Initialize(&Tx_Buffer);
-
-	/* Indicate USB not ready */
+{
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
-/** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
- *  of the USB device after enumeration - the device endpoints are configured and the CDC management task started.
- */
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	/* Setup CDC Notification, Rx and Tx Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}							   
-
-	if (!(Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-
-	/* Reset line encoding baud rate so that the host knows to send new values */
-	LineEncoding.BaudRateBPS = 0;
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the CDC control commands,
- *  which are all issued via the control endpoint), so that they can be handled appropriately for the application.
- */
+/** Event handler for the library USB Unhandled Control Request event. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	/* Process CDC specific control requests */
-	switch (USB_ControlRequest.bRequest)
-	{
-		case REQ_GetLineEncoding:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
-			{	
-				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-
-				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(LineEncoding));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearOUT();
-			}
-			
-			break;
-		case REQ_SetLineEncoding:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
-			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-
-				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(LineEncoding));
-
-				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearIN();
-				
-				/* Reconfigure the USART with the new settings */
-				Reconfigure();
-			}
-	
-			break;
-		case REQ_SetControlLineState:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
-			{				
-				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-				
-				/* NOTE: Here you can read in the line state mask from the host, to get the current state of the output handshake
-				         lines. The mask is read in from the wValue parameter in USB_ControlRequest, and can be masked against the
-						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
-				*/
-
-				Endpoint_ClearStatusStage();
-			}
-	
-			break;
-	}
+	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
 
-/** Task to manage CDC data transmission and reception to and from the host, from and to the physical USART. */
-void CDC_Task(void)
+/** Event handler for the CDC Class driver Line Encoding Changed event.
+ *
+ *  \param[in] CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
+ */
+void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
-	  
-#if 0
-	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-			 handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
+	/* Not of any use for SRAM_Test
+		Use Virtual Serial Port settings to control your application.
+		Think of this as another data channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask putchar/getchar) for data only.
 	*/
 
-	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
-		{
-			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.Notification     = NOTIF_SerialState,
-			.wValue           = 0,
-			.wIndex           = 0,
-			.wLength          = sizeof(uint16_t),
-		};
-		
-	uint16_t LineStateMask;
-	
-	// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
-	
-	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
-	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
-	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-	Endpoint_ClearIN();
-#endif
-
-	/* Select the Serial Rx Endpoint */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-	
-	/* Check to see if a packet has been received from the host */
-	if (Endpoint_IsOUTReceived())
+	switch (CDCInterfaceInfo->State.LineEncoding.ParityType)
 	{
-		/* Read the bytes in from the endpoint into the buffer while space is available */
-		while (Endpoint_BytesInEndpoint() && (Rx_Buffer.Elements != BUFF_STATICSIZE))
-		{
-			/* Store each character from the endpoint */
-			Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
-		}
-		
-		/* Check to see if all bytes in the current packet have been read */
-		if (!(Endpoint_BytesInEndpoint()))
-		{
-			/* Clear the endpoint buffer */
-			Endpoint_ClearOUT();
-		}
+		case CDC_PARITY_Odd:
+			// do something here
+			break;
+		case CDC_PARITY_Even:
+			// and/or maybe here
+			break;
+		case CDC_PARITY_None:
+			// maybe something here
+			break;
+		case CDC_PARITY_Mark:
+			// something here could work
+			break;
+		case CDC_PARITY_Space:
+			// you guessed it, something could go here
+			break;
 	}
 
-	/* Check if Rx buffer contains data - if so, send it */
-	if (Rx_Buffer.Elements) {
-		/* Serial_TxByte(Buffer_GetElement(&Rx_Buffer)); */
-		/* Do not want to stream data over UART, want to leave it in
-			the buffer for Main_Task to process */
-	}
 
-	/* Select the Serial Tx Endpoint */
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-
-	/* Check if the Tx buffer contains anything to be sent to the host */
-	if ((Tx_Buffer.Elements) && LineEncoding.BaudRateBPS)
+	switch (CDCInterfaceInfo->State.LineEncoding.CharFormat)
 	{
-		/* Wait until Serial Tx Endpoint Ready for Read/Write */
-		Endpoint_WaitUntilReady();
-		
-		/* Write the bytes from the buffer to the endpoint while space is available */
-		while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
-		{
-			/* Write each byte retreived from the buffer to the endpoint */
-			Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
-		}
-		
-		/* Remember if the packet to send completely fills the endpoint */
-		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
-		
-		/* Send the data */
-		Endpoint_ClearIN();
-
-		/* If no more data to send and the last packet filled the endpoint, send an empty packet to release
-		 * the buffer on the receiver (otherwise all data will be cached until a non-full packet is received) */
-		if (IsFull && !(Tx_Buffer.Elements))
-		{
-			/* Wait until Serial Tx Endpoint Ready for Read/Write */
-			Endpoint_WaitUntilReady();
-				
-			/* Send an empty packet to terminate the transfer */
-			Endpoint_ClearIN();
-		}
+		case CDC_LINEENCODING_OneStopBit:
+			// do something here
+			break;
+		case CDC_LINEENCODING_OneAndAHalfStopBits:
+			// and/or maybe do something here
+			break;
+		case CDC_LINEENCODING_TwoStopBits:
+			// something here could work
+			break;
 	}
+
+
+	switch (CDCInterfaceInfo->State.LineEncoding.DataBits)
+	{
+		case 6:
+			// possibly something
+			break;
+		case 7:
+			// possibly something
+			break;
+		case 8:
+			// possibly something
+			break;
+	}
+
+
+	switch (CDCInterfaceInfo->State.LineEncoding.BaudRateBPS)
+	{
+		case 9600:
+			// possibly something
+			break;
+		case 14400:
+			// possibly something
+			break;
+		case 19200:
+			// possibly something
+			break;
+		case 38400:
+			// possibly something
+			break;
+		case 57600:
+			// possibly something
+			break;
+		case 115200:
+			// possibly something
+			break;
+	}
+
 }
 
 
-/** Use USART configuration settings to control your own code's parameters */
-void Reconfigure(void)
+
+/** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
+ *  control line state change (containing the virtual serial control line states, such as DTR). The new control line states
+ *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
+ *  a mask of CDC_CONTROL_LINE_OUT_* masks.  1 is for 'Set'(Low) and 0 is for 'Clear'(High) as these are active low signals.
+ *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+*/
+void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
+	/* Not of any use for SRAM_Test
+		Use Virtual Serial Port settings to control your application.
+		Think of this as another data channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask putchar/getchar) for data only.
+	*/
 
-	/* Determine parity - non odd/even parity mode defaults to no parity */
-	if (LineEncoding.ParityType == Parity_Odd) {
-		//
-	} else if (LineEncoding.ParityType == Parity_Even) {
-		//
+	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_RTS) {
+		// Host has set the RTS line
 	} else {
-		//
+		// Host has cleared the RTS line
 	}
 
-
-	/* Determine stop bits - 1.5 stop bits is set as 1 stop bit due to hardware limitations */
-	if (LineEncoding.CharFormat == TwoStopBits) {
-		//
+	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_DTR) {
+		// Host has set the DTR line
 	} else {
-		//
-	}
-
-
-	/* Determine data size - 5, 6, 7, or 8 bits are supported */
-	if (LineEncoding.DataBits == 6) {
-		//
-	} else if (LineEncoding.DataBits == 7) {
-		//
-	} else if (LineEncoding.DataBits == 8) {
-		//
-	} else { // LineEncoding.DataBits == 5
-		//
-	}
-
-
-	/* What BaudRate does the host want to use */
-	if        (LineEncoding.BaudRateBPS == 9600) {
-		//
-	} else if (LineEncoding.BaudRateBPS == 14400) {
-		//
-	} else if (LineEncoding.BaudRateBPS == 19200) {
-		//
-	} else if (LineEncoding.BaudRateBPS == 38400) {
-		//
-	} else if (LineEncoding.BaudRateBPS == 57600) {
-		//
-	} else if (LineEncoding.BaudRateBPS == 115200) {
-		//
-	} else {
-		//
+		// Host has cleared the DTR line
 	}
 }
-
-
 
 
 /* Use this function to make sure data exists.
@@ -404,21 +347,30 @@ void Reconfigure(void)
 	an empty buffer
 */
 uint8_t haveData(void) {
-	return (uint8_t)(Rx_Buffer.Elements);
+	return (uint8_t)(Host_to_Device_Buffer.Elements);
 }
 
-
-/* In order to use the rprintf function from avrlib, need a
-	simplified way to send data
+/* In order to use printf functions, need a function that will send data over
+	the USB Virtual Serial Port link
+	return 0 on success, else failure and ensure binary compatibility
 */
-void sendData(uint8_t txData) {
-	Buffer_StoreElement(&Tx_Buffer, txData);
+static int sendData(char c, FILE *stream) {
+	// most terminals require \r\n
+	// however, do not include this conversion as it will break binary transfers 
+	//if (c == '\n') {
+	//	sendData('\r', stream);
+	//}
+	Buffer_StoreElement(&Device_to_Host_Buffer, (uint8_t)c);
+	return 0;
 }
 
-
-/* Might as well also have a simplified way to receive data */
-uint8_t getData(void) {
-	return Buffer_GetElement(&Rx_Buffer);
+/* Also require a function to receive data from the USB Virtual Serial Port link */
+int getData(FILE *__stream) {
+	//if (something) return _FDEV_ERR; // cannot implement as GetElement has no error condition
+	if (haveData() == 0) {
+		return _FDEV_EOF;
+	}
+	return (int)Buffer_GetElement(&Host_to_Device_Buffer);
 }
 
 
@@ -509,9 +461,8 @@ uint16_t TestEXTSRAM(uint8_t* array, uint16_t startAddress, uint16_t endAddress)
 }
 
 
-
-/* Main_Task will only run if USB is connected */
-void Main_Task(void)
+/* MainTask will run once initialization is complete */
+void MainTask(void)
 {
 	uint8_t  tempByte1 = 0;
 	uint8_t  tempByte2 = 0;
@@ -520,100 +471,103 @@ void Main_Task(void)
 	uint8_t*  tempBytePtr = 0;
 
 	while (haveData()) {
-		tempByte1 = getData();
+		tempByte1 = getchar();
 
 		if (tempByte1 == 'n') { // get the next byte of data from external SRAM array - use i cmd to get first
-			rprintfNum(10, 3, FALSE, '0', ExtMemArray[EMAindex]);
-			rprintf("\n");
+			printf("%3u\r\n", ExtMemArray[EMAindex]);
 			EMAindex++;
 		} else if ((tempByte1 == 'h') || (tempByte1 == '?')) { // print help
-			rprintf("\nAvailable Commnds\n");
-			rprintf("o - print info\n");
-			rprintf("t - SRAM test status\n");
-			rprintf("s - size of SRAM\n");
-			rprintf("b - current bank\n");
-			rprintf("0 - select bank 0\n");
-			rprintf("1 - select bank 1\n");
-			rprintf("f??? - fill array at index ?? with data byte ? and return status\n");
-            rprintf("g??? - fill array at index ?? with data byte ? but no status msg\n");
-			rprintf("a?? - data at address ?? \n");
-			rprintf("i?? - data at SRAM array index ?? \n");
-			rprintf("n - data at next SRAM array index - set start index with i?? \n");
-		} else if (tempByte1 == 'o') { // print info regarding SRAM
-			rprintf("SRAM StartAddr = ");
-			rprintfNum(10, 5, FALSE, '0', (uint16_t)EXT_SRAM_START);
-			rprintf(",");
-			rprintf(" EndAddr = ");
-			rprintfNum(10, 5, FALSE, '0', (uint16_t)EXT_SRAM_END);
-			rprintf(",");
-			rprintf(" Size = ");
-			rprintfNum(10, 5, FALSE, '0', (uint16_t)EXT_SRAM_SIZE);
-			rprintf(" bytes\n");
-		} else if (tempByte1 == 't') { // print whether SRAM failed testing
-			if (SRAMTestStatus){
-				rprintf("SRAM_Fail_Addr = ");
-				rprintfNum(10, 5, FALSE, '0', firstSRAMfailAddress);
-				rprintf(",");
-				rprintf(" Failed_Test ");
-				rprintfNum(10, 1, FALSE, '0', SRAMTestStatus);
-				rprintf("\n");
+			if (currentHelpPage == 0) {
+				printf_P(PSTR("\nAvailable Commnds\r\n"));
+				printf_P(PSTR("o - print info\r\n"));
+				printf_P(PSTR("\tPress h again for next page\r\n"));
+				currentHelpPage = 1;
+			} else if (currentHelpPage == 1) {
+				printf_P(PSTR("t - SRAM test status\r\n"));
+				printf_P(PSTR("s - size of SRAM\r\n"));
+				printf_P(PSTR("\tPress h again for next page\r\n"));
+				currentHelpPage = 2;
+			} else if (currentHelpPage == 2) {
+				printf_P(PSTR("b - current bank\r\n"));
+				printf_P(PSTR("0 - select bank 0\r\n"));
+				printf_P(PSTR("\tPress h again for next page\r\n"));
+				currentHelpPage = 3;
+			} else if (currentHelpPage == 3) {
+				printf_P(PSTR("1 - select bank 1\r\n"));
+				printf_P(PSTR("f??? - fill array at index ?? with data byte ? and return status\r\n"));
+				printf_P(PSTR("\tPress h again for next page\r\n"));
+				currentHelpPage = 4;
+			} else if (currentHelpPage == 4) {
+				printf_P(PSTR("g??? - fill array at index ?? with data byte ? but no status msg\r\n"));
+				printf_P(PSTR("a?? - data at address ?? \r\n"));
+				printf_P(PSTR("\tPress h again for next page\r\n"));
+				currentHelpPage = 5;
 			} else {
-				rprintf("SRAM_Passed_Tests\n");
+				printf_P(PSTR("i?? - data at SRAM array index ?? \r\n"));
+				printf_P(PSTR("n - data at next SRAM array index - set start index with i?? \r\n"));
+				printf_P(PSTR("\tThis is the end of the help page.\r\n"));
+				currentHelpPage = 0;
+			}
+		} else if (tempByte1 == 'o') { // print info regarding SRAM
+			printf_P(PSTR("SRAM StartAddr = "));
+			printf("%5u,", (uint16_t)EXT_SRAM_START);
+			printf_P(PSTR(" EndAddr = "));
+			printf("%5u,", (uint16_t)EXT_SRAM_END);
+			printf_P(PSTR(" Size = "));
+			printf("%5u", (uint16_t)EXT_SRAM_SIZE);
+			printf_P(PSTR(" bytes\r\n"));
+		} else if (tempByte1 == 't') { // print whether SRAM failed internal testing
+			if (SRAMTestStatus){
+				printf_P(PSTR("SRAM_Fail_Addr = "));
+				printf("%5u,", firstSRAMfailAddress);
+				printf_P(PSTR(" Failed_Test "));
+				printf("%u\r\n", SRAMTestStatus);
+			} else {
+				printf_P(PSTR("SRAM_Passed_Tests\r\n"));
 			}
 		} else if (tempByte1 == 's') { // size of SRAM
-			rprintfNum(10, 5, FALSE, '0', (uint16_t)EXT_SRAM_SIZE);
-			rprintf("\n");
+			printf("%5u\r\n", ((uint16_t)EXT_SRAM_SIZE));
 		} else if (tempByte1 == 'f') { // start filling SRAM, each subsequent byte will fill next index, need to fill all of it
-			tempByte2 = getData();
-			tempByte3 = getData();
-			tempByte1 = getData();
+			tempByte2 = getchar();
+			tempByte3 = getchar();
+			tempByte1 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));
 			ExtMemArray[tempWord] = tempByte1;
-			rprintf("Filled EMA[");
-			rprintfNum(10, 5, FALSE, '0', tempWord);
-			rprintf("] with ");
-			rprintfNum(10, 3, FALSE, '0', ExtMemArray[tempWord]);
-			rprintf("\n");
+			printf_P(PSTR("Filled EMA["));
+			printf("%5u", tempWord);
+			printf_P(PSTR("] with "));
+			printf("%3u\r\n", ExtMemArray[tempWord]);
         } else if (tempByte1 == 'g') { // start filling SRAM, each subsequent byte will fill next index, need to fill all of it
-			tempByte2 = getData();
-			tempByte3 = getData();
-			tempByte1 = getData();
+			tempByte2 = getchar();
+			tempByte3 = getchar();
+			tempByte1 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));
 			ExtMemArray[tempWord] = tempByte1;
 		} else if (tempByte1 == 'b') { // print current SRAM bank
-			rprintf("SRAM_Bank = ");
-			rprintfNum(10, 1, FALSE, '0', (PINE >> 7));
-			rprintf("\n");
+			printf_P(PSTR("SRAM_Bank = "));
+			printf("%u\r\n", (PINE >> 7));
 		} else if (tempByte1 == '0') { // select SRAM bank 0 for usage
 			SELECT_EXTSRAM_BANK0;
 		} else if (tempByte1 == '1') { // select SRAM bank 1 for usage
 			SELECT_EXTSRAM_BANK1;
 		} else if (tempByte1 == 'a') { // get the data byte from memory location defined by subsequent 2 bytes (word)
-			tempByte2 = getData();
-			tempByte3 = getData();
+			tempByte2 = getchar();
+			tempByte3 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));
 			tempBytePtr = (uint8_t*)tempWord;
-			rprintf("Addr:");
-			rprintfNum(10, 5, FALSE, '0', tempWord);
-			rprintf(": = ");
-			rprintfNum(10, 3, FALSE, '0', (uint8_t)(*tempBytePtr));
-			rprintf("\n");
+			printf("Addr: %5u: = %3u\r\n", tempWord, ((uint8_t)(*tempBytePtr)));
 		} else if (tempByte1 == 'i') { // get the data byte from ExtMemArray at index defined by subsequent 2 bytes (word)
-			tempByte2 = getData();
-			tempByte3 = getData();
+			tempByte2 = getchar();
+			tempByte3 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));
 			EMAindex = tempWord;
-			rprintf("EMA[");
-			rprintfNum(10, 5, FALSE, '0', tempWord);
-			rprintf("] = ");
-			rprintf("Addr:");
-			rprintfNum(10, 5, FALSE, '0', (uint16_t)&ExtMemArray[EMAindex]);
-			rprintf(" = ");
-			rprintfNum(10, 3, FALSE, '0', ExtMemArray[EMAindex]);
-			rprintf("\n");
+			printf_P(PSTR("EMA["));
+			printf("%5u", tempWord);
+			printf_P(PSTR("] = Addr:"));
+			printf("%5u = %3u\r\n", ((uint16_t)&ExtMemArray[EMAindex]), ExtMemArray[EMAindex]);
 		} else {
-			rprintfNum(10, 3, FALSE, '0', (uint8_t)'f');
-			rprintf("-ERROR\n");
+			printf("%3u", (uint8_t)'f');
+			printf_P(PSTR("-ERROR\r\n"));
 		}
 	}
 

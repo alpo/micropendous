@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -62,24 +62,27 @@
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
+		#define __INCLUDE_FROM_JOYSTICK_H
 		#define INCLUDE_FROM_JOYSTICK_H
 	#endif
 
 	/* Includes: */
 	#include "../../Common/Common.h"
 	
-	#if !defined(BOARD)
-		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
+	#if (BOARD == BOARD_NONE)
+		#error The Board Joystick driver cannot be used if the makefile BOARD option is not set.
 	#elif (BOARD == BOARD_USBKEY)
 		#include "USBKEY/Joystick.h"
 	#elif (BOARD == BOARD_STK525)
 		#include "STK525/Joystick.h"
 	#elif (BOARD == BOARD_STK526)
 		#include "STK526/Joystick.h"
-	#elif (BOARD == BOARD_USER)
-		#include "Board/Joystick.h"		
 	#elif (BOARD == BOARD_BUMBLEB)
 		#include "BUMBLEB/Joystick.h"
+	#elif (BOARD == BOARD_EVK527)
+		#include "EVK527/Joystick.h"
+	#elif (BOARD == BOARD_USER)
+		#include "Board/Joystick.h"
 	#else
 		#error The selected board does not contain a joystick.
 	#endif

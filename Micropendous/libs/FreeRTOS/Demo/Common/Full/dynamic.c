@@ -1,48 +1,54 @@
 /*
-	FreeRTOS V5.4.2 - Copyright (C) 2009 Real Time Engineers Ltd.
+    FreeRTOS V6.0.3 - Copyright (C) 2010 Real Time Engineers Ltd.
 
-	This file is part of the FreeRTOS distribution.
+    ***************************************************************************
+    *                                                                         *
+    * If you are:                                                             *
+    *                                                                         *
+    *    + New to FreeRTOS,                                                   *
+    *    + Wanting to learn FreeRTOS or multitasking in general quickly       *
+    *    + Looking for basic training,                                        *
+    *    + Wanting to improve your FreeRTOS skills and productivity           *
+    *                                                                         *
+    * then take a look at the FreeRTOS eBook                                  *
+    *                                                                         *
+    *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
+    *                  http://www.FreeRTOS.org/Documentation                  *
+    *                                                                         *
+    * A pdf reference manual is also available.  Both are usually delivered   *
+    * to your inbox within 20 minutes to two hours when purchased between 8am *
+    * and 8pm GMT (although please allow up to 24 hours in case of            *
+    * exceptional circumstances).  Thank you for your support!                *
+    *                                                                         *
+    ***************************************************************************
 
-	FreeRTOS is free software; you can redistribute it and/or modify it	under 
-	the terms of the GNU General Public License (version 2) as published by the 
-	Free Software Foundation and modified by the FreeRTOS exception.
-	**NOTE** The exception to the GPL is included to allow you to distribute a
-	combined work that includes FreeRTOS without being obliged to provide the 
-	source code for proprietary components outside of the FreeRTOS kernel.  
-	Alternative commercial license and support terms are also available upon 
-	request.  See the licensing section of http://www.FreeRTOS.org for full 
-	license details.
+    This file is part of the FreeRTOS distribution.
 
-	FreeRTOS is distributed in the hope that it will be useful,	but WITHOUT
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	more details.
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    ***NOTE*** The exception to the GPL is included to allow you to distribute
+    a combined work that includes FreeRTOS without being obliged to provide the
+    source code for proprietary components outside of the FreeRTOS kernel.
+    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public 
+    License and the FreeRTOS license exception along with FreeRTOS; if not it 
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained 
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
 
-	You should have received a copy of the GNU General Public License along
-	with FreeRTOS; if not, write to the Free Software Foundation, Inc., 59
-	Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+    1 tab == 4 spaces!
 
+    http://www.FreeRTOS.org - Documentation, latest information, license and
+    contact details.
 
-	***************************************************************************
-	*                                                                         *
-	* Looking for a quick start?  Then check out the FreeRTOS eBook!          *
-	* See http://www.FreeRTOS.org/Documentation for details                   *
-	*                                                                         *
-	***************************************************************************
+    http://www.SafeRTOS.com - A version that is certified for use in safety
+    critical systems.
 
-	1 tab == 4 spaces!
-
-	Please ensure to read the configuration and relevant port sections of the
-	online documentation.
-
-	http://www.FreeRTOS.org - Documentation, latest information, license and
-	contact details.
-
-	http://www.SafeRTOS.com - A version that is certified for use in safety
-	critical systems.
-
-	http://www.OpenRTOS.com - Commercial support, development, porting,
-	licensing and training services.
+    http://www.OpenRTOS.com - Commercial support, development, porting,
+    licensing and training services.
 */
 
 /**
@@ -114,7 +120,7 @@
 Changes from V2.0.0
 
 	+ Delay periods are now specified using variables and constants of
-	  portTickType rather than unsigned portLONG.
+	  portTickType rather than unsigned long.
 	+ Added a second, simple test that uses the functions 
 	  vQueueReceiveWhenSuspendedTask() and vQueueSendWhenSuspendedTask().
 
@@ -158,10 +164,10 @@ static void prvChangePriorityHelperTask( void *pvParameters );
 
 
 /* Demo task specific constants. */
-#define priSTACK_SIZE				( ( unsigned portSHORT ) configMINIMAL_STACK_SIZE )
+#define priSTACK_SIZE				( ( unsigned short ) configMINIMAL_STACK_SIZE )
 #define priSLEEP_TIME				( ( portTickType ) 50 )
 #define priLOOPS					( 5 )
-#define priMAX_COUNT				( ( unsigned portLONG ) 0xff )
+#define priMAX_COUNT				( ( unsigned long ) 0xff )
 #define priNO_BLOCK					( ( portTickType ) 0 )
 #define priSUSPENDED_QUEUE_LENGTH	( 1 )
 
@@ -173,17 +179,17 @@ static xTaskHandle xContinuousIncrementHandle, xLimitedIncrementHandle, xChangeP
 
 /* The shared counter variable.  This is passed in as a parameter to the two 
 counter variables for demonstration purposes. */
-static unsigned portLONG ulCounter;
+static unsigned long ulCounter;
 
 /* Variable used in a similar way by the test that checks the raising and
 lowering of task priorities while the scheduler is suspended. */
-static unsigned portLONG ulPrioritySetCounter;
+static unsigned long ulPrioritySetCounter;
 
 /* Variables used to check that the tasks are still operating without error.
 Each complete iteration of the controller task increments this variable
 provided no errors have been found.  The variable maintaining the same value
 is therefore indication of an error. */
-static unsigned portSHORT usCheckVariable = ( unsigned portSHORT ) 0;
+static unsigned short usCheckVariable = ( unsigned short ) 0;
 static portBASE_TYPE xSuspendedQueueSendError = pdFALSE;
 static portBASE_TYPE xSuspendedQueueReceiveError = pdFALSE;
 static portBASE_TYPE xPriorityRaiseWhenSuspendedError = pdFALSE;
@@ -198,7 +204,7 @@ xQueueHandle xSuspendedTestQueue;
  */
 void vStartDynamicPriorityTasks( void )
 {
-	xSuspendedTestQueue = xQueueCreate( priSUSPENDED_QUEUE_LENGTH, sizeof( unsigned portLONG ) );
+	xSuspendedTestQueue = xQueueCreate( priSUSPENDED_QUEUE_LENGTH, sizeof( unsigned long ) );
 	xTaskCreate( vContinuousIncrementTask, "CONT_INC", priSTACK_SIZE, ( void * ) &ulCounter, tskIDLE_PRIORITY, &xContinuousIncrementHandle );
 	xTaskCreate( vLimitedIncrementTask, "LIM_INC", priSTACK_SIZE, ( void * ) &ulCounter, tskIDLE_PRIORITY + 1, &xLimitedIncrementHandle );
 	xTaskCreate( vCounterControlTask, "C_CTRL", priSTACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
@@ -215,11 +221,11 @@ void vStartDynamicPriorityTasks( void )
  */
 static void vLimitedIncrementTask( void * pvParameters )
 {
-unsigned portLONG *pulCounter;
+unsigned long *pulCounter;
 
 	/* Take a pointer to the shared variable from the parameters passed into
 	the task. */
-	pulCounter = ( unsigned portLONG * ) pvParameters;
+	pulCounter = ( unsigned long * ) pvParameters;
 
 	/* This will run before the control task, so the first thing it does is
 	suspend - the control task will resume it when ready. */
@@ -244,12 +250,12 @@ unsigned portLONG *pulCounter;
  */
 static void vContinuousIncrementTask( void * pvParameters )
 {
-unsigned portLONG *pulCounter;
+unsigned long *pulCounter;
 unsigned portBASE_TYPE uxOurPriority;
 
 	/* Take a pointer to the shared variable from the parameters passed into
 	the task. */
-	pulCounter = ( unsigned portLONG * ) pvParameters;
+	pulCounter = ( unsigned long * ) pvParameters;
 
 	/* Query our priority so we can raise it when exclusive access to the 
 	shared variable is required. */
@@ -275,11 +281,11 @@ unsigned portBASE_TYPE uxOurPriority;
  */
 static void vCounterControlTask( void * pvParameters )
 {
-unsigned portLONG ulLastCounter;
-portSHORT sLoops;
-portSHORT sError = pdFALSE;
-const portCHAR * const pcTaskStartMsg = "Priority manipulation tasks started.\r\n";
-const portCHAR * const pcTaskFailMsg = "Priority manipulation Task Failed\r\n";
+unsigned long ulLastCounter;
+short sLoops;
+short sError = pdFALSE;
+const char * const pcTaskStartMsg = "Priority manipulation tasks started.\r\n";
+const char * const pcTaskFailMsg = "Priority manipulation Task Failed\r\n";
 
 	/* Just to stop warning messages. */
 	( void ) pvParameters;
@@ -290,7 +296,7 @@ const portCHAR * const pcTaskFailMsg = "Priority manipulation Task Failed\r\n";
 	for( ;; )
 	{
 		/* Start with the counter at zero. */
-		ulCounter = ( unsigned portLONG ) 0;
+		ulCounter = ( unsigned long ) 0;
 
 		/* First section : */
 
@@ -331,7 +337,7 @@ const portCHAR * const pcTaskFailMsg = "Priority manipulation Task Failed\r\n";
 		vTaskSuspend( xContinuousIncrementHandle );
 
 		/* Reset the variable. */
-		ulCounter = ( unsigned portLONG ) 0;
+		ulCounter = ( unsigned long ) 0;
 
 		/* Resume the limited count task which has a higher priority than us.
 		We should therefore not return from this call until the limited count
@@ -369,9 +375,9 @@ const portCHAR * const pcTaskFailMsg = "Priority manipulation Task Failed\r\n";
 
 static void vQueueSendWhenSuspendedTask( void *pvParameters )
 {
-static unsigned portLONG ulValueToSend = ( unsigned portLONG ) 0;
-const portCHAR * const pcTaskStartMsg = "Queue send while suspended task started.\r\n";
-const portCHAR * const pcTaskFailMsg = "Queue send while suspended failed.\r\n";
+static unsigned long ulValueToSend = ( unsigned long ) 0;
+const char * const pcTaskStartMsg = "Queue send while suspended task started.\r\n";
+const char * const pcTaskFailMsg = "Queue send while suspended failed.\r\n";
 
 	/* Just to stop warning messages. */
 	( void ) pvParameters;
@@ -407,9 +413,9 @@ const portCHAR * const pcTaskFailMsg = "Queue send while suspended failed.\r\n";
 
 static void vQueueReceiveWhenSuspendedTask( void *pvParameters )
 {
-static unsigned portLONG ulExpectedValue = ( unsigned portLONG ) 0, ulReceivedValue;
-const portCHAR * const pcTaskStartMsg = "Queue receive while suspended task started.\r\n";
-const portCHAR * const pcTaskFailMsg = "Queue receive while suspended failed.\r\n";
+static unsigned long ulExpectedValue = ( unsigned long ) 0, ulReceivedValue;
+const char * const pcTaskStartMsg = "Queue receive while suspended task started.\r\n";
+const char * const pcTaskFailMsg = "Queue receive while suspended failed.\r\n";
 portBASE_TYPE xGotValue;
 
 	/* Just to stop warning messages. */
@@ -462,8 +468,8 @@ portBASE_TYPE xGotValue;
 
 static void prvChangePriorityWhenSuspendedTask( void *pvParameters )
 {
-const portCHAR * const pcTaskStartMsg = "Priority change when suspended task started.\r\n";
-const portCHAR * const pcTaskFailMsg = "Priority change when suspended task failed.\r\n";
+const char * const pcTaskStartMsg = "Priority change when suspended task started.\r\n";
+const char * const pcTaskFailMsg = "Priority change when suspended task failed.\r\n";
 
 	/* Just to stop warning messages. */
 	( void ) pvParameters;
@@ -475,7 +481,7 @@ const portCHAR * const pcTaskFailMsg = "Priority change when suspended task fail
 	{
 		/* Start with the counter at 0 so we know what the counter should be
 		when we check it next. */
-		ulPrioritySetCounter = ( unsigned portLONG ) 0;
+		ulPrioritySetCounter = ( unsigned long ) 0;
 
 		/* Resume the helper task.  At this time it has a priority lower than
 		ours so no context switch should occur. */
@@ -484,7 +490,7 @@ const portCHAR * const pcTaskFailMsg = "Priority change when suspended task fail
 		/* Check to ensure the task just resumed has not executed. */
 		portENTER_CRITICAL();
 		{
-			if( ulPrioritySetCounter != ( unsigned portLONG ) 0 )
+			if( ulPrioritySetCounter != ( unsigned long ) 0 )
 			{
 				xPriorityRaiseWhenSuspendedError = pdTRUE;
 				vPrintDisplayMessage( &pcTaskFailMsg );
@@ -502,7 +508,7 @@ const portCHAR * const pcTaskFailMsg = "Priority change when suspended task fail
 			suspended. */
 			portENTER_CRITICAL();
 			{
-				if( ulPrioritySetCounter != ( unsigned portLONG ) 0 )
+				if( ulPrioritySetCounter != ( unsigned long ) 0 )
 				{
 					xPriorityRaiseWhenSuspendedError = pdTRUE;
 					vPrintDisplayMessage( &pcTaskFailMsg );
@@ -519,7 +525,7 @@ const portCHAR * const pcTaskFailMsg = "Priority change when suspended task fail
 		We should now always find the counter set to 1. */
 		portENTER_CRITICAL();
 		{
-			if( ulPrioritySetCounter != ( unsigned portLONG ) 1 )
+			if( ulPrioritySetCounter != ( unsigned long ) 1 )
 			{
 				xPriorityRaiseWhenSuspendedError = pdTRUE;
 				vPrintDisplayMessage( &pcTaskFailMsg );
@@ -562,7 +568,7 @@ portBASE_TYPE xAreDynamicPriorityTasksStillRunning( void )
 {
 /* Keep a history of the check variables so we know if it has been incremented 
 since the last call. */
-static unsigned portSHORT usLastTaskCheck = ( unsigned portSHORT ) 0;
+static unsigned short usLastTaskCheck = ( unsigned short ) 0;
 portBASE_TYPE xReturn = pdTRUE;
 
 	/* Check the tasks are still running by ensuring the check variable

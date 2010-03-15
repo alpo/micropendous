@@ -21,7 +21,7 @@ void setup(void)
 	// Wiring Interface Initialization
 	Serial.begin(115200);
 
-//	pinMode(ledPin, OUTPUT);
+	pinMode(ledPin, OUTPUT);
 }
 
 
@@ -39,10 +39,10 @@ void loop(void)
 
 void loop2(void)
 {
-	digitalWrite(ledPin, HIGH);   // set the LED on
-	delay(500);                  // wait for a second
-	digitalWrite(ledPin, LOW);    // set the LED off
-	delay(500);                  // wait for a second
+	digitalWrite(ledPin, HIGH);  // set the LED on
+	delay(500);                  // wait for half a second
+	digitalWrite(ledPin, LOW);   // set the LED off
+	delay(500);                  // wait for half a second
 
 	// fade in from min to max in increments of 5 points:
 	for(int fadeValue = 0 ; fadeValue <= 255; fadeValue +=5) { 

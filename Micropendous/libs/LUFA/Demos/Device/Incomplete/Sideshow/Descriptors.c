@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,8 +42,8 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	Endpoint0Size:          8,
 		
 	VendorID:               0x03EB,
-	ProductID:              0x2060,
-	ReleaseNumber:          0x0000,
+	ProductID:              0x2040,
+	ReleaseNumber:          0x0001,
 		
 	ManufacturerStrIndex:   0x01,
 	ProductStrIndex:        0x02,
@@ -192,11 +192,9 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 					Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 					break;
 				case 0xEE:
-					/* Great, another Microsoft-proprietary extention. String address 0xEE is used
-					   by Windows for "OS Descriptors", which in this case allows us to indicate that
-					   our device is Sideshow compatible. Most people would be happy using the normal
-					   0xFF 0x?? 0x?? Class/Subclass/Protocol values like the USBIF intended. */
-					   
+					/* A Microsoft-proprietary extention. String address 0xEE is used by Windows for
+					   "OS Descriptors", which in this case allows us to indicate that our device is
+					   Sideshow compatible regardless of VID/PID values. */
 					Address = (void*)&OSDescriptorString;
 					Size    = pgm_read_byte(&OSDescriptorString.Header.Size);
 					break;

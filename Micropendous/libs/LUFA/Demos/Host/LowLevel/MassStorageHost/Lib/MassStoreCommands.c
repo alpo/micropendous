@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,7 +50,6 @@
 #define  INCLUDE_FROM_MASSSTORE_COMMANDS_C
 #include "MassStoreCommands.h"
 
-/* Globals: */
 /** Current Tag value used in issued CBWs to the device. This is automatically incremented
  *  each time a command is sent, and is not externally accessible.
  */
@@ -238,7 +237,7 @@ static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* SCSICommandSt
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	/* If an error in the command ocurred, abort */
+	/* If an error in the command occurred, abort */
 	if ((ErrorCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
@@ -288,13 +287,17 @@ uint8_t MassStore_MassStorageReset(void)
 /** Issues a Mass Storage class specific request to determine the index of the highest numbered Logical
  *  Unit in the attached device.
  *
+ *  \note Some devices do not support this request, and will STALL it when issued. To get around this,
+ *        on unsupported devices the max LUN index will be reported as zero and no error will be returned
+ *        if the device STALLs the request.
+ *
  *  \param[out] MaxLUNIndex  Pointer to the location that the maximum LUN index value should be stored
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
 uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 {
-	uint8_t ErrorCode;
+	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -314,7 +317,10 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 		Pipe_ClearStall();
 	
 		/* Some faulty Mass Storage devices don't implement the GET_MAX_LUN request, so assume a single LUN */
-		*MaxLUNIndex = 0;	
+		*MaxLUNIndex = 0;
+		
+		/* Clear the error, and pretend the request executed correctly if the device STALLed it */
+		ErrorCode = HOST_SENDCONTROL_Successful;
 	}
 	
 	return ErrorCode;

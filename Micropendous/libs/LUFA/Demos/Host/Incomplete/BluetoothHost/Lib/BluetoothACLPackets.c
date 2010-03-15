@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@ void Bluetooth_ProcessACLPackets(void)
 	Bluetooth_DataPacket_Header_t DataHeader;
 
 	Pipe_SelectPipe(BLUETOOTH_DATA_IN_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_IN);
+	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 	
 	if (!(Pipe_IsReadWriteAllowed()))
@@ -76,7 +76,7 @@ void Bluetooth_ProcessACLPackets(void)
 				Pipe_Freeze();
 				break;
 			default:
-				BT_DEBUG("(ACL) >> Unknown Signalling Command 0x%02X", SignalCommandHeader.Code);
+				BT_DEBUG("(ACL) >> Unknown Signaling Command 0x%02X", SignalCommandHeader.Code);
 					
 				Pipe_Discard_Stream(ACLPacketHeader.DataLength);
 				Pipe_ClearIN();		
@@ -116,7 +116,7 @@ static inline void Bluetooth_ProcessSignalPacket_ConnectionRequest(Bluetooth_ACL
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_OUT);
+	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	Pipe_Unfreeze();
 	
 	Bluetooth_SignalCommand_ConnectionResponse_t ConnectionResponse;
@@ -167,7 +167,7 @@ static inline void Bluetooth_ProcessSignalPacket_ConfigurationRequest(Bluetooth_
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_OUT);
+	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	Pipe_Unfreeze();
 	
 	Bluetooth_SignalCommand_ConfigurationResponse_t ConfigurationResponse;

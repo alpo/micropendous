@@ -59,21 +59,39 @@ void spiInit()
 	// master mode
 	sbi(SPCR, MSTR);
 
-	cbi(SPCR, SPR0);	// clock = f/4, clock = f/2
-	cbi(SPCR, SPR1);	// clock = f/4, clock = f/2
+	//SPI2X=1, SPR1=0, SPR0=0 sets SPI clock = Fosc/2
+	sbi(SPSR, SPI2X);
+	cbi(SPCR, SPR1);
+	cbi(SPCR, SPR0);
 
-	//sbi(SPCR, SPI2X); // clock = f/2
-	//cbi(SPCR, SPR0);// clock = f/16
-	//sbi(SPCR, SPR1);// clock = f/16
+	// SPI2X=0, SPR1=0, SPR0=0 sets SPI clock = Fosc/4
+	//cbi(SPSR, SPI2X);
+	//cbi(SPCR, SPR0);
+	//cbi(SPCR, SPR1);
 
-	// select clock phase positive-going in middle of data
+	//SPI2X=1, SPR1=0, SPR0=1 sets SPI clock = Fosc/8
+	//sbi(SPSR, SPI2X);
+	//cbi(SPCR, SPR1);
+	//sbi(SPCR, SPR0);
+
+	//SPI2X=1, SPR1=1, SPR0=0 sets SPI clock = Fosc/32
+	//sbi(SPSR, SPI2X);
+	//sbi(SPCR, SPR1);
+	//cbi(SPCR, SPR0);
+
+	// select clock phase positive-going in middle of data - SPI Mode-0
 	cbi(SPCR, CPOL);
+	cbi(SPCR, CPHA);
+
+	// select clock phase positive-going in middle of data - SPI Mode-3
+	//sbi(SPCR, CPOL);
+	//sbi(SPCR, CPHA);
+
 	// Data order MSB first
 	cbi(SPCR,DORD);
 	// enable SPI
 	sbi(SPCR, SPE);
 
-	
 	// some other possible configs
 	//outp((1<<MSTR)|(1<<SPE)|(1<<SPR0), SPCR );
 	//outp((1<<CPHA)|(1<<CPOL)|(1<<MSTR)|(1<<SPE)|(1<<SPR0)|(1<<SPR1), SPCR );

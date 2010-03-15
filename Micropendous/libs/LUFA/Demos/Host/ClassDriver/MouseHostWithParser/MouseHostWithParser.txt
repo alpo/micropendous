@@ -8,10 +8,9 @@
  *
  *  \section SSec_Compat Demo Compatibility:
  *
- *  The following table indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - AT90USB1287
- *  - AT90USB647
+ *  - Series 7 USB AVRs
  *
  *  \section SSec_Info USB Information:
  *
@@ -32,11 +31,13 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
+ *    <td>USBIF HID Specification \n
+ *        USBIF HID Usage Tables</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
- *    <td>Low Speed Mode, Full Speed Mode</td>
+ *    <td>Low Speed Mode \n
+ *        Full Speed Mode</td>
  *   </tr>
  *  </table>
  *
@@ -48,10 +49,10 @@
  *  reports, allowing for correct operation across all USB mice. This
  *  demo supports mice with a single HID report.
  *  
- *  Mouse movement and button presses are displayed on the board LEDs.
- *  On connection to a USB mouse, the report items will be processed and
- *  printed as a formatted list through the USART before the mouse is
- *  fully enumerated.
+ *  Mouse and scroll wheel movement and button presses are displayed
+ *  on the board LEDs. On connection to a USB mouse, the report items
+ *  will be processed and printed as a formatted list through the USART
+ *  before the mouse is fully enumerated.
  *  
  *  Currently only single interface mice are supported.
  *

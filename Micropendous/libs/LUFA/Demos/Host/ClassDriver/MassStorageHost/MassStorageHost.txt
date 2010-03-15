@@ -8,10 +8,9 @@
  *
  *  \section SSec_Compat Demo Compatibility:
  *
- *  The following table indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - AT90USB1287
- *  - AT90USB647
+ *  - Series 7 USB AVRs
  *
  *  \section SSec_Info USB Information:
  *
@@ -32,10 +31,10 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Mass Storage Standard</td>
- *    <td>USB Bulk-Only Transport Standard</td>
- *    <td>SCSI Primary Commands Specification</td>
- *    <td>SCSI Block Commands Specification</td>
+ *    <td>USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

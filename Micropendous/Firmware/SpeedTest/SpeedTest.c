@@ -112,8 +112,8 @@ void SetupHardware(void)
 		PORTC = 0;
 		DDRD = 0;
 		PORTD = 0;
-		DDRE = (1 << PE6);	// set PE6 to HIGH to disable external SRAM, if connected
-		PORTE = (1 << PE6);	// set PE6 to HIGH to disable external SRAM, if connected
+		DDRE = ((1 << PE4) | (1 << PE6));	// set PE4,PE6 to HIGH to disable external SRAM, if connected
+		PORTE = ((1 << PE4) | (1 << PE6));	// set PE4,PE6 to HIGH to disable external SRAM, if connected
 		DDRF = 0;
 		PORTF = 0;
 	#endif

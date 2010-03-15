@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - If </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,7 +45,7 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h2>if  (conditional)  and   ==,  !=,  &lt;,  &gt; (comparison operators)</h2>
 <p><strong><code>if</code></strong>, which is used in conjunction with a comparison operator, tests whether a certain condition has been reached, such as an input being above a certain number. The format for an if test is:
@@ -59,12 +60,17 @@
 <p class='vspace'></p><p>The brackets may be omitted after an <em>if</em> statement. If this is done, the next line (defined by the semicolon) becomes the only conditional statement.
 </p><pre>
 
-if (x &gt; 120)  digitalWrite(LEDpin, HIGH); 
+if (x &gt; 120) digitalWrite(LEDpin, HIGH); 
 
 if (x &gt; 120)
 digitalWrite(LEDpin, HIGH); 
 
-if (x &gt; 120){ digitalWrite(LEDpin, HIGH); }   // all are correct
+if (x &gt; 120){ digitalWrite(LEDpin, HIGH); } 
+
+if (x &gt; 120){ 
+  digitalWrite(LEDpin1, HIGH);
+  digitalWrite(LEDpin2, HIGH); 
+}                                 // all are correct
 
 </pre>
 <p class='vspace'></p><p>The statements being evaluated inside the parentheses require the use of one or more operators:

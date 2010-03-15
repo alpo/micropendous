@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,13 +56,13 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Selects the USBKEY specific board drivers, including Dataflash, Joystick and LED drivers. */
+			/** Selects the USBKEY specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
 			#define BOARD_USBKEY        0
 
-			/** Selects the STK525 specific board drivers, including Dataflash, Joystick and LED drivers. */
+			/** Selects the STK525 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
 			#define BOARD_STK525        1
 
-			/** Selects the STK526 specific board drivers, including Dataflash, Joystick and LED drivers. */
+			/** Selects the STK526 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
 			#define BOARD_STK526        2
 
 			/** Selects the RZUSBSTICK specific board drivers, including the driver for the boards LEDs. */
@@ -80,6 +80,27 @@
 
 			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
 			#define BOARD_BUMBLEB       6
+			
+			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash driver. */
+			#define BOARD_XPLAIN        7
+
+			/** Selects the XPLAIN (Revision 1) specific board drivers, including LED and Dataflash driver. */
+			#define BOARD_XPLAIN_REV1   8
+
+			/** Selects the EVK527 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
+			#define BOARD_EVK527        9
+			
+			/** Disables board drivers when operation will not be adversely affected (e.g. LEDs) - use of board drivers
+			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
+			#define BOARD_NONE          10
+			
+			#if !defined(__DOXYGEN__)
+				#define BOARD_          BOARD_NONE
+				
+				#if !defined(BOARD)
+					#define BOARD       BOARD_NONE
+				#endif
+			#endif
 
 #endif
 

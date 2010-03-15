@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -52,6 +52,10 @@
 		#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
 			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
 		#endif
+
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
 			
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
@@ -83,7 +87,8 @@
 				 *  \note This macro should only be used if the device has indicated to the host that it
 				 *        supports the Remote Wakeup feature in the device descriptors, and should only be
 				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-				 *        the \ref USB_RemoteWakeupEnabled flag is set).
+				 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
+				 *        time option is used, this macro is unavailable.
 				 *
 				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 */
@@ -96,7 +101,8 @@
 				 *  a sent RMWAKEUP request was accepted or rejected by the host.
 				 *
 				 *  \note This macro should only be used if the device has indicated to the host that it
-				 *        supports the Remote Wakeup feature in the device descriptors.
+				 *        supports the Remote Wakeup feature in the device descriptors. When the NO_DEVICE_REMOTE_WAKEUP
+				 *        compile time option is used, this macro is unavailable.
 				 *
 				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 *
@@ -113,7 +119,7 @@
 				static inline bool USB_Device_IsUSBSuspended(void);
 				
 				/** Enables the device mode Start Of Frame events. When enabled, this causes the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronised to the USB bus,
+				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
 				 */
 				static inline bool USB_Device_EnableSOFEvents(void);
@@ -123,10 +129,12 @@
 				 */
 				static inline bool USB_Device_DisableSOFEvents(void);
 			#else
-				#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
+				#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+					#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
 
-				#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
-
+					#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
+				#endif
+				
 				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
 				
 				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
@@ -189,12 +197,18 @@
 			 *
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise
 			 */
+#ifdef __cplusplus
+extern "C" {
+#endif
 			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress
 			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
 			                                    , uint8_t* MemoryAddressSpace
 			#endif			
 			                                    )
 									            ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+#ifdef __cplusplus
+}
+#endif
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

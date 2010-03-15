@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,6 @@
 #define  INCLUDE_FROM_MASSSTORAGE_C
 #include "MassStorage.h"
 
-/* Global Variables */
 /** Structure to hold the latest Command Block Wrapper issued by the host, containing a SCSI command to execute. */
 CommandBlockWrapper_t  CommandBlock;
 
@@ -47,8 +46,9 @@ CommandStatusWrapper_t CommandStatus = { .Signature = CSW_SIGNATURE };
 /** Flag to asynchronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
 volatile bool          IsMassStoreReset = false;
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -141,7 +141,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Indicate that the current transfer should be aborted */
-				IsMassStoreReset = true;			
+				IsMassStoreReset = true;
 
 				Endpoint_ClearStatusStage();
 			}
@@ -189,34 +189,21 @@ void MassStorage_Task(void)
 			if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
 			  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 
-			/* Decode the received SCSI command */
-			SCSI_DecodeSCSICommand();
+			/* Decode the received SCSI command, set returned status code */
+			CommandStatus.Status = SCSI_DecodeSCSICommand() ? Command_Pass : Command_Fail;		
 
 			/* Load in the CBW tag into the CSW to link them together */
 			CommandStatus.Tag = CommandBlock.Tag;
 
 			/* Load in the data residue counter into the CSW */
 			CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
-
+			
 			/* Stall the selected data pipe if command failed (if data is still to be transferred) */
 			if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
 			  Endpoint_StallTransaction();
 
 			/* Return command status block to the host */
 			ReturnCommandStatus();
-			
-			/* Check if a Mass Storage Reset occurred */
-			if (IsMassStoreReset)
-			{
-				/* Reset the data endpoint banks */
-				Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
-				Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
-				
-				Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
-				Endpoint_ClearStall();
-				Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
-				Endpoint_ClearStall();
-			}
 
 			/* Indicate ready */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -228,8 +215,23 @@ void MassStorage_Task(void)
 		}
 	}
 
-	/* Clear the abort transfer flag */
-	IsMassStoreReset = false;
+	/* Check if a Mass Storage Reset occurred */
+	if (IsMassStoreReset)
+	{
+		/* Reset the data endpoint banks */
+		Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
+		Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
+		
+		Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+		Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+
+		/* Clear the abort transfer flag */
+		IsMassStoreReset = false;
+	}
 }
 
 /** Function to read in a command block from the host, via the bulk data OUT endpoint. This function reads in the next command block

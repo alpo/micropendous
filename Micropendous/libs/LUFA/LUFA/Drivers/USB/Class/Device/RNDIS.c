@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_RNDIS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_RNDIS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_RNDIS_DRIVER
 #include "RNDIS.h"
 
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
@@ -116,21 +118,21 @@ bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISIn
 
 	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
 							         ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.DataINEndpointSize,
-							         ENDPOINT_BANK_SINGLE)))
+							         RNDISInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
 	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
 	                                 ENDPOINT_DIR_OUT, RNDISInterfaceInfo->Config.DataOUTEndpointSize,
-	                                 ENDPOINT_BANK_SINGLE)))
+	                                 RNDISInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
 	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.NotificationEndpointNumber, EP_TYPE_INTERRUPT,
 	                                 ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.NotificationEndpointSize,
-	                                 ENDPOINT_BANK_SINGLE)))
+	                                 RNDISInterfaceInfo->Config.NotificationEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
@@ -259,13 +261,13 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_Query_Complete_t* QUERY_Response = (RNDIS_Query_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t                Query_Oid      = QUERY_Message->Oid;
 						
-			void*     QueryData                 = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
-			                                                                              QUERY_Message->InformationBufferOffset];
-			void*     ResponseData              = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
+			void*     QueryData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			                                                                    QUERY_Message->InformationBufferOffset];
+			void*     ResponseData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
 			uint16_t  ResponseSize;
 
-			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
-			QUERY_Response->MessageLength       = sizeof(RNDIS_Query_Complete_t);
+			QUERY_Response->MessageType   = REMOTE_NDIS_QUERY_CMPLT;
+			QUERY_Response->MessageLength = sizeof(RNDIS_Query_Complete_t);
 						
 			if (RNDIS_Device_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
 			                                  ResponseData, &ResponseSize))
@@ -292,28 +294,26 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_Set_Complete_t* SET_Response = (RNDIS_Set_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t              SET_Oid      = SET_Message->Oid;
 
-			SET_Response->MessageType       = REMOTE_NDIS_SET_CMPLT;
-			SET_Response->MessageLength     = sizeof(RNDIS_Set_Complete_t);
-			SET_Response->RequestId         = SET_Message->RequestId;
+			SET_Response->MessageType   = REMOTE_NDIS_SET_CMPLT;
+			SET_Response->MessageLength = sizeof(RNDIS_Set_Complete_t);
+			SET_Response->RequestId     = SET_Message->RequestId;
 
-			void* SetData                   = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
-			                                                                          SET_Message->InformationBufferOffset];
+			void* SetData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			                                                              SET_Message->InformationBufferOffset];
 						
-			if (RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData, SET_Message->InformationBufferLength))
-			  SET_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
-			else
-			  SET_Response->Status        = REMOTE_NDIS_STATUS_NOT_SUPPORTED;
-
+			SET_Response->Status = RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData,
+			                                                   SET_Message->InformationBufferLength) ?
+			                                                   REMOTE_NDIS_STATUS_SUCCESS : REMOTE_NDIS_STATUS_NOT_SUPPORTED;
 			break;
 		case REMOTE_NDIS_RESET_MSG:
 			RNDISInterfaceInfo->State.ResponseReady = true;
 			
 			RNDIS_Reset_Complete_t* RESET_Response = (RNDIS_Reset_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
-			RESET_Response->MessageType         = REMOTE_NDIS_RESET_CMPLT;
-			RESET_Response->MessageLength       = sizeof(RNDIS_Reset_Complete_t);
-			RESET_Response->Status              = REMOTE_NDIS_STATUS_SUCCESS;
-			RESET_Response->AddressingReset     = 0;
+			RESET_Response->MessageType     = REMOTE_NDIS_RESET_CMPLT;
+			RESET_Response->MessageLength   = sizeof(RNDIS_Reset_Complete_t);
+			RESET_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
+			RESET_Response->AddressingReset = 0;
 
 			break;
 		case REMOTE_NDIS_KEEPALIVE_MSG:
@@ -324,10 +324,10 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_KeepAlive_Complete_t* KEEPALIVE_Response =
 			                (RNDIS_KeepAlive_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
-			KEEPALIVE_Response->MessageType     = REMOTE_NDIS_KEEPALIVE_CMPLT;
-			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KeepAlive_Complete_t);
-			KEEPALIVE_Response->RequestId       = KEEPALIVE_Message->RequestId;
-			KEEPALIVE_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
+			KEEPALIVE_Response->MessageType   = REMOTE_NDIS_KEEPALIVE_CMPLT;
+			KEEPALIVE_Response->MessageLength = sizeof(RNDIS_KeepAlive_Complete_t);
+			KEEPALIVE_Response->RequestId     = KEEPALIVE_Message->RequestId;
+			KEEPALIVE_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
 			
 			break;
 	}
@@ -337,6 +337,9 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
                                           const uint32_t OId, void* const QueryData, const uint16_t QuerySize,
                                           void* ResponseData, uint16_t* const ResponseSize)
 {
+	(void)QueryData;
+	(void)QuerySize;
+
 	switch (OId)
 	{
 		case OID_GEN_SUPPORTED_LIST:
@@ -445,9 +448,11 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
 	}
 }
 
-static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId, void* SetData,
-                                        const uint16_t SetSize)
+static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
+                                        void* SetData, const uint16_t SetSize)
 {
+	(void)SetSize;
+
 	switch (OId)
 	{
 		case OID_GEN_CURRENT_PACKET_FILTER:

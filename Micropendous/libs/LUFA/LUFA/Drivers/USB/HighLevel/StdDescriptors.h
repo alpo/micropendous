@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -43,6 +43,7 @@
 	/* Includes: */
 		#include <avr/pgmspace.h>
 		#include <stdbool.h>
+		#include <stddef.h>
 
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"
@@ -57,6 +58,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates that a given descriptor does not exist in the device. This can be used inside descriptors
@@ -72,7 +78,7 @@
 				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
 				 *  will cause it to use the internal serial number.
 				 *
-				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseduo-serial
+				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseudo-serial
 				 *  number for the device.
 				 */
 				#define USE_INTERNAL_SERIAL           0xDC
@@ -81,12 +87,12 @@
 			#endif
 			
 			/** Macro to calculate the power value for the device descriptor, from a given number of milliamps. */
-			#define USB_CONFIG_POWER_MA(mA)           (mA >> 1)
+			#define USB_CONFIG_POWER_MA(mA)           ((mA) >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.
 			 *  Should be used in string descriptor's headers for giving the string descriptor's byte length.
 			 */
-			#define USB_STRING_LEN(str)               (sizeof(USB_Descriptor_Header_t) + (str << 1))
+			#define USB_STRING_LEN(str)               (sizeof(USB_Descriptor_Header_t) + ((str) << 1))
 			
 			/** Macro to encode a given four digit floating point version number (e.g. 01.23) into Binary Coded
 			 *  Decimal format for descriptor fields requiring BCD encoding, such as the USB version number in the
@@ -118,18 +124,19 @@
 			 */
 			#define USB_CONFIG_ATTR_BUSPOWERED        0x80
 
+			
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the device's own power source.
 			 */
-			#define USB_CONFIG_ATTR_SELFPOWERED       0xC0
+			#define USB_CONFIG_ATTR_SELFPOWERED       0x40
 
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration supports the
 			 *  remote wakeup feature of the USB standard, allowing a suspended USB device to wake up the host upon
 			 *  request.
 			 */
-			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0xA0
+			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0x20
 
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is not synchronized.
@@ -544,17 +551,17 @@
 			{
 				USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 				
-				int16_t     UnicodeString[]; /**< String data, as unicode characters (alternatively,
-				                              *   string language IDs). If normal ASCII characters are
-				                              *   to be used, they must be added as an array of characters
-				                              *   rather than a normal C string so that they are widened to
-				                              *   Unicode size.
-				                              *
-				                              *   Under GCC, strings prefixed with the "L" character (before
-				                              *   the opening string quotation mark) are considered to be
-				                              *   Unicode strings, and may be used instead of an explicit
-				                              *   array of ASCII characters.
-				                              */
+				wchar_t UnicodeString[];  /**< String data, as unicode characters (alternatively,
+				                           *   string language IDs). If normal ASCII characters are
+				                           *   to be used, they must be added as an array of characters
+				                           *   rather than a normal C string so that they are widened to
+				                           *   Unicode size.
+				                           *
+				                           *   Under GCC, strings prefixed with the "L" character (before
+				                           *   the opening string quotation mark) are considered to be
+				                           *   Unicode strings, and may be used instead of an explicit
+				                           *   array of ASCII characters.
+				                           */
 			} USB_Descriptor_String_t;
 
 			/** Type define for a standard string descriptor. Unlike other standard descriptors, the length
@@ -592,10 +599,10 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define VERSION_TENS(x)                   (int)(x / 10)
-			#define VERSION_ONES(x)                   (int)(x - (10 * VERSION_TENS(x)))
-			#define VERSION_TENTHS(x)                 (int)((x - (int)x) * 10)
-			#define VERSION_HUNDREDTHS(x)             (int)(((x - (int)x) * 100) - (10 * VERSION_TENTHS(x)))
+			#define VERSION_TENS(x)                   (int)((x) / 10)
+			#define VERSION_ONES(x)                   (int)((x) - (10 * VERSION_TENS(x)))
+			#define VERSION_TENTHS(x)                 (int)(((x) - (int)(x)) * 10)
+			#define VERSION_HUNDREDTHS(x)             (int)((((x) - (int)(x)) * 100) - (10 * VERSION_TENTHS(x)))
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */

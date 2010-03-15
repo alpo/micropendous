@@ -9,22 +9,60 @@
 #define BIT6							0x40
 #define BIT7							0x80
 
-#define SPI0_SS_BIT						BIT2
-#define SPI0_SS_DDR						DDRB
-#define SPI0_SS_PORT					PORTB
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328__) || defined(__AVR_ATmega8__) || defined(__AVR_ATmega328P__)
+	// Arduino
+	#define SPI0_SS_BIT					BIT2
+	#define SPI0_SS_DDR					DDRB
+	#define SPI0_SS_PORT					PORTB
 
-#define SPI0_SCLK_BIT					BIT5
-#define SPI0_SCLK_DDR					DDRB
-#define SPI0_SCLK_PORT					PORTB
+	#define SPI0_SCLK_BIT					BIT5
+	#define SPI0_SCLK_DDR					DDRB
+	#define SPI0_SCLK_PORT					PORTB
 
-#define	SPI0_MOSI_BIT					BIT3
-#define SPI0_MOSI_DDR					DDRB
-#define SPI0_MOSI_PORT					PORTB
+	#define	SPI0_MOSI_BIT					BIT3
+	#define SPI0_MOSI_DDR					DDRB
+	#define SPI0_MOSI_PORT					PORTB
 
-#define	SPI0_MISO_BIT					BIT4
-#define SPI0_MISO_DDR					DDRB
-#define SPI0_MISO_PORT					PORTB
+	#define	SPI0_MISO_BIT					BIT4
+	#define SPI0_MISO_DDR					DDRB
+	#define SPI0_MISO_PORT					PORTB
+#elif defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644__)
+	// Sanguino
+	#define SPI0_SS_BIT					BIT4
+	#define SPI0_SS_DDR					DDRB
+	#define SPI0_SS_PORT					PORTB
 
+	#define SPI0_SCLK_BIT					BIT7
+	#define SPI0_SCLK_DDR					DDRB
+	#define SPI0_SCLK_PORT					PORTB
+
+	#define SPI0_MOSI_BIT					BIT5
+	#define SPI0_MOSI_DDR					DDRB
+	#define SPI0_MOSI_PORT					PORTB
+
+	#define SPI0_MISO_BIT					BIT6
+	#define SPI0_MISO_DDR					DDRB
+	#define SPI0_MISO_PORT					PORTB
+#elif defined(__AVR_AT90USB162__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega1280__)
+	// Arduino Mega and USB AVRs
+	#define SPI0_SS_BIT					BIT0
+	#define SPI0_SS_DDR					DDRB
+	#define SPI0_SS_PORT					PORTB
+
+	#define SPI0_SCLK_BIT					BIT1
+	#define SPI0_SCLK_DDR					DDRB
+	#define SPI0_SCLK_PORT					PORTB
+
+	#define SPI0_MOSI_BIT					BIT2
+	#define SPI0_MOSI_DDR					DDRB
+	#define SPI0_MOSI_PORT					PORTB
+
+	#define SPI0_MISO_BIT					BIT3
+	#define SPI0_MISO_DDR					DDRB
+	#define SPI0_MISO_PORT					PORTB
+#else
+	#error "Unknown chip, please edit me with SPI0 pin definitions"
+#endif
 
 #define SPI0_WaitForReceive()				
 #define SPI0_RxData()	 				(SPDR)
@@ -47,10 +85,9 @@
 #define IINCHIP_SpiSendData				SPI0_SendByte	
 #define IINCHIP_SpiRecvData				SPI0_RxData
 
-
-#define IINCHIP_CS_BIT					BIT2
-#define IINCHIP_CS_DDR					DDRB
-#define IINCHIP_CS_PORT					PORTB
+#define IINCHIP_CS_BIT					SPI0_SS_BIT
+#define IINCHIP_CS_DDR					SPI0_SS_DDR
+#define IINCHIP_CS_PORT					SPI0_SS_PORT
 
 #define IINCHIP_CSInit()					(IINCHIP_CS_DDR |= IINCHIP_CS_BIT)
 #define IINCHIP_CSon()					(IINCHIP_CS_PORT |= IINCHIP_CS_BIT)

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,8 +33,8 @@
  *  Header file for DataflashManager.c.
  */
  
-#ifndef _DATAFLASH_MANAGER_H
-#define _DATAFLASH_MANAGER_H
+#ifndef _DATAFLASH_MANAGER_H_
+#define _DATAFLASH_MANAGER_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -42,9 +42,9 @@
 		#include "MassStorageKeyboard.h"
 		#include "Descriptors.h"
 
-		#include <LUFA/Common/Common.h>              // Function Attribute, Atomic, Debug and ISR Macros
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/Dataflash.h>    // Dataflash chip driver
+		#include <LUFA/Common/Common.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/Dataflash.h>
 
 	/* Preprocessor Checks: */
 		#if (DATAFLASH_PAGE_SIZE % 16)

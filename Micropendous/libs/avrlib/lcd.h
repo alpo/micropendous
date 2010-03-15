@@ -178,8 +178,8 @@ void lcdPrintData(char* data, u08 nBytes);
 // <progress> is the value the bargraph should indicate
 // <maxprogress> is the value at the end of the bargraph
 // <length> is the number of LCD characters that the bargraph should cover
-/* -- DISABLE THIS - unfortunately, the AT90USB162 does not support MULtiply
+#if (!defined(__AVR_AT90USB162__)  && !defined(__AVR_AT90USB82__))
 void lcdProgressBar(u16 progress, u16 maxprogress, u08 length);
-*/
+#endif
 
 #endif

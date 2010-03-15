@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - AnalogWrite </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,7 +45,7 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h2>analogWrite()</h2>
 <h4>Description</h4>
@@ -64,9 +65,11 @@
 <p>nothing
 </p>
 <p class='vspace'></p><h4>Notes and Known Issues</h4>
-<p>You do not need to call pinMode() to set the pin as an output before calling analogWrite().
+<p><em>analogWrite</em> has nothing whatsoever to do with the analog pins or <em>analogRead</em>.
 </p>
-<p class='vspace'></p><p>The PWM outputs generated on pins 5 and 6 will have higher-than-expected duty cycles.  This is because of interactions with the millis() and delay() functions, which share the same internal timer used to generate those PWM outputs.
+<p class='vspace'></p><p>You do not need to call pinMode() to set the pin as an output before calling analogWrite().
+</p>
+<p class='vspace'></p><p>The PWM outputs generated on pins 5 and 6 will have higher-than-expected duty cycles.  This is because of interactions with the millis() and delay() functions, which share the same internal timer used to generate those PWM outputs. This will be noticed mostly on low duty-cycle settings (e.g 0 - 10) and may result in analogWrite(x, 0) not fully turning off the output on pins 5 &amp; 6, as one would expect.
 </p>
 <p class='vspace'></p><h4>Example</h4>
 <p>Sets the output to the LED proportional to the value read from the potentiometer.

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,6 +48,9 @@ volatile struct
 	uint8_t PingPongLEDPulse; /**< Milliseconds remaining for enumeration Tx/Rx ping-pong LED pulse */
 } PulseMSRemaining;
 
+/** Previous state of the virtual DTR control line from the host */
+bool PreviousDTRState = false;
+
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -56,16 +59,19 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
 		.Config = 
 			{
-				.ControlInterfaceNumber     = 0,
+				.ControlInterfaceNumber         = 0,
 
-				.DataINEndpointNumber       = CDC_TX_EPNUM,
-				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber           = CDC_TX_EPNUM,
+				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank       = false,
 
-				.DataOUTEndpointNumber      = CDC_RX_EPNUM,
-				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
+				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank      = false,
 
-				.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank = false,
 			},
 	};
 
@@ -138,9 +144,6 @@ void SetupHardware(void)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
-
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
@@ -244,12 +247,16 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
+	bool CurrentDTRState = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
+
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
-	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
+	if (!(PreviousDTRState) && CurrentDTRState)
 	{
 		LEDs_SetAllLEDs(LEDMASK_BUSY);
 	
 		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
 		PulseMSRemaining.ResetPulse = AVR_RESET_PULSE_MS;
 	}
+	
+	PreviousDTRState = CurrentDTRState;
 }

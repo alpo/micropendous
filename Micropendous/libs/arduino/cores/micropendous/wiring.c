@@ -154,7 +154,7 @@ void init()
 	// set A2D prescale factor
 	// 16 MHz / 128 = 125 kHz, inside the desired 50-200 KHz range.
 	// 8 MHz / 64 = 125 kHz, inside the desired 50-200 KHz range.
-	#if (F_CPU == 16000000UL) // 16MHz
+	#if (F_CLOCK == 16000000) // 16MHz
 		ADCSRA = ((1 << ADEN) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2));
 	#else // 8Mhz
 		ADCSRA = ((1 << ADEN) | (1 << ADPS1) | (1 << ADPS2));

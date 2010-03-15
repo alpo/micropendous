@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,7 +40,8 @@
  *  listed here. If an event with no user-associated handler is fired within the library, it by default maps to an
  *  internal empty stub function.
  *
- *  Each event must only have one associated event handler, but can be raised by multiple sources.
+ *  Each event must only have one associated event handler, but can be raised by multiple sources by calling the
+ *  event handler function (with any required event parameters).
  *
  *  @{
  */
@@ -59,9 +60,14 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */			
 		/* Pseudo-Functions for Doxygen: */
-		#if !defined(INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
+		#if !defined(__INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
 			/** Event for USB stack initialization failure. This event fires when the USB interface fails to
 			 *  initialize correctly due to a hardware or software fault.
 			 *
@@ -142,11 +148,18 @@
 			/** Event for USB device enumeration completion. This event fires when a the USB interface is
 			 *  in host mode and an attached USB device has been completely enumerated and is ready to be
 			 *  controlled by the user application.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  1 second) when a transaction is waiting to be processed by the device will prevent break communications
+			 *  and cause the host to reset the USB bus.
 			 */
 			void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 			/** Event for USB device connection. This event fires when the AVR in device mode and the device is connected
 			 *  to a host, beginning the enumeration process, measured by a rising level on the AVR's VBUS pin.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  two seconds) will prevent the device from enumerating correctly.
 			 *
 			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
@@ -182,8 +195,15 @@
 			/** Event for unhandled control requests. This event fires when a the USB host issues a control
 			 *  request to the control endpoint (address 0) that the library does not handle. This may either
 			 *  be a standard request that the library has no handler code for, or a class specific request
-			 *  issued to the device which must be handled appropriately. Due to the strict timing requirements
-			 *  on control transfers, interrupts are disabled during control request processing.
+			 *  issued to the device which must be handled appropriately.
+			 *
+			 *  This event is time-critical; each packet within the request transaction must be acknowledged or
+			 *  sent within 50ms or the host will abort the transfer.
+			 *
+			 *  The library interally handles all standard control requests with the exceptions of SYNC FRAME,
+			 *  SET DESCRIPTOR and SET INTERFACE. These and all other non-standard control requests will be left
+			 *  for the user to process via this event if desired. If not handled in the user application, requests
+			 *  are automatically STALLed.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -198,6 +218,9 @@
 			/** Event for USB configuration number changed. This event fires when a the USB host changes the
 			 *  selected configuration number while in device mode. This event should be hooked in device
 			 *  applications to create the endpoints and configure the device for the selected configuration.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  one second) will prevent the device from enumerating correctly.
 			 *
 			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
 			 *
@@ -215,18 +238,24 @@
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
+			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *        compile time token is not set - see \ref EVENT_USB_Device_Disconnect.
+			 *
 			 *  \see \ref EVENT_USB_Device_WakeUp() event for accompanying Wake Up event.
 			 */
 			void EVENT_USB_Device_Suspend(void);
 
 			/** Event for USB wake up. This event fires when a the USB interface is suspended while in device
 			 *  mode, and the host wakes up the device by supplying Start Of Frame pulses. This is generally
-			 *  hooked to pull the user application out of a lowe power state and back into normal operating
+			 *  hooked to pull the user application out of a low power state and back into normal operating
 			 *  mode. If the USB interface is enumerated with the \ref USB_OPT_AUTO_PLL option set, the library
 			 *  will automatically restart the USB PLL before the event is fired.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
+			 *
+			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *        compile time token is not set - see \ref EVENT_USB_Device_Connect.
 			 *
 			 *  \see \ref EVENT_USB_Device_Suspend() event for accompanying Suspend event.
 			 */
@@ -236,17 +265,23 @@
 			 *  a the USB host requests that the device reset its interface. This event fires after the control
 			 *  endpoint has been automatically configured by the library.
 			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  two seconds) will prevent the device from enumerating correctly.
+			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Device_Reset(void);
 
 			/** Event for USB Start Of Frame detection, when enabled. This event fires at the start of each USB
-			 *  frame, once per millisecond, and is synchronised to the USB bus. This can be used as an accurate
+			 *  frame, once per millisecond, and is synchronized to the USB bus. This can be used as an accurate
 			 *  millisecond timer source when the USB bus is enumerated in device mode to a USB host.
 			 *
-			 *  This event is not normally active - it must be manually enabled and disabled via the
-			 *  \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
+			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly
+			 *  degrade device performance. This event should only be enabled when needed to reduce device wakeups.
+			 *
+			 *  \note This event is not normally active - it must be manually enabled and disabled via the
+			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -257,7 +292,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_EVENTS_C)
+			#if defined(__INCLUDE_FROM_EVENTS_C)
 				void USB_Event_Stub(void) ATTR_CONST;
 					
 				#if defined(USB_CAN_BE_BOTH)

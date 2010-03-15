@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -64,7 +64,7 @@
 		#define COMMAND_DIRECTION_DATA_IN           (1 << 7)
 		
 		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet */
-		#define COMMAND_DATA_TIMEOUT_MS             2000
+		#define COMMAND_DATA_TIMEOUT_MS             10000
 
 		/** Pipe number of the Mass Storage data IN pipe */
 		#define MASS_STORE_DATA_IN_PIPE             1
@@ -108,7 +108,7 @@
 		 */
 		typedef struct
 		{
-			uint8_t       ReponseCode;
+			uint8_t       ResponseCode;
 
 			uint8_t       SegmentNumber;
 			

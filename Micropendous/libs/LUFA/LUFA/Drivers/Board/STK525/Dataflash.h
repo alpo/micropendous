@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,6 +39,11 @@
 /** \ingroup Group_Dataflash
  *  @defgroup Group_Dataflash_STK525 STK525
  *
+ *  Board specific Dataflash driver header for the STK525.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
+ *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
+ *
  *  @{
  */
 
@@ -49,7 +54,7 @@
 		#include "AT45DB321C.h"		
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_DATAFLASH_H)
+		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Dataflash.h instead.
 		#endif
 
@@ -92,7 +97,7 @@
 			{
 				Dataflash_DeselectChip();
 				
-				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
+				if (PageAddress >= DATAFLASH_PAGES)
 				  return;
 
 				Dataflash_SelectChip(DATAFLASH_CHIP1);
@@ -106,8 +111,8 @@
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
 			{	
-				Dataflash_SendByte(PageAddress >> 5);
-				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
+				Dataflash_SendByte(PageAddress >> 6);
+				Dataflash_SendByte((PageAddress << 2) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
 			}
 			

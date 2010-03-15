@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -95,27 +95,20 @@ void ProcessNextSample(void)
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
-		/* Retrieve the signed 16-bit left and right audio samples */
-		int16_t LeftSample_16Bit  = Audio_Device_ReadSample16(&Speaker_Audio_Interface);
-		int16_t RightSample_16Bit = Audio_Device_ReadSample16(&Speaker_Audio_Interface);
-
-		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
-		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
-		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
+		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */
+		int8_t  LeftSample_8Bit   = (Audio_Device_ReadSample16(&Speaker_Audio_Interface) >> 8);
+		int8_t  RightSample_8Bit  = (Audio_Device_ReadSample16(&Speaker_Audio_Interface) >> 8);
 
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
-		/* Get absolute value of mixed sample value */
-		uint8_t MixedSample_8Bit_Abs = abs(MixedSample_8Bit);
-
 #if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
-		OCR3A = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
+		OCR3A = (MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
 		/* Load the dual 8-bit samples into the PWM timer channels */
-		OCR3A = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
-		OCR3B = ((uint8_t)RightSample_8Bit ^ (1 << 7));
+		OCR3A = (LeftSample_8Bit  ^ (1 << 7));
+		OCR3B = (RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
 		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
@@ -123,17 +116,15 @@ void ProcessNextSample(void)
 
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
-		if (MixedSample_8Bit_Abs > 2)
-		  LEDMask |= LEDS_LED1;
-		  
-		if (MixedSample_8Bit_Abs > 4)
-		  LEDMask |= LEDS_LED2;
-		  
-		if (MixedSample_8Bit_Abs > 8)
-		  LEDMask |= LEDS_LED3;
-
-		if (MixedSample_8Bit_Abs > 16)
-		  LEDMask |= LEDS_LED4;
+		/* Turn on LEDs as the sample amplitude increases */
+		if (MixedSample_8Bit > 16)
+		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
+		else if (MixedSample_8Bit > 8)
+		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3);
+		else if (MixedSample_8Bit > 4)
+		  LEDMask = (LEDS_LED1 | LEDS_LED2);
+		else if (MixedSample_8Bit > 2)
+		  LEDMask = (LEDS_LED1);
 
 		LEDs_SetAllLEDs(LEDMask);
 	}
@@ -145,9 +136,9 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 	
 	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
+	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS00);   // Fcpu speed
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 
 #if defined(AUDIO_OUT_MONO)
 	/* Set speaker as output */

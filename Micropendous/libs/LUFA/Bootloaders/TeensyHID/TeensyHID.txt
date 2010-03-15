@@ -8,10 +8,10 @@
  *
  *  \section SSec_Compat Demo Compatibility:
  *
- *  The following table indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - AT90USB646
- *  - AT90USB162
+ *  - AT90USB162 (Teensy 1.0)
+ *  - ATMEGA32U4 (Teensy 2.0)
  *
  *  \section SSec_Info USB Information:
  *
@@ -32,13 +32,13 @@
  *  </tr>
  *  <tr>
  *   <td><b>Relevant Standards:</b></td>
- *   <td>USBIF HID Class Standard</td>
- *   <td>Teensy Programming Protocol Details</td>
+ *   <td>USBIF HID Class Standard \n
+ *       Teensy Programming Protocol Specification</td>
  *  </tr>
  *  <tr>
  *   <td><b>Usable Speeds:</b></td>
- *   <td>Low Speed Mode</td>
- *   <td>Full Speed Mode</td>
+ *   <td>Low Speed Mode \n
+ *       Full Speed Mode</td>
  *  </tr>
  * </table>
  *
@@ -47,7 +47,9 @@
  * This bootloader enumerates to the host as a HID Class device, allowing for Teensy compatible programming
  * software to load firmware onto the AVR, such as the official software at <a>http://www.pjrc.com/teensy/</a>.
  *  
- * Out of the box this bootloader builds for the AT90USB162, and will fit into 4KB of bootloader space.
+ * Out of the box this bootloader builds for the ATMEGA32U4, and will fit into 4KB of bootloader space. For other
+ * devices, the makefile will need to be updated to reflect the altered MCU model and bootloader start address. When
+ * calculating the bootloader start address, use (TARGET_FLASH_SIZE_BYTES - 4096).
  *
  * This spoofs (with permission) the official Teensy bootloader's VID and PID, so that the software remains
  * compatible with no changes.

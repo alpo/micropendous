@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - ServoWrite </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,7 +45,7 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><p><a class='wikilink' href='Servo.html'>Servo</a>
 </p>
@@ -69,14 +70,15 @@ Servo myservo;
 void setup() 
 { 
   myservo.attach(9);
-  myservo.write(90);
+  myservo.write(90);  // set servo to mid-point
 } 
 
 void loop() {} 
 
 </pre>
 <p class='vspace'></p><h4>See also</h4>
-<ul><li><a class='wikilink' href='ServoRead.html'>read()</a>
+<ul><li><a class='wikilink' href='ServoAttach.html'>attach()</a>
+</li><li><a class='wikilink' href='ServoRead.html'>read()</a>
 </li></ul><p class='vspace'></p><p><a class='wikilink' href='index.html'>Reference Home</a>
 </p>
 <p class='vspace'></p><p><em>Corrections, suggestions, and new documentation should be posted to the <a class='urllink' href='http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?board=swbugs' rel='nofollow'>Forum</a>.</em>

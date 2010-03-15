@@ -46,8 +46,6 @@
 
 #include "netif/etharp.h"
 
-#warning TODO - ethernetif.c is incomplete
-
 /* Define those to better describe your network interface. */
 #define IFNAME0 'e'
 #define IFNAME1 'n'
@@ -67,15 +65,15 @@ static err_t ethernetif_output(struct netif *netif, struct pbuf *p,
 static void
 low_level_init(struct netif *netif)
 {
-//  struct ethernetif *ethernetif = netif->state;
+  struct ethernetif *ethernetif = netif->state;
   
   /* set MAC hardware address length */
   netif->hwaddr_len = 6;
 
   /* set MAC hardware address */
-  netif->hwaddr[0] = 0;
-
-  netif->hwaddr[5] = 0;
+  netif->hwaddr[0] = ;
+  ...
+  netif->hwaddr[5] = ;
 
   /* maximum transfer unit */
   netif->mtu = 1500;
@@ -101,7 +99,7 @@ low_level_output(struct netif *netif, struct pbuf *p)
   struct ethernetif *ethernetif = netif->state;
   struct pbuf *q;
 
-  //TODO - makes no sense:		initiate transfer();
+  initiate transfer();
   
 #if ETH_PAD_SIZE
   pbuf_header(p, -ETH_PAD_SIZE);			/* drop the padding word */
@@ -111,10 +109,10 @@ low_level_output(struct netif *netif, struct pbuf *p)
     /* Send the data from the pbuf to the interface, one pbuf at a
        time. The size of the data in each pbuf is kept in the ->len
        variable. */
-//TODO - makes no sense:		send data from(q->payload, q->len);
+    send data from(q->payload, q->len);
   }
 
-  //TODO - makes no sense:		signal that packet should be sent();
+  signal that packet should be sent();
 
 #if ETH_PAD_SIZE
   pbuf_header(p, ETH_PAD_SIZE);			/* reclaim the padding word */
@@ -144,7 +142,7 @@ low_level_input(struct netif *netif)
 
   /* Obtain the size of the packet and put it into the "len"
      variable. */
-  len = 0;
+  len = ;
 
 #if ETH_PAD_SIZE
   len += ETH_PAD_SIZE;						/* allow room for Ethernet padding */
@@ -165,9 +163,9 @@ low_level_input(struct netif *netif)
       /* Read enough bytes to fill this pbuf in the chain. The
        * available data in the pbuf is given by the q->len
        * variable. */
-//TODO - makes no sense:		      read data into(q->payload, q->len);
+      read data into(q->payload, q->len);
     }
-//TODO - makes no sense:		    acknowledge that packet has been read();
+    acknowledge that packet has been read();
 
 #if ETH_PAD_SIZE
     pbuf_header(p, ETH_PAD_SIZE);			/* reclaim the padding word */
@@ -177,7 +175,7 @@ low_level_input(struct netif *netif)
     lwip_stats.link.recv++;
 #endif /* LINK_STATS */      
   } else {
-//TODO - makes no sense:		drop packet();
+    drop packet();
 #if LINK_STATS
     lwip_stats.link.memerr++;
     lwip_stats.link.drop++;

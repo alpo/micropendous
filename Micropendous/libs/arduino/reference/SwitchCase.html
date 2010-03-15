@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - SwitchCase </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,26 +45,21 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h2>switch / case statements</h2>
-<p>Just like <strong>if</strong> statements, <strong>switch / case</strong> statements control the flow of programs. Switch/case  allows the programmer to build a list of "cases" inside a switch curly bracket. The program checks each case for a match with the test variable, and runs the code if a match is found. 
+<p>Like <strong>if</strong> statements, <strong>switch...case</strong> controls the flow of programs by allowing programmers to specify different code that should be executed in various conditions.  In particular, a switch statement compares the value of a variable to the values specified in case statements.  When a case statement is found whose value matches that of the variable, the code in that case statement is run.  
 </p>
-<p class='vspace'></p><p><strong>Switch / case</strong> is slightly more flexible than than an <strong>if/else</strong> structure in that the programmer can determine if the <strong>switch</strong> structure should continue checking for matches in the case list, after finding a match. If the <strong>break</strong> statement is not found after running the code for a matched case, the program will continue to check for more matches among the other cases. If a <strong>break</strong> statement is encountered, case exits the structure, in the same manner as the <strong>if/else if</strong> construction.
+<p class='vspace'></p><p>The <strong>break</strong> keyword exits the switch statement, and is typically used at the end of each case.  Without a break statement, the switch statement will continue executing the following expressions ("falling-through") until a break, or the end of the switch statement is reached.
 </p>
-<p class='vspace'></p><h3>Parameters</h3>
-<ul><li>var - variable you wish to match with case statements
-</li><li>default - if no other conditions are met, default will run
-</li><li>break - without break, the switch statement will continue checking through the case statements for any other possible matches.  If one is found, it will run that as well, which may not be your intent.  Break tells the switch statement to stop looking for matches, and exit the switch statement.
-</li></ul><p class='vspace'></p><h3>Example</h3>
-<dl><dd><pre>
+<p class='vspace'></p><h3>Example</h3>
+<pre>
   switch (var) {
     case 1:
-      //do something when var == 1
+      //do something when var equals 1
       break;
-      // break is optional
     case 2:
-      //do something when var == 2
+      //do something when var equals 2
       break;
     default: 
       // if nothing else matches, do the default
@@ -71,7 +67,29 @@
   }
 
 </pre>
-</dd></dl><p class='vspace'></p><p><a class='wikilink' href='index.html'>Reference Home</a>
+<p class='vspace'></p><h3>Syntax</h3>
+<pre>
+switch (var) {
+  case label:
+    // statements
+    break;
+  case label:
+    // statements
+    break;
+  default: 
+    // statements
+}
+
+</pre>
+<p class='vspace'></p><h3>Parameters</h3>
+<p>var: the variable whose value to compare to the various cases
+</p>
+<p class='vspace'></p><p>label: a value to compare the variable to
+</p>
+<p class='vspace'></p><h4>See also:</h4>
+<p><a class='wikilink' href='Else.html'>if...else</a>
+</p>
+<p class='vspace'></p><p><a class='wikilink' href='index.html'>Reference Home</a>
 </p>
 <p class='vspace'></p><p><em>Corrections, suggestions, and new documentation should be posted to the <a class='urllink' href='http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?board=swbugs' rel='nofollow'>Forum</a>.</em>
 </p>

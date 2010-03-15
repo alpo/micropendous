@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,47 +46,96 @@
 
 		#include <string.h>
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_HID_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
+		#endif
+		
 	/* Macros: */
 		/** HID Class Specific Request to get the current HID report from the device. */
-		#define REQ_GetReport                0x01
+		#define REQ_GetReport                   0x01
 
 		/** HID Class Specific Request to get the current device idle count. */
-		#define REQ_GetIdle                  0x02
+		#define REQ_GetIdle                     0x02
 
 		/** HID Class Specific Request to set the current HID report to the device. */
-		#define REQ_SetReport                0x09
+		#define REQ_SetReport                   0x09
 
 		/** HID Class Specific Request to set the device's idle count. */
-		#define REQ_SetIdle                  0x0A
+		#define REQ_SetIdle                     0x0A
 
 		/** HID Class Specific Request to get the current HID report protocol mode. */
-		#define REQ_GetProtocol              0x03
+		#define REQ_GetProtocol                 0x03
 
 		/** HID Class Specific Request to set the current HID report protocol mode. */
-		#define REQ_SetProtocol              0x0B
+		#define REQ_SetProtocol                 0x0B
 
 		/** Descriptor header type value, to indicate a HID class HID descriptor. */
-		#define DTYPE_HID                    0x21
+		#define DTYPE_HID                       0x21
 		
 		/** Descriptor header type value, to indicate a HID class HID report descriptor. */
-		#define DTYPE_Report                 0x22
+		#define DTYPE_Report                    0x22
 		
 		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface does not support
 		 *  any HID class boot protocol (see HID Class Specification).
 		 */
-		#define HID_NON_BOOT_PROTOCOL        0x00
+		#define HID_NON_BOOT_PROTOCOL           0x00
+
+		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
+		 *  HID class Keyboard boot protocol (see HID Class Specification).
+		 */
+		#define HID_BOOT_KEYBOARD_PROTOCOL      0x01
 
 		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
 		 *  HID class Mouse boot protocol (see HID Class Specification).
 		 */
-		#define HID_BOOT_MOUSE_PROTOCOL      0x02
+		#define HID_BOOT_MOUSE_PROTOCOL         0x02
 		
-		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
-		 *  HID class Keyboard boot protocol (see HID Class Specification).
-		 */
-		#define HID_BOOT_KEYBOARD_PROTOCOL   0x01
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left control key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_LEFTCTRL   (1 << 0)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left shift key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_LEFTSHIFT  (1 << 1)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left alt key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_LEFTALT    (1 << 2)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left GUI key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_LEFTGUI    (1 << 3)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right control key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_RIGHTCTRL  (1 << 4)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right shift key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_RIGHTSHIFT (1 << 5)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right alt key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_RIGHTALT   (1 << 6)
+
+		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
+		#define HID_KEYBOARD_MODIFER_RIGHTGUI   (1 << 7)
+		
+		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
+		#define HID_KEYBOARD_LED_NUMLOCK        (1 << 0)
+		
+		/** Constant for a keyboard output report LED byte, indicating that the host's CAPS LOCK mode is currently set. */
+		#define HID_KEYBOARD_LED_CAPSLOCK       (1 << 1)
+
+		/** Constant for a keyboard output report LED byte, indicating that the host's SCROLL LOCK mode is currently set. */
+		#define HID_KEYBOARD_LED_SCROLLLOCK     (1 << 2)
+
+		/** Constant for a keyboard output report LED byte, indicating that the host's KATANA mode is currently set. */
+		#define HID_KEYBOARD_LED_KATANA         (1 << 3)
 
 	/* Type Defines: */
+		/** Enum for the different types of HID reports. */
+		enum HID_ReportItemTypes_t
+		{
+			REPORT_ITEM_TYPE_In                   = 0, /**< Indicates that the item is an IN report type. */
+			REPORT_ITEM_TYPE_Out                  = 1, /**< Indicates that the item is an OUT report type. */
+			REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
+		};
+
 		/** Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
 		 */
@@ -114,7 +163,9 @@
 		/** Type define for a standard Boot Protocol Keyboard report */
 		typedef struct
 		{
-			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (such as Shift, Control, etc.) */
+			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (a combination of
+			                   *   HID_KEYBOARD_MODIFER_* masks)
+			                   */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
 			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys */
 		} USB_KeyboardReport_Data_t;

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -31,7 +31,7 @@
 /** \file
  *
  *  Simple webserver application for demonstrating the RNDIS demo and TCP/IP stack. This
- *  application will serve up a static HTTP webpage when requested by the host.
+ *  application will serve up a static HTTP web page when requested by the host.
  */
 
 #include "Webserver.h"
@@ -43,7 +43,10 @@ char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Content-type: text/html\r\n"
                                "Connection: close\r\n\r\n";
-							
+
+/** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
+ *  given URL is invalid, and gives extra error information.
+ */
 char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n\r\n";

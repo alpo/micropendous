@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_HOST_C
+#define  __INCLUDE_FROM_HOST_C
 #include "Host.h"
 
 void USB_Host_ProcessNextHostState(void)
@@ -66,10 +67,12 @@ void USB_Host_ProcessNextHostState(void)
 			USB_HostState = HOST_STATE_Powered_WaitForDeviceSettle;
 			break;
 		case HOST_STATE_Powered_WaitForDeviceSettle:
-			#if HOST_DEVICE_SETTLE_DELAY_MS > 0
-			_delay_ms(1);
-
-			if (!(WaitMSRemaining--))
+			if (WaitMSRemaining--)
+			{
+				_delay_ms(1);
+				break;
+			}
+			else
 			{
 				USB_Host_VBUS_Manual_Off();
 
@@ -79,9 +82,6 @@ void USB_Host_ProcessNextHostState(void)
 				
 				USB_HostState = HOST_STATE_Powered_WaitForConnect;
 			}
-			#else
-			USB_HostState = HOST_STATE_Powered_WaitForConnect;			
-			#endif
 			
 			break;
 		case HOST_STATE_Powered_WaitForConnect:		
@@ -297,11 +297,11 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			bRequest:      REQ_GetDescriptor,
-			wValue:        (DTYPE_Device << 8),
-			wIndex:        0,
-			wLength:       sizeof(USB_Descriptor_Device_t),
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_Device << 8),
+			.wIndex        = 0,
+			.wLength       = sizeof(USB_Descriptor_Device_t),
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
@@ -309,10 +309,26 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
 }
 
+uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_String << 8) | Index,
+			.wIndex        = 0,
+			.wLength       = BufferLength,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(Buffer);
+}
+
 uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
 {
 	if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
-	  EndpointNum |= (1 << 7);
+	  EndpointNum |= ENDPOINT_DESCRIPTOR_DIR_IN;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
