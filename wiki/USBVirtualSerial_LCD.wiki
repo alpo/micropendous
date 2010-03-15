@@ -14,6 +14,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 = Uasge =
 
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Picture.jpg
+
 Compile and load the USBVirtualSerial_LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 The HD44780 LCD pictured below is a [http://www.lumex.com/pdf/LCM-S01602DTR+M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=67-1781-ND Digi-Key.com] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.
