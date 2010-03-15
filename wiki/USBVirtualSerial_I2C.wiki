@@ -13,15 +13,20 @@ The latest version of this firmware is available in the latest [http://code.goog
 *Status:* _Working_ but not thoroughly tested.
 
 = Usage =
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-I2C_Picture.jpg
+
+Compile and load the  AVRISP firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
 == Pinout ==
 
 Connections between an Micropendous board and an I2C device are as follows:
 
 || *Micropendous* || *I2C* ||
-|| `PD0`         || `SCL` ||
-|| `PD1`         || `SDA` ||
-|| `VCC`         || `VCC` ||
-|| `GND`         || `GND` ||
+|| `PD0`          || `SCL` ||
+|| `PD1`          || `SDA` ||
+|| `VCC`          || `VCC` ||
+|| `GND`          || `GND` ||
 
 [http://en.wikipedia.org/wiki/Pull-up_resistor Pull-up] resistors on SCL and SDA are not required as the AVR's IOs are [http://en.wikipedia.org/wiki/Push%E2%80%93pull push-pull] as opposed to the [http://en.wikipedia.org/wiki/Open_drain open drain] configuration of a standard I2C IO pin.
 
