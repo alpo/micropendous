@@ -32,7 +32,13 @@
 # make win = compile DeviceAccessC.c example using MingW under Windows
 #                make sure LIBUSBSRC_ROOT is defined correctly
 #
+# make win_control = compile DeviceAccessC_ControlMSG.c example using MingW under Windows
+#                make sure LIBUSBSRC_ROOT is defined correctly
+#
 # make linux = compile DeviceAccessC.c example under Linux
+#                make sure LIBUSBSRC_ROOT_LIN is defined correctly
+#
+# make linux_control = compile DeviceAccessC_ControlMSG.c example under Linux
 #                make sure LIBUSBSRC_ROOT_LIN is defined correctly
 #
 # make program = Download the hex file to the device, using avrdude.
@@ -64,6 +70,13 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+# LIBUSBSRC_ROOT is the directory where you extracted libusb-win32-src-0.1.12.1
+LIBUSBSRC_ROOT = "C:\Program Files\LibUSB-Win32"
+
+# LIBUSBSRC_ROOT_LIN is the install directory for libusb
+LIBUSBSRC_ROOT_LIN = /usr/lib
+
+
 # MCU name - uncomment one of the following
 #MCU = at90usb162
 #MCU = atmega32u4
@@ -81,13 +94,6 @@ MCU = at90usb1287
 #         F_CPU =  8000000
 #         F_CPU = 16000000
 F_CPU = 16000000
-
-
-# LIBUSBSRC_ROOT is the directory where you extracted libusb-win32-src-0.1.12.1
-LIBUSBSRC_ROOT = "C:\Program Files\LibUSB-Win32"
-
-# LIBUSBSRC_ROOT_LIN is the install directory for libusb
-LIBUSBSRC_ROOT_LIN = /usr/lib
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -553,12 +559,27 @@ win:
 	echo ------------------------------
 	DeviceAccessC.exe
 
+
+win_control:
+	echo ------------------------------
+	gcc -c DeviceAccessC_ControlMSG.c -o DeviceAccessC_ControlMSG.o -O2 -Wall -mno-cygwin -DVERSION_MAJOR=0 -DVERSION_MINOR=1 -DVERSION_MICRO=12 -DVERSION_NANO=1 -DINF_DATE='03/29/2008' -DINF_VERSION='0.1.12.1' -DDBG -I$(LIBUSBSRC_ROOT)/src -I$(LIBUSBSRC_ROOT)/src/driver -I$(LIBUSBSRC_ROOT)/
+	gcc -O2 -Wall -mno-cygwin -o DeviceAccessC_ControlMSG.exe -I$(LIBUSBSRC_ROOT)/src  DeviceAccessC_ControlMSG.o -s -mno-cygwin -L. -lusb -lgdi32 -luser32 -lcfgmgr32 -lsetupapi -lcomctl32
+	echo ------------------------------
+	DeviceAccessC_ControlMSG.exe
+
+
 linux:
 	echo ------------------------------
 	gcc -DHAVE_CONFIG_H -I.. -I.. -g -O2 -g -Wall -MT DeviceAccessC.o -MD -MP -MF "./DeviceAccessC.Po" -c -o DeviceAccessC.o DeviceAccessC.c
 	libtool --mode=link gcc -g -O2 -g -Wall -o DeviceAccessC  DeviceAccessC.o $(LIBUSBSRC_ROOT_LIN)/libusb.la
 	./DeviceAccessC
 
+
+linux_control:
+	echo ------------------------------
+	gcc -DHAVE_CONFIG_H -I.. -I.. -g -O2 -g -Wall -MT DeviceAccessC_ControlMSG.o -MD -MP -MF "./DeviceAccessC_ControlMSG.Po" -c -o DeviceAccessC_ControlMSG.o DeviceAccessC_ControlMSG.c
+	libtool --mode=link gcc -g -O2 -g -Wall -o DeviceAccessC_ControlMSG  DeviceAccessC_ControlMSG.o $(LIBUSBSRC_ROOT_LIN)/libusb.la
+	./DeviceAccessC_ControlMSG
 
 
 
@@ -745,6 +766,10 @@ clean_list:
 	$(REMOVE) DeviceAccessC.o
 	$(REMOVE) DeviceAccessC.Po
 	$(REMOVE) ./DeviceAccessC
+	$(REMOVE) DeviceAccessC_ControlMSG.exe
+	$(REMOVE) DeviceAccessC_ControlMSG.o
+	$(REMOVE) DeviceAccessC_ControlMSG.Po
+	$(REMOVE) ./DeviceAccessC_ControlMSG
 
 
 doxygen:

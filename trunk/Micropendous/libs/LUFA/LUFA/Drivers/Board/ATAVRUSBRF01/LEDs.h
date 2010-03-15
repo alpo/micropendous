@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,6 +39,11 @@
 /** \ingroup Group_LEDs
  *  @defgroup Group_LEDs_ATAVRUSBRF01 ATAVRUSBRF01
  *
+ *  Board specific LED driver header for the ATAVRUSBRF01.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
+ *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
+ *
  *  @{
  */
  
@@ -56,7 +61,7 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_LEDS_H)
+		#if !defined(__INCLUDE_FROM_LEDS_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 

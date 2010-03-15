@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - DelayMicroseconds </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,16 +45,16 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
-<p class='vspace'></p><h2>delayMicroseconds(us)</h2>
+<p class='vspace'></p><h2>delayMicroseconds()</h2>
 <h4>Description</h4>
 <p>Pauses the program for the amount of time (in microseconds) specified as parameter.  There are a thousand microseconds in a millisecond, and a million microseconds in a second.
 </p>
 <p class='vspace'></p><p>Currently, the largest value that will produce an accurate delay is 16383. This could change in future Arduino releases.  For delays longer than a few thousand microseconds, you should use delay() instead.
 </p>
 <p class='vspace'></p><h4>Parameters</h4>
-<p>us: the number of microseconds to pause. 
+<p>us: the number of microseconds to pause (<em>unsigned int</em>)
 </p>
 <p class='vspace'></p><h4>Returns</h4>
 <p>None

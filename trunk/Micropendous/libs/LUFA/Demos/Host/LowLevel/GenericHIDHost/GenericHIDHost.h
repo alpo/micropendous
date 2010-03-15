@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -54,19 +54,13 @@
 		
 	/* Macros: */
 		/** Pipe number for the HID data IN pipe */
-		#define HID_DATA_IN_PIPE                 1
+		#define HID_DATA_IN_PIPE          1
 		
 		/** Pipe number for the HID data OUT pipe */
-		#define HID_DATA_OUT_PIPE                2
+		#define HID_DATA_OUT_PIPE         2
 
 		/** HID Class specific request to send a HID report to the device. */
-		#define REQ_SetReport                    0x09
-		
-		/** HID Report type specifier, for output reports to a device */
-		#define HID_REPORTTYPE_OUTPUT            0x02
-		
-		/** HID Report type specifier, for feature reports to a device */
-		#define HID_REPORTTYPE_FEATURE           0x03
+		#define REQ_SetReport             0x09
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -79,6 +73,15 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		
+		/** HID Report Type to indicate an IN report. */
+		#define REPORT_TYPE_IN           1
+
+		/** HID Report Type to indicate an OUT report. */
+		#define REPORT_TYPE_OUT          2
+
+		/** HID Report Type to indicate a FEATURE report. */
+		#define REPORT_TYPE_FEATURE      3
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

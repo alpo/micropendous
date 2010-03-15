@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_PIPE_C
+#define  __INCLUDE_FROM_PIPE_C
 #include "Pipe.h"
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
@@ -78,8 +79,15 @@ bool Pipe_IsEndpointBound(const uint8_t EndpointAddress)
 	{
 		Pipe_SelectPipe(PNum);
 		
-		if (Pipe_IsConfigured() && (Pipe_BoundEndpointNumber() == EndpointAddress))
-		  return true;
+		uint8_t PipeToken = Pipe_GetPipeToken();
+
+		if (PipeToken != PIPE_TOKEN_SETUP)
+		  PipeToken = (PipeToken == ((EndpointAddress & PIPE_EPDIR_MASK) ? PIPE_TOKEN_IN : PIPE_TOKEN_OUT));
+		
+		if (Pipe_IsConfigured() && (Pipe_BoundEndpointNumber() == (EndpointAddress & PIPE_EPNUM_MASK)) && PipeToken)
+		{		
+			return true;
+		}
 	}
 	
 	Pipe_SelectPipe(PrevPipeNumber);
@@ -130,7 +138,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 {
 	uint8_t  ErrorCode;
 	
-	Pipe_SetToken(PIPE_TOKEN_IN);
+	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
@@ -199,74 +207,87 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 	return PIPE_RWSTREAM_NoError;
 }
 
+/* The following abuses the C preprocessor in order to copy-past common code with slight alterations,
+ * so that the code needs to be written once. It is a crude form of templating to reduce code maintenance. */
+
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*((uint8_t*)BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*((uint8_t*)BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Pipe_Read_Byte()
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr++) = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Pipe_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr++, Pipe_Read_Byte())
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Pipe_Read_Byte()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr--) = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Pipe_Read_Byte())
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr--, Pipe_Read_Byte())
 #include "Template/Template_Pipe_RW.c"
 
 #endif

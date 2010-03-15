@@ -59,18 +59,10 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name - uncomment one of the following
-#MCU = at90usb162
-#MCU = atmega32u4
+# MCU name - uncomment _ONE_ of the following
 #MCU = at90usb646
 #MCU = at90usb647
 MCU = at90usb1287
-
-
-# Target board (see library "Board Types" documentation, USER or blank for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
-# "Board" inside the application directory.
-BOARD  = USER
 
 
 # Processor frequency.
@@ -84,9 +76,15 @@ BOARD  = USER
 F_CPU = 16000000
 
 
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
+# LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
+# "Board" inside the application directory.
+BOARD  = USER
+
+
 # Input clock frequency.
 #     This will define a symbol, F_CLOCK, in all source code files equal to the 
-#     input clock frequency (before any prescaling is performed). This value may
+#     input clock frequency (before any prescaling is performed) in Hz. This value may
 #     differ from F_CPU if prescaling is used on the latter, and is required as the
 #     raw input clock is fed directly to the PLL sections of the AVR for high speed
 #     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
@@ -96,6 +94,20 @@ F_CPU = 16000000
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_CLOCK = $(F_CPU)
+
+
+#---------------- External Memory Options ----------------
+EXTMEMOPTS = 
+
+#   64 KB of external SRAM, starting after internal RAM used for variables (.data/.bss) and heap (malloc())
+#   for the ATmega128 and AT90USB647 with their 4KB of SRAM, external addresses start at 0x1100
+#   0xFFFF(65535) - 0x1100(4352) = 0xEEFF(61183) --> 61KB of available external SRAM
+#EXTMEMOPTS += -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+
+#   for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
+#   0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
+#   SAFEST OPTION:
+#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
 
 
 # Output format. (can be srec, ihex, binary)
@@ -114,13 +126,10 @@ OBJDIR = .
 
 # Path to the LUFA library
 LUFA_PATH = ../../libs/LUFA
-AVRLIB_PATH = ../../libs
-
+AVRLIB_PATH = ../../libs/avrlib
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
-LUFA_OPTS += -D NO_STREAM_CALLBACKS
-LUFA_OPTS += -D USB_DEVICE_ONLY
+LUFA_OPTS  = -D USB_DEVICE_ONLY
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
@@ -128,20 +137,21 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  Lib/RingBuff.c                                              \
-	  $(AVRLIB_PATH)/avrlib/rprintf.c                          \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
- 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+SRC = $(TARGET).c \
+	  Descriptors.c \
+	  Lib/RingBuff.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c \
+ 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/CDC.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/CDC.c \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -214,9 +224,9 @@ CFLAGS += -O$(OPT)
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
+CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
-CFLAGS += -finline-limit=20
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
@@ -304,17 +314,16 @@ EXTRALIBDIRS =
 
 
 #---------------- External Memory Options ----------------
-EXTMEMOPTS = 
 
-# 64 KB of external SRAM, starting after internal RAM used for variables (.data/.bss) and heap (malloc())
-# for the ATmega128 and AT90USB647 with their 4KB of SRAM, external addresses start at 0x1100
-# 0xFFFF(65535) - 0x1100(4352) = 0xEEFF(61183) --> 61KB of available external SRAM
-#EXTMEMOPTS += -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+# 64 KB of external RAM, starting after internal RAM (ATmega128!),
+# used for variables (.data/.bss) and heap (malloc()).
+#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
 
-# for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
-# 0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
-# SAFEST OPTION:
-#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
+# 64 KB of external RAM, starting after internal RAM (ATmega128!),
+# only used for heap (malloc()).
+#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
+
+EXTMEMOPTS =
 
 
 
@@ -461,7 +470,8 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build showeventhooks showliboptions showtarget sizeafter end
+#all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+all: begin gccversion sizebefore build showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -504,13 +514,16 @@ sizeafter:
 	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
-showeventhooks: build
+$(LUFA_PATH)/LUFA/LUFA_Events.lst:
+	@make -C $(LUFA_PATH)/LUFA/LUFA_Events.lst
+
+checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
 	@echo
-	@echo -------- Unhooked LUFA Events --------
-	@$(shell) (grep -s '^EVENT_.*LUFA/.*\\.o' $(TARGET).map | \
-	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
-			   echo "(None)"
-	@echo --------------------------------------
+	@echo Checking for invalid events...
+	@$(shell) avr-nm $(OBJ) | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
+	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
+	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
+	@if test -s InvalidEvents.tmp; then exit 1; fi
 
 showliboptions:
 	@echo
@@ -528,16 +541,15 @@ showtarget:
 	@echo Clock:     $(F_CPU)Hz CPU, $(F_CLOCK)Hz Master
 	@echo --------------------------------------
 	
+
 # Display compiler version information.
 gccversion : 
 	@$(CC) --version
 
 
-
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-
 
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
@@ -550,12 +562,15 @@ dfu: $(TARGET).hex
 	dfu-programmer $(MCU) reset
 
 flip-ee: $(TARGET).hex $(TARGET).eep
-	copy $(TARGET).eep $(TARGET)eep.hex
+	$(COPY) $(TARGET).eep $(TARGET)eep.hex
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(REMOVE) $(TARGET)eep.hex
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
 	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
+	dfu-programmer $(MCU) reset
 
 
 # Generate avr-gdb config/init file which does the following:
@@ -711,8 +726,8 @@ clean_list:
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
+	$(REMOVE) InvalidEvents.tmp
 	$(REMOVEDIR) .dep
-
 
 doxygen:
 	@echo Generating Project Documentation...
@@ -731,8 +746,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all showeventhooks showliboptions showtarget  \
-begin finish end sizebefore sizeafter gccversion build \
-elf hex eep lss sym coff extcoff program clean debug   \
-clean_list clean_binary gdb-config doxygen dfu flip    \
-flip-ee dfu-ee
+.PHONY : all checkinvalidevents showliboptions    \
+showtarget begin finish end sizebefore sizeafter  \
+gccversion build elf hex eep lss sym coff extcoff \
+program dfu flip flip-ee dfu-ee clean debug       \
+clean_list clean_binary gdb-config doxygen

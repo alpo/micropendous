@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,6 @@
 
 #include "StillImageCommands.h"
 
-/* Globals: */
 /** PIMA block container for the block to send to the device */
 PIMA_Container_t PIMA_SendBlock;
 
@@ -79,7 +78,10 @@ void SImage_SendBlockHeader(void)
 	Pipe_Freeze();
 }
 
-/** Function to receive a PIMA event container from the attached still image device. */
+/** Function to receive a PIMA event container from the attached still image device.
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
 uint8_t SImage_ReceiveEventHeader(void)
 {
 	uint8_t ErrorCode;
@@ -100,7 +102,10 @@ uint8_t SImage_ReceiveEventHeader(void)
 	return ErrorCode;
 }
 
-/** Function to receive a PIMA response container from the attached still image device. */
+/** Function to receive a PIMA response container from the attached still image device.
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
 uint8_t SImage_ReceiveBlockHeader(void)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
@@ -190,6 +195,8 @@ uint8_t SImage_ReceiveBlockHeader(void)
  *
  *  \param[in] Buffer  Source data buffer to send to the device
  *  \param[in] Bytes   Number of bytes to send
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
 uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
 {

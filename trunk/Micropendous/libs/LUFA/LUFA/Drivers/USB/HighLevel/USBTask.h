@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -54,6 +54,11 @@
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
+
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
 		
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
@@ -76,7 +81,7 @@
 			 extern USB_Request_Header_t USB_ControlRequest;
 			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				#if !defined(HOST_STATE_AS_GPIOR1) || defined(__DOXYGEN__)
+				#if !defined(HOST_STATE_AS_GPIOR) || defined(__DOXYGEN__)
 					/** Indicates the current host state machine state. When in host mode, this indicates the state
 					 *  via one of the values of the \ref USB_Host_States_t enum values.
 					 *
@@ -100,7 +105,7 @@
 				#else
 					#define _GET_HOST_GPIOR_NAME2(y) GPIOR ## y
 					#define _GET_HOST_GPIOR_NAME(x)  _GET_HOST_GPIOR_NAME2(x)
-					#define USB_HostState _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
+					#define USB_HostState            _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
 				#endif
 			#endif
 
@@ -132,7 +137,7 @@
 				#else
 					#define _GET_DEVICE_GPIOR_NAME2(y) GPIOR ## y
 					#define _GET_DEVICE_GPIOR_NAME(x)  _GET_DEVICE_GPIOR_NAME2(x)
-					#define USB_DeviceState _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
+					#define USB_DeviceState            _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
 				#endif
 			#endif
 
@@ -164,7 +169,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_USBTASK_C)
+			#if defined(__INCLUDE_FROM_USBTASK_C)
 				#if defined(USB_CAN_BE_HOST)
 					static void USB_HostTask(void);
 				#endif
@@ -175,7 +180,9 @@
 			#endif
 			
 		/* Macros: */
-			#define HOST_TASK_NONBLOCK_WAIT(duration, nextstate) {USB_HostState = HOST_STATE_WaitForDevice; WaitMSRemaining = duration; PostWaitState = nextstate; }
+			#define HOST_TASK_NONBLOCK_WAIT(duration, nextstate) MACROS{ USB_HostState = HOST_STATE_WaitForDevice; \
+			                                                             WaitMSRemaining = (duration);             \
+			                                                             PostWaitState = (nextstate);        }MACROE
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */

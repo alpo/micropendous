@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,14 +28,16 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define INCLUDE_FROM_MS_CLASS_HOST_C
+#define  __INCLUDE_FROM_MS_CLASS_HOST_C
+#define  __INCLUDE_FROM_MS_DRIVER
 #include "MassStorage.h"
 
 uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint16_t ConfigDescriptorSize,
-							   uint8_t* DeviceConfigDescriptor)
+							   void* DeviceConfigDescriptor)
 {
 	uint8_t FoundEndpoints = 0;
 	
@@ -66,7 +68,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 		{
 			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MSInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= MS_FOUND_DATAPIPE_IN;
@@ -75,7 +77,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 		{
 			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MSInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= MS_FOUND_DATAPIPE_OUT;
@@ -86,7 +88,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 	return MS_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -104,7 +106,7 @@ static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
@@ -125,11 +127,6 @@ static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor)
 	}
 
 	return DESCRIPTOR_SEARCH_NotFound;
-}
-
-void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
-{
-	
 }
 
 static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, MS_CommandBlockWrapper_t* const SCSICommandBlock,
@@ -289,9 +286,6 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterf
 
 uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 {
-	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
-
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
@@ -308,10 +302,7 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 
 uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint8_t* const MaxLUNIndex)
 {
-	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
-
-	uint8_t ErrorCode;
+	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -325,7 +316,10 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint8_
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
-	  *MaxLUNIndex = 0;
+	{
+		*MaxLUNIndex = 0;
+		ErrorCode = HOST_SENDCONTROL_Successful;
+	}
 	
 	return ErrorCode;
 }
@@ -334,7 +328,7 @@ uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, c
                                SCSI_Inquiry_Response_t* const InquiryData)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 	  
 	uint8_t ErrorCode;
 
@@ -370,7 +364,7 @@ uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, c
 uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;	
 
@@ -407,7 +401,7 @@ uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
                                    SCSI_Capacity_t* const DeviceCapacity)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -451,7 +445,7 @@ uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, con
                              SCSI_Request_Sense_Response_t* const SenseData)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -488,7 +482,7 @@ uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInter
                                           const bool PreventRemoval)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -525,7 +519,7 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
                                  const uint8_t Blocks, const uint16_t BlockSize, void* BlockBuffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -566,7 +560,7 @@ uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo
                                   const uint8_t Blocks, const uint16_t BlockSize, void* BlockBuffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 

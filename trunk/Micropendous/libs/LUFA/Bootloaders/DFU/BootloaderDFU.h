@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -55,7 +55,7 @@
 		 *  can protect the AVR's firmware from being dumped from a secured AVR. When false, memory operations are
 		 *  allowed at any time.
 		 */
-		#define SECURE_MODE           false
+		#define SECURE_MODE              false
 
 		/** Major bootloader version number. */
 		#define BOOTLOADER_VERSION_MINOR 2
@@ -79,7 +79,7 @@
 		 *  \param[in] dataarr  Command byte array to check against
 		 *  \param[in] cb1      First command byte to check
 		 */
-		#define IS_ONEBYTE_COMMAND(dataarr, cb1)       (dataarr[0] == cb1)
+		#define IS_ONEBYTE_COMMAND(dataarr, cb1)       (dataarr[0] == (cb1))
 
 		/** Convenience macro, used to determine if the issued command is the given two-byte long command.
 		 *
@@ -87,7 +87,7 @@
 		 *  \param[in] cb1      First command byte to check
 		 *  \param[in] cb2      Second command byte to check
 		 */
-		#define IS_TWOBYTE_COMMAND(dataarr, cb1, cb2) ((dataarr[0] == cb1) && (dataarr[1] == cb2))
+		#define IS_TWOBYTE_COMMAND(dataarr, cb1, cb2) ((dataarr[0] == (cb1)) && (dataarr[1] == (cb2)))
 	
 		/** Length of the DFU file suffix block, appended to the end of each complete memory write command.
 		 *  The DFU file suffix is currently unused (but is designed to give extra file information, such as

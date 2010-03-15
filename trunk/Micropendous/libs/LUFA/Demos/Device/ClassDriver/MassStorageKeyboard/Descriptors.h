@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,10 +44,6 @@
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 		#include <LUFA/Drivers/USB/Class/HID.h>
 
-		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
-			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
-		#endif
-
 	/* Macros: */
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPNUM               1
@@ -72,22 +68,13 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_Endpoint_t             DataInEndpoint;
-			USB_Descriptor_Endpoint_t             DataOutEndpoint;
+			USB_Descriptor_Interface_t            MassStorageInterface;
+			USB_Descriptor_Endpoint_t             MassStorageDataInEndpoint;
+			USB_Descriptor_Endpoint_t             MassStorageDataOutEndpoint;
 			USB_Descriptor_Interface_t            KeyboardInterface;
 			USB_HID_Descriptor_t                  KeyboardHID;
 	        USB_Descriptor_Endpoint_t             KeyboardEndpoint;
 		} USB_Descriptor_Configuration_t;
-
-/*		typedef struct
-		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_HID_Descriptor_t                  KeyboardHID;
-	        USB_Descriptor_Endpoint_t             KeyboardEndpoint;
-		} USB_Descriptor_Configuration_keyboard_t;
-// */
 		
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)

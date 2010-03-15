@@ -29,10 +29,10 @@
 #
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
-# make win = compile DeviceAccessC.c example using MingW under Windows
+# make win = compile TestThroughput.c example using MingW under Windows
 #                make sure LIBUSBSRC_ROOT is defined correctly
 #
-# make linux = compile DeviceAccessC.c example under Linux
+# make linux = compile TestThroughput.c example under Linux
 #                make sure LIBUSBSRC_ROOT_LIN is defined correctly
 #
 # make program = Download the hex file to the device, using avrdude.
@@ -551,16 +551,16 @@ gccversion :
 # compile and run test software
 win:
 	echo ------------------------------
-	gcc -c DeviceAccessC.c -o DeviceAccessC.o -O2 -Wall -mno-cygwin -DVERSION_MAJOR=0 -DVERSION_MINOR=1 -DVERSION_MICRO=12 -DVERSION_NANO=1 -DINF_DATE='03/29/2008' -DINF_VERSION='0.1.12.1' -DDBG -I$(LIBUSBSRC_ROOT)/src -I$(LIBUSBSRC_ROOT)/src/driver -I$(LIBUSBSRC_ROOT)/
-	gcc -O2 -Wall -mno-cygwin -o DeviceAccessC.exe -I$(LIBUSBSRC_ROOT)/src  DeviceAccessC.o -s -mno-cygwin -L. -lusb -lgdi32 -luser32 -lcfgmgr32 -lsetupapi -lcomctl32
+	gcc -c TestThroughput.c -o TestThroughput.o -O2 -Wall -mno-cygwin -DVERSION_MAJOR=0 -DVERSION_MINOR=1 -DVERSION_MICRO=12 -DVERSION_NANO=1 -DINF_DATE='03/29/2008' -DINF_VERSION='0.1.12.1' -DDBG -I$(LIBUSBSRC_ROOT)/src -I$(LIBUSBSRC_ROOT)/src/driver -I$(LIBUSBSRC_ROOT)/
+	gcc -O2 -Wall -mno-cygwin -o TestThroughput.exe -I$(LIBUSBSRC_ROOT)/src  TestThroughput.o -s -mno-cygwin -L. -lusb -lgdi32 -luser32 -lcfgmgr32 -lsetupapi -lcomctl32
 	echo ------------------------------
-	DeviceAccessC.exe
+	TestThroughput.exe
 
 linux:
 	echo ------------------------------
-	gcc -DHAVE_CONFIG_H -I.. -I.. -g -O2 -g -Wall -MT DeviceAccessC.o -MD -MP -MF "./DeviceAccessC.Po" -c -o DeviceAccessC.o DeviceAccessC.c
-	libtool --mode=link gcc -g -O2 -g -Wall -o DeviceAccessC  DeviceAccessC.o $(LIBUSBSRC_ROOT_LIN)/libusb.la
-	./DeviceAccessC
+	gcc -DHAVE_CONFIG_H -I.. -I.. -g -O2 -g -Wall -MT TestThroughput.o -MD -MP -MF "./TestThroughput.Po" -c -o TestThroughput.o TestThroughput.c
+	libtool --mode=link gcc -g -O2 -g -Wall -o TestThroughput  TestThroughput.o $(LIBUSBSRC_ROOT_LIN)/libusb.la
+	./TestThroughput
 
 
 
@@ -742,10 +742,10 @@ clean_list:
 	$(REMOVE) $(SRC:.c=.i)
 	$(REMOVEDIR) .dep
 	$(REMOVEDIR) .libs
-	$(REMOVE) DeviceAccessC.exe
-	$(REMOVE) DeviceAccessC.o
-	$(REMOVE) DeviceAccessC.Po
-	$(REMOVE) ./DeviceAccessC
+	$(REMOVE) TestThroughput.exe
+	$(REMOVE) TestThroughput.o
+	$(REMOVE) TestThroughput.Po
+	$(REMOVE) ./TestThroughput
 
 
 doxygen:

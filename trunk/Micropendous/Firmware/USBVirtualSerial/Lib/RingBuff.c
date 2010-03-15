@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,7 +30,7 @@
 
 #include "RingBuff.h"
 
-void Buffer_Initialize(RingBuff_t* Buffer)
+void Buffer_Initialize(RingBuff_t* const Buffer)
 {
 	BUFF_ATOMIC_BLOCK
 	{
@@ -40,7 +40,7 @@ void Buffer_Initialize(RingBuff_t* Buffer)
 	}
 }
 
-void Buffer_StoreElement(RingBuff_t* Buffer, RingBuff_Data_t Data)
+void Buffer_StoreElement(RingBuff_t* const Buffer, RingBuff_Data_t Data)
 {
 	BUFF_ATOMIC_BLOCK
 	{
@@ -73,7 +73,7 @@ void Buffer_StoreElement(RingBuff_t* Buffer, RingBuff_Data_t Data)
 	}
 }
 
-RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
+RingBuff_Data_t Buffer_GetElement(RingBuff_t* const Buffer)
 {
 	RingBuff_Data_t BuffData;
 	
@@ -83,7 +83,7 @@ RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
 		if (!(Buffer->Elements))
 		  return 0;
 #elif !defined(BUFF_NOEMPTYCHECK)
-	#error No empty buffer check behaviour specified.
+	#error No empty buffer check behavior specified.
 #endif
 
 		BuffData = *(Buffer->OutPtr);
@@ -99,7 +99,7 @@ RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
 }
 
 #if defined(BUFF_USEPEEK)
-RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* Buffer)
+RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* const Buffer)
 {
 	RingBuff_Data_t BuffData;
 
@@ -109,7 +109,7 @@ RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* Buffer)
 		if (!(Buffer->Elements))
 		  return 0;
 #elif !defined(BUFF_NOEMPTYCHECK)
-	#error No empty buffer check behaviour specified.
+	#error No empty buffer check behavior specified.
 #endif
 
 		BuffData = *(Buffer->OutPtr);

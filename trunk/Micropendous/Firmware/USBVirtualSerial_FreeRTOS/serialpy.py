@@ -11,6 +11,8 @@ import sys                # command-line argument handling
 def SerialSendReceive(comport):
     # open the given serial port for communication
     ser = serial.Serial(comport)
+    ser.setTimeout(2000)
+    ser.setWriteTimeout(2000)
 
     print ser			 # dump all info regarding serial port being used
 

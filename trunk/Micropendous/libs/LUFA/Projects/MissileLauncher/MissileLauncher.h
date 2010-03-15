@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -55,13 +55,13 @@
 		
 	/* Macros: */
 		/** Pipe number for the HID data IN pipe */
-		#define HID_DATA_IN_PIPE                 1
+		#define HID_DATA_IN_PIPE          1
 		
 		/** Pipe number for the HID data OUT pipe */
-		#define HID_DATA_OUT_PIPE                2
+		#define HID_DATA_OUT_PIPE         2
 
 		/** HID Class specific request to send a HID report to the device. */
-		#define REQ_SetReport                    0x09
+		#define REQ_SetReport             0x09
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -82,8 +82,8 @@
 		void SetupHardware(void);
 
 		void Read_Joystick_Status(void);
-        void Send_Command_Report(uint8_t* Report, uint16_t ReportSize);
-        void Send_Command(uint8_t* Command);
+        void Send_Command_Report(uint8_t* const Report, const uint16_t ReportSize);
+        void Send_Command(uint8_t* const Command);
 
 		void HID_Host_Task(void);
 
@@ -94,6 +94,6 @@
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 		void DiscardNextReport(void);
-		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);
+		void WriteNextReport(uint8_t* const ReportOUTData, const uint16_t ReportLength);
 		
 #endif

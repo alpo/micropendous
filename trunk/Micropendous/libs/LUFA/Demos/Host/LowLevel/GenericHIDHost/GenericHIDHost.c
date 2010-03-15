@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
 #include "GenericHIDHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -165,17 +165,17 @@ void ReadNextReport(void)
  *
  *  \param[in] ReportOUTData  Buffer containing the report to send to the device
  *  \param[in] ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
- *  \param[in] ReportType  Type of report to send, either HID_REPORTTYPE_OUTPUT or HID_REPORTTYPE_FEATURE
+ *  \param[in] ReportType  Type of report to send, either REPORT_TYPE_OUT or REPORT_TYPE_FEATURE
  *  \param[in] ReportLength  Length of the report to send
  */
 void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength)
 {
-	/* Select and unfreeze HID data OUT pipe */
+	/* Select the HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 	
 	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the
 	 * control endpoint instead) - check to see if the OUT endpoint has been initialized */
-	if (Pipe_IsConfigured())
+	if (Pipe_IsConfigured() && (ReportType == REPORT_TYPE_OUT))
 	{
 		Pipe_Unfreeze();
 

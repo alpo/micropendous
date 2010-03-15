@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -86,7 +86,7 @@ void SetupHardware(void)
 	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);
 	
 	/* Start the ADC conversion in free running mode */
-	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_CHANNEL);
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
 }
 
 /** Processes the next audio sample by reading the last ADC conversion and writing it to the audio
@@ -102,10 +102,10 @@ void ProcessNextSample(void)
 		/* Audio sample is ADC value scaled to fit the entire range */
 		int16_t AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
 		
-#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
+		#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
 		/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
 		AudioSample -= (SAMPLE_MAX_RANGE / 2));
-#endif
+		#endif
 
 		Audio_Device_WriteSample16(&Microphone_Audio_Interface, AudioSample);
 	}
@@ -117,9 +117,9 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
+	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS00);   // Fcpu speed
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 }
 
 /** Event handler for the library USB Disconnection event. */

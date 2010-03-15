@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -36,13 +36,12 @@
 
 #include "MassStorageHost.h"
 
-/* Globals */
 /** Index of the highest available LUN (Logical Unit) in the attached Mass Storage Device */
 uint8_t MassStore_MaxLUNIndex;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -250,7 +249,7 @@ void MassStorage_Task(void)
 				if (!(ErrorCode))
 				  break;
 
-				/* If an error othe than a logical command failure (indicating device busy) returned, abort */
+				/* If an error other than a logical command failure (indicating device busy) returned, abort */
 				if (ErrorCode != MASS_STORE_SCSI_COMMAND_FAILED)
 				{
 					ShowDiskReadError(PSTR("Test Unit Ready"), ErrorCode);
@@ -277,7 +276,7 @@ void MassStorage_Task(void)
 			/* Display the disk capacity in blocks * block size bytes */
 			printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
 
-			/* Create a new buffer capabable of holding a single block from the device */
+			/* Create a new buffer capable of holding a single block from the device */
 			uint8_t BlockBuffer[DiskCapacity.BlockSize];
 
 			/* Read in the first 512 byte block from the device */

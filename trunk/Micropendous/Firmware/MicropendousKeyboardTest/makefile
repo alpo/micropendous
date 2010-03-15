@@ -59,7 +59,7 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name - uncomment one of the following
+# MCU name - uncomment _ONE_ of the following
 #MCU = at90usb162
 #MCU = atmega32u4
 #MCU = at90usb646
@@ -69,19 +69,16 @@ MCU = at90usb1287
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency in Hz. You can then use this symbol in your source code to 
+#     processor frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_CLOCK below, as it is sourced by
-#     F_CLOCK after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
+#     Typical values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
 F_CPU = 16000000
 
 
-# Target board (see library "Board Types" documentation, USER or blank for projects not requiring
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
 BOARD  = USER
@@ -101,6 +98,20 @@ BOARD  = USER
 F_CLOCK = $(F_CPU)
 
 
+#---------------- External Memory Options ----------------
+EXTMEMOPTS = 
+
+#   64 KB of external SRAM, starting after internal RAM used for variables (.data/.bss) and heap (malloc())
+#   for the ATmega128 and AT90USB647 with their 4KB of SRAM, external addresses start at 0x1100
+#   0xFFFF(65535) - 0x1100(4352) = 0xEEFF(61183) --> 61KB of available external SRAM
+#EXTMEMOPTS += -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+
+#   for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
+#   0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
+#   SAFEST OPTION:
+#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
+
+
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
@@ -117,11 +128,11 @@ OBJDIR = .
 
 # Path to the LUFA library
 LUFA_PATH = ../../libs/LUFA
+AVRLIB_PATH = ../../libs/avrlib
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D NO_STREAM_CALLBACKS
-LUFA_OPTS += -D USB_DEVICE_ONLY
+LUFA_OPTS  = -D USB_DEVICE_ONLY
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
@@ -129,18 +140,21 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
- 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+SRC = $(TARGET).c \
+	  Descriptors.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c \
+ 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HID.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HIDParser.c \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -174,7 +188,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/
 
 
 # Compiler flag to set the C Standard level.
@@ -459,7 +473,8 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+#all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+all: begin gccversion sizebefore build showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -508,11 +523,11 @@ $(LUFA_PATH)/LUFA/LUFA_Events.lst:
 checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
 	@echo
 	@echo Checking for invalid events...
-	@$(shell) avr-nm $(TARGET).elf | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
+	@$(shell) avr-nm $(OBJ) | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
 	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
 	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
 	@if test -s InvalidEvents.tmp; then exit 1; fi
-	
+
 showliboptions:
 	@echo
 	@echo ---- Compile Time Library Options ----
@@ -553,9 +568,12 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 	$(COPY) $(TARGET).eep $(TARGET)eep.hex
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(REMOVE) $(TARGET)eep.hex
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
 	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
+	dfu-programmer $(MCU) reset
 
 
 # Generate avr-gdb config/init file which does the following:

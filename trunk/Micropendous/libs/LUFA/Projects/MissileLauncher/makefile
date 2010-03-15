@@ -63,7 +63,7 @@
 MCU = at90usb1287
 
 
-# Target board (see library "Board Types" documentation, USER or blank for projects not requiring
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
 BOARD  = USBKEY
@@ -504,7 +504,7 @@ $(LUFA_PATH)/LUFA/LUFA_Events.lst:
 checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
 	@echo
 	@echo Checking for invalid events...
-	@$(shell) avr-nm $(TARGET).elf | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
+	@$(shell) avr-nm $(OBJ) | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
 	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
 	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
 	@if test -s InvalidEvents.tmp; then exit 1; fi

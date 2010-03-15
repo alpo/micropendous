@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_Temperature Temperature Driver - LUFA/Drivers/Board/Temperature.h
+ *  @defgroup Group_Temperature Temperature Sensor Driver - LUFA/Drivers/Board/Temperature.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -52,20 +52,17 @@
 #ifndef __TEMPERATURE_H__
 #define __TEMPERATURE_H__
 
-	/* Macros: */
-	#if !defined(__DOXYGEN__)
-		#define INCLUDE_FROM_BOARD_DRIVER
-	#endif
-	
 	/* Includes: */
 		#include <avr/pgmspace.h>
 
 		#include "../../Common/Common.h"
 		#include "../Peripheral/ADC.h"
 	
-		#if !defined(BOARD)
-			#error BOARD must be set in makefile to a value specified in BoardTypes.h.	
-		#elif (BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && (BOARD != BOARD_STK526) && (BOARD != BOARD_USER)
+		#if (BOARD == BOARD_NONE)
+			#error The Board Temperature Sensor driver cannot be used if the makefile BOARD option is not set.
+		#elif ((BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && \
+		       (BOARD != BOARD_STK526) && (BOARD != BOARD_USER) &&   \
+			   (BOARD != BOARD_EVK527))
 			#error The selected board does not contain a temperature sensor.
 		#endif
 
@@ -77,21 +74,24 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** ADC channel number for the temperature sensor. */
-			#define TEMP_ADC_CHANNEL   0
+			#define TEMP_ADC_CHANNEL       0
 			
+			/** ADC channel MUX mask for the temperature sensor. */
+			#define TEMP_ADC_CHANNEL_MASK  ADC_CHANNEL0
+
 			/** Minimum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MIN_TEMP      TEMP_TABLE_OFFSET
+			#define TEMP_MIN_TEMP          TEMP_TABLE_OFFSET
 
 			/** Maximum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MAX_TEMP      ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
+			#define TEMP_MAX_TEMP          ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
 		
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
 				 *  This must be called before any other temperature sensor routines.
 				 *
-				 *  The ADC itself (not the ADC channel) must be configured separately before calling the temperature
-				 *  sensor functions.
+				 *  \note The ADC itself (not the ADC channel) must be configured separately before calling the
+				 *        temperature sensor functions.
 				 */
 				static inline void Temperature_Init(void);
 			#else

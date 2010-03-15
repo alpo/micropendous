@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
 #include "MouseHostWithParser.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -269,6 +269,21 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			/* If button is pressed, all LEDs are turned on */
 			if (ReportItem->Value)
 			  LEDMask = LEDS_ALL_LEDS;
+		}
+		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
+				 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
+				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+		{
+			/* Get the mouse wheel value if it is contained within the current 
+			 * report, if not, skip to the next item in the parser list
+			 */
+			if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
+			  continue;							  
+
+			int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
+			
+			if (WheelDelta)
+			  LEDMask = (LEDS_LED1 | LEDS_LED2 | ((WheelDelta > 0) ? LEDS_LED3 : LEDS_LED4));
 		}
 		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 				 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||

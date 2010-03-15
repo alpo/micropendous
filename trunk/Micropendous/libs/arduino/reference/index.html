@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - Reference </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,20 +45,18 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='selflink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='selflink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h1>Language Reference</h1>
 <p><em>See the <strong><a class='wikilink' href='Extended.html'>extended reference</a></strong> for more advanced features of the Arduino languages and the <strong><a class='wikilink' href='Libraries.html'>libraries page</a></strong> for interfacing with particular types of hardware. </em>
 </p>
 <p class='vspace'></p><p>Arduino programs can be divided in three main parts: <em>structure</em>, <em>values</em> (variables and constants), and <em>functions</em>.  The Arduino language is based on C/C++.
 </p>
-<p class='vspace'></p><p>Here's a <a class='wikilink' href='StyleGuide.html'>style guide</a> that helps with writing examples for beginners.
-</p>
 <p class='vspace'></p>
 <table  width='100%' border='0' cellpadding='5' cellspacing='0'><tr><td  width='50%' valign='top'>
 <h2>Structure</h2>
-<ul><li>void <a class='wikilink' href='Setup.html'>setup</a>()
-</li><li>void <a class='wikilink' href='Loop.html'>loop</a>()
+<ul><li><a class='wikilink' href='Setup.html'>setup</a>()
+</li><li><a class='wikilink' href='Loop.html'>loop</a>()
 </li></ul><p class='vspace'></p><h4>Control Structures</h4>
 <ul><li><a class='wikilink' href='If.html'>if</a>
 </li><li><a class='wikilink' href='Else.html'>if...else</a>
@@ -141,7 +140,9 @@
 </p><ul><li>int <a class='wikilink' href='AnalogRead.html'>analogRead</a>(pin)
 </li><li><a class='wikilink' href='AnalogWrite.html'>analogWrite</a>(pin, value) - <em>PWM</em>
 </li></ul><p class='vspace'></p><p><strong>Advanced I/O</strong>
-</p><ul><li><a class='wikilink' href='ShiftOut.html'>shiftOut</a>(dataPin, clockPin, bitOrder, value) 
+</p><ul><li><a class='wikilink' href='Tone.html'>tone</a>()
+</li><li><a class='wikilink' href='NoTone.html'>noTone</a>()
+</li><li><a class='wikilink' href='ShiftOut.html'>shiftOut</a>(dataPin, clockPin, bitOrder, value) 
 </li><li>unsigned long <a class='wikilink' href='PulseIn.html'>pulseIn</a>(pin, value)
 </li></ul><p class='vspace'></p><p><strong>Time</strong>
 </p><ul><li>unsigned long <a class='wikilink' href='Millis.html'>millis</a>()   

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,12 +32,12 @@
 	SideShow Class demonstration application. This give a reference
 	for implementing Microsoft SideShow compatible devices in an
 	embedded environment. SideShow allows for gadget data displayed
-	on a Vista machine to also be displayed on an externally connected
-	interactive display. Upon enumeration on a Vista system, this will
+	on a Windows Vista or later machine to also be displayed on an
+	externally connected interactive display. Upon enumeration, this will
 	appear as a new SideShow device which can have gadgets loaded onto
 	it.
 	
-	Note that while the incomming content is buffered in packet struct
+	Note that while the incoming content is buffered in packet struct
 	form, the data is not actually displayed. It is left to the user to
 	write sufficient code to read out the packed data for display to a
 	screen.

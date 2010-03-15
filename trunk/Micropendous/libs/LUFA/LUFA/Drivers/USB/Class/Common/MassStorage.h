@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Mass Storage Class specific request to reset the Mass Storage interface, ready for the next command. */
 		#define REQ_MassStorageReset       0xFF
@@ -109,7 +114,7 @@
 		/** SCSI Command Code for a MODE SENSE (10) command. */
 		#define SCSI_CMD_MODE_SENSE_10                         0x5A
 
-		/** SCSI Sense Code to indicate no error has ocurred. */
+		/** SCSI Sense Code to indicate no error has occurred. */
 		#define SCSI_SENSE_KEY_GOOD                            0x00
 
 		/** SCSI Sense Code to indicate that the device has recovered from an error. */
@@ -121,7 +126,7 @@
 		/** SCSI Sense Code to indicate an error whilst accessing the medium. */
 		#define SCSI_SENSE_KEY_MEDIUM_ERROR                    0x03
 
-		/** SCSI Sense Code to indicate a hardware has ocurred. */
+		/** SCSI Sense Code to indicate a hardware has occurred. */
 		#define SCSI_SENSE_KEY_HARDWARE_ERROR                  0x04
 
 		/** SCSI Sense Code to indicate that an illegal request has been issued. */
@@ -138,7 +143,7 @@
 		/** SCSI Sense Code to indicate an error while trying to write to a write-once medium. */
 		#define SCSI_SENSE_KEY_BLANK_CHECK                     0x08
 
-		/** SCSI Sense Code to indicate a vendor specific error has ocurred. */
+		/** SCSI Sense Code to indicate a vendor specific error has occurred. */
 		#define SCSI_SENSE_KEY_VENDOR_SPECIFIC                 0x09
 
 		/** SCSI Sense Code to indicate that an EXTENDED COPY command has aborted due to an error. */
@@ -162,7 +167,7 @@
 		/** SCSI Additional Sense Code to indicate an invalid field was encountered while processing the issued command. */
 		#define SCSI_ASENSE_INVALID_FIELD_IN_CDB               0x24
 
-		/** SCSI Additional Sense Code to indicate that an attemp to write to a protected area was made. */
+		/** SCSI Additional Sense Code to indicate that an attempt to write to a protected area was made. */
 		#define SCSI_ASENSE_WRITE_PROTECTED                    0x27
 
 		/** SCSI Additional Sense Code to indicate an error whilst formatting the device medium. */
@@ -213,6 +218,69 @@
 			uint8_t  Status; /**< Status code of the issued command - a value from the MassStorage_CommandStatusCodes_t enum */
 		} MS_CommandStatusWrapper_t;
 		
+		/** Type define for a SCSI Sense structure. Structures of this type are filled out by the
+		 *  device via the MassStore_RequestSense() function, indicating the current sense data of the
+		 *  device (giving explicit error codes for the last issued command). For details of the
+		 *  structure contents, refer to the SCSI specifications.
+		 */
+		typedef struct
+		{
+			uint8_t       ResponseCode;
+
+			uint8_t       SegmentNumber;
+			
+			unsigned char SenseKey            : 4;
+			unsigned char _RESERVED1          : 1;
+			unsigned char ILI                 : 1;
+			unsigned char EOM                 : 1;
+			unsigned char FileMark            : 1;
+			
+			uint8_t      Information[4];
+			uint8_t      AdditionalLength;
+			uint8_t      CmdSpecificInformation[4];
+			uint8_t      AdditionalSenseCode;
+			uint8_t      AdditionalSenseQualifier;
+			uint8_t      FieldReplaceableUnitCode;
+			uint8_t      SenseKeySpecific[3];
+		} SCSI_Request_Sense_Response_t;
+
+		/** Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
+		 *  device via the MassStore_Inquiry() function, retrieving the attached device's information.
+		 *  For details of the structure contents, refer to the SCSI specifications.
+		 */
+		typedef struct
+		{
+			unsigned char DeviceType          : 5;
+			unsigned char PeripheralQualifier : 3;
+			
+			unsigned char _RESERVED1          : 7;
+			unsigned char Removable           : 1;
+			
+			uint8_t      Version;
+			
+			unsigned char ResponseDataFormat  : 4;
+			unsigned char _RESERVED2          : 1;
+			unsigned char NormACA             : 1;
+			unsigned char TrmTsk              : 1;
+			unsigned char AERC                : 1;
+
+			uint8_t      AdditionalLength;
+			uint8_t      _RESERVED3[2];
+
+			unsigned char SoftReset           : 1;
+			unsigned char CmdQue              : 1;
+			unsigned char _RESERVED4          : 1;
+			unsigned char Linked              : 1;
+			unsigned char Sync                : 1;
+			unsigned char WideBus16Bit        : 1;
+			unsigned char WideBus32Bit        : 1;
+			unsigned char RelAddr             : 1;
+			
+			uint8_t      VendorID[8];
+			uint8_t      ProductID[16];
+			uint8_t      RevisionID[4];
+		} SCSI_Inquiry_Response_t;
+
 	/* Enums: */
 		/** Enum for the possible command status wrapper return status codes. */
 		enum MassStorage_CommandStatusCodes_t

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,15 +44,17 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber        = 0,
+				.InterfaceNumber           = 0,
 
-				.DataINEndpointNumber   = MASS_STORAGE_IN_EPNUM,
-				.DataINEndpointSize     = MASS_STORAGE_IO_EPSIZE,
+				.DataINEndpointNumber      = MASS_STORAGE_IN_EPNUM,
+				.DataINEndpointSize        = MASS_STORAGE_IO_EPSIZE,
+				.DataINEndpointDoubleBank  = false,
 
-				.DataOUTEndpointNumber  = MASS_STORAGE_OUT_EPNUM,
-				.DataOUTEndpointSize    = MASS_STORAGE_IO_EPSIZE,
+				.DataOUTEndpointNumber     = MASS_STORAGE_OUT_EPNUM,
+				.DataOUTEndpointSize       = MASS_STORAGE_IO_EPSIZE,
+				.DataOUTEndpointDoubleBank = false,
 
-				.TotalLUNs              = TOTAL_LUNS,
+				.TotalLUNs                 = TOTAL_LUNS,
 			},
 	};
 

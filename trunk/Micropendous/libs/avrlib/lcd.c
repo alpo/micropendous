@@ -419,7 +419,7 @@ void lcdPrintData(char* data, u08 nBytes)
 	}
 }
 
-/* -- DISABLE THIS - unfortunately, the AT90USB162 does not support MULtiply
+#if (!defined(__AVR_AT90USB162__)  && !defined(__AVR_AT90USB82__))
 void lcdProgressBar(u16 progress, u16 maxprogress, u08 length)
 {
 	u08 i;
@@ -467,4 +467,4 @@ void lcdProgressBar(u16 progress, u16 maxprogress, u08 length)
 	}
 
 }
-*/
+#endif // #if (!defined(__AVR_AT90USB162__)  || !defined(__AVR_AT90USB82__))

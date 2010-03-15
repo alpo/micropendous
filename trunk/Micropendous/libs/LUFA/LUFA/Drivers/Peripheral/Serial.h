@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -68,12 +68,12 @@
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  not set.
 			 */
-			#define SERIAL_UBBRVAL(baud)    (((F_CPU / 16) / baud) - 1)
+			#define SERIAL_UBBRVAL(baud)    ((((F_CPU / 16) + (baud / 2)) / (baud)) - 1)
 
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  set.
 			 */
-			#define SERIAL_2X_UBBRVAL(baud) (((F_CPU / 8) / baud) - 1)
+			#define SERIAL_2X_UBBRVAL(baud) ((((F_CPU / 8) + (baud / 2)) / (baud)) - 1)
 
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
@@ -100,7 +100,7 @@
 			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 		/* Inline Functions: */
-			/** Initializes the USART, ready for serial data transmission and reception. This initialises the interface to
+			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
 			 *
 			 *  \param[in] BaudRate     Serial baud rate, in bits per second

@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
+  Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
       Based on code by Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,6 @@
  
 #include "Keyboard.h"
 
-/* Global Variables */
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
  */
@@ -56,7 +55,7 @@ uint16_t IdleMSRemaining = 0;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the USB management task.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -85,6 +84,7 @@ void SetupHardware(void)
 	Joystick_Init();
 	LEDs_Init();
 	USB_Init();
+	Buttons_Init();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -258,23 +258,32 @@ void EVENT_USB_Device_StartOfFrame(void)
  */
 void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 {
-	uint8_t JoyStatus_LCL = Joystick_GetStatus();
+	uint8_t JoyStatus_LCL     = Joystick_GetStatus();
+	uint8_t ButtonStatus_LCL  = Buttons_GetStatus();
+
+	uint8_t UsedKeyCodes      = 0;
 
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
-
+	
+	/* Make sent key uppercase by indicating that the left shift key is pressed */
+	ReportData->Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+	
 	if (JoyStatus_LCL & JOY_UP)
-	  ReportData->KeyCode[0] = 0x04; // A
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportData->KeyCode[0] = 0x05; // B
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x05; // B
 
 	if (JoyStatus_LCL & JOY_LEFT)
-	  ReportData->KeyCode[0] = 0x06; // C
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x06; // C
 	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportData->KeyCode[0] = 0x07; // D
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x07; // D
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  ReportData->KeyCode[0] = 0x08; // E
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x08; // E
+	  
+	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x09; // F
 }
 
 /** Processes a received LED report, and updates the board LEDs states to match.
@@ -285,13 +294,13 @@ void ProcessLEDReport(uint8_t LEDReport)
 {
 	uint8_t LEDMask = LEDS_LED2;
 	
-	if (LEDReport & 0x01) // NUM Lock
+	if (LEDReport & KEYBOARD_LED_NUMLOCK)
 	  LEDMask |= LEDS_LED1;
 	
-	if (LEDReport & 0x02) // CAPS Lock
+	if (LEDReport & KEYBOARD_LED_CAPSLOCK)
 	  LEDMask |= LEDS_LED3;
 
-	if (LEDReport & 0x04) // SCROLL Lock
+	if (LEDReport & KEYBOARD_LED_SCROLLLOCK)
 	  LEDMask |= LEDS_LED4;
 
 	/* Set the status LEDs to the current Keyboard LED status */
@@ -311,9 +320,6 @@ void SendNextReport(void)
 	/* Check to see if the report data has changed - if so a report MUST be sent */
 	SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);
 	
-	/* Save the current report data for later comparison to check for changes */
-	PrevKeyboardReportData = KeyboardReportData;
-	
 	/* Check if the idle period is set and has elapsed */
 	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
 	{
@@ -330,6 +336,9 @@ void SendNextReport(void)
 	/* Check if Keyboard Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
 	{
+		/* Save the current report data for later comparison to check for changes */
+		PrevKeyboardReportData = KeyboardReportData;
+	
 		/* Write Keyboard Report Data */
 		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 		

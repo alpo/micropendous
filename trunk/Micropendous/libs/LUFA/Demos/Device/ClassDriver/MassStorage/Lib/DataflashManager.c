@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -43,7 +43,7 @@
  *  the pre-selected data OUT endpoint. This routine reads in OS sized blocks from the endpoint and writes
  *  them to the dataflash in Dataflash page sized blocks.
  *
- *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+ *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
  *  \param[in] BlockAddress  Data block starting address for the write sequence
  *  \param[in] TotalBlocks   Number of blocks of data to write
  */
@@ -177,7 +177,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, co
  *  the pre-selected data IN endpoint. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the endpoint.
  *
- *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+ *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
  *  \param[in] BlockAddress  Data block starting address for the read sequence
  *  \param[in] TotalBlocks   Number of blocks of data to read
  */

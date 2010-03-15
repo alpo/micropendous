@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
+  Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
       Based on code by Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,6 +40,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
+		#include <avr/interrupt.h>
 		#include <avr/power.h>
 		#include <stdbool.h>
 		#include <string.h>
@@ -47,32 +48,13 @@
 		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>
+			
 	/* Macros: */
-		/** Idle period indicating that reports should be sent only when the inputs have changed */
-		#define HID_IDLE_CHANGESONLY   0
-
-		/** HID Class specific request to get the next HID report from the device. */
-		#define REQ_GetReport          0x01
-
-		/** HID Class specific request to get the idle timeout period of the device. */
-		#define REQ_GetIdle            0x02
-
-		/** HID Class specific request to send the next HID report to the device. */
-		#define REQ_SetReport          0x09
-
-		/** HID Class specific request to set the idle timeout period of the device. */
-		#define REQ_SetIdle            0x0A
-
-		/** HID Class specific request to get the current HID protocol in use, either report or boot. */
-		#define REQ_GetProtocol        0x03
-
-		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
-		#define REQ_SetProtocol        0x0B
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -84,116 +66,19 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-
-
-	/* Missing WinAVR include defines */
-	/* WinAVR does not define these for the ATmega??u4*/
-	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
-		#ifndef PB7
-			#define PB7		7
-		#endif
-		#ifndef PB6
-			#define PB6		6
-		#endif
-		#ifndef PB5
-			#define PB5		5
-		#endif
-		#ifndef PB4
-			#define PB4		4
-		#endif
-		#ifndef PB3
-			#define PB3		3
-		#endif
-		#ifndef PB2
-			#define PB2		2
-		#endif
-		#ifndef PB1
-			#define PB1		1
-		#endif
-		#ifndef PB0
-			#define PB0		0
-		#endif
-		#ifndef PC7
-			#define PC7		7
-		#endif
-		#ifndef PC6
-			#define PC6		6
-		#endif
-		#ifndef PD7
-			#define PD7		7
-		#endif
-		#ifndef PD6
-			#define PD6		6
-		#endif
-		#ifndef PD5
-			#define PD5		5
-		#endif
-		#ifndef PD4
-			#define PD4		4
-		#endif
-		#ifndef PD3
-			#define PD3		3
-		#endif
-		#ifndef PD2
-			#define PD2		2
-		#endif
-		#ifndef PD1
-			#define PD1		1
-		#endif
-		#ifndef PD0
-			#define PD0		0
-		#endif
-		#ifndef PE2
-			#define PE2		2
-		#endif
-		#ifndef PE6
-			#define PE6		6
-		#endif
-		#ifndef PF7
-			#define PF7		7
-		#endif
-		#ifndef PF6
-			#define PF6		6
-		#endif
-		#ifndef PF5
-			#define PF5		5
-		#endif
-		#ifndef PF4
-			#define PF4		4
-		#endif
-		#ifndef PF1
-			#define PF1		1
-		#endif
-		#ifndef PF0
-			#define PF0		0
-		#endif
-	#endif
-
-
-	/* Type Defines: */
-		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
-		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
-		 */
-		typedef struct
-		{
-			uint8_t Modifier; /**< Modifier mask byte, containing a mask of modifier keys set (such as shift or CTRL) */
-			uint8_t Reserved; /**< Reserved, always set as 0x00 */
-			uint8_t KeyCode[6]; /**< Array of up to six simultaneous key codes of pressed keys */
-		} USB_KeyboardReport_Data_t;
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void HID_Task(void);
-	
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 		void EVENT_USB_Device_StartOfFrame(void);
 
-		void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
-		void ProcessLEDReport(uint8_t LEDReport);
-		void SendNextReport(void);
-		void ReceiveNextReport(void);
+		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                                 const uint8_t ReportType, void* ReportData, uint16_t* ReportSize);
+		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID, 
+		                                          const void* ReportData, const uint16_t ReportSize);
 
 #endif  // _MICROPENDOUS_KEYBOARD_TEST_H_

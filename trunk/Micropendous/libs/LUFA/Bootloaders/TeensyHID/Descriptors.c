@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 	  
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,7 +46,7 @@
 USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 {
 	0x06, 0x9c, 0xff,     /* Usage Page (Vendor Defined)                     */
-	0x09, 0x19,           /* Usage (Vendor Defined)                          */
+	0x09, 0x1B,           /* Usage (Vendor Defined)                          */
 	0xa1, 0x01,           /* Collection (Vendor Defined)                     */
 	0x0a, 0x19, 0x00,     /*   Usage (Vendor Defined)                        */
 	0x75, 0x08,           /*   Report Size (8)                               */
@@ -75,10 +75,10 @@ USB_Descriptor_Device_t DeviceDescriptor =
 		
 	.VendorID               = 0x16C0,
 	.ProductID              = 0x0478,
-	.ReleaseNumber          = 0x0010,
+	.ReleaseNumber          = 0x0120,
 		
 	.ManufacturerStrIndex   = NO_DESCRIPTOR,
-	.ProductStrIndex        = 0x01,
+	.ProductStrIndex        = NO_DESCRIPTOR,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
 		
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
@@ -101,7 +101,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 				
-			.ConfigAttributes       = (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
+			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
 			
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
@@ -144,28 +144,6 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		},
 };
 
-/** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
- *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
- *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
- */
-USB_Descriptor_String_t LanguageString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-		
-	.UnicodeString          = {LANGUAGE_ID_ENG}
-};
-
-/** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
- *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
- *  Descriptor.
- */
-USB_Descriptor_String_t ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(21), .Type = DTYPE_String},
-		
-	.UnicodeString          = L"AVR Teensy Bootloader"
-};
-
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
@@ -174,8 +152,7 @@ USB_Descriptor_String_t ProductString =
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
 {
-	const uint8_t  DescriptorType   = (wValue >> 8);
-	const uint8_t  DescriptorNumber = (wValue & 0xFF);
+	const uint8_t DescriptorType = (wValue >> 8);
 
 	void*    Address = NULL;
 	uint16_t Size    = NO_DESCRIPTOR;
@@ -189,19 +166,6 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		case DTYPE_Configuration:
 			Address = (void*)&ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
-			break;
-		case DTYPE_String:
-			if (!(DescriptorNumber))
-			{
-				Address = (void*)&LanguageString;
-				Size    = LanguageString.Header.Size;
-			}
-			else
-			{
-				Address = (void*)&ProductString;
-				Size    = ProductString.Header.Size;
-			}
-			
 			break;
 		case DTYPE_HID:
 			Address = (void*)&ConfigurationDescriptor.HIDDescriptor;

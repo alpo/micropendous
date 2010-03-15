@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -75,16 +75,36 @@ uint8_t GetHIDReportData(void)
  *  we aren't interested in (preventing us from being able to extract them later on, but saving on the RAM they would
  *  have occupied).
  *
- *  \param[in] CurrentItemAttributes  Pointer to the attrbutes of the item the HID report parser is currently working with
+ *  \param[in] CurrentItem  Pointer to the item the HID report parser is currently working with
  *
  *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
  */
-bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes)
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 {
-	/* Check the attributes of the current item - see if we are interested in it or not;
+	bool IsMouse = false;
+
+	/* Iterate through the item's collection path, until either the root collection node or a collection with the
+	 * Mouse Usage is found - this prevents Joysticks, which use identical descriptors except for the Joystick usage
+	 * parent node, from being erroneously treated as a mouse
+	 */
+	for (HID_CollectionPath_t* CurrPath = CurrentItem->CollectionPath; CurrPath != NULL; CurrPath = CurrPath->Parent)
+	{
+		if ((CurrPath->Usage.Page  == USAGE_PAGE_GENERIC_DCTRL) &&
+		    (CurrPath->Usage.Usage == USAGE_MOUSE))
+		{
+			IsMouse = true;
+			break;
+		}
+	}
+
+	/* If a collection with the mouse usage was not found, indicate that we are not interested in this item */
+	if (!IsMouse)
+	  return false;
+  
+	/* Check the attributes of the current mouse item - see if we are interested in it or not;
 	 * only store BUTTON and GENERIC_DESKTOP_CONTROL items into the Processed HID Report
 	 * structure to save RAM and ignore the rest
 	 */
-	return ((CurrentItemAttributes->Usage.Page == USAGE_PAGE_BUTTON) ||
-	        (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL))
+	return ((CurrentItem->Attributes.Usage.Page == USAGE_PAGE_BUTTON) ||
+	        (CurrentItem->Attributes.Usage.Page == USAGE_PAGE_GENERIC_DCTRL));
 }

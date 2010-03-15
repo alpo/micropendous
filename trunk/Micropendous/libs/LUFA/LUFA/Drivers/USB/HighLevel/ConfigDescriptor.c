@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)
-uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
-                                      void* BufferPtr, uint16_t BufferSize)
+uint8_t USB_Host_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
+                                           void* BufferPtr, uint16_t BufferSize)
 {
 	uint8_t ErrorCode;
 	uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
@@ -69,7 +70,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const Conf
 #endif
 
 void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
-                                 uint8_t** const CurrConfigLoc,
+                                 void** const CurrConfigLoc,
                                  const uint8_t Type)
 {
 	while (*BytesRem)
@@ -82,7 +83,7 @@ void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
 }
 
 void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
-                                       uint8_t** const CurrConfigLoc,
+                                       void** const CurrConfigLoc,
                                        const uint8_t Type,
                                        const uint8_t BeforeType)
 {
@@ -103,7 +104,7 @@ void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
 }
 
 void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
-                                      uint8_t** const CurrConfigLoc,
+                                      void** const CurrConfigLoc,
                                       const uint8_t Type,
                                       const uint8_t AfterType)
 {
@@ -113,7 +114,7 @@ void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
 	  USB_GetNextDescriptorOfType(BytesRem, CurrConfigLoc, Type);
 }
 			
-uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine)
+uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine)
 {
 	uint8_t ErrorCode;
 		

@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - Serial </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,14 +45,14 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h2>Serial</h2>
 <p>Used for communication between the Arduino board and a computer or other devices.  All Arduino boards have at least one serial port (also known as a UART or USART): <strong>Serial</strong>.  It communicates on digital pins 0 (RX) and 1 (TX) as well as with the computer via USB.  Thus, if you use these functions, you cannot also use pins 0 and 1 for digital input or output.
 </p>
 <p class='vspace'></p><p>You can use the Arduino environment's built-in serial monitor to communicate with an Arduino board.  Click the serial monitor button in the toolbar and select the same baud rate used in the call to begin().
 </p>
-<p class='vspace'></p><p>The Arduino Mega has three additional serial ports: <strong>Serial1</strong> on pins 19 (RX) and 18 (TX),  <strong>Serial2</strong> on pins 17 (RX) and 16 (TX), <strong>Serial3</strong> on pins 15 (RX) and 14 (TX).
+<p class='vspace'></p><p>The Arduino Mega has three additional serial ports: <strong>Serial1</strong> on pins 19 (RX) and 18 (TX),  <strong>Serial2</strong> on pins 17 (RX) and 16 (TX), <strong>Serial3</strong> on pins 15 (RX) and 14 (TX).   To use these pins to communicate with your personal computer, you will need an additional USB-to-serial adaptor, as they are not connected to the Mega's USB-to-serial adaptor. To use them to communicate with an external TTL serial device, connect the TX pin to your device's RX pin, the RX to your device's TX pin, and the ground of your Mega to your device's ground.  (Don't connect these pins directly to an <span class='wikiword'>RS232</span> serial port; they operate at +/- 12V and can damage your Arduino board.)
 </p>
 <p class='vspace'></p><h4>Functions</h4>
 <ul><li><a class='wikilink' href='Serial_Begin.html'>begin</a>()

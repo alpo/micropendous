@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -63,12 +63,17 @@
 		 */		
 		#define ATTR_CAN_DOWNLOAD                 (1 << 0)
 
-		#if defined(__AVR_AT90USB1286__)
+		#if defined(__AVR_AT90USB1287__)
 			#define PRODUCT_ID_CODE               0x2FFB
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x97
 			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_AT90USB1287__)
+		#elif defined(__AVR_AT90USB647__)
+			#define PRODUCT_ID_CODE               0x2FF9
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB1286__)
 			#define PRODUCT_ID_CODE               0x2FFB
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x97
@@ -83,11 +88,6 @@
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x95
 			#define AVR_SIGNATURE_3               0x88
-		#elif defined(__AVR_AT90USB647__)
-			#define PRODUCT_ID_CODE               0x2FF9
-			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x96
-			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_ATmega32U4__)
 			#define PRODUCT_ID_CODE               0x2FF4
 			#define AVR_SIGNATURE_1               0x1E
@@ -98,6 +98,16 @@
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x94
 			#define AVR_SIGNATURE_3               0x88
+		#elif defined(__AVR_ATmega32U2__)
+			#define PRODUCT_ID_CODE               0x2FF0
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_ATmega16U2__)
+			#define PRODUCT_ID_CODE               0x2FEF
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x89
 		#elif defined(__AVR_AT90USB162__)
 			#define PRODUCT_ID_CODE               0x2FFA
 			#define AVR_SIGNATURE_1               0x1E
@@ -108,11 +118,6 @@
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x93
 			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_ATmega16U2__)
-			#define PRODUCT_ID_CODE               0x2FEF
-			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x94
-			#define AVR_SIGNATURE_3               0x89
 		#elif defined(__AVR_AT90USB82__)
 			#define PRODUCT_ID_CODE               0x2FEE
 			#define AVR_SIGNATURE_1               0x1E
@@ -137,7 +142,7 @@
 			uint8_t                               Attributes; /**< DFU device attributes, a mask comprising of the
 			                                                    *  ATTR_* macros listed in this source file
 			                                                    */
-			uint16_t                              DetatchTimeout; /**< Timeout in milliseconds between a USB_DETACH
+			uint16_t                              DetachTimeout; /**< Timeout in milliseconds between a USB_DETACH
 			                                                        *  command being issued and the device detaching
 			                                                        *  from the USB bus
 			                                                        */																	

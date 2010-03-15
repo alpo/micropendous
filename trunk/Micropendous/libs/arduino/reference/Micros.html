@@ -3,6 +3,7 @@
 <head>
   <title>Arduino - Micros </title>
   <link rel='stylesheet' href='arduino.css' type='text/css' />
+  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
 </head>
 <body>
 <div id="page">
@@ -44,11 +45,11 @@
 <div id="pagetext">
 <!--PageText-->
 <div id='wikitext'>
-<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a>
+<p><strong>Reference</strong> &nbsp;  <a class='wikilink' href='index.html'>Language</a> (<a class='wikilink' href='Extended.html'>extended</a>) | <a class='wikilink' href='Libraries.html'>Libraries</a> | <a class='wikilink' href='Comparison.html'>Comparison</a> | <a class='wikilink' href='Changes.html'>Changes</a>
 </p>
 <p class='vspace'></p><h2>micros()</h2>
 <h4>Description</h4>
-<p>Returns the number of microseconds since the Arduino board began running the current program.  This number will overflow (go back to zero), after approximately 70 minutes.  On 16 <span class='wikiword'>MHz</span> Arduino boards (e.g. Duemilanove and Nano), this function has a resolution of four microseconds (meaning that the value returned is always a multiple of four).  On 8 <span class='wikiword'>MHz</span> Arduino boards (e.g. the <span class='wikiword'>LilyPad</span>), this function has a resolution of eight microseconds.
+<p>Returns the number of microseconds since the Arduino board began running the current program.  This number will overflow (go back to zero), after approximately 70 minutes.  On 16 <span class='wikiword'>MHz</span> Arduino boards (e.g. Duemilanove and Nano), this function has a resolution of four microseconds (i.e. the value returned is always a multiple of four).  On 8 <span class='wikiword'>MHz</span> Arduino boards (e.g. the <span class='wikiword'>LilyPad</span>), this function has a resolution of eight microseconds.
 </p>
 <p class='vspace'></p><p><em>Note</em>: there are 1,000 microseconds in a millisecond and 1,000,000 microseconds in a second.
 </p>
@@ -56,7 +57,7 @@
 <p>None
 </p>
 <p class='vspace'></p><h4>Returns</h4>
-<p>The number of microseconds since the current program started running, as an unsigned long.  
+<p>Number of microseconds since the program started (<em>unsigned long</em>)
 </p>
 <p class='vspace'></p><h4>Example</h4>
 <pre>

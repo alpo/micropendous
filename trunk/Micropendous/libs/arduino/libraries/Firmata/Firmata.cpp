@@ -1,6 +1,6 @@
 /*
   Firmata.cpp - Firmata library
-  Copyright (C) 2006-2008 Hans-Christoph Steiner.  All rights reserved.
+  Copyright (C) 2006-2008 Hans-Christoph Steiner
  
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -60,17 +60,18 @@ FirmataClass::FirmataClass(void)
 /* begin method for overriding default serial bitrate */
 void FirmataClass::begin(void)
 {
-  Serial.begin(57600);
-  blinkVersion();
-  delay(300);
-  printVersion();
+  begin(57600);
 }
 
 /* begin method for overriding default serial bitrate */
 void FirmataClass::begin(long speed)
 {
-  blinkVersion();
+#if defined(__AVR_ATmega128__)  // Wiring
+  Serial.begin((uint32_t)speed);
+#else
   Serial.begin(speed);
+#endif
+  blinkVersion();
   delay(300);
   printVersion();
   printFirmwareVersion();
@@ -298,7 +299,7 @@ void FirmataClass::sendDigital(byte pin, int value)
 void FirmataClass::sendDigitalPort(byte portNumber, int portData)
 {
   Serial.print(DIGITAL_MESSAGE | (portNumber & 0xF),BYTE);
-  Serial.print(portData % 128, BYTE); // Tx bits 0-6
+  Serial.print((byte)portData % 128, BYTE); // Tx bits 0-6
   Serial.print(portData >> 7, BYTE);  // Tx bits 7-13
 }
 

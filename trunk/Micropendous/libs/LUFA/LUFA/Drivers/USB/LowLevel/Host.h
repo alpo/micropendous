@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -55,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates the fixed USB device address which any attached device is enumerated to when in
@@ -200,6 +205,22 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
+			
+			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			 *  device, requesting the string descriptor of the specified index. This can be used to easily
+			 *  retrieve string descriptors from the device by index, after the index is obtained from the
+			 *  Device or Configuration descriptors.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in] Index  Index of the string index to retrieve
+			 *  \param[out] Buffer  Pointer to the destination buffer where the retrieved string decriptor is
+			 *                      to be stored
+			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength);
 			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
@@ -366,7 +387,7 @@
 			#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
 			#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
 
-			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  (addr & 0x7F);         }MACROE
+			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  ((addr) & 0x7F);       }MACROE
 
 		/* Enums: */
 			enum USB_Host_WaitMSErrorCodes_t
@@ -381,7 +402,7 @@
 			void    USB_Host_ProcessNextHostState(void);
 			uint8_t USB_Host_WaitMS(uint8_t MS);
 			
-			#if defined(INCLUDE_FROM_HOST_C)
+			#if defined(__INCLUDE_FROM_HOST_C)
 				static void USB_Host_ResetDevice(void);
 			#endif
 	#endif

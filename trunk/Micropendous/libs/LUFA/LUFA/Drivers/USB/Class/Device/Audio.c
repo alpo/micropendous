@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,9 +28,11 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
+#define  __INCLUDE_FROM_AUDIO_DRIVER
 #include "Audio.h"
 
 void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
@@ -48,7 +50,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			{
 				Endpoint_ClearSETUP();
 				
-				AudioInterfaceInfo->State.InterfaceEnabled = (USB_ControlRequest.wValue != 0);
+				AudioInterfaceInfo->State.InterfaceEnabled = ((USB_ControlRequest.wValue & 0xFF) != 0);
 				  
 				Endpoint_ClearStatusStage();
 			}
@@ -82,72 +84,6 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfac
 	}
 	
 	return true;
-}
-
-void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-
-}
-
-int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int8_t Sample;
-
-	Sample = Endpoint_Read_Byte();
-
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-	
-	return Sample;
-}
-
-int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int16_t Sample;
-
-	Sample = (int16_t)Endpoint_Read_Word_LE();
-		  
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-
-	return Sample;
-}
-
-int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int32_t Sample;
-
-	Sample = (((uint32_t)Endpoint_Read_Byte() << 16) | Endpoint_Read_Word_LE());
-		  
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-
-	return Sample;
-}
-
-void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int8_t Sample)
-{
-	Endpoint_Write_Byte(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
-}
-
-void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int16_t Sample)
-{
-	Endpoint_Write_Word_LE(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
-}
-
-void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int32_t Sample)
-{
-	Endpoint_Write_Byte(Sample >> 16);
-	Endpoint_Write_Word_LE(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
 }
 
 bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)

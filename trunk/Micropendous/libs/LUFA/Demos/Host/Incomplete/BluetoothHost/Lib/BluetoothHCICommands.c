@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,11 +42,11 @@ static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint8_t ParamLength)
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_DEVICE),
-			bRequest:      0,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       sizeof(CommandBuffer)
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_DEVICE),
+			.bRequest      = 0,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = sizeof(CommandBuffer)
 		};
 		
 	memset(CommandBuffer, 0x00, sizeof(CommandBuffer));
@@ -72,7 +72,6 @@ static bool Bluetooth_GetNextHCIEventHeader(void)
 	}
 	  
 	Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader));
-	  
 	Pipe_Freeze();
 
 	return true;
@@ -81,11 +80,14 @@ static bool Bluetooth_GetNextHCIEventHeader(void)
 static void Bluetooth_DiscardRemainingHCIEventParameters(void)
 {
 	Pipe_SelectPipe(BLUETOOTH_EVENTS_PIPE);
-	
 	Pipe_Unfreeze();
+
 	Pipe_Discard_Stream(HCIEventHeader.ParameterLength);
 	Pipe_ClearIN();
+
 	Pipe_Freeze();
+	
+	HCIEventHeader.ParameterLength = 0;
 }
 
 void Bluetooth_ProcessHCICommands(void)
@@ -329,6 +331,10 @@ void Bluetooth_ProcessHCICommands(void)
 							 
 					Bluetooth_HCIProcessingState = Bluetooth_Conn_SendPINCode;
 				}
+				else if (HCIEventHeader.EventCode == EVENT_COMMAND_COMPLETE)
+				{
+					BT_DEBUG("(HCI) >> Command Complete", NULL);
+				}
 				
 				BT_DEBUG("(HCI) -- Unread Event Param Length: %d", HCIEventHeader.ParameterLength);
 
@@ -393,17 +399,6 @@ void Bluetooth_ProcessHCICommands(void)
 			       sizeof(Bluetooth_DeviceConfiguration.PINCode));
 			
 			Bluetooth_SendHCICommand(&PINCodeRequestParams, sizeof(PINCodeRequestParams));
-		
-			do
-			{
-				while (!(Bluetooth_GetNextHCIEventHeader()))
-				{				
-					if (USB_HostState == HOST_STATE_Unattached)
-					  return;
-				}
-
-				Bluetooth_DiscardRemainingHCIEventParameters();
-			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
 			Bluetooth_HCIProcessingState     = Bluetooth_PrepareToProcessEvents;
 			break;

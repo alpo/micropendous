@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -125,7 +125,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)(freq) & 0x00FFFF), HighByte: (((uint32_t)(freq) >> 16) & 0x0000FF)}
 		
 		/** Mask for the attributes parameter of an Audio class specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -138,7 +138,7 @@
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 
 		/** Endpoint number of the Audio isochronous streaming data endpoint. */
-		#define AUDIO_STREAM_EPNUM       1
+		#define AUDIO_STREAM_EPNUM           1
 		
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
 		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller
@@ -274,7 +274,7 @@
 			USB_Descriptor_Endpoint_t Endpoint; /**< Standard endpoint descriptor describing the audio endpoint */
 
 			uint8_t                   Refresh; /**< Always set to zero */
-			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronisation information to, if needed (zero otherwise) */
+			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronization information to, if needed (zero otherwise) */
 		} USB_Audio_StreamEndpoint_Std_t;
 					
 		/** Type define for an Audio class specific extended endpoint descriptor. This contains extra information

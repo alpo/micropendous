@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -41,8 +41,12 @@
 #ifndef _RNDIS_CLASS_COMMON_H_
 #define _RNDIS_CLASS_COMMON_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_CDC_DRIVER
+
 	/* Includes: */
 		#include "../../USB.h"
+		#include "RNDISConstants.h"
 		#include "CDC.h"
 		
 		#include <string.h>
@@ -52,6 +56,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Implemented RNDIS Version Major */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
@@ -68,7 +77,7 @@
 		/** Maximum size in bytes of a RNDIS control message which can be sent or received */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
-		/** Maximum size in bytes of an Ethernet frame which can be sent or received */
+		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 		
 		/** Notification request value for a RNDIS Response Available notification */

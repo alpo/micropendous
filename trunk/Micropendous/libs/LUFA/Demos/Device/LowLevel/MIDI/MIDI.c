@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
 #include "MIDI.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -190,7 +190,27 @@ void MIDI_Task(void)
 	/* Select the MIDI OUT stream */
 	Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPNUM);
 
-	/* Check if endpoint is ready to be read from, if so discard its (unused) data */
+	/* Check if a MIDI command has been received */
 	if (Endpoint_IsOUTReceived())
-	  Endpoint_ClearOUT();
+	{
+		USB_MIDI_EventPacket_t MIDIEvent;
+			
+		/* Read the MIDI event packet from the endpoint */
+		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+	
+		/* Check to see if the sent command is a note on message with a non-zero velocity */
+		if ((MIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (MIDIEvent.Data3 > 0))
+		{
+			/* Change LEDs depending on the pitch of the sent note */
+			LEDs_SetAllLEDs(MIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
+		}
+		else
+		{
+			/* Turn off all LEDs in response to non Note On messages */
+			LEDs_SetAllLEDs(LEDS_NO_LEDS);
+		}
+	
+		/* Clear the endpoint ready for new packet */
+		Endpoint_ClearOUT();
+	}
 }

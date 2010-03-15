@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -70,14 +70,21 @@
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
+		#define __INCLUDE_FROM_LEDS_H
 		#define INCLUDE_FROM_LEDS_H
 	#endif
 	
 	/* Includes: */
 	#include "../../Common/Common.h"
 
-	#if !defined(BOARD)
-		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
+	#if (BOARD == BOARD_NONE)
+		static inline void LEDs_Init(void) {};
+		static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
+		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
+		static inline uint8_t LEDs_GetLEDs(void) { return 0; }
 	#elif (BOARD == BOARD_USBKEY)
 		#include "USBKEY/LEDs.h"
 	#elif (BOARD == BOARD_STK525)
@@ -88,10 +95,16 @@
 		#include "RZUSBSTICK/LEDs.h"
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
 		#include "ATAVRUSBRF01/LEDs.h"
-	#elif (BOARD == BOARD_USER)
-		#include "Board/LEDs.h"
+	#elif (BOARD == BOARD_XPLAIN)
+		#include "XPLAIN/LEDs.h"
+	#elif (BOARD == BOARD_XPLAIN_REV1)
+		#include "XPLAIN/LEDs.h"
 	#elif (BOARD == BOARD_BUMBLEB)
 		#include "BUMBLEB/LEDs.h"
+	#elif (BOARD == BOARD_EVK527)
+		#include "EVK527/LEDs.h"		
+	#elif (BOARD == BOARD_USER)
+		#include "Board/LEDs.h"
 	#endif
 	
 	#if !defined(LEDS_LED1)

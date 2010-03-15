@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
+  Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
       Based on code by Dean Camera (dean [at] fourwalledcubicle [dot] com)
 	  
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -136,18 +136,18 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
 			
-			.TotalEndpoints         = 2,
+			.TotalEndpoints         = 1,
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
-			.Protocol               = 0x01,
+			.Protocol               = HID_BOOT_KEYBOARD_PROTOCOL,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
 	.KeyboardHID = 
 		{  
-			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
@@ -165,16 +165,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointSize           = KEYBOARD_EPSIZE,
 			.PollingIntervalMS      = 0x0A
 		},
-
-	.KeyboardLEDsEndpoint = 
-		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | KEYBOARD_LEDS_EPNUM),
-			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-			.EndpointSize           = KEYBOARD_EPSIZE,
-			.PollingIntervalMS      = 0x0A
-		}
 };
 
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
@@ -205,9 +195,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(26), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(24), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"Micropendous Keyboard Test"
+	.UnicodeString          = L"MicropendousKeyboardTest"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -254,7 +244,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 			break;
 		case DTYPE_HID: 
 			Address = (void*)&ConfigurationDescriptor.KeyboardHID;
-			Size    = sizeof(USB_Descriptor_HID_t);
+			Size    = sizeof(USB_HID_Descriptor_t);
 			break;
 		case DTYPE_Report: 
 			Address = (void*)&KeyboardReport;

@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_ENDPOINT_C
+#define  __INCLUDE_FROM_ENDPOINT_C
 #include "Endpoint.h"
 
 #if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
@@ -207,116 +208,129 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
+/* The following abuses the C preprocessor in order to copy-past common code with slight alterations,
+ * so that the code needs to be written once. It is a crude form of templating to reduce code maintenance. */
+
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_PStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_PStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Endpoint_Read_Byte()
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr++) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Endpoint_Read_Byte()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr--) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Endpoint_Read_Byte())
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_RW.c"
 
 #endif
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_Stream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_PStream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_EStream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr++))
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr++))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_Stream_BE
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_PStream_BE
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Control_EStream_BE
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr--))
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr--))
 #include "Template/Template_Endpoint_Control_W.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_Stream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Endpoint_Read_Byte()
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr++) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_Control_R.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_EStream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_Control_R.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_Stream_BE
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Endpoint_Read_Byte()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr--) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_Control_R.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_EStream_BE
-#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Endpoint_Read_Byte())
+#define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_Control_R.c"
 
 #endif

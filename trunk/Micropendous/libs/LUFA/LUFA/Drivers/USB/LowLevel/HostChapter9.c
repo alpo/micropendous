@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_HOSTCHAPTER9_C
+#define  __INCLUDE_FROM_HOSTCHAPTER9_C
 #include "HostChapter9.h"
 
 uint8_t USB_Host_SendControlRequest(void* BufferPtr)
@@ -48,7 +49,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
 	  goto End_Of_Control_Send;
 
-	Pipe_SetToken(PIPE_TOKEN_SETUP);
+	Pipe_SetPipeToken(PIPE_TOKEN_SETUP);
 	Pipe_ClearErrorFlags();
 
 	Pipe_Unfreeze();
@@ -68,7 +69,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_DEVICETOHOST)
 	{
-		Pipe_SetToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_IN);
 		
 		if (DataStream != NULL)
 		{
@@ -93,7 +94,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 			}
 		}
 
-		Pipe_SetToken(PIPE_TOKEN_OUT);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 		Pipe_Unfreeze();
 		
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
@@ -108,7 +109,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	{
 		if (DataStream != NULL)
 		{
-			Pipe_SetToken(PIPE_TOKEN_OUT);
+			Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 			Pipe_Unfreeze();	
 
 			while (DataLen)
@@ -131,7 +132,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 			Pipe_Freeze();
 		}
 		
-		Pipe_SetToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_IN);
 		Pipe_Unfreeze();
 
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)) != HOST_SENDCONTROL_Successful)

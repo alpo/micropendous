@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,11 +46,13 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 			{
 				.StreamingInterfaceNumber = 1,
 
-				.DataINEndpointNumber     = MIDI_STREAM_IN_EPNUM,
-				.DataINEndpointSize       = MIDI_STREAM_EPSIZE,
+				.DataINEndpointNumber      = MIDI_STREAM_IN_EPNUM,
+				.DataINEndpointSize        = MIDI_STREAM_EPSIZE,
+				.DataINEndpointDoubleBank  = false,
 
-				.DataOUTEndpointNumber    = MIDI_STREAM_OUT_EPNUM,
-				.DataOUTEndpointSize      = MIDI_STREAM_EPSIZE,
+				.DataOUTEndpointNumber     = MIDI_STREAM_OUT_EPNUM,
+				.DataOUTEndpointSize       = MIDI_STREAM_EPSIZE,
+				.DataOUTEndpointDoubleBank = false,
 			},
 	};
 
@@ -67,9 +69,14 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
-		/* Must acknowedge MIDI packets from the host even though they aren't used, or the host locks up */
-		MIDI_EventPacket_t DummyMIDIEvent;
-		MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
+		MIDI_EventPacket_t ReceivedMIDIEvent;
+		if (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
+		{
+			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (ReceivedMIDIEvent.Data3 > 0))
+			  LEDs_SetAllLEDs(ReceivedMIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
+			else
+			  LEDs_SetAllLEDs(LEDS_NO_LEDS);
+		}
 	
 		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
@@ -151,6 +158,7 @@ void CheckJoystickMovement(void)
 			};
 			
 		MIDI_Device_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
+		MIDI_Device_Flush(&Keyboard_MIDI_Interface);
 	}
 
 	PrevJoystickStatus = JoystickStatus;

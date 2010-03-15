@@ -30,19 +30,11 @@
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
 # make program = Download the hex file to the device, using avrdude.
-#                Please customize the avrdude settings below first!
+#                By default assume the programmer is another USB AVR
+#                programmed with LUFA's AVRISP-mkII Firmware.
 #
 # make dfu = Download the hex file to the device, using dfu-programmer (must
 #            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
 #
 # make doxygen = Generate DoxyGen documentation for the project (must have
 #                DoxyGen installed)
@@ -57,7 +49,6 @@
 #
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
-
 
 # MCU name and Bootloader Start address - uncomment one of the following pairs
 #MCU = at90usb162
@@ -76,25 +67,21 @@ MCU = at90usb1287
 BOOT_START = 0x1E000
 
 
-# Target board (see library "Board Types" documentation, USER or blank for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
-# "Board" inside the application directory.
-BOARD = USER
-
-
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency in Hz. You can then use this symbol in your source code to 
+#     processor frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_CLOCK below, as it is sourced by
-#     F_CLOCK after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
+#     Typical values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
 F_CPU = 8000000
 
+
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
+# LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
+# "Board" inside the application directory.
+BOARD  = USER
 
 # Input clock frequency.
 #     This will define a symbol, F_CLOCK, in all source code files equal to the 
@@ -137,21 +124,23 @@ LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_RAM_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 LUFA_OPTS += -D NO_INTERNAL_SERIAL
+LUFA_OPTS += -D NO_DEVICE_SELF_POWER
+LUFA_OPTS += -D NO_DEVICE_REMOTE_WAKEUP
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
- 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+SRC = $(TARGET).c \
+	  Descriptors.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c \
+ 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c \
 
  
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -352,7 +341,7 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = jtagmkII
+AVRDUDE_PROGRAMMER = avrispmkII
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = usb
@@ -375,7 +364,7 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 # to submit bug reports.
 #AVRDUDE_VERBOSE = -v -v
 
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS = -c $(AVRDUDE_PROGRAMMER) -P $(AVRDUDE_PORT) -p $(MCU)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
 AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
 AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
@@ -473,7 +462,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+all: begin gccversion sizebefore build showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -516,17 +505,6 @@ sizeafter:
 	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
-$(LUFA_PATH)/LUFA/LUFA_Events.lst:
-	@make -C $(LUFA_PATH)/LUFA/LUFA_Events.lst
-
-checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
-	@echo
-	@echo Checking for invalid events...
-	@$(shell) avr-nm $(TARGET).elf | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
-	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
-	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
-	@if test -s InvalidEvents.tmp; then exit 1; fi
-	
 showliboptions:
 	@echo
 	@echo ---- Compile Time Library Options ----
@@ -552,27 +530,6 @@ gccversion :
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-
-flip: $(TARGET).hex
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-
-dfu: $(TARGET).hex
-	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
-	dfu-programmer $(MCU) reset
-
-flip-ee: $(TARGET).hex $(TARGET).eep
-	$(COPY) $(TARGET).eep $(TARGET)eep.hex
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(TARGET)eep.hex
-
-dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
-	dfu-programmer $(MCU) reset
 
 
 # Generate avr-gdb config/init file which does the following:

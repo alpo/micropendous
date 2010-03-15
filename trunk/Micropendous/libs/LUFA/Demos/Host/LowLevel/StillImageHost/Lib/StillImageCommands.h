@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
 #define _STILL_IMAGE_COMMANDS_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "PIMACodes.h"
 
@@ -55,10 +55,10 @@
 		 *
 		 *  \param[in] chars  Total number of Unicode characters in the string
 		 */
-		#define UNICODE_STRING_LENGTH(chars)   (chars << 1)
+		#define UNICODE_STRING_LENGTH(chars)   ((chars) << 1)
 
 		/** Timeout period between the issuing of a command to a device, and the reception of the first packet */
-		#define COMMAND_DATA_TIMEOUT_MS        5000
+		#define COMMAND_DATA_TIMEOUT_MS        10000
 		
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
@@ -66,7 +66,7 @@
 		 *  \param[in] params  Number of parameters which are to be sent in the Param field of the container
 		 */
 		#define PIMA_COMMAND_SIZE(params)      ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + \
-		                                        (params * sizeof(PIMA_SendBlock.Params[0])))
+		                                        ((params) * sizeof(PIMA_SendBlock.Params[0])))
 
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a data container.

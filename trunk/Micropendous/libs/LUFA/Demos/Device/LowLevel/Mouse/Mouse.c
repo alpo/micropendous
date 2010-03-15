@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -36,7 +36,6 @@
  
 #include "Mouse.h"
 
-/* Global Variables */
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
  */
@@ -55,7 +54,7 @@ uint16_t IdleMSRemaining = 0;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -239,10 +238,10 @@ void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 	else if (JoyStatus_LCL & JOY_DOWN)
 	  ReportData->Y =  1;
 
-	if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportData->X =  1;
-	else if (JoyStatus_LCL & JOY_LEFT)
+	if (JoyStatus_LCL & JOY_LEFT)
 	  ReportData->X = -1;
+	else if (JoyStatus_LCL & JOY_RIGHT)
+	  ReportData->X = 1;
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 0);
@@ -269,9 +268,6 @@ void SendNextReport(void)
 	if ((MouseReportData.Y != 0) || (MouseReportData.X != 0))
 	  SendReport = true;
 	
-	/* Save the current report data for later comparison to check for changes */
-	PrevMouseReportData = MouseReportData;
-	
 	/* Check if the idle period is set and has elapsed */
 	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
 	{
@@ -287,7 +283,10 @@ void SendNextReport(void)
 
 	/* Check if Mouse Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
-	{
+	{	
+		/* Save the current report data for later comparison to check for changes */
+		PrevMouseReportData = MouseReportData;
+
 		/* Write Mouse Report Data */
 		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 		

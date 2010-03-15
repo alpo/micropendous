@@ -1,48 +1,54 @@
 /*
-	FreeRTOS V5.4.2 - Copyright (C) 2009 Real Time Engineers Ltd.
+    FreeRTOS V6.0.3 - Copyright (C) 2010 Real Time Engineers Ltd.
 
-	This file is part of the FreeRTOS distribution.
+    ***************************************************************************
+    *                                                                         *
+    * If you are:                                                             *
+    *                                                                         *
+    *    + New to FreeRTOS,                                                   *
+    *    + Wanting to learn FreeRTOS or multitasking in general quickly       *
+    *    + Looking for basic training,                                        *
+    *    + Wanting to improve your FreeRTOS skills and productivity           *
+    *                                                                         *
+    * then take a look at the FreeRTOS eBook                                  *
+    *                                                                         *
+    *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
+    *                  http://www.FreeRTOS.org/Documentation                  *
+    *                                                                         *
+    * A pdf reference manual is also available.  Both are usually delivered   *
+    * to your inbox within 20 minutes to two hours when purchased between 8am *
+    * and 8pm GMT (although please allow up to 24 hours in case of            *
+    * exceptional circumstances).  Thank you for your support!                *
+    *                                                                         *
+    ***************************************************************************
 
-	FreeRTOS is free software; you can redistribute it and/or modify it	under 
-	the terms of the GNU General Public License (version 2) as published by the 
-	Free Software Foundation and modified by the FreeRTOS exception.
-	**NOTE** The exception to the GPL is included to allow you to distribute a
-	combined work that includes FreeRTOS without being obliged to provide the 
-	source code for proprietary components outside of the FreeRTOS kernel.  
-	Alternative commercial license and support terms are also available upon 
-	request.  See the licensing section of http://www.FreeRTOS.org for full 
-	license details.
+    This file is part of the FreeRTOS distribution.
 
-	FreeRTOS is distributed in the hope that it will be useful,	but WITHOUT
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	more details.
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    ***NOTE*** The exception to the GPL is included to allow you to distribute
+    a combined work that includes FreeRTOS without being obliged to provide the
+    source code for proprietary components outside of the FreeRTOS kernel.
+    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public 
+    License and the FreeRTOS license exception along with FreeRTOS; if not it 
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained 
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
 
-	You should have received a copy of the GNU General Public License along
-	with FreeRTOS; if not, write to the Free Software Foundation, Inc., 59
-	Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+    1 tab == 4 spaces!
 
+    http://www.FreeRTOS.org - Documentation, latest information, license and
+    contact details.
 
-	***************************************************************************
-	*                                                                         *
-	* Looking for a quick start?  Then check out the FreeRTOS eBook!          *
-	* See http://www.FreeRTOS.org/Documentation for details                   *
-	*                                                                         *
-	***************************************************************************
+    http://www.SafeRTOS.com - A version that is certified for use in safety
+    critical systems.
 
-	1 tab == 4 spaces!
-
-	Please ensure to read the configuration and relevant port sections of the
-	online documentation.
-
-	http://www.FreeRTOS.org - Documentation, latest information, license and
-	contact details.
-
-	http://www.SafeRTOS.com - A version that is certified for use in safety
-	critical systems.
-
-	http://www.OpenRTOS.com - Commercial support, development, porting,
-	licensing and training services.
+    http://www.OpenRTOS.com - Commercial support, development, porting,
+    licensing and training services.
 */
 
 /*
@@ -81,29 +87,29 @@ static portTASK_FUNCTION_PROTO( vCompetingMathTask4, pvParameters );
 /* These variables are used to check that all the tasks are still running.  If a 
 task gets a calculation wrong it will
 stop incrementing its check variable. */
-static volatile unsigned portSHORT usTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned portSHORT ) 0 };
+static volatile unsigned short usTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned short ) 0 };
 
 /*-----------------------------------------------------------*/
 
 void vStartMathTasks( unsigned portBASE_TYPE uxPriority )
 {
-	xTaskCreate( vCompetingMathTask1, ( signed portCHAR * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 0 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask2, ( signed portCHAR * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 1 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask3, ( signed portCHAR * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 2 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask4, ( signed portCHAR * ) "Math4", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 3 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask1, ( signed portCHAR * ) "Math5", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 4 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask2, ( signed portCHAR * ) "Math6", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 5 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask3, ( signed portCHAR * ) "Math7", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 6 ] ), uxPriority, NULL );
-	xTaskCreate( vCompetingMathTask4, ( signed portCHAR * ) "Math8", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 7 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 0 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 1 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 2 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math4", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 3 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math5", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 4 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math6", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 5 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math7", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 6 ] ), uxPriority, NULL );
+	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math8", mathSTACK_SIZE, ( void * ) &( usTaskCheck[ 7 ] ), uxPriority, NULL );
 }
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION( vCompetingMathTask1, pvParameters )
 {
 volatile portDOUBLE d1, d2, d3, d4;
-volatile unsigned portSHORT *pusTaskCheckVariable;
+volatile unsigned short *pusTaskCheckVariable;
 volatile portDOUBLE dAnswer;
-portSHORT sError = pdFALSE;
+short sError = pdFALSE;
 
 	d1 = 123.4567;
 	d2 = 2345.6789;
@@ -113,7 +119,7 @@ portSHORT sError = pdFALSE;
 
 	/* The variable this task increments to show it is still running is passed in 
 	as the parameter. */
-	pusTaskCheckVariable = ( unsigned portSHORT * ) pvParameters;
+	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
 
 	/* Keep performing a calculation and checking the result against a constant. */
 	for(;;)
@@ -153,9 +159,9 @@ portSHORT sError = pdFALSE;
 static portTASK_FUNCTION( vCompetingMathTask2, pvParameters )
 {
 volatile portDOUBLE d1, d2, d3, d4;
-volatile unsigned portSHORT *pusTaskCheckVariable;
+volatile unsigned short *pusTaskCheckVariable;
 volatile portDOUBLE dAnswer;
-portSHORT sError = pdFALSE;
+short sError = pdFALSE;
 
 	d1 = -389.38;
 	d2 = 32498.2;
@@ -166,7 +172,7 @@ portSHORT sError = pdFALSE;
 
 	/* The variable this task increments to show it is still running is passed in 
 	as the parameter. */
-	pusTaskCheckVariable = ( unsigned portSHORT * ) pvParameters;
+	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
 
 	/* Keep performing a calculation and checking the result against a constant. */
 	for( ;; )
@@ -206,14 +212,14 @@ portSHORT sError = pdFALSE;
 static portTASK_FUNCTION( vCompetingMathTask3, pvParameters )
 {
 volatile portDOUBLE *pdArray, dTotal1, dTotal2, dDifference;
-volatile unsigned portSHORT *pusTaskCheckVariable;
+volatile unsigned short *pusTaskCheckVariable;
 const size_t xArraySize = 10;
 size_t xPosition;
-portSHORT sError = pdFALSE;
+short sError = pdFALSE;
 
 	/* The variable this task increments to show it is still running is passed in 
 	as the parameter. */
-	pusTaskCheckVariable = ( unsigned portSHORT * ) pvParameters;
+	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
 
 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
 
@@ -263,14 +269,14 @@ portSHORT sError = pdFALSE;
 static portTASK_FUNCTION( vCompetingMathTask4, pvParameters )
 {
 volatile portDOUBLE *pdArray, dTotal1, dTotal2, dDifference;
-volatile unsigned portSHORT *pusTaskCheckVariable;
+volatile unsigned short *pusTaskCheckVariable;
 const size_t xArraySize = 10;
 size_t xPosition;
-portSHORT sError = pdFALSE;
+short sError = pdFALSE;
 
 	/* The variable this task increments to show it is still running is passed in 
 	as the parameter. */
-	pusTaskCheckVariable = ( unsigned portSHORT * ) pvParameters;
+	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
 
 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
 
@@ -322,7 +328,7 @@ portBASE_TYPE xAreMathsTaskStillRunning( void )
 {
 /* Keep a history of the check variables so we know if they have been incremented 
 since the last call. */
-static unsigned portSHORT usLastTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned portSHORT ) 0 };
+static unsigned short usLastTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned short ) 0 };
 portBASE_TYPE xReturn = pdTRUE, xTask;
 
 	/* Check the maths tasks are still running by ensuring their check variables 

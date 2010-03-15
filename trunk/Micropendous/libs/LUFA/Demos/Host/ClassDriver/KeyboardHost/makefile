@@ -60,10 +60,10 @@
 
 
 # MCU name
-MCU = at90usb647
+MCU = at90usb1287
 
 
-# Target board (see library "Board Types" documentation, USER or blank for projects not requiring
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
 BOARD  = USBKEY
@@ -117,6 +117,7 @@ LUFA_PATH = ../../../..
 
 # LUFA library compile-time options
 LUFA_OPTS += -D USB_HOST_ONLY
+LUFA_OPTS += -D HID_HOST_BOOT_PROTOCOL_ONLY
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
@@ -136,7 +137,6 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c            \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HID.c              \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HIDParser.c        \
 	  
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -504,7 +504,7 @@ $(LUFA_PATH)/LUFA/LUFA_Events.lst:
 checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
 	@echo
 	@echo Checking for invalid events...
-	@$(shell) avr-nm $(TARGET).elf | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
+	@$(shell) avr-nm $(OBJ) | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
 	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
 	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
 	@if test -s InvalidEvents.tmp; then exit 1; fi

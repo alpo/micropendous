@@ -1,6 +1,6 @@
 /*	Purpose: Interact with USB device firmware - www.Micropendous.org/LoopBack
 	Created: 2008-08-15 by Opendous Inc.
-	Last Edit: 2009-10-03 by Opendous Inc.
+	Last Edit: 2010-03-04 by Opendous Inc.
 	Released under the MIT License
 */
 
@@ -10,10 +10,11 @@
 /* all the critical information regarding the device and the interface and endpoints you plan to use */
 #define VENDORID		0x03eb
 #define PRODUCTID		0x204F
+#define EP_SIZE		64
 #define IN_EP			0x81
-#define IN_EP_SIZE		64
+#define IN_EP_SIZE		EP_SIZE
 #define OUT_EP			0x02
-#define OUT_EP_SIZE		64
+#define OUT_EP_SIZE		EP_SIZE
 #define CONFIGNUM		1
 #define INTERFACENUM		0
 #define TIMEOUT			1500
@@ -24,11 +25,11 @@ int main(void)
 	struct usb_bus *bus;
 	struct usb_device *dev;
 	usb_dev_handle *udev;
-	char buffer[IN_EP_SIZE];
-	int ret, i;
+	char buffer[EP_SIZE];
+	int ret, i, j;
 
 	/* initialize buffer to a sane value */
-	for (i = 0; i < IN_EP_SIZE ; i++) {
+	for (i = 0; i < EP_SIZE ; i++) {
 		buffer[i] = 'A';
 	}
 
@@ -67,6 +68,13 @@ int main(void)
 				for (i = 0; i < 10 ; i++) {
 					// read data from the device...
 					ret = usb_interrupt_read(udev, IN_EP, buffer, IN_EP_SIZE, TIMEOUT);
+
+					// increment all values in data from the host
+					for (j = 0; j < EP_SIZE; j++) {
+						buffer[j] += 1;
+					}
+
+					// print the first eight values
 					printf("[Read] returned: %d bytes, first 8 bytes are: (%3d,%3d,%3d,%3d,%3d,%3d,%3d,%3d)\n",
 							ret, buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7]);
 

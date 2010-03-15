@@ -7,6 +7,7 @@ import usb
 # all the critical information regarding the device and the interface and endpoints you plan to use.
 vendorid    = 0x03EB
 productid   = 0x204F
+ep_size  = 64
 in_ep       = 0x81
 in_ep_size  = 64
 out_ep      = 0x02
@@ -46,6 +47,17 @@ i = 0
 while (i < 10):
     # read data from the device
     buffer = handle.interruptRead(in_ep, in_ep_size, timeout)
+
+    # increment the values in buffer, need to recreate buffer as tuples are immutable
+    j = 0
+    newBuffer = ()
+    while (j < ep_size):
+        newBuffer = newBuffer + ((buffer[j] + 1),)
+        j = j + 1
+    buffer = newBuffer
+
+    print buffer
+
     # write data to the device
     handle.interruptWrite(out_ep, buffer, timeout)
     print buffer

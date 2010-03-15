@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,29 +40,21 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#if defined(__AVR_AT90USB1286__)
+		#if defined(__AVR_AT90USB1287__)
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x97
 			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_AT90USB1287__)
+		#elif defined(__AVR_AT90USB647__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB1286__)
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x97
 			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB646__)
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x96
-			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_AT90USB647__)
-			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x96
-			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_AT90USB162__)
-			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x94
-			#define AVR_SIGNATURE_3               0x82
-		#elif defined(__AVR_AT90USB82__)
-			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x94
 			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_ATmega32U6__)
 			#define AVR_SIGNATURE_1               0x1E
@@ -76,6 +68,26 @@
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x94
 			#define AVR_SIGNATURE_3               0x88
+		#elif defined(__AVR_ATmega32U2__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_ATmega16U2__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x89
+		#elif defined(__AVR_AT90USB162__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_ATmega8U2__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x93
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB82__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x93
+			#define AVR_SIGNATURE_3               0x89
 		#else
 			#error The selected AVR part is not currently supported by this bootloader.
 		#endif

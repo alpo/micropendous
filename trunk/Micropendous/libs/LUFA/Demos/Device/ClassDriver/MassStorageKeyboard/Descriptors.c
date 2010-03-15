@@ -1,22 +1,22 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2009.
+     Copyright (C) Dean Camera, 2010.
               
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
 
-  Permission to use, copy, modify, and distribute this software
-  and its documentation for any purpose and without fee is hereby
-  granted, provided that the above copyright notice appear in all
-  copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting
-  documentation, and that the name of the author not be used in
-  advertising or publicity pertaining to distribution of the
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,6 +37,18 @@
  */
 
 #include "Descriptors.h"
+
+/* On some devices, there is a factory set internal serial number which can be automatically sent to the host as
+ * the device's serial number when the Device Descriptor's .SerialNumStrIndex entry is set to USE_INTERNAL_SERIAL.
+ * This allows the host to track a device across insertions on different ports, allowing them to retain allocated
+ * resources like COM port numbers and drivers. On demos using this feature, give a warning on unsupported devices
+ * so that the user can supply their own serial number descriptor instead or remove the USE_INTERNAL_SERIAL value
+ * from the Device Descriptor (forcing the host to generate a serial number for each device from the VID, PID and
+ * port location).
+ */
+#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
+	#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
+#endif
 
 /** HID class report descriptor. This is a special descriptor constructed with values from the
  *  USBIF HID class specification to describe the reports and capabilities of the HID device. This
@@ -129,7 +141,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.MassStorageInterface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -145,7 +157,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.DataInEndpoint = 
+	.MassStorageDataInEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -155,7 +167,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x00
 		},
 
-	.DataOutEndpoint = 
+	.MassStorageDataOutEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -169,8 +181,8 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 0x01,
-			.AlternateSetting       = 0x00,
+			.InterfaceNumber        = 1,
+			.AlternateSetting       = 0,
 			
 			.TotalEndpoints         = 1,
 				
@@ -180,8 +192,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
-
-
 
 	.KeyboardHID = 
 		{  
