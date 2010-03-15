@@ -54,7 +54,7 @@ make
 make program
 }}}
 
-  If using an older version of _avrdude_ run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
+If using an older version of _avrdude_ run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
 
 {{{
 avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderDFU.hex
