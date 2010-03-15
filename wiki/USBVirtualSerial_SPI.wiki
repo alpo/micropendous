@@ -34,15 +34,26 @@ USBVirtualSerial-SPI firmware was implemented over standard USBVirtualSerial fir
 
 Changing the "Line Coding"/"bytesize" will change the SPI mode: `8 bits` = _Mode0_ (Default), `7 bits` = _Mode1_ , `6 bits` = _Mode2_ , `5 bits` = _Mode3_ .  Note that data is still sent in 8-bit bytes over SPI.
 
-Changing "Baud-Rate" will change the SPI speed.  Defualt SPI clock speed is 8Mhz / 2 = 4MHz.  8Mhz is the assumed device clock speed.  Baud rate to SPI clock settings are: `9600` = _125kHz_ (Default), `14400` = _4MHz_, `19200` = _2MHz_, `38400` = _1MHz_, `57600` = _500kHz_, `115200` = _250kHz_, and any other value = _62.5kHz_.  Note all these values are doubled if using a 16Mhz clocked USB AVR board.
-
 Changing "Stop-Bits" determines whether data will be MSB or LSB.  If the default `one stop bit` is selected, data will be transmitted MSB first.  Otherwise LSB.
+
+Changing "Baud-Rate" will change the SPI speed.  Defualt SPI clock speed is 8Mhz / 2 = 4MHz.  8Mhz is the assumed device clock speed.  Serial Port Baud Rate to SPI Clock settings are:
+|| *Baud Rate* || *SPI Clock*         ||
+|| 9600        || 125kHz _(Default)_  ||
+|| 14400       || 4MHz                ||
+|| 19200       || 2MHz                ||
+|| 38400       || 1MHz                ||
+|| 57600       || 500kHz              ||
+|| 115200      || 250kHz              ||
+|| All Other   || 62.5kHz             ||
+
+Note all these values are doubled if using a 16Mhz clocked USB AVR board.
+
 
 == Testing ==
 
 === Loopback ===
 
-Testing functionality is very simple.  Connect the `MOSI` (*PB2*) and `MISO` (*PB3*) pins together to form a loopback.  Then plug in your Micropendous, start a serial terminal program such as _gtkterm_ or _!HyperTerminal_, and anything you type will echo back.  See [Serial] for instructions on the usage of serial ports.  Or, run the included Python throughput testing script (replace COM5 with the port where your USB AVR board [http://www.micropendous.org/Serial enumerated to]):
+Testing functionality is very simple.  Connect the `MOSI` (*PB2*) and `MISO` (*PB3*) pins together to form a loopback.  Then plug in your Micropendous, start a serial terminal program such as _gtkterm_ or _!HyperTerminal_, and anything you type will echo back.  See [Serial] for instructions on the usage of serial ports.  Or, run the included Python throughput testing script:
 {{{
 python  TestThroughputUSBVirtualSerial.py  COM5  64  100
 }}}
@@ -62,7 +73,10 @@ python  Test_SPI_SRAM_23K256.py  COM5
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
 
-[http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SPI_AVRISP_Test SPI_AVRISP_Test] firmware was developed to allow testing [AVRISP] and USBVirtualSerial_SPI firmware.  *DO NOT* connect the CS/PB4 line as in the above picture (image is being reused from [AVRISP] example).  All other connections are correct for an [http://www.atmel.com/dyn/products/product_card_mcu.asp?PN=ATtiny261A ATtiny261] available from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=ATTINY261-20PU-ND many] [http://ca.mouser.com/Search/Refine.aspx?Keyword=556-ATTINY261-20PU suppliers].
+[http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SPI_AVRISP_Test SPI_AVRISP_Test] firmware was developed to allow testing [AVRISP] and USBVirtualSerial_SPI firmware.  *DO NOT* connect the CS/PB4 line as in the above picture (image is being reused from [AVRISP] example).  All other connections are correct for an [http://www.atmel.com/dyn/products/product_card_mcu.asp?PN=ATtiny261A ATtiny261] available from [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=ATTINY261-20PU-ND many] [http://ca.mouser.com/Search/Refine.aspx?Keyword=556-ATTINY261-20PU suppliers].  You can test it using the included Python testing script in `/SPI_AVRISP_Test` (replace COM5 with the port where your USB AVR board [http://www.micropendous.org/Serial enumerated to]):
+{{{
+python  Test_SPI_AVRISP_Test_Communication.py  COM5
+}}}
 
 == Python Usage ==
 
