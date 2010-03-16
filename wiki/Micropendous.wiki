@@ -1,6 +1,6 @@
 #summary LUFAduino and HID Keyboard for Compound Device Testing
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/Micropendous` directory.
+This firmware is no longer being actively developed.  You can find it in the [http://micropendous.googlecode.com/files/Micropendous-2009-10-11.zip Micropendous-2009-10-11 Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/Micropendous` directory.
 
 *Purpose:* Combine [LUFAduino] with [MicropendousKeyboardTest] to allow both Serial communication and Keyboard testing of a Micropendous board.
 
@@ -21,4 +21,4 @@ Just as with [MicropendousKeyboardTest], GND'ing pins will type their name.  Als
 
 == Firmware Design ==
 
-[LUFAduino] and [MicropendousKeyboardTest] mashed together.  An elaborated explanation will follow when the firmware attains stable and cross-platform functionality.
+[LUFAduino] and [MicropendousKeyboardTest] mashed together.
