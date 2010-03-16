@@ -32,25 +32,6 @@ The firmware is set up so that any data received from the host is placed into th
 
 `EVENT_USB_Device_UnhandledControlRequest(void)` transfers data to or from the buffers using the Control Endpoint.
 
-
-{{{
-/** Main_Task will only run if USB is connected */
-void Main_Task(void)
-{
-  uint8_t i = 0;
-
-  if (USB_DeviceState != DEVICE_STATE_Configured) { return; }
-
-  ReceiveDataFromHost();  
-
-  for (i = 0; i < OUT_EP_SIZE; i++) {
-    dataToSend[i] = (uint8_t)(dataReceived[i]);
-  }
-
-  SendDataToHost();
-}
-}}}
-
 === Communication using Interrupt Endpoints ===
 
 `DeviceAccessC.c` is the cross-platform [http://libusb.sourceforge.net/ LibUSB]-based software that communicates with your device over Interrupt Endpoints.  The `for()` loop in `main()` is where all the actual data transfer occurs.  This is what you should alter.  See [http://libusb.sourceforge.net/doc/ libUSB Documentation] for more information.
@@ -75,6 +56,26 @@ for (i = 0; i < 10 ; i++) {
   printf("[Write] returned: %d bytes successfully written\n", ret);
 }
 
+}}}
+
+Now compare to the firmware, `LoopBack.c`:
+
+{{{
+/** Main_Task will only run if USB is connected */
+void Main_Task(void)
+{
+  uint8_t i = 0;
+
+  if (USB_DeviceState != DEVICE_STATE_Configured) { return; }
+
+  ReceiveDataFromHost();  
+
+  for (i = 0; i < OUT_EP_SIZE; i++) {
+    dataToSend[i] = (uint8_t)(dataReceived[i]);
+  }
+
+  SendDataToHost();
+}
 }}}
 
 There are also some important `#defines` for critical communication parameters such as device IDs and endpoints.
