@@ -57,7 +57,7 @@ Under Windows you will need to have [http://python.org/download/releases/2.5.5/ 
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-I2C_Picture.jpg
 
-Included in the `/Micropendous/Firmware/USBVirtualSerial-I2C/` directory of the [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] are three [http://www.Python.org Python] scripts for communicating with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=24AA08-I/P-ND 24AA08] [http://en.wikipedia.org/wiki/EEPROM EEPROM], a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=TC74A0-3.3VAT-ND TC74] temperature sensor, and also a script to scan all I2C addresses for devices.  More information about the scripts can be found by running them with no parameters.
+Included in the `/Micropendous/Firmware/USBVirtualSerial-I2C/` directory of the [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] are three [http://www.Python.org Python] scripts for communicating with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=24AA08-I/P-ND 24AA08] [http://en.wikipedia.org/wiki/EEPROM EEPROM], a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=TC74A0-3.3VAT-ND TC74] temperature sensor, and also a script to scan all I2C addresses for devices.  More information about using the scripts can be found by running them with no parameters.
 {{{
 python  Test_I2C_EEPROM.py
 python  Test_I2C_TC74_TempSense.py
