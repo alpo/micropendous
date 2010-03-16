@@ -189,3 +189,11 @@ There are also some important `#defines` for critical communication parameters s
 The `usb_set_debug(255);` line can be commented out if you do not want USB debugging messages.  All other code is basic to libUSB functionality and should no be altered.
 
 `DeviceAccessPy_ControlMSG.py` is a version of `DeviceAccessC_ControlMSG.c` written in Python.  It requires [http://www.python.org/download/releases/2.5.5/ Python 2.5.5] and [http://developer.berlios.de/projects/pyusb/ PyUSB] to be installed.
+
+== Testing ==
+
+There is a Python script in `/Micropendous/Firmware/LoopBack/` that calculates the throughput of the LoopBack firmware.
+
+{{{
+python TestLoopBackThroughput.py
+}}}
