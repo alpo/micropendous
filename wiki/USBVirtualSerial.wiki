@@ -60,4 +60,4 @@ void MainTask(void)
 
 The above example is very simple.  `haveData()` checks if data has been received from the host and then [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html stdio] functions `getchar()` and `putchar(...)` are used to read and resend the data over the USB serial connection.
 
-You can also use `printf(...)` functions but note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store and print any constant strings.  See my [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
+You can also use `printf(...)` functions but note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store and print any constant strings.  See the [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
