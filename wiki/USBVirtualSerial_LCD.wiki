@@ -1,6 +1,6 @@
 #summary USB Virtual Serial to HD44780 Character LCD Interface
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial_LCD ` directory.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial-LCD ` directory.
 
 *Purpose:* Display text on a [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780] character LCD display.
 
