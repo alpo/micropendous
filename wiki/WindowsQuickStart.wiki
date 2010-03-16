@@ -16,7 +16,7 @@ In general, *Administrator* privileges are required on a Windows machine during 
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
- * check to make sure FLIP was correctly installed by trying to run the `batchisp.exe` command.
+ * check to make sure FLIP was correctly installed by trying to run the `batchisp.exe` command which is FLIP's command-line interface.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_Success.jpg
 
