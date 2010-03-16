@@ -47,14 +47,6 @@ The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribut
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/Start_Run_CommandPrompt.jpg
 
- * check to make sure FLIP was correctly installed by trying to run the `batchisp.exe` command.
-
-  http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_Success.jpg
-
-   * the above means everything is O.K.  If you get other output, either add FLIP to your `PATH` [AddingFLIPtoPATH permanently] or temporarily with the following command:
-     http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_Fail.jpg
-   Replace `C:\Program Files\Atmel\Flip 3.3.2` above with whatever directory you installed FLIP into.
-
  * change into the directory of the firmware you wish to upload.  For testing, [MicropendousKeyboardTest] is preferred.  Run `notepad makefile` to edit the `makefile` for your current Micropendous board.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/ProgramAndTestTutorial_Windows-01.jpg
