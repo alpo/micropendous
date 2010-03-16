@@ -24,7 +24,10 @@ This firmware is based on [USBVirtualSerial].  The preemptive [http://www.freert
 
 _Note:_ DO NOT alter Timer1 settings as it is used by FreeRTOS.
 
-The example is very simple.  `haveData()` checks if data has been received from the host and then `getData()` and `sendData()` send it back over the USB serial connection.
+The example is very simple.  `haveData()` checks if data has been received from the host and then sends it back over the USB serial connection.
+
+Connect to a board running this firmware with a [http://www.Micropendous.org/Serial Serial Terminal] and any data you send will be looped back.
+
 {{{
 /* Main_Task will run periodically once initialization is complete */
 void MainTask(void)
