@@ -55,6 +55,8 @@ See the [Serial] instructions for usage of serial ports before continuing.  You 
 
 Under Windows you will need to have [http://python.org/download/releases/2.5.5/ Python 2.5.5] and [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial] installed.  Under Linux, these are already installed if you followed the [LinuxQuickStart] tutorial.
 
+The following picture shows an I2C EEPROM and temperature sensor connected to a Micropendous board via I2C.
+
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-I2C_Picture.jpg
 
 Included in the `/Micropendous/Firmware/USBVirtualSerial-I2C/` directory of the [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] are three [http://www.Python.org Python] scripts for communicating with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=24AA08-I/P-ND 24AA08] [http://en.wikipedia.org/wiki/EEPROM EEPROM], a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=TC74A0-3.3VAT-ND TC74] temperature sensor, and also a script to scan all I2C addresses for devices.  More information about using the scripts can be found by running them with no parameters.
