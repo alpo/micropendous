@@ -24,7 +24,7 @@ make
 make flip
 }}}
 
-LUFAduino-programmed devices will enumerate as a Virtual Serial Port and any data sent to the device will be echoed back.  Pin 0 (D0) will flash a LED connected to GND (remember to use a resistor or your LED may burn out).
+LUFAduino-programmed devices will enumerate as a Virtual Serial Port and any data sent to the device will be echoed back.  Pin 0 (PD0) will flash a LED connected to GND (remember to use a resistor or your LED may burn out).
 
 == Firmware Design ==
 
