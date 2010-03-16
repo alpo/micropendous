@@ -80,7 +80,7 @@ If you do not want to install any new software you can use Windows' built-in !Hy
 
 = Writing Communication Software with Python =
 
-Simply install [http://python.org/download/releases/2.5.4/ Python2.5.4] and [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe PySerial].
+Simply install [http://www.python.org/download/releases/2.5.5/ Python 2.5.5] and [http://sourceforge.net/projects/pyserial/files/ PySerial 2.5].
 
 The following is Python code for basic Serial Port Communication:
 {{{
