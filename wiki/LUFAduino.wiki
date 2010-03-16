@@ -13,7 +13,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Status:* _Under Development_.  Serial, pin definitions, digitalIn/Out, and analogOut are functional.  Please help out by posting any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
 
-== Usage ==
+= Usage =
 
 Assuming you have completed all setup tasks in the [QuickStart] tutorial, simply compile and upload the LUFAduino firmware onto your Micropendous using the process found in  [ProgramAndTest].
 
@@ -26,7 +26,7 @@ make flip
 
 LUFAduino-programmed devices will enumerate as a Virtual Serial Port and any data sent to the device will be echoed back.  Pin 0 (PD0) will flash a LED connected to GND (remember to use a resistor or your LED may burn out).
 
-== Firmware Design ==
+= Firmware Design =
 
 Arduino `loop()` and `setup()` functions are in `Sketch.cxx`.  Simply edit this file with your custom code using any code editor.  Under Windows, _Programmers Notepad_ comes with _WinAVR_ and is very useful.  See [SettingUpProgrammersNotepad] for setup instructions.
 
@@ -39,7 +39,7 @@ Simply edit either or both of the `loop()`s for your project.
 
 For detailed firmware design, see [USBVirtualSerial_FreeRTOS] for details of how FreeRTOS was added and [USBVirtualSerial] for details about LUFA USB.
 
-== Pinouts ==
+= Pinouts =
 
 === [Micropendous2] ===
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous2/Micropendous2_LUFAduino-Pinout.jpg
