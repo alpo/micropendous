@@ -10,7 +10,8 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port 
 
-*Status:* _Working_ but not thoroughly tested.
+*Status:* _Working_.  Please post any problems you encounter to the [http://groups.google.com/group/Micropendous Micropendous Group].
+
 
 = Usage =
 
