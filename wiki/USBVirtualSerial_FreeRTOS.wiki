@@ -53,8 +53,10 @@ void MainTask(void)
 
 }}}
 
-Commented out are `printf()` and `getchar()` functions which perform the same task.  Note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store any constant strings.
+The above example is very simple.  `haveData()` checks if data has been received from the host and then [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html stdio] functions `getchar()` and `putchar(...)` are used to read and resend the data over the USB serial connection.
 
-FreeRTOS use is accomplished by using `xTaskCreate()` to add `USB`, `CDC`, and `Main_Task` functions to the FreeRTOS kernel and then starting the kernel with `vTaskStartScheduler()` in `main()`.  Thus FreeRTOS handles the USB and user functions and separates their functionality.  User code (even if it busy-loops) cannot interfere with USB functionality as FreeRTOS pre-empts it by running USB functions periodically.
+You can also use `printf(...)` functions but note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store and print any constant strings.  See the [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
+
+FreeRTOS use is accomplished by using `xTaskCreate()` to add `USB`, `CDC`, and `Main_Task` functions to the FreeRTOS kernel and then start the kernel with `vTaskStartScheduler()` in `main()`.  Thus FreeRTOS handles the USB and user functions and separates their functionality.  User code (even if it busy-loops) cannot interfere with USB functionality as FreeRTOS pre-empts it by running USB functions periodically.
 
 On the host side, `serialpy.py` is an example of serial communication and is explained in [Serial].
