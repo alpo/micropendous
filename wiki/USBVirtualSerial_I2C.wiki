@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial-I2C ` directory.
 
-*Purpose:* Allows you to use software that interacts with a serial port to write and read data over [http://en.wikipedia.org/wiki/I2C I2C].  This firmware acts as an I2C master.  It uses [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html avrlib's] [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib i2csw].
+*Purpose:* Allows you to use software that interacts with a serial port to write and read data over [http://en.wikipedia.org/wiki/I2C I2C].  This firmware acts as an I2C master.  It uses [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html avrlib's] [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib i2csw/i2csw.c].
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-I2C View] or [http://www.Micropendous.org/Distribution Download]
 
