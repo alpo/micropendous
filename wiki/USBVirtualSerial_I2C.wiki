@@ -51,7 +51,7 @@ Make sure to read each returned byte or flush the serial buffer before continuin
 See the [Serial] instructions for usage of serial ports before continuing.  You will need to be able to determine where the device enumerates to.
 
 
-== Testing ==
+== Testing and Communication Examples ==
 
 Under Windows you will need to have [http://python.org/download/releases/2.5.5/ Python 2.5.5] and [http://downloads.sourceforge.net/pyserial/pyserial-2.4.win32.exe Pyserial] installed.  Under Linux, these are already installed if you followed the [LinuxQuickStart] tutorial.
 
