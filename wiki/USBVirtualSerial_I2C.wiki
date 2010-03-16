@@ -66,6 +66,10 @@ python  Test_I2C_TC74_TempSense.py
 python  Test_I2C_ScanAllAdresses.py
 }}}
 
+You can view the Python example scripts via the following links:
+
 [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-I2C/Test_I2C_EEPROM.py View Test_I2C_EEPROM.py]
+
 [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-I2C/Test_I2C_TC74_TempSense.py View Test_I2C_TC74_TempSense.py]
+
 [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-I2C/Test_I2C_ScanAllAdresses.py View Test_I2C_ScanAllAdresses.py]
