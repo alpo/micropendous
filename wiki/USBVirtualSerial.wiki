@@ -34,30 +34,30 @@ The following is the core of this firmware and where your code should be placed.
 /* Main_Task will run periodically once initialization is complete */
 void MainTask(void)
 {
-        int tempInt = 0;        // temporary storage - integer (16-bit)
+  int tempInt = 0; // temporary storage - integer (16-bit)
 
-        // If the host has sent data then process it
+  // If the host has sent data then process it
 
-        // Example 1 - using standard IO functions
-        while (haveData()) {    // need to check that data exists before processing it
-                // store data temporarily then send it right back - raw binary - using standard IO functions
-                tempInt = getchar();
-                putchar(tempInt);
-        }
+  // Example 1 - using standard IO functions
+  while (haveData()) {    // need to check that data exists before processing it
+    // store data temporarily then send it right back - raw binary - using standard IO functions
+    tempInt = getchar();
+    putchar(tempInt);
+  }
 
-        // Example 2 - using formatted standard IO functions
-/*      while (haveData()) {
-                // as long as getchar() is returning data, process it
-                printf_P(PSTR("\r\nUSBVirtualSerial\r\n")); // send a string that is constant and stored in FLASH
-                tempInt = getchar(); // receive a character
-                printf("Received char = %3d\r\n", tempInt); // send a string that is dynamic and stored in SRAM
-                // avoid long dynamic strings as there is little SRAM
-        }
+  // Example 2 - using formatted standard IO functions
+/*while (haveData()) {
+    // as long as getchar() is returning data, process it
+    printf_P(PSTR("\r\nUSBVirtualSerial\r\n")); // send a string that is constant and stored in FLASH
+    tempInt = getchar(); // receive a character
+    printf("Received char = %3d\r\n", tempInt); // send a string that is dynamic and stored in SRAM
+    // avoid long dynamic strings as there is little SRAM
+  }
 */
 }
 
 }}}
 
-The above example is very simple.  `haveData()` checks if data has been received from the host and then `getData()` and `sendData()` send it back over the USB serial connection.
+The above example is very simple.  `haveData()` checks if data has been received from the host and then [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdio.html stdio] functions `getchar()` and `putchar(...)` are used to read and resend the data over the USB serial connection.
 
-Commented out are `printf()` and `getchar()` functions which perform the same task.  Note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store any constant strings.  See my [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
+You can also use `printf(...)` functions but note that `printf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store and print any constant strings.  See my [http://groups.google.com/group/micropendous/web/printf-usage printf tutorial] for more information.
