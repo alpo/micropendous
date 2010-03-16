@@ -6,7 +6,7 @@ In general, *Administrator* privileges are required on a Windows machine during 
 
  # Download and Install [http://sourceforge.net/projects/winavr/ WinAVR]
  # Download and Install [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3886 Atmel's FLIP]
- # Download and Install [http://www.python.org/download/releases/2.5.4/ Python 2.5.4] _(Optional)_
+ # Download and Install [http://www.python.org/download/releases/2.5.5/ Python 2.5.5] _(Optional)_
  # Download and Install [http://sourceforge.net/projects/pyserial/files/ PySerial-2.5] _(Optional)_
 
 === Did FLIP Install Correctly? ===
