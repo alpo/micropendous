@@ -10,7 +10,7 @@ This firmware is no longer being actively developed.  You can find it in the [ht
 
 *USB Mode:* Device-mode enumerating as Compound USB Device -  USB Virtual Serial Port and HID Keyboard
 
-*Status:* _Under Development_.  Works under Windows, fails under Linux.
+*Status:* _Discontinued_.  Works under Windows, fails under Linux.
 
 
 == Usage ==
