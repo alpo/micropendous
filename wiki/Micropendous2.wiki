@@ -15,7 +15,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Pictu
   * 28kb of available FLASH memory for your programs (4kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 2.5 kbytes SRAM, 1 kbytes of EEPROM
   * USB powered
-  * microSD connector wired up for [MassStorage_MMC_SD_SPI_Mode SPI-mode MMC/SD]
+  * microSD connector wired up for [MassStorage_MMC_SD_via_SPI SPI-mode MMC/SD]
   * 8MHz crystal (16MHz version also possible but must run at 5V)
   * 26 General Purpose IO Pins
   * !Vcc_Sel jumper selects 5V or 3.3V operation and powers external devices through Vcc pins (500mA at 5V, 500mA at 3.3V)
