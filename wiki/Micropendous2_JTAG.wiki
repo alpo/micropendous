@@ -19,6 +19,8 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2-JTAG_Pinout_
   * 26 General Purpose IO Pins
   * !Vcc_Sel jumper selects 5V or 3.3V operation and powers external devices through Vcc pins (500mA at 5V, 500mA at 3.3V)
   * On-board 1A 3.3V +/- 5% regulator (limited to 500mA by USB standard and IC requirements)
+  * to power board externally, remove !Vcc_Sel jumper and apply a 3.3V-5V regulated power supply to VCC
+  * !Vcc_Sel should only be moved when board is not powered
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * standard USB Mini-B connector
