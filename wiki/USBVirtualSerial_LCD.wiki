@@ -57,6 +57,8 @@ TARGET = USBVirtualSerial-LCD
 }}}
 
 {{{
+AVRLIB_PATH = ../../libs/avrlib
+
 SRC = $(TARGET).c            \
     Descriptors.c            \
     Lib/RingBuff.c           \
