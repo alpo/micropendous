@@ -50,7 +50,7 @@ The first step is to examine AVRlib's example code for [http://code.google.com/p
 
 Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
 
-Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting.  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
+Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
 
 {{{
 TARGET = USBVirtualSerial-LCD
