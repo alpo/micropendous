@@ -52,7 +52,7 @@ Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/
 
 Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
 
-`global.h` only needs the following lines:
+`global.h` only needs the following lines where `CYCLES_PER_US` is edited to use `F_CPU` already defined in the _USBVirtualSerial-LCD_ `makefile`:
 {{{
 #include <avrlibdefs.h>
 #include <avrlibtypes.h>
