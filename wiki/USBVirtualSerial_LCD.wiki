@@ -48,9 +48,17 @@ The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/inde
 
 The first step is to copy [USBVirtualSerial] firmware to a new `USBVirtualSerial-LCD` directory and rename `USBVirtualSerial.c` and `USBVirtualSerial.h`.  The `#include` line near the top of our new `USBVirtualSerial-LCD.c` must be edited for the renamed files.
 
-Now examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
+Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
 
 Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
+
+`global.h` only needs the following lines:
+{{{
+#include <avrlibdefs.h>
+#include <avrlibtypes.h>
+
+#define CYCLES_PER_US ((F_CPU+500000)/1000000)  // cpu cycles per microsecond
+}}}
 
 Notice that AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
 
