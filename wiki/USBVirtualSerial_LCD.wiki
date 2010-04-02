@@ -68,6 +68,21 @@ SRC = $(TARGET).c            \
 ...
 }}}
 
+AVRlib also requires some [http://en.wikipedia.org/wiki/Header_file header files].  Add the following `#includes` to `USBVirtualSerial-LCD.h`:
+
+{{{
+  #include "global.h"
+  #include "lcdconf.h"
+  #include <lcd.h>
+  #include <timer.h>
+  #include <rprintf.h>
+}}}
+
+To make sure the compiler can find the above header files the `makefile` must also have AVRlib's directory in the list of header include directories:
+{{{
+EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/
+}}}
+
 Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey].
 
 {{{
