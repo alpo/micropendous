@@ -52,14 +52,6 @@ Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/
 
 Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
 
-`global.h` only needs the following lines where `CYCLES_PER_US` is edited to use `F_CPU` already defined in the _USBVirtualSerial-LCD_ `makefile`:
-{{{
-#include <avrlibdefs.h>
-#include <avrlibtypes.h>
-
-#define CYCLES_PER_US ((F_CPU+500000)/1000000)  // cpu cycles per microsecond
-}}}
-
 AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
 
 {{{
@@ -93,7 +85,7 @@ To make sure the compiler can find the above header files the `makefile` must al
 EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/
 }}}
 
-Next `lcdconf.h` must be edited to work with the Micropendous and your particular HD44780-based LCD display.  This particular display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey].
+For the LCD code to work the USB AVRs and your particular HD44780-based LCD display `lcdconf.h` must be edited.  This particular display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey].
 
 {{{
 #ifdef LCD_PORT_INTERFACE
@@ -116,9 +108,15 @@ Next `lcdconf.h` must be edited to work with the Micropendous and your particula
 }}}
 
 
-Next, `global.h` is edited to remove `F_CPU` defines, as the `makefile` defines this variable.
+`global.h` is edited to remove `F_CPU` defines, as the `makefile` defines this variable.
+{{{
+#include <avrlibdefs.h>
+#include <avrlibtypes.h>
 
-Next, in `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
+#define CYCLES_PER_US ((F_CPU+500000)/1000000)  // cpu cycles per microsecond
+}}}
+
+In `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
 
 {{{
   lcdInit();
