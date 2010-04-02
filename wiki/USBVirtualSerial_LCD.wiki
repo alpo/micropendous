@@ -128,6 +128,9 @@ In `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
 Finally, while data from the host is in the input buffer, send it to the LCD and back to the host.  Make sure characters past the end of the second line get sent back to the start.
 
 {{{
+volatile uint8_t character_count = 0;
+volatile uint8_t current_line = 0;
+
 void Main_Task(void)
 {
   uint8_t tempChar = 0;   // temporary storage - unsigned 8-bit integer
@@ -153,8 +156,6 @@ void Main_Task(void)
 }
 
 }}}
-
-Note that there are also some global `define`s, for `character_count` and `current_line`.
 
 The firmware will not function unless an LCD display is connected as `lcdInit()` blocks.
 
