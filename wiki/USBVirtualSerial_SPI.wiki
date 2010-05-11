@@ -84,6 +84,7 @@ Testing Procedure:
 {{{
 python  Test_SPI_AVRISP_Test_Communication.py  COM5
 }}}
+The output should be a couple iterations of the current timer value on the ATtiny261.
 
 == Python Usage ==
 
