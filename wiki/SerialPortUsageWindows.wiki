@@ -101,7 +101,7 @@ ser.close()
 
 To run the above Python code, save it into a text file with the file extension`.py`.  For example `SerialPy.py`.  A slightly more complex version with command-line COM port selection is [http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBVirtualSerial/serialpy.py available].  You can run the code from a _Command Prompt_ with `python serialpy.py  COM7`.
 
-Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/Object_oriented Object-Oriented].
+Lets go over what the code does.  Python supports [http://en.wikipedia.org/wiki/Object_oriented Object-Oriented] programming.
 
 `import serial` adds the !PySerial library to your Python code.
 
@@ -117,7 +117,7 @@ Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/O
 
 `print ser.readline()` reads a line from the `ser` serial port and prints the data.  Note that `.readline()` will block until it receives a newline character.
 
-`ser.close()` just closes the serial port so that other programs may access it.
+`ser.close()` closes the serial port so that other programs may access it.
 
 
 === Some useful Python resources ===
