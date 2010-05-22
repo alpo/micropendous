@@ -87,7 +87,7 @@ ser.close()
 To run the above Python code, save it into a text file with the file extension`.py`.  For example, `SerialPy.py`.  A slightly more complex version with command-line serial port selection is [http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBVirtualSerial/serialpy.py available].  You can run the code from a Terminal with `python serialpy.py /dev/ttyACM0`.  If you have not yet set up USB permissions, try `sudo python serialpy.py /dev/ttyACM0`.
 
 
-Lets go over what the code does.  Note Python is [http://en.wikipedia.org/wiki/Object_oriented Object-Oriented].
+Lets go over what the code does.  Python supports [http://en.wikipedia.org/wiki/Object_oriented Object-Oriented] programming.
 
 `import serial` adds the !PySerial library to your Python code.
 
