@@ -16,7 +16,7 @@
    inkscape:version="0.46"
    sodipodi:docname="Micropendous-1287_Pinout.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="Micropendous4_Pinout.png"
+   inkscape:export-filename="Micropendous-1287_Pinout.png"
    inkscape:export-xdpi="213.8"
    inkscape:export-ydpi="213.8"
    version="1.0">
@@ -70,8 +70,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="349.86335"
-     inkscape:cy="237.25429"
+     inkscape:cx="24.45028"
+     inkscape:cy="397.25025"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -87,7 +87,52 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+        <dc:title>Micropendous-1287 Pinout</dc:title>
+        <dc:date>2010-06-05</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:language>en-US</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Opendous Micropendous AT90USB1287 USB AVR OTG Host</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>www.opendous.org</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <dc:description>Micropendous-1287 Pinout
+Visit www.Micropendous.org for more info.</dc:description>
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <g
@@ -1512,7 +1557,7 @@
          sodipodi:role="line"
          id="tspan4143"
          x="719.47992"
-         y="30.625139">VBUS-5V</tspan></text>
+         y="30.625139">VBUS_5V(USB-miniB)</tspan></text>
     <g
        id="g4310"
        transform="translate(1433.1509,-205.48274)"
@@ -3029,7 +3074,7 @@
          sodipodi:role="line"
          id="tspan3156"
          x="719.47992"
-         y="54.769367">VBUS_AUX</tspan></text>
+         y="54.769367">VBUS_AUX(USB-A)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -3043,5 +3088,119 @@
          id="tspan3160"
          x="718.60254"
          y="757.72687">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="501.09067"
+       y="238.38612"
+       id="text2786"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2788"
+         x="501.09067"
+         y="238.38612">PB6_3.3V</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="493.94781"
+       y="212.31473"
+       id="text2790"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2792"
+         x="493.94781"
+         y="212.31473">PB4_3.3V</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="486.80496"
+       y="186.24327"
+       id="text2794"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan2796"
+         x="486.80496"
+         y="186.24327">PB7_3.3V</tspan></text>
+    <g
+       id="g2798"
+       transform="translate(1203.3627,-152.07863)"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect2800"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect2802"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g2804"
+       transform="translate(1210.5056,-126.00717)"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect2806"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect2808"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g2810"
+       transform="translate(1217.6484,-99.935777)"
+       inkscape:export-filename=".\Micropendous4_Pinout.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         ry="2.7099738"
+         y="720.67212"
+         x="320.00079"
+         height="25.381186"
+         width="25.20178"
+         id="rect2812"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+      <rect
+         ry="7.4056826"
+         y="725.95703"
+         x="325.17346"
+         height="14.811365"
+         width="14.8565"
+         id="rect2814"
+         style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
   </g>
 </svg>
