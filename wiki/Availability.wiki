@@ -1,3 +1,3 @@
 #summary Notes about Micropendous board availability
 
-Opendous Inc. is currently working on a bunch of new designs.  Micropendous boards will exist when they exist.
+Opendous Inc. is currently working on a bunch of new designs.  A small lot of Micropendous2 boards is currently available at [http://www.opendous.com opendous.com].
