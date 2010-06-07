@@ -33,8 +33,8 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Small
   * [http://www.linux.org/ Linux] + [http://gcc.gnu.org/ AVR-GCC] + [http://www.fourwalledcubicle.com/LUFA.php LUFA] + [http://www.fourwalledcubicle.com/LUFA.php LUFA Bootloader] + [http://kicad.sourceforge.net KiCAD] + [http://dfu-programmer.sourceforge.net/ DFU-Programmer] allow you to develop Open Source and/or Open Hardware projects around a Micropendous without ever touching proprietary software.
 
 == !QuickNotes ==
- * *DO NOT* connect *GND* and *VCC*.  This will short your computer's USB power supply and may damage your computer and your Micropendous2
- * the !Vcc_Sel jumper should only be (re)moved when board is not powered.  Board may be damaged if you remove the jumper while the board is powered.
+ * *DO NOT* connect *GND* and *VCC*.  This will your power supply and may damage your computer and/or your Micropendous2
+ * the !Vcc_Sel jumper should only be (re)moved when the board is not powered.  Board may be damaged if you remove the jumper while the board is powered.
  * the board can be powered externally through the VCC pin regardless whether it is connected to USB.  Remove the !Vcc_Sel jumper and apply a 3.0V-5V regulated power supply to VCC and GND.
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then HWB
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
