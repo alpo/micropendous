@@ -48,7 +48,7 @@ Remember to change `m32` to your target AVR's name.
 
 === Using AVRdude to Program the Bootloader of another Micropendous Board ===
 
-Connect your Micropendous board loaded with AVRISP firmware to your target board.  Change to the `/Micropendous/Firmware/BootloaderDFU` directory.  Edit the `makefile` to create a bootloader for your target AVR.  You simply need to uncomment the correct `MCU` and `BOOT_START` values.  Run `make` to compile.  Run `make program` to load the firmware using _avrdude_.
+Connect your Micropendous board loaded with AVRISP firmware to your target board.  Change to the `/Micropendous/Firmware/BootloaderDFU` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU/ directory].  Edit the `makefile` to create a bootloader for your target AVR.  You simply need to uncomment the correct `MCU` and `BOOT_START` values.  Run `make` to compile.  Run `make program` to load the firmware using _avrdude_.
 {{{
 make
 make program
