@@ -8,7 +8,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Picture.jpg
 
 == Pinout ==
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Small.jpg
 
 == Features ==
   * Based on the [http://www.atmel.com Atmel] [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] USB AVR Microcontroller
