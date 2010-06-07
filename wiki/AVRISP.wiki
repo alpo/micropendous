@@ -59,3 +59,5 @@ If using an older version of _avrdude_ run the following command, which uses a l
 {{{
 avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderDFU.hex
 }}}
+
+Edit `usb1287` above to the name of your USB AVR.
