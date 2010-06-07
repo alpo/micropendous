@@ -28,7 +28,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Small
   * standard USB Mini-B connector
   * all JTAG pins are also accessible on the outer 0.1" headers
   * Size LxWxH (including headers): 1.55" x 0.8" x 0.6" =~ 4cm x 2cm x 1.5cm
-  * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
+  * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous2/ available] for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
   * works with Open Source [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB firmware library and Open Source [http://libusb.sourceforge.net LibUSB] software library, or with Open Source [http://pyserial.wiki.sourceforge.net/pySerial PySerial] library if using USBtoSerial or CDC based firmware.
   * [http://www.linux.org/ Linux] + [http://gcc.gnu.org/ AVR-GCC] + [http://www.fourwalledcubicle.com/LUFA.php LUFA] + [http://www.fourwalledcubicle.com/LUFA.php LUFA Bootloader] + [http://kicad.sourceforge.net KiCAD] + [http://dfu-programmer.sourceforge.net/ DFU-Programmer] allow you to develop Open Source and/or Open Hardware projects around a Micropendous without ever touching proprietary software.
 
