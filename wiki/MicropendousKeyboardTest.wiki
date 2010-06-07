@@ -15,7 +15,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and load the [MicropendousKeyboardTest] firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the !MicropendousKeyboardTest firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 Plug your board into a computer and it should enumerate as a keyboard.  Connecting the GND pin to any other pin will type that pin's name.  For example, pressing the HWB button will type `e2` as HWB is connected to pin PE2.
 
