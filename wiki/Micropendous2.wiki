@@ -39,7 +39,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous2_Pinout_Small
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then HWB
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * the RESET pin is accessible on the outer header to enable programming of the bootloader with an AVR ISP programmer such as [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s [AVRISP] firmware
- * PE2 (HWB) is pulled up to Vcc with a 47k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
+ * PE2 (HWB) is pulled up to Vcc with a 43k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
  * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
