@@ -3,7 +3,7 @@
 
 The first step is to choose which Operating System you will be using for development:
 
-[LinuxQuickStart Linux] - All development can be done using a LiveCD session
+[LinuxQuickStart Linux] - All development can be done using a [http://help.ubuntu.com/community/LiveCD LiveCD] session
 
 [WindowsQuickStart Windows]
 
