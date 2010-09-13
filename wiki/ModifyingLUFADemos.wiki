@@ -4,7 +4,7 @@ Note that not all LUFA demos can be run on Micropendous boards with compatible f
 
 == Required Software ==
 
-To compile [http://www.fourwalledcubicle.com/LUFA.php LUFA] demos you will require [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3886 Atmel's FLIP] and [http://winavr.sourceforge.net/ WinAVR] under Windows, or `dfu-programmer` and `avr-gcc` under Linux.  See [SettingUpWindows] or [SettingUpUbuntuLinux] for more information.
+To compile [http://www.fourwalledcubicle.com/LUFA.php LUFA] demos you will require [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3886 Atmel's FLIP] and [http://winavr.sourceforge.net/ WinAVR] under Windows, or `dfu-programmer` and `avr-gcc` under Linux.  See the [http://www.micropendous.org/QuickStart QuickStart Guide] for more information.
 
 == Preparing Files==
 
