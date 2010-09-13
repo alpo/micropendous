@@ -8,9 +8,9 @@ The first step is to choose which Operating System you will be using for develop
 [WindowsQuickStart Windows]
 
 
+----
 
-
-= !QuickStart Hierarchy Map =
+== !QuickStart Hierarchy Map ==
 
   * Get Started (Setup and Testing)
    * on [LinuxQuickStart Linux]
