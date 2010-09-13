@@ -19,4 +19,10 @@ Compile and load the GeneralMCUDev firmware onto your USB AVR by following the [
 
 = Code =
 
-The code is very simple.  Simply disable the USB interface.
+The code is very basic.  Simply disable the USB interface.
+
+{{{
+    /* disable USB */       
+    USBCON = ((0 << USBE) | (1 << FRZCLK));
+    PRR1 |= (PRUSB);
+}}}
