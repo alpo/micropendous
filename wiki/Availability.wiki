@@ -1,3 +1,7 @@
 #summary Notes about Micropendous board availability
 
+----
+
 More Micropendous boards will go on sale as soon as possible.  The USB AVR ICs are in short supply currently.
+
+----
