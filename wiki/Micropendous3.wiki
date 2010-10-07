@@ -4,9 +4,10 @@ Micropendous3 is an Open Hardware Development Board for Atmel's [http://www.atme
 
 The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in ~~the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via~~ [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3` directory.
 
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3.jpg
+
 == Pinout ==
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous3_Pinout_Picture.jpg
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_Pinout.jpg
 
 
