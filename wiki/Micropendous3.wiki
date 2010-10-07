@@ -2,7 +2,7 @@
 
 Micropendous3 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB646 AT90USB646] USB AVR Microcontroller.
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3` directory.
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in ~~the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via~~ [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3` directory.
 
 == Pinout ==
 
@@ -41,9 +41,9 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
  * if your board has a communication error after being plugged in, press RESET
  * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
 {{{
-MCU = at90usb646
+MCU = at90usb647
 BOARD  = USER
-F_CPU = 8000000
+F_CPU = 16000000
 }}}
 you can enable pins PF4,5,6,7 by disabling JTAG via software. Place the following code near the top of `main()`:
 {{{
