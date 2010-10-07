@@ -62,7 +62,7 @@ you can enable pins PF4,5,6,7 by disabling JTAG via software. Place the followin
 
 == Powering the board externally ==
 
-A Micropendous3 board can be externally powered through its VCC pin (regardless whether it is connected to a USB Host).
+A Micropendous3 board can be externally powered through its VCC pin (regardless whether it is connected to a USB Host).  Simply remove the VCC=VBUS jumper to disconnect VBUS from VCC then power the board externally with a regulated 5V power supply.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_ExternalPower.jpg
 
