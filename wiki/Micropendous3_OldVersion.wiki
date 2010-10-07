@@ -3,7 +3,7 @@
 
 Micropendous3 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB646 AT90USB646] USB AVR Microcontroller.
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3/Micropendous3_OldVersion` directory.
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the [http://code.google.com/p/micropendous/source/checkout SVN] repository under the `/Micropendous/Design/Micropendous3/Micropendous3_OldVersion` directory.
 
 == Pinout ==
 
