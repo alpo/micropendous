@@ -1,6 +1,7 @@
 #summary Instructions for Loading Firmware and EEPROM using Atmel's FLIP
+#labels Phase-Deploy
 
-For more complete instructions please see the [http://www.Micropendous.org/QuickStart QuickStart] guide and [http://www.Micropendous.org/ProgramAndTest ProgramAndTest] wiki pages.
+For more complete instructions please see the [http://www.Micropendous.org/QuickStart QuickStart] guide and ProgramAndTest wiki pages.
 
 
 Atmel has a similar [http://atmel.com/dyn/resources/prod_documents/doc7769.pdf FLIP Usage Tutorial] for firmware uploading.
