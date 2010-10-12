@@ -63,7 +63,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="384.00883"
+     inkscape:cx="244.00883"
      inkscape:cy="372.36054"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -88,6 +88,23 @@
         <dc:title>Micropendous-32U4 Pinout</dc:title>
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>www.opendous.org</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <dc:description>Pinout of the Micropendous-32U4.</dc:description>
+        <dc:coverage>Opendous Micropendous ATmega32U4</dc:coverage>
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/by/3.0/">
