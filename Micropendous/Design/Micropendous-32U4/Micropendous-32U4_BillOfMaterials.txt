@@ -20,7 +20,7 @@ QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 1  , 3M9322-ND              , 0.00 - ?? - 0.1" Shunt Jumper
 1  , ABLS-8.000MHZ          , 0.46 - X1 - CRYSTAL 8.000 MHZ 18PF HC49US 30ppm
 1  , ATMEGA32U4-AU          , 4.73 - IC1 - ATmega32U4 USB AVR TQFP44
-1  , 2908-05WB-MG           , 1.23 - U3 - CONN EJECT MICROSD PUSH-PUSH SMD
+1  , 101-00303-68           , 0.86 - U3 - CONN MINI MICRO-SD 8PIN PCB GOLD
 2  , P12940SCT-ND           , 0.30 - SW? - EVQ Push Button Switch 6.5mm x 6mm
 -----------------------Total:
 
@@ -33,4 +33,4 @@ Notes:	- Component costs listed are for single quantity orders from DigiKey
 	- the 4.7uF capacitor can be replaced by a 10uF capacitor
 	- Schottky Rectifier Diode - MBR120VLSF or MBRX120 in SOD-123
 	- Regulator - 1117-Adj in SOT223 - check your regulator's datasheet for best
-	  value of the 1206 tantalum capacitor
+	  value of the 1206 tantalum or ceramic ~22uF capacitor

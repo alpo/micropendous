@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = 2/24/2010 9:16:47 AM
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 12/10/2010 15:04:06
 
 BeginCmp
 TimeStamp = /494A56AF;
@@ -66,7 +66,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4B7D2F9B;
 Reference = C24;
-ValeurCmp = 10uF;
+ValeurCmp = 22uF;
 IdModule  = SM1206_Opendous;
 EndCmp
 
@@ -234,8 +234,8 @@ EndCmp
 BeginCmp
 TimeStamp = /4A888F4F;
 Reference = U4;
-ValeurCmp = CONN_MICROSD;
-IdModule  = Memory_Card_microSD_3M_290805;
+ValeurCmp = microSD;
+IdModule  = MEMORY_CARD_microSD_101-00303_Amphenol;
 EndCmp
 
 BeginCmp
@@ -542,6 +542,20 @@ EndCmp
 BeginCmp
 TimeStamp = /4B853384;
 Reference = V89;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CB4B112;
+Reference = V90;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CB4B111;
+Reference = V91;
 ValeurCmp = VIA;
 IdModule  = 1Pin_20mil_VIA;
 EndCmp

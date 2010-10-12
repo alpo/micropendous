@@ -16,7 +16,7 @@
    inkscape:version="0.46"
    sodipodi:docname="Micropendous-32U4_LUFAduino-Pinout.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="Micropendous-32U4_LUFAduino-Pinout.png"
+   inkscape:export-filename="Micropendous2_LUFAduino-Pinout.svg.png"
    inkscape:export-xdpi="196.8846"
    inkscape:export-ydpi="196.8846"
    version="1.0">
@@ -99,15 +99,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="470.03235"
-     inkscape:cy="459.78233"
+     inkscape:cx="720.04018"
+     inkscape:cy="244.30812"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1121"
      inkscape:window-height="980"
-     inkscape:window-x="552"
-     inkscape:window-y="2" />
+     inkscape:window-x="88"
+     inkscape:window-y="36" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -124,6 +124,27 @@
             <dc:title>Opendous Inc.</dc:title>
           </cc:Agent>
         </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Opendous Inc.</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Opendous Micropendous ATmega32U4</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:description>Pinout of the Micropendous-32U4 when loaded with LUFAduino firmware.</dc:description>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>www.opendous.org</dc:title>
+          </cc:Agent>
+        </dc:contributor>
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/by/3.0/">
@@ -177,16 +198,16 @@
          y="56.647896" /></text>
     <text
        id="text4529"
-       y="395.15338"
-       x="835.41223"
-       style="font-size:22.62649918px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       y="392.08603"
+       x="840.92706"
+       style="font-size:22.37536621px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"
-       transform="scale(0.9427708,1.0607032)"
+       transform="scale(0.9323069,1.0726081)"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
-         y="395.15338"
-         x="835.41223"
+         y="392.08603"
+         x="840.92706"
          id="tspan4531"
          sodipodi:role="line">____</tspan></text>
     <text
@@ -355,7 +376,7 @@
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="319.91864"
+       x="321.13254"
        y="615.69751"
        id="text4334"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -363,7 +384,7 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4336"
-         x="319.91864"
+         x="321.13254"
          y="615.69751">GND</tspan></text>
     <rect
        transform="matrix(0,1,-1,0,0,0)"
@@ -392,7 +413,7 @@
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="294.65302"
+       x="295.86691"
        y="581.85345"
        id="text2645"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -400,7 +421,7 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2647"
-         x="294.65302"
+         x="295.86691"
          y="581.85345">RESET</tspan></text>
     <rect
        transform="matrix(0,1,-1,0,0,0)"
@@ -669,7 +690,7 @@
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="684.06372"
        y="443.48502"
        id="text4258"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -677,12 +698,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4260"
-         x="687.99341"
-         y="443.48502">24 (PE2 / HWB)</tspan></text>
+         x="684.06372"
+         y="443.48502">16 (PE2 / HWB)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="684.06372"
        y="206.23312"
        id="text4262"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -690,12 +711,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4264"
-         x="687.99341"
-         y="206.23312">25 (PE6 / INT6)</tspan></text>
+         x="684.06372"
+         y="206.23312">19 (PE6 / INT6)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="684.06372"
        y="477.42728"
        id="text4266"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -703,8 +724,8 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4268"
-         x="687.99341"
-         y="477.42728">23 (PC7 / PWMX)</tspan></text>
+         x="684.06372"
+         y="477.42728">18 (PC7 / PWMX)</tspan></text>
     <rect
        transform="matrix(0,1,-1,0,0,0)"
        style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.28941071px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -996,7 +1017,7 @@
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="688.54126"
+       x="686.36255"
        y="140.6275"
        id="text2791"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1004,7 +1025,7 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2793"
-         x="688.54126"
+         x="686.36255"
          y="140.6275">VCC</tspan></text>
     <rect
        transform="matrix(0,1,-1,0,0,0)"
@@ -1144,7 +1165,7 @@
     <text
        id="text2526"
        y="688.09271"
-       x="239.29871"
+       x="240.08858"
        style="font-size:34.62438583px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"
        transform="scale(1.2365853,0.8086786)"
@@ -1152,7 +1173,7 @@
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          y="688.09271"
-         x="239.29871"
+         x="240.08858"
          id="tspan2528"
          sodipodi:role="line">___</tspan></text>
     <rect
@@ -1302,7 +1323,7 @@
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="688.67017"
+       x="686.49146"
        y="174.52063"
        id="text2552"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1310,19 +1331,19 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2554"
-         x="688.67017"
+         x="686.49146"
          y="174.52063">AREF</tspan></text>
     <text
        id="text3366"
        y="599.82959"
-       x="120.42912"
+       x="121.34113"
        style="font-size:29.49832535px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"
        transform="scale(1.2290969,0.8136055)"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          y="599.82959"
-         x="120.42912"
+         x="121.34113"
          id="tspan3368"
          sodipodi:role="line">____</tspan></text>
     <text
@@ -1381,7 +1402,7 @@
          id="flowPara3667" /></flowRoot>    <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="209.49969"
+       x="210.71359"
        y="274.01935"
        id="text7169"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1389,12 +1410,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7171"
-         x="209.49969"
+         x="210.71359"
          y="274.01935">(PWM / PB7) 15</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="684.06372"
        y="545.6701"
        id="text7173"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1402,12 +1423,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7175"
-         x="686.24243"
+         x="684.06372"
          y="545.6701">14 (PB6 / AI13 / PWMX)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="685.54614"
        y="579.42279"
        id="text7177"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1415,12 +1436,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7179"
-         x="686.24243"
-         y="579.42279">13 (PB5 / AI12)</tspan></text>
+         x="685.54614"
+         y="579.42279">9 (PB5 / AI12)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="685.56763"
        y="613.26685"
        id="text7181"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1428,12 +1449,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7183"
-         x="686.24243"
-         y="613.26685">12 (PB4 / AI11)</tspan></text>
+         x="685.56763"
+         y="613.26685">8 (PB4 / AI11)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="210.20868"
+       x="208.54367"
        y="240.13159"
        id="text7185"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1441,12 +1462,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7187"
-         x="210.20868"
-         y="240.13159">(MISO / PB3) 11</tspan></text>
+         x="208.54367"
+         y="240.13159">(MISO / PB3) 12</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="201.12079"
+       x="205.32101"
        y="206.23849"
        id="text7189"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1454,12 +1475,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7191"
-         x="201.12079"
-         y="206.23849">(MOSI  / PB2) 10</tspan></text>
+         x="205.32101"
+         y="206.23849">(MOSI  / PB2) 11</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="218.09344"
+       x="207.09348"
        y="172.33997"
        id="text7193"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1467,12 +1488,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7195"
-         x="218.09344"
-         y="172.33997">(SCLK / PB1) 9</tspan></text>
+         x="207.09348"
+         y="172.33997">(SCLK / PB1) 13</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="246.23798"
+       x="235.29172"
        y="138.44682"
        id="text7197"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1480,26 +1501,26 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7199"
-         x="246.23798"
-         y="138.44682">(SS / PB0) 8</tspan></text>
+         x="235.29172"
+         y="138.44682">(SS / PB0) 10</tspan></text>
     <text
        id="text4517"
-       y="109.11081"
-       x="265.83777"
+       y="109.44967"
+       x="254.65251"
        style="font-size:24.9194355px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"
        transform="scale(0.9584398,1.0433623)"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
-         y="109.11081"
-         x="265.83777"
+         y="109.44967"
+         x="254.65251"
          id="tspan4519"
          sodipodi:role="line">__</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="126.47333"
+       x="127.68722"
        y="545.73053"
        id="text7203"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1507,12 +1528,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7205"
-         x="126.47333"
+         x="127.68722"
          y="545.73053">(PWMXD / AI10 / PD7) 7</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="138.73016"
+       x="139.99777"
        y="511.27133"
        id="text7207"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1520,12 +1541,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7209"
-         x="138.73016"
-         y="511.27133">(PWMXD / AI9 / PD6) 6</tspan></text>
+         x="139.99777"
+         y="511.27133">(PWMXD / AI9 / PD6) 4</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="292.64423"
+       x="293.97629"
        y="477.42728"
        id="text7211"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1533,12 +1554,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7213"
-         x="292.64423"
-         y="477.42728">(PD5) 5</tspan></text>
+         x="293.97629"
+         y="477.42728">(PD5) 3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="241.47919"
+       x="242.78976"
        y="443.48502"
        id="text7215"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1546,12 +1567,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7217"
-         x="241.47919"
-         y="443.48502">(AI8 / PD4) 4</tspan></text>
+         x="242.78976"
+         y="443.48502">(AI8 / PD4) 2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="180.31317"
+       x="184.56711"
        y="409.59192"
        id="text7219"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1559,12 +1580,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7221"
-         x="180.31317"
-         y="409.59192">(TX / INT3 / PD3) 3</tspan></text>
+         x="184.56711"
+         y="409.59192">(TX / INT3 / PD3) 1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="178.02509"
+       x="179.13156"
        y="375.69876"
        id="text7223"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1572,12 +1593,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7225"
-         x="178.02509"
-         y="375.69876">(RX / INT2 / PD2) 2</tspan></text>
+         x="179.13156"
+         y="375.69876">(RX / INT2 / PD2) 0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="166.20868"
+       x="164.39328"
        y="341.80563"
        id="text7227"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1585,12 +1606,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7229"
-         x="166.20868"
-         y="341.80563">(SDA / INT1 / PD1) 1</tspan></text>
+         x="164.39328"
+         y="341.80563">(SDA / INT1 / PD1) 6</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="93.570007"
+       x="94.612022"
        y="307.91251"
        id="text7231"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1598,12 +1619,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7233"
-         x="93.570007"
-         y="307.91251">(PWM / SCL / INT0 / PD0) 0</tspan></text>
+         x="94.612022"
+         y="307.91251">(PWM / SCL / INT0 / PD0) 5</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="686.49146"
        y="240.12625"
        id="text2944"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1611,12 +1632,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2946"
-         x="686.24243"
-         y="240.12625">16 (PF0 / AI0)</tspan></text>
+         x="686.49146"
+         y="240.12625">Analog0 (PF0 / AI0)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="686.49146"
        y="274.01935"
        id="text2778"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1624,12 +1645,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2780"
-         x="686.24243"
-         y="274.01935">17 (PF1 / AI1)</tspan></text>
+         x="686.49146"
+         y="274.01935">Analog1 (PF1 / AI1)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="686.49146"
        y="307.91251"
        id="text2790"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1637,12 +1658,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2792"
-         x="686.24243"
-         y="307.91251">18 (PF4 / AI4 / JTAG_TCK)</tspan></text>
+         x="686.49146"
+         y="307.91251">Analog4 (PF4 / AI4 / JTAG_TCK)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="686.24243"
+       x="686.49146"
        y="341.80563"
        id="text2794"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1650,12 +1671,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2796"
-         x="686.24243"
-         y="341.80563">19 (PF5 / AI5 / JTAG_TMS)</tspan></text>
+         x="686.49146"
+         y="341.80563">Analog5 (PF5 / AI5 / JTAG_TMS)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="686.49146"
        y="375.70413"
        id="text2798"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1663,12 +1684,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2800"
-         x="687.99341"
-         y="375.70413">20 (PF6 / AI6 / JTAG_TDO)</tspan></text>
+         x="686.49146"
+         y="375.70413">Analog6 (PF6 / AI6 / JTAG_TDO)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="686.49146"
        y="411.87106"
        id="text2802"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1676,12 +1697,12 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2804"
-         x="687.99341"
-         y="411.87106">21 (PF7 / AI7 / JTAG_TDI)</tspan></text>
+         x="686.49146"
+         y="411.87106">Analog7 (PF7 / AI7 / JTAG_TDI)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="687.99341"
+       x="684.06372"
        y="511.27127"
        id="text7927"
        inkscape:export-filename=".\Micropendous2_LUFAduino-Pinout.png"
@@ -1689,7 +1710,7 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan7929"
-         x="687.99341"
-         y="511.27127">22 (PC6 / PWM)</tspan></text>
+         x="684.06372"
+         y="511.27127">17 (PC6 / PWM)</tspan></text>
   </g>
 </svg>
