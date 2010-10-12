@@ -1,0 +1,257 @@
+# EESchema Netlist Version 1.1 created  29/08/2010 20:33:47
+(
+ ( /4C70B6F7 $noname  V18 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C70B6F3 $noname  V17 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C70AC09 $noname  V13 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C70AC08 $noname  V12 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C70AC07 $noname  V10 VIA {Lib=VIA}
+  (    1 VCC )
+ )
+ ( /4C70AC06 $noname  V11 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C70AC01 $noname  V15 VIA {Lib=VIA}
+  (    1 /PC7 )
+ )
+ ( /4C70AC00 $noname  V14 VIA {Lib=VIA}
+  (    1 /PC7 )
+ )
+ ( /4C70ABFD $noname  V16 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E737F $noname  V9 VIA {Lib=VIA}
+  (    1 VCC )
+ )
+ ( /4C6E701A $noname  V5 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7019 $noname  V6 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7018 $noname  V8 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7017 $noname  V7 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7015 $noname  V3 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7014 $noname  V4 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7012 $noname  V2 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E7004 $noname  V1 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /4C6E6947 $noname  JP1 JUMPER-2 {Lib=JUMPER-2}
+  (    1 VREF )
+  (    2 VCC )
+ )
+ ( /4C6E6790 $noname  U2 ARM_JTAG {Lib=CONN_JTAG_ARM}
+  (    1 VREF )
+  (    2 VREF )
+  (    3 /PB5 )
+  (    4 GND )
+  (    5 /PB2 )
+  (    6 GND )
+  (    7 /PB0 )
+  (    8 GND )
+  (    9 /PB1 )
+  (   10 GND )
+  (   11 /PB7 )
+  (   12 GND )
+  (   13 /PB3 )
+  (   14 GND )
+  (   15 /PB6 )
+  (   16 GND )
+  (   17 /PB4 )
+  (   18 GND )
+  (   19 /PC7 )
+  (   20 GND )
+ )
+ ( /4C6E8395 $noname  U1 MICROPENDOUS1-BASE {Lib=MICROPENDOUS1-BASE}
+  (    1 /PC2 )
+  (    2 /PC4 )
+  (    3 /PC5 )
+  (    4 /PC6 )
+  (    5 /PC7 )
+  (    6 /PB7 )
+  (    7 /PB6 )
+  (    8 /PB5 )
+  (    9 /PB4 )
+  (   10 /PB3 )
+  (   11 /PB2 )
+  (   12 /PB1 )
+  (   13 /PB0 )
+  (   14 GND )
+  (   15 /PD7 )
+  (   16 /PD6 )
+  (   17 /PD5 )
+  (   18 /PD4 )
+  (   19 /PD3 )
+  (   20 /PD2 )
+  (   21 /PD1 )
+  (   22 /PD0 )
+  (   23 VCC )
+ )
+ ( /49ED2D4B $noname  SW2 HWB {Lib=SWITCH_PUSHBUTTON}
+  (    1 /PD7 )
+  (    2 GND )
+ )
+ ( /49ED2D47 $noname  SW1 RESET {Lib=SWITCH_PUSHBUTTON}
+  (    1 /RESET )
+  (    2 GND )
+ )
+ ( /49ED29BD $noname  P1 CONN_1 {Lib=CONN_1}
+  (    1 /RESET )
+ )
+ ( /494F6FAF $noname  P3 PortC {Lib=CONN_10}
+  (    1 ? )
+  (    2 ? )
+  (    3 /PC2 )
+  (    4 ? )
+  (    5 /PC4 )
+  (    6 /PC5 )
+  (    7 /PC6 )
+  (    8 /PC7 )
+  (    9 GND )
+  (   10 VCC )
+ )
+ ( /494F6EF8 $noname  P2 PortD {Lib=CONN_10}
+  (    1 /PD0 )
+  (    2 /PD1 )
+  (    3 /PD2 )
+  (    4 /PD3 )
+  (    5 /PD4 )
+  (    6 /PD5 )
+  (    7 /PD6 )
+  (    8 /PD7 )
+  (    9 GND )
+  (   10 VCC )
+ )
+)
+*
+{ Pin List by Nets
+Net 1 "/PD1" "PD1"
+ U1 21
+ P2 2
+Net 2 "/PB1" "PB1"
+ U1 12
+ U2 9
+Net 3 "/PB0" "PB0"
+ U2 7
+ U1 13
+Net 4 "/PD6" "PD6"
+ U1 16
+ P2 7
+Net 5 "/PD5" "PD5"
+ U1 17
+ P2 6
+Net 6 "/PD4" "PD4"
+ P2 5
+ U1 18
+Net 7 "VCC" "VCC"
+ P2 10
+ V9 1
+ V10 1
+ P3 10
+ JP1 2
+ U1 23
+Net 8 "/PD7" "PD7"
+ P2 8
+ SW2 1
+ U1 15
+Net 9 "/RESET" "RESET"
+ SW1 1
+ P1 1
+Net 13 "/PC2" "PC2"
+ U1 1
+ P3 3
+Net 14 "/PB7" "PB7"
+ U2 11
+ U1 6
+Net 15 "/PB6" "PB6"
+ U2 15
+ U1 7
+Net 16 "/PB5" "PB5"
+ U1 8
+ U2 3
+Net 17 "/PB4" "PB4"
+ U2 17
+ U1 9
+Net 18 "/PB3" "PB3"
+ U2 13
+ U1 10
+Net 19 "/PD2" "PD2"
+ U1 20
+ P2 3
+Net 20 "/PB2" "PB2"
+ U1 11
+ U2 5
+Net 21 "/PC4" "PC4"
+ U1 2
+ P3 5
+Net 22 "/PC5" "PC5"
+ U1 3
+ P3 6
+Net 23 "/PC6" "PC6"
+ P3 7
+ U1 4
+Net 24 "/PC7" "PC7"
+ P3 8
+ V14 1
+ V15 1
+ U2 19
+ U1 5
+Net 25 "/PD0" "PD0"
+ P2 1
+ U1 22
+Net 26 "/PD3" "PD3"
+ P2 4
+ U1 19
+Net 27 "VREF" "VREF"
+ JP1 1
+ U2 1
+ U2 2
+Net 28 "GND" "GND"
+ V11 1
+ V12 1
+ V16 1
+ V13 1
+ V17 1
+ V18 1
+ V5 1
+ V6 1
+ V1 1
+ V2 1
+ V8 1
+ V7 1
+ U2 8
+ V3 1
+ V4 1
+ U2 6
+ U2 4
+ P2 9
+ P3 9
+ U2 18
+ U2 16
+ U2 14
+ U2 12
+ U2 20
+ U2 10
+ SW1 2
+ SW2 2
+ U1 14
+}
+#End
