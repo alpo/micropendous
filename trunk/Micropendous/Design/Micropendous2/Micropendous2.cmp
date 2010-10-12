@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = 8/17/2009 3:12:14 PM
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 30/09/2010 12:01:20
 
 BeginCmp
 TimeStamp = /494A56AF;
@@ -106,6 +106,20 @@ IdModule  = SM0402_Opendous;
 EndCmp
 
 BeginCmp
+TimeStamp = /4CA4ADBA;
+Reference = C26;
+ValeurCmp = 4.7uF;
+IdModule  = SM0603_Opendous;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4AE9D;
+Reference = C27;
+ValeurCmp = 0.1uF;
+IdModule  = SM0402_Opendous;
+EndCmp
+
+BeginCmp
 TimeStamp = /494A561E;
 Reference = CR1;
 ValeurCmp = ESD_ZENER;
@@ -178,14 +192,14 @@ EndCmp
 BeginCmp
 TimeStamp = /494A5258;
 Reference = R5;
-ValeurCmp = 47k;
+ValeurCmp = 43k;
 IdModule  = SM0402_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A52C6;
 Reference = R8;
-ValeurCmp = 47k;
+ValeurCmp = 43k;
 IdModule  = SM0402_Opendous;
 EndCmp
 
@@ -241,8 +255,8 @@ EndCmp
 BeginCmp
 TimeStamp = /4A888F4F;
 Reference = U4;
-ValeurCmp = CONN_MICROSD;
-IdModule  = Memory_Card_microSD_3M_290805;
+ValeurCmp = microSD;
+IdModule  = MEMORY_CARD_microSD_101-00303_Amphenol;
 EndCmp
 
 BeginCmp
@@ -514,6 +528,69 @@ EndCmp
 BeginCmp
 TimeStamp = /4A89AB84;
 Reference = V75;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4ABCC;
+Reference = V76;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B028;
+Reference = V77;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B005;
+Reference = V78;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B008;
+Reference = V79;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B0E5;
+Reference = V80;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B0FF;
+Reference = V81;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B101;
+Reference = V82;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B445;
+Reference = V83;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA4B443;
+Reference = V84;
 ValeurCmp = VIA;
 IdModule  = 1Pin_15mil_VIA;
 EndCmp

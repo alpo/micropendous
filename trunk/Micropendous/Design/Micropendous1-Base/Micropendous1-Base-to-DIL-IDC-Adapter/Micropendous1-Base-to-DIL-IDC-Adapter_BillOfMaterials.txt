@@ -1,0 +1,11 @@
+QTY, Manufacturer Part#     , Cost($USD each) - References - Description
+
+3  , 5x2 DIL 0.05" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
+3  , 5x2 DIL 0.1" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
+1  , 24 12x2 female 0.1" header
+
+2  , EVQ-Q2U03W             , 0.39 - SWITCH LT 6MM 260GF H=3.1MM SMD
+
+-----------------------Total:16.00
+
+Notes:	- Component costs listed are for single quantity orders from DigiKey

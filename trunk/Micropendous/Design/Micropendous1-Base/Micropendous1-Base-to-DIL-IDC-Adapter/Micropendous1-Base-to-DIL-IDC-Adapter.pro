@@ -1,14 +1,9 @@
-update=02/10/2010 06:33:25
+update=29/08/2010 20:47:36
 last_client=pcbnew
 [general]
 version=1
-RootSch=Micropendous2.sch
-BoardNm=Micropendous2.brd
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+RootSch=Micropendous1-Base-to-DIL-IDC-Adapter.sch
+BoardNm=Micropendous1-Base-to-DIL-IDC-Adapter.brd
 [eeschema]
 version=1
 LibDir=
@@ -76,11 +71,16 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=opendous
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
-PadDrlX=0
-PadDimH=700
-PadDimV=300
+PadDrlX=400
+PadDimH=680
+PadDimV=680
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=800
@@ -88,12 +88,12 @@ TxtPcbH=600
 TxtModV=600
 TxtModH=600
 TxtModW=120
-VEgarde=10
+VEgarde=20
 DrawLar=150
 EdgeLar=150
 TxtLar=120
 MSegLar=150
-LastNetListRead=Micropendous2.net
+LastNetListRead=Micropendous1-Base-to-DIL-IDC-Adapter.net
 [pcbnew/libraries]
 LibDir=
 LibName1=sockets

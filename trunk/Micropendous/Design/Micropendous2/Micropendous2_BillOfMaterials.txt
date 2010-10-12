@@ -1,4 +1,32 @@
-EESchema (20090216-final)  >> Creation date: 9/08/2009 14:51:45 AM
+UNFINISHED
+
+New microSD conenctor is 101-00303-68 - 0.86 - CONN MINI MICRO-SD 8PIN PCB GOLD
+
+most other components are correct but check against schematic and .cmp file
+
+
+              0,  1,               ,R13
+         0.01uF,  1,               ,C23
+          0.1uF,  6,               ,C6, C7, C12, C14, C25, C27
+           10uF,  1,               ,C22
+            1uF,  5,               ,C8, C9, C10, C17, C24
+             22,  2,               ,R1, R2
+           24pF,  2,               ,C1, C2
+          4.7uF,  2,               ,C21, C26
+            43k,  3,               ,R5, R8, R12
+          82.5k,  1,               ,R11
+           8MHz,  1,               ,X1
+     ATMEGA32U4,  1,          QFN44,IC1
+      ESD_ZENER,  2,               ,CR1, CR2
+        Ferrite,  2,               ,L1, L2
+            HWB,  1,               ,SW2
+     MBR120VLSF,  1,               ,D1
+  Micropendous2,  1,               ,U1
+        microSD,  1,               ,U4
+          RESET,  1,               ,SW1
+        ST1L05B,  1,               ,IC2
+        USBCONN,  1,               ,U3
+        Vcc_Sel,  1,               ,K1
 
 #Cmp ( order = Reference )
   Ref#  Value           Footprint           Digi-Key Part#           Unit Cost (USD)
@@ -21,7 +49,7 @@ EESchema (20090216-final)  >> Creation date: 9/08/2009 14:51:45 AM
 | CR1 ; ESD_ZENER     ; 0402              ; CG0402MLC-05LGCT-ND    ; 0.156
 | CR2 ; ESD_ZENER     ; 0402              ; CG0402MLC-05LGCT-ND    ; 0.156
 | D1  ; MBR120VLSF    ; SOD123            ; MBR120VLSFT1GOSCT-ND   ; 0.375
-| IC1 ; ATMEGA32U4    ; QFN44             ; Arrownac ATMEGA32U4-MU ; 3.210
+| IC1 ; ATMEGA32U4    ; QFN44             ; ATMEGA32U4-MU          ; 3.210
 | IC2 ; ST1L05B       ; DFN6_3x3mm        ; 497-6829-1-ND          ; 0.850
 | K1  ; Vcc_Sel       ; SIL-3-2mm         ; S5800-40-ND (3/40)     ; 1.095(x3/40)=0.082
 | L1  ; Ferrite       ; 0603              ; 587-1923-1-ND          ; 0.041

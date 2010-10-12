@@ -1,0 +1,231 @@
+# EESchema Netlist Version 1.1 created  29/08/2010 20:31:55
+(
+ ( /4C7AF8F9 $noname  P7 MICROPENDOUS1-PICO {Lib=MICROPENDOUS1-PICO}
+  (    1 /PB0 )
+  (    2 /PB1 )
+  (    3 /PB2 )
+  (    4 /PB3 )
+  (    5 /PB4 )
+  (    6 /PB5 )
+  (    7 /PB6 )
+  (    8 /PB7 )
+  (    9 GND )
+  (   10 VCC )
+  (   11 /PD0 )
+  (   12 /PD1 )
+  (   13 /PD2 )
+  (   14 /PD3 )
+  (   15 /PD4 )
+  (   16 /PD5 )
+  (   17 /PD6 )
+  (   18 /PD7 )
+  (   19 /PC7 )
+  (   20 /PC6 )
+  (   21 /PC5 )
+  (   22 /PC4 )
+  (   23 /RESET )
+  (   24 /PC2 )
+ )
+ ( /4C7AF8D9 $noname  P11 MICROPENDOUS1-BASE {Lib=MICROPENDOUS1-BASE}
+  (    1 /PC2 )
+  (    2 /PC4 )
+  (    3 /PC5 )
+  (    4 /PC6 )
+  (    5 /PC7 )
+  (    6 /PB7 )
+  (    7 /PB6 )
+  (    8 /PB5 )
+  (    9 /PB4 )
+  (   10 /PB3 )
+  (   11 /PB2 )
+  (   12 /PB1 )
+  (   13 /PB0 )
+  (   14 GND )
+  (   15 /PD7 )
+  (   16 /PD6 )
+  (   17 /PD5 )
+  (   18 /PD4 )
+  (   19 /PD3 )
+  (   20 /PD2 )
+  (   21 /PD1 )
+  (   22 /PD0 )
+  (   23 VCC )
+ )
+ ( /49F0E959 $noname  U1 VIA {Lib=VIA}
+  (    1 VCC )
+ )
+ ( /49ED400A $noname  U4 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /49ED3ED6 $noname  U3 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /49ED3EA6 $noname  U2 VIA {Lib=VIA}
+  (    1 GND )
+ )
+ ( /49ED2D4B $noname  SW2 HWB {Lib=SWITCH_PUSHBUTTON}
+  (    1 /PD7 )
+  (    2 GND )
+ )
+ ( /49ED2D47 $noname  SW1 RESET {Lib=SWITCH_PUSHBUTTON}
+  (    1 /RESET )
+  (    2 GND )
+ )
+ ( /49ED29BD $noname  P10 CONN_1 {Lib=CONN_1}
+  (    1 /RESET )
+ )
+ ( /494F6FAF $noname  P6 PortC {Lib=CONN_10}
+  (    1 VCC )
+  (    2 GND )
+  (    3 /PC7 )
+  (    4 /PC6 )
+  (    5 /PC5 )
+  (    6 /PC4 )
+  (    7 ? )
+  (    8 /PC2 )
+  (    9 ? )
+  (   10 ? )
+ )
+ ( /494F6EF8 $noname  P4 PortD {Lib=CONN_10}
+  (    1 VCC )
+  (    2 GND )
+  (    3 /PD7 )
+  (    4 /PD6 )
+  (    5 /PD5 )
+  (    6 /PD4 )
+  (    7 /PD3 )
+  (    8 /PD2 )
+  (    9 /PD1 )
+  (   10 /PD0 )
+ )
+ ( /494F6EF5 $noname  P5 PortB {Lib=CONN_10}
+  (    1 VCC )
+  (    2 GND )
+  (    3 /PB7 )
+  (    4 /PB6 )
+  (    5 /PB5 )
+  (    6 /PB4 )
+  (    7 /PB3 )
+  (    8 /PB2 )
+  (    9 /PB1 )
+  (   10 /PB0 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component P7
+ Micropendous1-Pico
+ Micropendous1-Pico-Inverted
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "VCC" "VCC"
+ U1 1
+ P7 10
+ P11 23
+ P5 1
+ P6 1
+ P4 1
+Net 5 "GND" "GND"
+ P7 9
+ P11 14
+ P5 2
+ SW1 2
+ SW2 2
+ U2 1
+ U3 1
+ U4 1
+ P4 2
+ P6 2
+Net 6 "/RESET" "RESET"
+ P7 23
+ P10 1
+ SW1 1
+Net 7 "/PB0" "PB0"
+ P7 1
+ P5 10
+ P11 13
+Net 8 "/PB1" "PB1"
+ P7 2
+ P11 12
+ P5 9
+Net 9 "/PB2" "PB2"
+ P11 11
+ P5 8
+ P7 3
+Net 10 "/PB3" "PB3"
+ P5 7
+ P11 10
+ P7 4
+Net 11 "/PB4" "PB4"
+ P7 5
+ P5 6
+ P11 9
+Net 12 "/PB5" "PB5"
+ P7 6
+ P11 8
+ P5 5
+Net 13 "/PB6" "PB6"
+ P5 4
+ P7 7
+ P11 7
+Net 14 "/PB7" "PB7"
+ P7 8
+ P11 6
+ P5 3
+Net 15 "/PC6" "PC6"
+ P7 20
+ P6 4
+ P11 4
+Net 16 "/PD0" "PD0"
+ P4 10
+ P11 22
+ P7 11
+Net 17 "/PC5" "PC5"
+ P6 5
+ P7 21
+ P11 3
+Net 18 "/PD1" "PD1"
+ P11 21
+ P4 9
+ P7 12
+Net 19 "/PC4" "PC4"
+ P7 22
+ P6 6
+ P11 2
+Net 20 "/PD2" "PD2"
+ P11 20
+ P4 8
+ P7 13
+Net 21 "/PD3" "PD3"
+ P11 19
+ P4 7
+ P7 14
+Net 22 "/PC2" "PC2"
+ P7 24
+ P11 1
+ P6 8
+Net 23 "/PD4" "PD4"
+ P4 6
+ P7 15
+ P11 18
+Net 24 "/PD5" "PD5"
+ P4 5
+ P11 17
+ P7 16
+Net 25 "/PD6" "PD6"
+ P11 16
+ P4 4
+ P7 17
+Net 26 "/PD7" "PD7"
+ SW2 1
+ P7 18
+ P4 3
+ P11 15
+Net 27 "/PC7" "PC7"
+ P11 5
+ P7 19
+ P6 3
+}
+#End

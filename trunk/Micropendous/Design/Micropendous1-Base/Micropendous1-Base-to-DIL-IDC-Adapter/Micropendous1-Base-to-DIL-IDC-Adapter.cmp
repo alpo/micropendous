@@ -1,0 +1,87 @@
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 29/08/2010 20:24:27
+
+BeginCmp
+TimeStamp = /494F6EF8;
+Reference = P4;
+ValeurCmp = PortD;
+IdModule  = Pin_Array_Port_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /494F6EF5;
+Reference = P5;
+ValeurCmp = PortB;
+IdModule  = Pin_Array_Port_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /494F6FAF;
+Reference = P6;
+ValeurCmp = PortC;
+IdModule  = Pin_Array_Port_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C7AF8F9;
+Reference = P7;
+ValeurCmp = MICROPENDOUS1-PICO;
+IdModule  = MICROPENDOUS1-PICO-DIL-0.1inch;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED29BD;
+Reference = P10;
+ValeurCmp = CONN_1;
+IdModule  = 1Pin_TH_40milVia;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C7AF8D9;
+Reference = P11;
+ValeurCmp = MICROPENDOUS1-BASE;
+IdModule  = Micropendous1-Base-Inverted;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED2D47;
+Reference = SW1;
+ValeurCmp = RESET;
+IdModule  = Switch_SMT_TH_EVQ;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED2D4B;
+Reference = SW2;
+ValeurCmp = HWB;
+IdModule  = Switch_SMT_TH_EVQ;
+EndCmp
+
+BeginCmp
+TimeStamp = /49F0E959;
+Reference = U1;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED3EA6;
+Reference = U2;
+ValeurCmp = VIA;
+IdModule  = 1Pin_TH_40milVia;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED3ED6;
+Reference = U3;
+ValeurCmp = VIA;
+IdModule  = 1Pin_TH_40milVia;
+EndCmp
+
+BeginCmp
+TimeStamp = /49ED400A;
+Reference = U4;
+ValeurCmp = VIA;
+IdModule  = 1Pin_15mil_VIA;
+EndCmp
+
+EndListe
