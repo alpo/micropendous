@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 04/06/2010 23:24:33
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 04/10/2010 05:21:16
 
 BeginCmp
 TimeStamp = /494A56AF;
@@ -17,148 +17,148 @@ EndCmp
 BeginCmp
 TimeStamp = /494A51E2;
 Reference = C10;
-ValeurCmp = 1uF;
+ValeurCmp = 1u0;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A5461;
 Reference = C11;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A4EA2;
 Reference = C12;
-ValeurCmp = 0.01uF;
+ValeurCmp = u01;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A714C1D;
 Reference = C13;
-ValeurCmp = 10uF;
+ValeurCmp = 10u;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD6CD5E;
 Reference = C17;
-ValeurCmp = 0.01uF;
+ValeurCmp = u01;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD6CD5D;
 Reference = C18;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD6CD67;
 Reference = C20;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A89EF10;
 Reference = C21;
-ValeurCmp = 10uF;
+ValeurCmp = 10u;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A53A6;
 Reference = C35;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A53A3;
 Reference = C36;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B794A59;
 Reference = C37;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B7965DD;
 Reference = C39;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AE2BFBB;
 Reference = C41;
-ValeurCmp = 10uF;
+ValeurCmp = 10u;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B227269;
 Reference = C42;
-ValeurCmp = 120uF;
+ValeurCmp = 120u;
 IdModule  = SM1206_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B22726A;
 Reference = C43;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B7E552C;
 Reference = C44;
-ValeurCmp = 1uF;
+ValeurCmp = 1u0;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B7E552B;
 Reference = C45;
-ValeurCmp = 10uF;
+ValeurCmp = 10u;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B7E552A;
 Reference = C46;
-ValeurCmp = 0.1uF;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4B853668;
 Reference = C48;
-ValeurCmp = 10uF;
+ValeurCmp = 10u;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /4AE00641;
-Reference = CR1;
-ValeurCmp = ESD_ZENER;
-IdModule  = SM0603_Opendous;
+TimeStamp = /4C41619A;
+Reference = C49;
+ValeurCmp = 10u;
+IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /4AE00645;
-Reference = CR2;
-ValeurCmp = ESD_ZENER;
-IdModule  = SM0603_Opendous;
+TimeStamp = /4C416199;
+Reference = C50;
+ValeurCmp = 10u;
+IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
@@ -176,17 +176,17 @@ IdModule  = QFP64_0.8mmPitch_AT90USB1287;
 EndCmp
 
 BeginCmp
-TimeStamp = /4B2271CB;
+TimeStamp = /4C09D054;
 Reference = IC2;
 ValeurCmp = AP2101;
 IdModule  = SOT23-5_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /4B7DA855;
+TimeStamp = /4CA995A7;
 Reference = IC3;
-ValeurCmp = TS3USB221;
-IdModule  = SON10_DRC;
+ValeurCmp = FSUSB20;
+IdModule  = MSOP10-0.5mmPitch_Opendous;
 EndCmp
 
 BeginCmp
@@ -257,20 +257,6 @@ TimeStamp = /4B7E50AC;
 Reference = P3;
 ValeurCmp = PB_3.3V;
 IdModule  = SIL-3-Blank;
-EndCmp
-
-BeginCmp
-TimeStamp = /4AE00678;
-Reference = R1;
-ValeurCmp = 0;
-IdModule  = SM0805_Opendous;
-EndCmp
-
-BeginCmp
-TimeStamp = /4AE00679;
-Reference = R2;
-ValeurCmp = 0;
-IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
@@ -374,8 +360,8 @@ EndCmp
 BeginCmp
 TimeStamp = /4B739B9C;
 Reference = U3;
-ValeurCmp = CONN_MICROSD;
-IdModule  = Memory_Card_microSD_3M_290805;
+ValeurCmp = microSD;
+IdModule  = MEMORY_CARD_microSD_101-00303_Amphenol;
 EndCmp
 
 BeginCmp
@@ -771,13 +757,6 @@ IdModule  = 1Pin_20mil_VIA;
 EndCmp
 
 BeginCmp
-TimeStamp = /4AE29791;
-Reference = V110;
-ValeurCmp = VIA;
-IdModule  = 1Pin_20mil_VIA;
-EndCmp
-
-BeginCmp
 TimeStamp = /4AE29790;
 Reference = V111;
 ValeurCmp = VIA;
@@ -1079,13 +1058,6 @@ IdModule  = 1Pin_20mil_VIA;
 EndCmp
 
 BeginCmp
-TimeStamp = /4B7E46C8;
-Reference = V206;
-ValeurCmp = VIA;
-IdModule  = 1Pin_20mil_VIA;
-EndCmp
-
-BeginCmp
 TimeStamp = /4B7E46CF;
 Reference = V207;
 ValeurCmp = VIA;
@@ -1338,13 +1310,6 @@ IdModule  = 1Pin_20mil_VIA;
 EndCmp
 
 BeginCmp
-TimeStamp = /4B827DAA;
-Reference = V251;
-ValeurCmp = VIA;
-IdModule  = 1Pin_20mil_VIA;
-EndCmp
-
-BeginCmp
 TimeStamp = /4B853F71;
 Reference = V252;
 ValeurCmp = VIA;
@@ -1410,6 +1375,41 @@ EndCmp
 BeginCmp
 TimeStamp = /4B8541F5;
 Reference = V261;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C41670F;
+Reference = V262;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C43E719;
+Reference = V263;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4C43E906;
+Reference = V264;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA99C11;
+Reference = V265;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CA99C6F;
+Reference = V266;
 ValeurCmp = VIA;
 IdModule  = 1Pin_20mil_VIA;
 EndCmp

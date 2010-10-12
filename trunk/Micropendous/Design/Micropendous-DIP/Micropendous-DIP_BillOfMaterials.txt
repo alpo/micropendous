@@ -1,45 +1,59 @@
+              0,  1,               ,R5
+            0u1,  9,               ,C11, C18, C20, C35, C36, C37, C39, C43, C46
+            10u,  7,               ,C13, C21, C41, C45, C48, C49, C50
+           120u,  1,               ,C42
+            15k,  4,               ,R9, R11, R40, R41
+          16MHz,  1,               ,X1
+            1u0,  2,               ,C10, C44
+             22,  2,               ,R12, R13
+           24pF,  2,               ,C1, C2
+            47k,  2,               ,R8, R14
+       74VHC573,  1,               ,IC4
+         AP2101,  1,               ,IC2
+ AT90USB1287-AU,  1,               ,IC1
+         Bottom,  1,               ,P1
+         CONN_1,  1,               ,TP1
+CY7C1019D_5V_1MBIT_SRAM,  1,               ,IC5
+      ESD_ZENER,  1,               ,CR3
+             FB,  2,               ,L3, L6
+        Ferrite,  1,               ,L5
+        FSUSB20,  1,               ,IC3
+            HWB,  1,               ,SW2
+           JTAG,  1,               ,U4
+        microSD,  1,               ,U3
+        PB_3.3V,  1,               ,P3
+ REGULATOR_3.3V,  1,               ,IC7
+          RESET,  1,               ,SW1
+            Top,  1,               ,P2
+        TXB0108,  1,               ,IC6
+            u01,  2,               ,C12, C17
+          USB-A,  1,               ,U2
+      USB-miniB,  1,               ,U1
+
+
+
+
 QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 
-2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 24pF 0805
-2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.01uF 0805
-9  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 0.1uF 0805
-2  , ?                      , 0.00 - C?? - CAPACITOR CERAMIC 1uF 0805
-5  , LMK212BJ106KG-T        , 0.00 - C?? - CAPACITOR CERAMIC 10uF 0805 X5R 10V
-1  , ?                      , 0.00 - C?? - CAPACITOR TANTALUM 120uF 1206 6V+
-3  , ?                      , 0.00 - R?? - RESISTOR 0 OHM 0805
-2  , ?                      , 0.00 - R?? - RESISTOR 22 OHM 0805 1%
-2  , ?                      , 0.00 - R?? - RESISTOR 10K OHM 0805
-1  , ?                      , 0.00 - R?? - RESISTOR 15K OHM 0805
-2  , ?                      , 0.00 - R?? - RESISTOR 47K OHM 0805
-3  , CG0603MLC-05LE         , 0.23 - CR? - SUPPRESSOR ESD 5VDC 0603 SMD
-3  , ?                      , 0.00 - L?? - FERRITE BEAD 33 OHM 0805
-1  , ABLS-16.000MHZ         , 0.46 - X1 - CRYSTAL 16.000 MHZ 18PF HC49US 30ppm
-2  , P12940SCT-ND           , 0.30 - SW? - EVQ Push Button Switch 6.5mm x 6mm
-1  , UX60-MB-5ST            , 1.18 - U1 - CONN RECEPT MINI-B USB2.0 5POS
-1  , 151-1082-ND            , 1.10 - U2 - CONN USB JACK TYPE A VERT STR
-1  , 2908-05WB-MG           , 1.23 - U3 - CONN EJECT MICROSD PUSH-PUSH SMD
-1  , 609-3243-ND            , 0.35 - U4 - 5x2 0.1" Unshrouded Male Header
-1  , AT90USB1287-AU         ,15.00 - IC1 - AT90USB1287 USB AVR TQFP64
-1  , AP2161WG               , 0.00 - IC2 - USB Power Switch Active Low SOT23-5 (SOT25)
-1  , TS3USB221DRCR          , 2.10 - IC3 - IC USB SWITCH DUAL 1X2 10SON
-1  , 74VHC573               , 0.00 - IC4 - Latch SOIC20
-1  , 428-1965-ND            , 2.52 - IC5 - SRAM 5V 1MBIT CY7C1019D TSOPII32
-1  , TXB0108                , 2.00 - IC6 - 8Bit Bidirectional Buffer TSSOP20
-1  , LDS3985M33R            , 0.00 - IC7 - REGULATOR 3.3V SOT23-5 (SOT25)
-2  , ?                      , 0.00 - P? - Single Row 30x1 Unshrouded Male Headers
-1  , ?                      , 0.00 - P3 - 0.1" 3POS Female Receptacle
------------------------Total:
+2  , 500R15N220JV4T         , 0.04 - C1 C2 - CAP CER 22PF 50V NP0 0805
+2  , GRM21BR71E104KA01L     , 0.04 - C5 C6 C7 - CAP CER .1UF 25V 10% X7R 0805
+3  , LMK212BJ106KG-T        , 0.28 - C3 C4 C8 - CAP CER 10uF 10V X5R 0805
+2  , CG0603MLC-05LE         , 0.23 - CR1 CR2 - SUPPRESSOR ESD 5VDC 0603 SMD MLC
+1  , MBR120VLSFT1G          , 0.53 - D1 - DIODE SCHOTTKY 20V 1A SOD123FL
+1  , LPC1343FBD48           , 6.30 - IC1 - IC MCU 32BIT 32KB FLASH 48LQFP
+1  , BSS84P L6327           , 0.37 - Q1 - MOSFET P-CH 60V 170MA SOT-23
+2  , RMCF1/1033.2FRCT-ND    , 0.04 - R1 R2 - RES 33.2 OHM 1/8W 1% 0805 SMD
+1  , RC0805FR-071K5L        , 0.07 - R3 - RES 1.50K OHM 1/8W 1% 0805 SMD
+2  , RMCF1/1015KJRCT-ND     , 0.03 - R4 R5 - RES 15K OHM 1/8W 5% 0805 SMD
+1  , RMCF1/100RCT-ND        , 0.03 - R7 - RES 0 OHM 1/8W 5% 0805 SMD
+2  , EVQ-Q2U03W             , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
+1  , 2908-05WB-MG           , 1.23 - U1 - CONN EJECT MICROSD PUSH-PUSH SMD
+1  , 690-004-221-023        , 0.93 - U2 - CONN USB JACK TYPE B HORIZON R/A
+1  , GRPB052VWVN-RC         , 1.11 - U3 - Cortex CONN HEADER .050" 10PS DL PCB AU
+1  , ZLDO1117G33TA          , 0.62 - U4 - IC REG LDO 1A 3.3V SOT223            
+1  , ABLS-12.000MHZ-B4-T    , 0.46 - X1 - CRYSTAL 12.000 MHZ 18PF HC49US 30ppm
+2  , 68001-220HLF           , 1.00 - P1 P2 - CONN HEADER 20POS .100 STR 15AU
+-----------------------Total:16.00
 
-
-Micropendous-1287_Assembly.svg shows component placement and values.
-
-
-Notes:	- Component costs listed are for single quantity orders from DigiKey
-	- all components not specified can be standard stock
-	- the top and bottom edge headers - 36-Pin Single Row 0.1" 68000-436HLF
-	- TXB0108 can be replaced with TXS0108, ADG3300, or MAX3002 - or any compatible
-          TSSOP20 bidirectional voltage translator operating at 4MBit/s or more
-	- USB-A vertical connector can be DigiKey Part# 151-1114-ND or similar
-	- USB-miniB can be DigiKey Part# H2959CT-ND or similar
-	- IC7 3.3V regulator can be any 200mA+ regulator in SOT23-5 with same pinout
-	- IC2 USB Power Switch - AP2161WG - Active Low SOT23-5 (SOT25) or similar
+Notes:	- Component costs are based on minimum quantity orders from DigiKey
+	- Cypress CY7C1019D SRAM can be replaced by ISSI IS63WV1024BLL-12TLI SRAM
