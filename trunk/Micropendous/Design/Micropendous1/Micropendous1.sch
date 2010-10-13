@@ -1,11 +1,42 @@
-EESchema Schematic File Version 2  date 4/23/2009 5:51:20 PM
-LIBS:opendous,power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,transistors,.\Micropendous1.cache
+EESchema Schematic File Version 2  date 29/08/2010 20:58:34
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:opendous
+LIBS:Micropendous1-cache
 EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "Micropendous1"
-Date "23 apr 2009"
+Date "30 aug 2010"
 Rev "1.0"
 Comp ""
 Comment1 "http://creativecommons.org/licenses/by/3.0/"
@@ -14,8 +45,6 @@ Comment3 "By Opendous Inc."
 Comment4 "www.Micropendous.org"
 $EndDescr
 Connection ~ 10250 4850
-Wire Wire Line
-	10300 4850 9650 4850
 Connection ~ 10100 4850
 Connection ~ 10050 4850
 Connection ~ 10000 4850
@@ -28,7 +57,7 @@ Wire Bus Line
 Wire Wire Line
 	7250 5000 7250 4900
 Wire Wire Line
-	10425 4850 10425 4950
+	10475 4850 10475 4950
 Wire Wire Line
 	7100 3775 7100 4025
 Wire Wire Line
@@ -178,8 +207,8 @@ Wire Wire Line
 Connection ~ 9900 4850
 Connection ~ 9950 4850
 Wire Wire Line
-	10425 4950 10525 4950
-Connection ~ 10425 4950
+	10475 4950 10575 4950
+Connection ~ 10475 4950
 Wire Wire Line
 	4250 6100 4250 6200
 Wire Bus Line
@@ -194,6 +223,18 @@ Wire Bus Line
 	9550 5200 9550 4550
 Connection ~ 10150 4850
 Connection ~ 10200 4850
+Wire Wire Line
+	10350 4850 9650 4850
+Connection ~ 10300 4850
+$Comp
+L VIA U44
+U 1 1 4C7B015B
+P 10350 4850
+F 0 "U44" V 10375 4950 20  0000 C CNN
+F 1 "VIA" H 10350 5050 60  0001 C CNN
+	1    10350 4850
+	1    0    0    -1  
+$EndComp
 $Comp
 L VIA U43
 U 1 1 49F0E2C4
@@ -419,19 +460,19 @@ $EndComp
 $Comp
 L VCC #PWR02
 U 1 1 4949FDA8
-P 10425 4850
-F 0 "#PWR02" H 10425 4950 30  0001 C CNN
-F 1 "VCC" H 10425 4950 30  0000 C CNN
-	1    10425 4850
+P 10475 4850
+F 0 "#PWR02" H 10475 4950 30  0001 C CNN
+F 1 "VCC" H 10475 4950 30  0000 C CNN
+	1    10475 4850
 	1    0    0    -1  
 $EndComp
 $Comp
 L VIA U27
 U 1 1 4949FD98
-P 10525 4950
-F 0 "U27" V 10550 5050 20  0000 C CNN
-F 1 "VIA" H 10525 5150 60  0001 C CNN
-	1    10525 4950
+P 10575 4950
+F 0 "U27" V 10600 5050 20  0000 C CNN
+F 1 "VIA" H 10575 5150 60  0001 C CNN
+	1    10575 4950
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -455,10 +496,10 @@ $EndComp
 $Comp
 L VIA U14
 U 1 1 4947E385
-P 10425 4950
-F 0 "U14" V 10450 5050 20  0000 C CNN
-F 1 "VIA" H 10425 5150 60  0001 C CNN
-	1    10425 4950
+P 10475 4950
+F 0 "U14" V 10500 5050 20  0000 C CNN
+F 1 "VIA" H 10475 5150 60  0001 C CNN
+	1    10475 4950
 	1    0    0    1   
 $EndComp
 $Comp
