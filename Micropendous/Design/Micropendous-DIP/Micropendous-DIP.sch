@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 10/10/2010 02:01:42
+EESchema Schematic File Version 2  date 14/10/2010 04:24:29
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,13 +30,12 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:opendous
-LIBS:Micropendous-DIP-cache
 EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "Micropendous-DIP"
-Date "4 oct 2010"
+Date "14 oct 2010"
 Rev "1.1"
 Comp ""
 Comment1 "http://creativecommons.org/licenses/by/3.0/"
@@ -44,35 +43,26 @@ Comment2 "Copyright Under the Creative Commons Attribution License"
 Comment3 "By Opendous Inc."
 Comment4 "www.Micropendous.org"
 $EndDescr
+Text Label 7600 7950 0    20   ~ 0
+FSUSB_S
 $Comp
-L VIA V266
-U 1 1 4CA99C6F
-P 7200 8250
-F 0 "V266" V 7225 8350 20  0000 C CNN
-F 1 "VIA" H 7200 8450 60  0001 C CNN
-	1    7200 8250
+L VIA V267
+U 1 1 4CB6BA0D
+P 7600 7950
+F 0 "V267" V 7625 8050 20  0000 C CNN
+F 1 "VIA" H 7600 8150 60  0001 C CNN
+	1    7600 7950
 	0    -1   -1   0   
 $EndComp
 Text Label 7200 8250 0    20   ~ 0
-PE7
-$Comp
-L VDD33 #PWR01
-U 1 1 4CA99C1E
-P 7250 8200
-F 0 "#PWR01" H 7250 8300 30  0001 C CNN
-F 1 "VDD33" V 7250 8350 30  0000 C CNN
-	1    7250 8200
-	0    1    1    0   
-$EndComp
-$Comp
-L VIA V265
-U 1 1 4CA99C11
-P 7200 8200
-F 0 "V265" V 7225 8300 20  0000 C CNN
-F 1 "VIA" H 7200 8400 60  0001 C CNN
-	1    7200 8200
-	0    -1   -1   0   
-$EndComp
+FSUSB_S
+Text Label 3300 1900 0    20   ~ 0
+FSUSB_S
+Connection ~ 3500 1900
+Wire Wire Line
+	3300 1900 3700 1900
+Wire Wire Line
+	3500 1900 3500 1650
 Wire Wire Line
 	7200 8200 7250 8200
 Wire Wire Line
@@ -132,10 +122,6 @@ Connection ~ 10450 5800
 Connection ~ 550  7975
 Wire Wire Line
 	550  8225 550  7925
-Wire Wire Line
-	3500 1650 3500 1900
-Wire Wire Line
-	3500 1900 3300 1900
 Connection ~ 7200 8000
 Connection ~ 7200 7950
 Connection ~ 6600 8200
@@ -669,6 +655,42 @@ Wire Wire Line
 Wire Wire Line
 	3300 1350 3300 1450
 $Comp
+L R_MINI R42
+U 1 1 4CB6B751
+P 3800 1900
+F 0 "R42" H 3730 1950 25  0000 C CNN
+F 1 "1k" H 3870 1950 20  0000 C CNN
+	1    3800 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L VIA V266
+U 1 1 4CA99C6F
+P 7200 8250
+F 0 "V266" V 7225 8350 20  0000 C CNN
+F 1 "VIA" H 7200 8450 60  0001 C CNN
+	1    7200 8250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L VDD33 #PWR01
+U 1 1 4CA99C1E
+P 7250 8200
+F 0 "#PWR01" H 7250 8300 30  0001 C CNN
+F 1 "VDD33" V 7250 8350 30  0000 C CNN
+	1    7250 8200
+	0    1    1    0   
+$EndComp
+$Comp
+L VIA V265
+U 1 1 4CA99C11
+P 7200 8200
+F 0 "V265" V 7225 8300 20  0000 C CNN
+F 1 "VIA" H 7200 8400 60  0001 C CNN
+	1    7200 8200
+	0    -1   -1   0   
+$EndComp
+$Comp
 L FSUSB20MUX IC3
 U 1 1 4CA995A7
 P 2800 2000
@@ -904,7 +926,7 @@ L R_MINI R41
 U 1 1 4C09C288
 P 3500 1550
 F 0 "R41" V 3475 1600 25  0000 C CNN
-F 1 "15k" V 3525 1600 20  0000 C CNN
+F 1 "10k" V 3525 1600 20  0000 C CNN
 	1    3500 1550
 	0    1    1    0   
 $EndComp
@@ -1448,7 +1470,7 @@ L L_MINI L5
 U 1 1 4B7E55E2
 P 9750 3500
 F 0 "L5" H 9675 3450 30  0000 C CNN
-F 1 "Ferrite" H 9800 3450 22  0000 C CNN
+F 1 "FB" H 9800 3450 22  0000 C CNN
 	1    9750 3500
 	-1   0    0    1   
 $EndComp
@@ -3488,7 +3510,7 @@ F 1 "AT90USB1287-AU" H 7350 5350 50  0000 C CNN
 	1    6600 3400
 	1    0    0    -1  
 $EndComp
-Text Label 3300 1900 0    20   ~ 0
+Text Label 3900 1900 0    20   ~ 0
 PE7
 Text Label 1800 2200 0    20   ~ 0
 2DN
