@@ -1,0 +1,9 @@
+#summary USB AVR Development Board for the AT90USB162/ATmega32U2
+
+This board is still under development.
+
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in ~~the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via~~ [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-162` directory.
+
+A PCB of this design can be purchased through [http://batchpcb.com/index.php/Products/44120 BatchPCB].
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-162/Micropendous-162-Picture-JTAG-M.jpg
