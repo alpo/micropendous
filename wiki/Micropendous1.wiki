@@ -2,7 +2,7 @@
 
 Micropendous1 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB162 AT90USB162] USB AVR Microcontroller.
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous1` directory.
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous1` directory.  PCBs of this design are available from [http://batchpcb.com/index.php/Products/44151 BatchPCB].
 
 == Pinout ==
 
