@@ -14,7 +14,7 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.46"
-   sodipodi:docname="Micropendous-1287_Pinout.svg"
+   sodipodi:docname="Micropendous-DIP_Pinout.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="Micropendous4_Pinout.png"
    inkscape:export-xdpi="213.8"
@@ -69,9 +69,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="325.71547"
-     inkscape:cy="237.67294"
+     inkscape:zoom="0.7"
+     inkscape:cx="468.99713"
+     inkscape:cy="471.02713"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -90,7 +90,7 @@
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
         <dc:title>Micropendous-1287 Pinout</dc:title>
-        <dc:date>2010-06-05</dc:date>
+        <dc:date>2010-11-27</dc:date>
         <dc:creator>
           <cc:Agent>
             <dc:title>Opendous Inc.</dc:title>
@@ -204,7 +204,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="54.358643"
+       x="52.597687"
        y="316.70569"
        id="text4270"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -212,12 +212,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4272"
-         x="54.358643"
+         x="52.597687"
          y="316.70569">PB7 / PCINT7 / OC.0A / OC.1C / 15</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="140.09204"
+       x="138.33109"
        y="291.01578"
        id="text4274"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -225,12 +225,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4276"
-         x="140.09204"
+         x="138.33109"
          y="291.01578">PB6 / PCINT6 / OC.1B / 14</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="152.24146"
+       x="150.4805"
        y="264.81979"
        id="text4278"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -238,12 +238,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4280"
-         x="152.24146"
+         x="150.4805"
          y="264.81979">PB5 / PCINT5 / OC.1A / 9</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="152.24146"
+       x="150.4805"
        y="238.54176"
        id="text4282"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -251,12 +251,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4284"
-         x="152.24146"
+         x="150.4805"
          y="238.54176">PB4 / PCINT4 / OC.2A / 8</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="83.985596"
+       x="82.22464"
        y="213.05348"
        id="text4286"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -264,12 +264,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4288"
-         x="83.985596"
+         x="82.22464"
          y="213.05348">PB3 / MISO / PDO / PCINT3 / 12</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="97.864502"
+       x="96.103546"
        y="186.88423"
        id="text4290"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -277,12 +277,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4292"
-         x="97.864502"
+         x="96.103546"
          y="186.88423">PB2 / MOSI / PDI / PCINT2 / 11</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="148.5354"
+       x="146.77444"
        y="161.18358"
        id="text4294"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -290,12 +290,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4296"
-         x="148.5354"
+         x="146.77444"
          y="161.18358">PB1 / SCLK / PCINT1 / 13</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="164.48755"
+       x="162.72659"
        y="134.99297"
        id="text4298"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -303,12 +303,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4300"
-         x="164.48755"
+         x="162.72659"
          y="134.99297">PB0 / nSS / PCINT0 / 10</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="288.01196"
+       x="286.25101"
        y="524.52197"
        id="text4302"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -316,12 +316,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4304"
-         x="288.01196"
+         x="286.25101"
          y="524.52197">PD7 / T0 / 7</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="288.07642"
+       x="286.31546"
        y="498.24396"
        id="text4306"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -329,12 +329,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4308"
-         x="288.07642"
+         x="286.31546"
          y="498.24396">PD6 / T1 / 4</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="256.17212"
+       x="254.41116"
        y="472.75568"
        id="text4310"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -342,12 +342,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4312"
-         x="256.17212"
+         x="254.41116"
          y="472.75568">PD5 / XCK1 / 3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="264.927"
+       x="263.16605"
        y="446.37512"
        id="text4314"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -355,12 +355,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4316"
-         x="264.927"
+         x="263.16605"
          y="446.37512">PD4 / ICP1 / 2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="194.45825"
+       x="192.6973"
        y="420.89114"
        id="text4318"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -368,12 +368,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4320"
-         x="194.45825"
+         x="192.6973"
          y="420.89114">PD3 / TXD1 / INT3 / 1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="189.02271"
+       x="187.26175"
        y="394.70053"
        id="text4322"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -381,12 +381,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4324"
-         x="189.02271"
+         x="187.26175"
          y="394.70053">PD2 / RXD1 / INT2 / 0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="118.0813"
+       x="116.32034"
        y="368.36322"
        id="text4326"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -394,12 +394,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4328"
-         x="118.0813"
+         x="116.32034"
          y="368.36322">PD1 / SDA / INT1 / OC.2B / 6</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="120.40161"
+       x="118.64066"
        y="342.88031"
        id="text4330"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -407,7 +407,7 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4332"
-         x="120.40161"
+         x="118.64066"
          y="342.88031">PD0 / SCL / INT0 / OC.0B / 5</tspan></text>
     <g
        id="g2893"
@@ -491,7 +491,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="356.67603"
+       x="354.91507"
        y="757.72687"
        id="text3603"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -499,7 +499,7 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3605"
-         x="356.67603"
+         x="354.91507"
          y="757.72687">GND</tspan></text>
     <text
        xml:space="preserve"
@@ -816,7 +816,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="146.64478"
+       x="144.88382"
        y="732.24396"
        id="text3488"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -824,12 +824,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3490"
-         x="146.64478"
+         x="144.88382"
          y="732.24396">PE7 / INT7 / AIN1 / UVcon</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="230.57349"
+       x="228.81253"
        y="706.06934"
        id="text3492"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -837,12 +837,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3494"
-         x="230.57349"
+         x="228.81253"
          y="706.06934">PE6 / INT6 / AIN0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="206.23169"
+       x="204.47073"
        y="680.38483"
        id="text3496"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -850,12 +850,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3498"
-         x="206.23169"
+         x="204.47073"
          y="680.38483">PE5 / INT5 / TOSC2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="209.1106"
+       x="207.34964"
        y="654.18884"
        id="text3500"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -863,12 +863,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3502"
-         x="209.1106"
+         x="207.34964"
          y="654.18884">PE4 / INT4 / TOSC1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="301.63306"
+       x="299.8721"
        y="628.06"
        id="text3504"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -876,12 +876,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3506"
-         x="301.63306"
+         x="299.8721"
          y="628.06">PE3 / IUID</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="179.13989"
+       x="177.37894"
        y="602.58246"
        id="text3508"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -889,12 +889,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3510"
-         x="179.13989"
+         x="177.37894"
          y="602.58246">PE2 / ALE / nHWB / 16</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="301.59009"
+       x="299.82913"
        y="576.40784"
        id="text3512"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -902,12 +902,12 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3514"
-         x="301.59009"
+         x="299.82913"
          y="576.40784">PE1 / nRD</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="295.84302"
+       x="294.08206"
        y="550.71796"
        id="text3517"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -915,7 +915,7 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3519"
-         x="295.84302"
+         x="294.08206"
          y="550.71796">PE0 / nWR</tspan></text>
     <g
        id="g3833"
@@ -1469,7 +1469,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     </g>
     <g
        id="g4135"
-       transform="translate(1164.2071,-231.66851)">
+       transform="translate(1164.2071,-231.51802)">
       <rect
          ry="2.7099738"
          y="720.67212"
@@ -2829,7 +2829,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     </g>
     <g
        id="g2948"
-       transform="translate(1164.2071,-309.85057)"
+       transform="translate(1164.2071,-309.99595)"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300">
@@ -2854,7 +2854,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     </g>
     <g
        id="g2954"
-       transform="translate(1164.2071,-309.85057)"
+       transform="translate(1164.2071,-309.99595)"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300">
@@ -2879,7 +2879,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     </g>
     <g
        id="g2960"
-       transform="translate(1164.2071,-309.85057)"
+       transform="translate(1164.2071,-309.74341)"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300">
@@ -2904,7 +2904,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     </g>
     <g
        id="g2966"
-       transform="translate(1164.2071,-336.03634)"
+       transform="translate(1164.2071,-335.92918)"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300">
@@ -2930,68 +2930,68 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="305.41431"
-       y="2.2855585"
+       x="261.72659"
+       y="2.4947674"
        id="text2973"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2975"
-         x="305.41431"
-         y="2.2855585">PB0_3.3V</tspan></text>
+         x="261.72659"
+         y="2.4947674">PB0_3.3V / 10</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="305.41431"
-       y="28.471329"
+       x="261.67288"
+       y="28.427999"
        id="text2977"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2979"
-         x="305.41431"
-         y="28.471329">PB1_3.3V</tspan></text>
+         x="261.67288"
+         y="28.427999">PB1_3.3V / 13</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="305.41431"
-       y="54.667316"
+       x="264.71292"
+       y="54.623989"
        id="text2981"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2983"
-         x="305.41431"
-         y="54.667316">PB2_3.3V</tspan></text>
+         x="264.71292"
+         y="54.623989">PB2_3.3V / 11</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="305.41431"
-       y="80.357224"
+       x="261.83401"
+       y="80.566437"
        id="text2985"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2987"
-         x="305.41431"
-         y="80.357224">PB3_3.3V</tspan></text>
+         x="261.83401"
+         y="80.566437">PB3_3.3V / 12</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="305.41431"
-       y="106.65339"
+       x="273.88675"
+       y="106.90593"
        id="text2989"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2991"
-         x="305.41431"
-         y="106.65339">PB5_3.3V</tspan></text>
+         x="273.88675"
+         y="106.90593">PB5_3.3V / 9</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -3033,7 +3033,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          y="757.72687">GND</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:16;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="501.09067"
        y="238.38612"
        id="text2786"
@@ -3043,10 +3043,10 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2788"
          x="501.09067"
-         y="238.38612">PB6_3.3V</tspan></text>
+         y="238.38612">PB6_3.3V / 14</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:16;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="493.94781"
        y="212.31473"
        id="text2790"
@@ -3056,10 +3056,10 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2792"
          x="493.94781"
-         y="212.31473">PB4_3.3V</tspan></text>
+         y="212.31473">PB4_3.3V / 8</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:16;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="486.80496"
        y="186.24327"
        id="text2794"
@@ -3069,7 +3069,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2796"
          x="486.80496"
-         y="186.24327">PB7_3.3V</tspan></text>
+         y="186.24327">PB7_3.3V / 15</tspan></text>
     <g
        id="g2798"
        transform="translate(1203.3627,-152.07863)"
@@ -3145,5 +3145,15 @@ Visit www.Micropendous.org for more info.</dc:description>
          style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          transform="matrix(0,1,-1,0,0,0)" />
     </g>
-  </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2793"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:16"><flowRegion
+         id="flowRegion2795"><rect
+           id="rect2797"
+           width="107.14286"
+           height="142.85715"
+           x="268.57144"
+           y="-32.334087" /></flowRegion><flowPara
+         id="flowPara2799"></flowPara></flowRoot>  </g>
 </svg>
