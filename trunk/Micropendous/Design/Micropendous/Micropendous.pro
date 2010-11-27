@@ -1,4 +1,4 @@
-update=10/10/2010 02:06:22
+update=26/11/2010 14:06:07
 last_client=pcbnew
 [general]
 version=1
@@ -78,9 +78,9 @@ LibName30=valves
 LibName31=opendous
 [pcbnew]
 version=1
-PadDrlX=0
-PadDimH=295
-PadDimV=570
+PadDrlX=320
+PadDimH=440
+PadDimV=440
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=340
@@ -107,3 +107,4 @@ LibName8=valves
 LibName9=led
 LibName10=dip_sockets
 LibName11=opendous
+LibName12=C:\\_\\Q2686_Motherboard\\Q2686_Footprint_Modules_Library

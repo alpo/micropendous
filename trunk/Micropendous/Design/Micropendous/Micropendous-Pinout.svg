@@ -69,9 +69,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.44746742"
-     inkscape:cx="933.97565"
-     inkscape:cy="523.08876"
+     inkscape:zoom="1.7898697"
+     inkscape:cx="352.65067"
+     inkscape:cy="371.09529"
      inkscape:document-units="px"
      inkscape:current-layer="g3154"
      showgrid="false"
@@ -1730,339 +1730,335 @@ Visit www.Micropendous.org for more info.</dc:description>
              x="-570.83783"
              y="-876.50366">PORTB</tspan></text>
       </g>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3779"
+         y="341.65363"
+         x="-332.05087"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="341.65363"
+           x="-332.05087"
+           id="tspan3781"
+           sodipodi:role="line">15 / PB7 / PCINT7 / OC.0A / OC.1C</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3783"
+         y="341.65363"
+         x="-656.7796"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="341.65363"
+           x="-656.7796"
+           id="tspan3785"
+           sodipodi:role="line">PB6 / PCINT6 / OC.1B / 14</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3787"
+         y="315.69382"
+         x="-330.59357"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="315.69382"
+           x="-330.59357"
+           id="tspan3789"
+           sodipodi:role="line">9 / PB5 / PCINT5 / OC.1A</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3791"
+         y="315.69382"
+         x="-644.83594"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="315.69382"
+           x="-644.83594"
+           id="tspan3793"
+           sodipodi:role="line">PB4 / PCINT4 / OC.2A / 8</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3795"
+         y="290.39404"
+         x="-332.05087"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="290.39404"
+           x="-332.05087"
+           id="tspan3797"
+           sodipodi:role="line">12 / PB3 / MISO / PDO / PCINT3</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3799"
+         y="290.39932"
+         x="-698.29205"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="290.39932"
+           x="-698.29205"
+           id="tspan3801"
+           sodipodi:role="line">PB2 / MOSI / PDI / PCINT2 / 11</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3803"
+         y="264.67557"
+         x="-332.05087"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="264.67557"
+           x="-332.05087"
+           id="tspan3805"
+           sodipodi:role="line">13 / PB1 / SCLK / PCINT1</tspan></text>
+      <text
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename=".\Micropendous4_Pinout.png"
+         id="text3807"
+         y="264.68085"
+         x="-632.79724"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="264.68085"
+           x="-632.79724"
+           id="tspan3809"
+           sodipodi:role="line">PB0 / nSS / PCINT0 / 10</tspan></text>
+      <text
+         id="text3811"
+         y="367.3476"
+         x="-330.60413"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"><tspan
+           y="367.3476"
+           x="-330.60413"
+           id="tspan3813"
+           sodipodi:role="line">3V3</tspan></text>
+      <text
+         id="text3857"
+         y="367.45322"
+         x="-443.86337"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"><tspan
+           y="367.45322"
+           x="-443.86337"
+           id="tspan3859"
+           sodipodi:role="line">GND</tspan></text>
       <g
-         transform="matrix(1,0,0,0.9664179,1654.7459,-110.06267)"
-         id="g3998">
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-451.65808"
-           y="-1307.2069"
-           id="text3779"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3781"
-             x="-451.65808"
-             y="-1307.2069">15 / PB7 / PCINT7 / OC.0A / OC.1C</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-781.98065"
-           y="-1307.2069"
-           id="text3783"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3785"
-             x="-781.98065"
-             y="-1307.2069">PB6 / PCINT6 / OC.1B / 14</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-450.17566"
-           y="-1333.6139"
-           id="text3787"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3789"
-             x="-450.17566"
-             y="-1333.6139">9 / PB5 / PCINT5 / OC.1A</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-769.83124"
-           y="-1333.6139"
-           id="text3791"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3793"
-             x="-769.83124"
-             y="-1333.6139">PB4 / PCINT4 / OC.2A / 8</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-451.65808"
-           y="-1359.3495"
-           id="text3795"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3797"
-             x="-451.65808"
-             y="-1359.3495">12 / PB3 / MISO / PDO / PCINT3</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-824.20819"
-           y="-1359.3441"
-           id="text3799"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3801"
-             x="-824.20819"
-             y="-1359.3441">PB2 / MOSI / PDI / PCINT2 / 11</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-451.65808"
-           y="-1385.511"
-           id="text3803"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3805"
-             x="-451.65808"
-             y="-1385.511">13 / PB1 / SCLK / PCINT1</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-757.58514"
-           y="-1385.5056"
-           id="text3807"
-           inkscape:export-filename=".\Micropendous4_Pinout.png"
-           inkscape:export-xdpi="300"
-           inkscape:export-ydpi="300"
-           transform="matrix(0,-1,1,0,0,0)"><tspan
-             sodipodi:role="line"
-             id="tspan3809"
-             x="-757.58514"
-             y="-1385.5056">PB0 / nSS / PCINT0 / 10</tspan></text>
-        <text
-           transform="matrix(0,-1,1,0,0,0)"
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-450.1864"
-           y="-1281.0703"
-           id="text3811"><tspan
-             sodipodi:role="line"
-             id="tspan3813"
-             x="-450.1864"
-             y="-1281.0703">3V3</tspan></text>
-        <text
-           transform="matrix(0,-1,1,0,0,0)"
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-565.39667"
-           y="-1280.9629"
-           id="text3857"><tspan
-             sodipodi:role="line"
-             id="tspan3859"
-             x="-565.39667"
-             y="-1280.9629">GND</tspan></text>
-        <g
-           id="g3928"
-           transform="translate(0,0.3739332)">
-          <rect
-             ry="2.7099738"
-             y="-482.50098"
-             x="1302.4855"
-             height="25.381186"
-             width="25.20178"
-             id="rect3817"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-477.21606"
-             x="1307.6581"
-             height="14.811365"
-             width="14.8565"
-             id="rect3819"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-482.50098"
-             x="1276.2361"
-             height="25.381186"
-             width="25.20178"
-             id="rect3821"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-477.21606"
-             x="1281.4087"
-             height="14.811365"
-             width="14.8565"
-             id="rect3823"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-482.50098"
-             x="1354.6227"
-             height="25.381186"
-             width="25.20178"
-             id="rect3825"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-477.21606"
-             x="1359.7953"
-             height="14.811365"
-             width="14.8565"
-             id="rect3827"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-482.50098"
-             x="1328.8923"
-             height="25.381186"
-             width="25.20178"
-             id="rect3829"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-477.21606"
-             x="1334.0649"
-             height="14.811365"
-             width="14.8565"
-             id="rect3831"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-482.50098"
-             x="1380.7788"
-             height="25.381186"
-             width="25.20178"
-             id="rect3833"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-477.21606"
-             x="1385.9514"
-             height="14.811365"
-             width="14.8565"
-             id="rect3835"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-508.72925"
-             x="1302.4855"
-             height="25.381186"
-             width="25.20178"
-             id="rect3837"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-503.44434"
-             x="1307.6581"
-             height="14.811365"
-             width="14.8565"
-             id="rect3839"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-508.72925"
-             x="1276.2361"
-             height="25.381186"
-             width="25.20178"
-             id="rect3841"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-503.44434"
-             x="1281.4087"
-             height="14.811365"
-             width="14.8565"
-             id="rect3843"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-508.72925"
-             x="1354.6227"
-             height="25.381186"
-             width="25.20178"
-             id="rect3845"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-503.44434"
-             x="1359.7953"
-             height="14.811365"
-             width="14.8565"
-             id="rect3847"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-508.72925"
-             x="1328.8923"
-             height="25.381186"
-             width="25.20178"
-             id="rect3849"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-503.44434"
-             x="1334.0649"
-             height="14.811365"
-             width="14.8565"
-             id="rect3851"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="2.7099738"
-             y="-508.72925"
-             x="1380.7788"
-             height="25.381186"
-             width="25.20178"
-             id="rect3853"
-             style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             transform="scale(-1,-1)" />
-          <rect
-             ry="7.4056826"
-             y="-503.44434"
-             x="1385.9514"
-             height="14.811365"
-             width="14.8565"
-             id="rect3855"
-             style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-             transform="scale(-1,-1)" />
-        </g>
-        <text
-           transform="matrix(0,-1,1,0,0,0)"
-           xml:space="preserve"
-           style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="-550.73792"
-           y="-1420.1119"
-           id="text3861"><tspan
-             sodipodi:role="line"
-             id="tspan3863"
-             x="-550.73792"
-             y="-1420.1119">PORTB_3.3V</tspan></text>
+         transform="matrix(1,0,0,0.9664179,1654.7459,-109.70129)"
+         id="g3928">
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3817"
+           width="25.20178"
+           height="25.381186"
+           x="1302.4855"
+           y="-482.50098"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3819"
+           width="14.8565"
+           height="14.811365"
+           x="1307.6581"
+           y="-477.21606"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3821"
+           width="25.20178"
+           height="25.381186"
+           x="1276.2361"
+           y="-482.50098"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3823"
+           width="14.8565"
+           height="14.811365"
+           x="1281.4087"
+           y="-477.21606"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3825"
+           width="25.20178"
+           height="25.381186"
+           x="1354.6227"
+           y="-482.50098"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3827"
+           width="14.8565"
+           height="14.811365"
+           x="1359.7953"
+           y="-477.21606"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3829"
+           width="25.20178"
+           height="25.381186"
+           x="1328.8923"
+           y="-482.50098"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3831"
+           width="14.8565"
+           height="14.811365"
+           x="1334.0649"
+           y="-477.21606"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3833"
+           width="25.20178"
+           height="25.381186"
+           x="1380.7788"
+           y="-482.50098"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3835"
+           width="14.8565"
+           height="14.811365"
+           x="1385.9514"
+           y="-477.21606"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3837"
+           width="25.20178"
+           height="25.381186"
+           x="1302.4855"
+           y="-508.72925"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3839"
+           width="14.8565"
+           height="14.811365"
+           x="1307.6581"
+           y="-503.44434"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3841"
+           width="25.20178"
+           height="25.381186"
+           x="1276.2361"
+           y="-508.72925"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3843"
+           width="14.8565"
+           height="14.811365"
+           x="1281.4087"
+           y="-503.44434"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3845"
+           width="25.20178"
+           height="25.381186"
+           x="1354.6227"
+           y="-508.72925"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3847"
+           width="14.8565"
+           height="14.811365"
+           x="1359.7953"
+           y="-503.44434"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3849"
+           width="25.20178"
+           height="25.381186"
+           x="1328.8923"
+           y="-508.72925"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3851"
+           width="14.8565"
+           height="14.811365"
+           x="1334.0649"
+           y="-503.44434"
+           ry="7.4056826" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06565106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="rect3853"
+           width="25.20178"
+           height="25.381186"
+           x="1380.7788"
+           y="-508.72925"
+           ry="2.7099738" />
+        <rect
+           transform="scale(-1,-1)"
+           style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3855"
+           width="14.8565"
+           height="14.811365"
+           x="1385.9514"
+           y="-503.44434"
+           ry="7.4056826" />
       </g>
+      <text
+         id="text3861"
+         y="176.58081"
+         x="-429.45325"
+         style="font-size:21.62744331px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"><tspan
+           y="176.58081"
+           x="-429.45325"
+           id="tspan3863"
+           sodipodi:role="line">PORTB_3.3V</tspan></text>
       <g
          transform="matrix(1,0,0,0.9664179,1433.4602,-242.1746)"
          id="g4170">
@@ -2836,6 +2832,25 @@ Visit www.Micropendous.org for more info.</dc:description>
              x="164.19838"
              y="728.36011">16 / PE2</tspan></text>
       </g>
+      <text
+         id="text2794"
+         y="199.59961"
+         x="-363.3161"
+         style="font-size:14.00000286px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         transform="matrix(0,-0.9830656,1.0172262,0,0,0)"><tspan
+           y="199.59961"
+           x="-363.3161"
+           id="tspan2796"
+           sodipodi:role="line">PORTB_3.3V is PORTB</tspan><tspan
+           y="217.09961"
+           x="-363.3161"
+           sodipodi:role="line"
+           id="tspan2798">bidirectionally voltage</tspan><tspan
+           y="234.59961"
+           x="-363.3161"
+           sodipodi:role="line"
+           id="tspan2800">translated to 3.3V</tspan></text>
     </g>
   </g>
 </svg>
