@@ -1,61 +1,44 @@
-              0,  1,               ,R5
-            0u1,  9,               ,C11, C18, C20, C35, C36, C37, C39, C43, C46
-            10u,  7,               ,C13, C21, C41, C45, C48, C49, C50
-           120u,  1,               ,C42
-            10k, 1, R41
-            1k, 1, R42
-            15k,  4,               ,R9, R11, R40
-          16MHz,  1,               ,X1
-            1u0,  2,               ,C10, C44
-             22,  2,               ,R12, R13
-           24pF,  2,               ,C1, C2
-            47k,  2,               ,R8, R14
-       74VHC573,  1,               ,IC4
-         AP2101,  1,               ,IC2
- AT90USB1287-AU,  1,               ,IC1
-         Bottom,  1,               ,P1
-         CONN_1,  1,               ,TP1
-CY7C1019D_5V_1MBIT_SRAM,  1,               ,IC5
-      ESD_ZENER,  1,               ,CR3
-             FB,  2,               ,L3, L6
-        Ferrite,  1,               ,L5
-        FSUSB20,  1,               ,IC3
-            HWB,  1,               ,SW2
-           JTAG,  1,               ,U4
-        microSD,  1,               ,U3
-        PB_3.3V,  1,               ,P3
- REGULATOR_3.3V,  1,               ,IC7
-          RESET,  1,               ,SW1
-            Top,  1,               ,P2
-        TXB0108,  1,               ,IC6
-            u01,  2,               ,C12, C17
-          USB-A,  1,               ,U2
-      USB-miniB,  1,               ,U1
+Bill Of Materials for the Micropendous-DIP Project
 
-
-
-
-QTY, Manufacturer Part#     , Cost($USD each) - References - Description
-
-2  , 500R15N220JV4T         , 0.04 - C1 C2 - CAP CER 22PF 50V NP0 0805
-2  , GRM21BR71E104KA01L     , 0.04 - C5 C6 C7 - CAP CER .1UF 25V 10% X7R 0805
-3  , LMK212BJ106KG-T        , 0.28 - C3 C4 C8 - CAP CER 10uF 10V X5R 0805
-2  , CG0603MLC-05LE         , 0.23 - CR1 CR2 - SUPPRESSOR ESD 5VDC 0603 SMD MLC
-1  , MBR120VLSFT1G          , 0.53 - D1 - DIODE SCHOTTKY 20V 1A SOD123FL
-1  , LPC1343FBD48           , 6.30 - IC1 - IC MCU 32BIT 32KB FLASH 48LQFP
-1  , BSS84P L6327           , 0.37 - Q1 - MOSFET P-CH 60V 170MA SOT-23
-2  , RMCF1/1033.2FRCT-ND    , 0.04 - R1 R2 - RES 33.2 OHM 1/8W 1% 0805 SMD
-1  , RC0805FR-071K5L        , 0.07 - R3 - RES 1.50K OHM 1/8W 1% 0805 SMD
-2  , RMCF1/1015KJRCT-ND     , 0.03 - R4 R5 - RES 15K OHM 1/8W 5% 0805 SMD
-1  , RMCF1/100RCT-ND        , 0.03 - R7 - RES 0 OHM 1/8W 5% 0805 SMD
-2  , EVQ-Q2U03W             , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
-1  , 2908-05WB-MG           , 1.23 - U1 - CONN EJECT MICROSD PUSH-PUSH SMD
-1  , 690-004-221-023        , 0.93 - U2 - CONN USB JACK TYPE B HORIZON R/A
-1  , GRPB052VWVN-RC         , 1.11 - U3 - Cortex CONN HEADER .050" 10PS DL PCB AU
-1  , ZLDO1117G33TA          , 0.62 - U4 - IC REG LDO 1A 3.3V SOT223            
-1  , ABLS-12.000MHZ-B4-T    , 0.46 - X1 - CRYSTAL 12.000 MHZ 18PF HC49US 30ppm
-2  , 68001-220HLF           , 1.00 - P1 P2 - CONN HEADER 20POS .100 STR 15AU
------------------------Total:16.00
+QTY, Manufacturer Part#          , Cost($USD each) - References - Description
+  1, AT90USB1287-AU              ,12.92 - IC1 - IC AVR MCU 128K 64TQFP
+  1, FSUSB20MUX                  , 2.00 - IC3 - IC USB SWITCH DUAL 2X1 10MSOP
+  1, SN74AHC573DWR               , 0.58 - IC4 - IC OCT TRNSP D-TYP LATCH 20-SOIC 7.5mm Wide
+  1, CY7C1019D-10ZSXI            , 3.92 - IC5 - IC SRAM 1MBIT 10NS 32TSOP
+  1, TXB0108PWR                  , 2.80 - IC6 - IC 8-BIT TRNSTR 15KV ESD 20TSSOP
+  1, XC6222B331MR-G              , 0.68 - IC7 - IC REG LDO 3.3V SOT-25
+  1, AP2141WG-7                  , 0.99 - IC9 - IC PWR SW USB 1CH 0.5A SOT-25-5
+  2, 500R15N220JV4T              , 0.04 - C1 C2 - CAP CER 22PF 50V NP0 0805
+  2, C2012X7R1H103K              , 0.04 - C12 C17 - CAP CER 10000PF = 0.01uF 50V X7R 10% Low ESR 0805
+  7, 08055C104MAT2A              , 0.04 - C11 C18 C20 C35 C36 C37 C39 - CAP CERM 0.10UF 50V 20% 0805 SMD
+  3, C2012X7R1A105K              , 0.10 - C10 C44 - CAP CER 1.0UF 10V X7R 10% Low ESR 0805
+  8, GRM21BR60J106ME19L          , 0.15 - C13 C21 C41 C45 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
+  1, C1206C476M9PACTU            , 0.94 - C42 - CAP CERAMIC 47UF 6.3V X5R 1206
+  1, MMZ2012R102A                , 0.07 - L3 - FERRITE CHIP 1000 OHM 500MA 0805
+  1, RMCF0805ZT0R00              , 0.03 - R5 - RES 0.0 OHM 1/8W 0805 SMD (Do Not Install)
+  2, MCR10EZPF22R0               , 0.03 - R12 R13 - RES 22.0 OHM 1/8W 1% 0805 SMD
+  1, RMCF0805JT1K00              , 0.03 - R42 - RES 1K OHM 1/8W 5% 0805 SMD
+  2, RMCF0805JT10K0              , 0.03 - R41 R43 - RES 10K OHM 1/8W 5% 0805 SMD
+  2, RMCF0805JT15K0              , 0.03 - R9 R10 - RES 15K OHM 1/8W 5% 0805 SMD
+  1, RMCF0805JT47K0              , 0.03 - R8 R14 - RES 47K OHM 1/8W 5% 0805 SMD
+  2, EVQ-Q2U03W                  , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
+  1, PJ-102AH                    , 0.88 - DC_POWER_JACK(J1) - CONN PWR JACK 2.1X5.5MM HIGH CUR
+  1, ABLS2-16.000MHZ-D4Y-T       , 0.64 - X1 - CRYSTAL 16.0000 MHZ 18PF SMD 3.3mm Height
+  1, 67997-410HLF                , 0.37 - JTAG(U4) - CONN HEADER 10POS .100 STR TIN
+  1, UX60-MB-5ST                 , 1.18 - U5 - CONN RECEPT USB2.0 MINI-B 5POS
+  1, 690-004-260-013             , 1.15 - U2 - CONN USB JACK TYPE A VERT STR
+  1, 101-00303-68                , 0.86 - U3 - CONN MINI MICRO-SD 8PIN PCB GOLD
+  1, PPPC031LFBN-RC              , 0.39 - P3 - CONN HEADER FEMALE 3POS .1" GOLD
+  1, 969102-0000-DA              , 0.06 - * - SHUNT JUMPER .1" BLACK GOLD
+  1, 961102-6404-AR              , 0.09 - * - CONN HEADER VERT SGL 2POS GOLD
+----------------------------Total=33.54
 
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
-	- Cypress CY7C1019D SRAM can be replaced by ISSI IS63WV1024BLL-12TLI SRAM
+	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor (USB Specification recommends 120uF)
+	- FSUSB20MUX (IC3) can (potentially) be substituted with FSUSB30MUX (NOT YET TESTED)
+	- SN74AHC573DWR (IC4) can be substituted with 74VHC573M
+	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
+	- XC6222B331MR-G (IC7) can be substituted with CAT6219-330TDGT3 or MIC5219-3.3YM5
+	- AP2141WG-7 (IC9) can be substituted with AP2181WG-7
+	- 690-004-260-013 (U2) can be substituted with 690-004-660-013 or UE27AE54100
+

@@ -1,134 +1,56 @@
-            0u1, 12,               ,C11, C18, C20, C35, C36, C37, C39, C43, C46, C51, C53, C55
-            10k,  2,               ,R42, R43
-            10u,  7,               ,C13, C21, C41, C45, C48, C49, C50
-       1117-5.0,  1,               ,IC11
-           120u,  1,               ,C42
-            15k,  4,               ,R9, R11, R40, R41
-          16MHz,  1,               ,X1
-            1u0,  2,               ,C10, C44
-             22,  2,               ,R12, R13
-            22u,  2,               ,C52, C54
-            24p,  2,               ,C1, C2
-            47k,  2,               ,R8, R14
-       74VHC573,  1,               ,IC4
-         AP2101,  1,               ,IC9
-ARDUINO_PINOUT_MICROPENDOUS,  1,               ,U5
- AT90USB1287-AU,  1,               ,IC1
-         CONN_1,  2,               ,TP1, TP2
-CY7C1019D_5V_1MBIT_SRAM,  1,               ,IC5
-  DC_POWER_JACK,  1,               ,J1
-             FB,  2,               ,L3, L6
-         FDN340,  1,               ,Q1
-            HWB,  1,               ,SW2
-           JTAG,  1,               ,U4
-          LM358,  1,               ,IC10
-        MBRX120,  1,               ,D1
-        microSD,  1,               ,U3
-       PolyFuse,  1,               ,F1
-          PORTB,  1,               ,U7
-      PORTB_3V3,  1,               ,U6
-          PORTD,  1,               ,U8
- REGULATOR_3.3V,  1,               ,IC7
-          RESET,  1,               ,SW1
-  TS3USB221DRCR,  1,               ,IC3
-        TXB0108,  1,               ,IC6
-            u01,  2,               ,C12, C17
-          USB-A,  1,               ,U2
-          USB-B,  1,               ,U1
-            VIA,170,               ,V3, V6, V11, V12, V14, V15, V16, V19, V22, V23, V24, V26, V27, V28, V29, V30, V34, V35, V36, V37, V38, V39, V40, V42, V45, V46, V51, V52, V53, V54, V55, V56, V57, V59, V60, V61, V62, V63, V64, V65, V66, V68, V82, V83, V86, V87, V90, V99, V101, V103, V104, V111, V114, V121, V124, V125, V128, V136, V149, V153, V154, V155, V156, V157, V160, V168, V174, V175, V183, V185, V187, V188, V189, V190, V195, V196, V197, V198, V204, V207, V219, V222, V223, V224, V225, V226, V231, V232, V235, V236, V237, V238, V239, V240, V241, V242, V243, V246, V248, V252, V253, V254, V255, V256, V257, V258, V259, V260, V261, V262, V263, V264, V265, V266, V267, V268, V269, V270, V271, V272, V273, V274, V276, V277, V278, V279, V280, V281, V282, V283, V284, V285, V286, V287, V288, V289, V290, V291, V292, V293, V294, V295, V296, V297, V298, V299, V300, V301, V302, V303, V304, V305, V306, V307, V308, V309, V310, V311, V312, V313, V314, V315, V316, V317, V318, V319, V320, V321, V322, V323
+Bill Of Materials for the Micropendous Project
 
-
-#Cmp ( order = Reference )
-| C1         24p         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C2         24p         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C10        1u0         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C11        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C12        u01         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C13        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C17        u01         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C18        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C20        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C21        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C35        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C36        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C37        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C39        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C41        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C42        47u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C43        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C44        1u0         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C45        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C46        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C48        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C49        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C50        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C51        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C52        10u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C53        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C54        22u         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| C55        0u1         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| D1         MBRX120     ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| D2         LED         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| F1         PolyFuse    ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC1        AT90USB1287-AU;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC3        FSUSB20     ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC4        74VHC573    ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC5        CY7C1019D_5V_1MBIT_SRAM;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC6        TXB0108     ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC7        REG3V3      ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC9        AP2141      ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC10       LM358       ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| IC11       1117-5.0    ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| J1         DC_POWER_JACK;             ;             ;             ;             ;             ;             ;             ;             ;             
-| L3         FB          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| L6         FB          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| Q1         FDN304      ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R8         47k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R9         15k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R11        15k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R12        22          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R13        22          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R14        47k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R40        15k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R41        10k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R42        1k          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R43        10k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R44        10k         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| R45        1k          ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| SW1        RESET       ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| SW2        HWB         ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| TP1        CONN_1      ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| TP2        CONN_1      ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U1         USB-B       ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U2         USB-A       ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U3         microSD     ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U4         JTAG        ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U5         ARDUINO_PINOUT_MICROPENDOUS;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U6         PORTB_3V3   ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U7         PORTB       ;             ;             ;             ;             ;             ;             ;             ;             ;             
-| U8         PORTD  
-
-QTY, Manufacturer Part#     , Cost($USD each) - References - Description
-
-2  , 500R15N220JV4T         , 0.04 - C1 C2 - CAP CER 22PF 50V NP0 0805
-2  , GRM21BR71E104KA01L     , 0.04 - C5 C6 C7 - CAP CER .1UF 25V 10% X7R 0805
-3  , LMK212BJ106KG-T        , 0.28 - C3 C4 C8 - CAP CER 10uF 10V X5R 0805
-2  , CG0603MLC-05LE         , 0.23 - CR1 CR2 - SUPPRESSOR ESD 5VDC 0603 SMD MLC
-1  , MBR120VLSFT1G          , 0.53 - D1 - DIODE SCHOTTKY 20V 1A SOD123FL
-1  , LPC1343FBD48           , 6.30 - IC1 - IC MCU 32BIT 32KB FLASH 48LQFP
-1  , BSS84P L6327           , 0.37 - Q1 - MOSFET P-CH 60V 170MA SOT-23
-2  , RMCF1/1033.2FRCT-ND    , 0.04 - R1 R2 - RES 33.2 OHM 1/8W 1% 0805 SMD
-1  , RC0805FR-071K5L        , 0.07 - R3 - RES 1.50K OHM 1/8W 1% 0805 SMD
-2  , RMCF1/1015KJRCT-ND     , 0.03 - R4 R5 - RES 15K OHM 1/8W 5% 0805 SMD
-1  , RMCF1/100RCT-ND        , 0.03 - R7 - RES 0 OHM 1/8W 5% 0805 SMD
-2  , EVQ-Q2U03W             , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
-1  , 2908-05WB-MG           , 1.23 - U1 - CONN EJECT MICROSD PUSH-PUSH SMD
-1  , 690-004-221-023        , 0.93 - U2 - CONN USB JACK TYPE B HORIZON R/A
-1  , GRPB052VWVN-RC         , 1.11 - U3 - Cortex CONN HEADER .050" 10PS DL PCB AU
-1  , ZLDO1117G33TA          , 0.62 - U4 - IC REG LDO 1A 3.3V SOT223            
-1  , ABLS-12.000MHZ-B4-T    , 0.46 - X1 - CRYSTAL 12.000 MHZ 18PF HC49US 30ppm
-2  , 68001-220HLF           , 1.00 - P1 P2 - CONN HEADER 20POS .100 STR 15AU
------------------------Total:16.00
+QTY, Manufacturer Part#          , Cost($USD each) - References - Description
+  1, AT90USB1287-AU              ,12.92 - IC1 - IC AVR MCU 128K 64TQFP
+  1, FSUSB20MUX                  , 2.00 - IC3 - IC USB SWITCH DUAL 2X1 10MSOP
+  1, 74VHC573MTCX                , 0.59 - IC4 - IC LATCH OCT DTYPE 3ST 20TSSOP
+  1, CY7C1019D-10ZSXI            , 3.92 - IC5 - IC SRAM 1MBIT 10NS 32TSOP
+  1, TXB0108PWR                  , 2.80 - IC6 - IC 8-BIT TRNSTR 15KV ESD 20TSSOP
+  1, XC6222B331MR-G              , 0.68 - IC7 - IC REG LDO 3.3V SOT-25
+  1, AP2141WG-7                  , 0.99 - IC9 - IC PWR SW USB 1CH 0.5A SOT-25-5
+  1, LM358DGKR                   , 0.49 - IC10 - IC OPAMP GP 700KHZ DUAL 8MSOP
+  1, ZLDO1117G50TA               , 0.61 - IC11 - IC REG LDO 1A 5.0V SOT223-3 18V Max
+  2, 500R15N220JV4T              , 0.04 - C1 C2 - CAP CER 22PF 50V NP0 0805
+  2, C2012X7R1H103K              , 0.04 - C12 C17 - CAP CER 10000PF = 0.01uF 50V X7R 10% Low ESR 0805
+ 12, 08055C104MAT2A              , 0.04 - C11 C18 C20 C35 C36 C37 C39 C43 C46 C51 C53 C55 - CAP CERM 0.10UF 50V 20% 0805 SMD
+  2, C2012X7R1A105K              , 0.10 - C10 C44 - CAP CER 1.0UF 10V X7R 10% Low ESR 0805
+  7, GRM21BR60J106ME19L          , 0.15 - C13 C21 C41 C45 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
+  1, GRM31CR61E106KA12L          , 0.40 - C52 - CAP CER 10UF 25V X5R 1206 (LDO Input)
+  1, JMK316B7226ML-T             , 0.58 - C54 - CAP CER 22UF 6.3V X7R 125 degC 1206 (High Temp LDO Output)
+  1, C1206C476M9PACTU            , 0.94 - C42 - CAP CERAMIC 47UF 6.3V X5R 1206
+  1, MBR120VLSFT1G MBRX120-TP    , 0.50 - D1 - DIODE SCHOTTKY 20V 1A SOD123FL
+  1, LG R971-KN-1-0-20-R18       , 0.11 - D2 - LED CHIPLED 570NM GREEN 0805 SMD
+  1, 0ZCA0050FF2G                , 0.28 - F1 - PTC RESTTBLE 0.50A 8V CHIP 1206
+  1, MMZ2012R102A                , 0.07 - L3 - FERRITE CHIP 1000 OHM 500MA 0805
+  1, RMCF0805JT1M00              , 0.03 - L6 - RES 1M OHM 1/8W 5% 0805 SMD
+  1, FDN304P                     , 0.61 - Q1 - MOSFET P-CH 20V 2.4A SSOT3
+  2, MCR10EZPF22R0               , 0.03 - R12 R13 - RES 22.0 OHM 1/8W 1% 0805 SMD
+  1, RMCF0805JT270R              , 0.03 - R45 - RES 270 OHM 1/8W 5% 0805 SMD
+  1, RMCF0805JT1K00              , 0.03 - R42 - RES 1K OHM 1/8W 5% 0805 SMD
+  3, RMCF0805JT10K0              , 0.03 - R41 R43 R44 - RES 10K OHM 1/8W 5% 0805 SMD
+  3, RMCF0805JT15K0              , 0.03 - R9 R10 R40 - RES 15K OHM 1/8W 5% 0805 SMD
+  1, RMCF0805JT47K0              , 0.03 - R8 R14 - RES 47K OHM 1/8W 5% 0805 SMD
+  2, EVQ-Q2U03W                  , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
+  1, PJ-102AH                    , 0.88 - DC_POWER_JACK(J1) - CONN PWR JACK 2.1X5.5MM HIGH CURRENT
+  1, ABLS-16.000MHZ-B4-T         , 0.41 - X1 - CRYSTAL 16.000 MHZ 18PF SMD
+  4, 67997-410HLF                , 0.37 - PORTB(U7) PORTB_3V3(U6) PORTD(U8) JTAG(U4) - CONN HEADER 10POS .100 STR TIN (Only Install JTAG)
+  2, PPPC061LFBN-RC              , 0.56 - Digital Headers - CONN HEADER FEMALE 6POS .1" GOLD
+  2, PPPC081LFBN-RC              , 0.70 - Power/Analog Headers - CONN HEADER FEMALE 8POS .1" GOLD
+  1, 690-004-221-023             , 1.49 - U1 - CONN USB JACK TYPE B HORIZON R/A
+  1, 690-004-261-013             , 1.67 - U2 - CONN USB JACK TYPE A VERT RT ANGLE
+  1, 101-00303-68                , 0.86 - U3 - CONN MINI MICRO-SD 8PIN PCB GOLD
+----------------------------Total=40.86
 
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
-	- Cypress CY7C1019D SRAM can be replaced by ISSI IS63WV1024BLL-12TLI SRAM
+	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor (USB Specification recommends 120uF)
+	- FSUSB20MUX (IC3) can (potentially) be substituted with FSUSB30MUX (NOT YET TESTED)
+	- 74VHC573MTCX (IC4) can be substituted with SN74AHC573PWR
+	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
+	- XC6222B331MR-G (IC7) can be substituted with CAT6219-330TDGT3 or MIC5219-3.3YM5
+	- AP2141WG-7 (IC9) can be substituted with AP2181WG-7
+	- LM358DGKR (IC10) can be substituted with LM358ADGKR or LM358ST
+	- ZLDO1117G50TA can be substituted with TLV1117-50CDCYR or LD1117S50CTR but input voltage is 15V max
+	- MBR120VLSFT1G can be substituted with MBRX120-TP in SOD-123
+	- LED (D2) can be substituted with any 0805 LED
+	- 0ZCA0050FF2G (F1) can be substituted with MF-NSMF035-2
+
