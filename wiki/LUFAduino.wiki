@@ -20,7 +20,6 @@ Assuming you have completed all setup tasks in the [QuickStart] tutorial, simply
 Note: run *make*, then *make flip* _(Windows)_ or *make dfu* _(Linux)_ to compile and load this firmware onto your Micropendous board.  Need to run *make* twice.
 {{{
 make
-make
 make flip
 }}}
 
