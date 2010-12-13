@@ -23,9 +23,10 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * DC Power Jack, 2.1mm ID, 7V to 15V Input
   * 16MHz crystal
   * 25 available General Purpose IO Pins
+  * PortB is [http://focus.ti.com/docs/prod/folders/print/txb0108.html bidirectionally voltage translated]
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
-  * USB-miniB Jack and USB-A Receptacle selectable with a GPIO pin
+  * USB-B Jack and USB-A Receptacle selectable with a GPIO pin
   * JTAG header
   * Size LxWxH (including headers): 3" x 2.1" x 0.8" =~ 8cm x 5.3cm x 2cm
   * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
@@ -59,9 +60,3 @@ you can enable pins PF4,5,6,7 by disabling JTAG via software. Place the followin
         MCUCR = (1 << JTD) | (0 << IVSEL) | (0 << IVCE) | (0 << PUD);
     #endif
 }}}
-
-== Removing your Micropendous-DIP from a Breadboard ==
-
-Be careful when removing your Micropendous-DIP from a breadboard.  Use a mini screwdriver to pry one corner, then another, then another, then start from the first, etc...  It should take you about 20 or so careful corner nudges before a Micropendous-DIP will separate from a breadboard.
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/Remove_From_Breadboard_Micropendous4.jpg
