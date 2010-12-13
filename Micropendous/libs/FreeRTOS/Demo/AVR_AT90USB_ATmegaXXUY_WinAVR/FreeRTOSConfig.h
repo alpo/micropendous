@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V6.0.2 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
 
     ***************************************************************************
     *                                                                         *
@@ -10,7 +10,7 @@
     *    + Looking for basic training,                                        *
     *    + Wanting to improve your FreeRTOS skills and productivity           *
     *                                                                         *
-    * then take a look at the FreeRTOS eBook                                  *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
     *                                                                         *
     *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
     *                  http://www.FreeRTOS.org/Documentation                  *
@@ -71,11 +71,10 @@
 #define configUSE_PREEMPTION		1
 #define configUSE_IDLE_HOOK			1
 #define configUSE_TICK_HOOK			0
-//#define configCPU_CLOCK_HZ			( ( unsigned portLONG ) 8000000 )
-#define configCPU_CLOCK_HZ			( ( unsigned portLONG ) F_CPU )	// defined in the makefile
+#define configCPU_CLOCK_HZ			( ( unsigned long ) 8000000 )
 #define configTICK_RATE_HZ			( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES		( ( unsigned portBASE_TYPE ) 4 )
-#define configMINIMAL_STACK_SIZE	( ( unsigned portSHORT ) 85 )
+#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 85 )
 #define configTOTAL_HEAP_SIZE		( (size_t ) ( 1500 ) )
 #define configMAX_TASK_NAME_LEN		( 8 )
 #define configUSE_TRACE_FACILITY	0

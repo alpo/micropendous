@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,16 +40,16 @@
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
 		#include <stdbool.h>
-		
+
 		#include <LUFA/Common/Common.h>
-		
+
 		#include "XPROGProtocol.h"
 		#include "XPROGTarget.h"
-	
+
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			
+
 			#if !defined(ENABLE_XPROG_PROTOCOL)
 				#define ENABLE_XPROG_PROTOCOL
 			#endif
@@ -57,7 +57,7 @@
 
 	/* Defines: */
 		#define XMEGA_CRC_LENGTH                     3
-	
+
 		#define XMEGA_NVM_REG_ADDR0                  0x00
 		#define XMEGA_NVM_REG_ADDR1                  0x01
 		#define XMEGA_NVM_REG_ADDR2                  0x02
@@ -70,7 +70,7 @@
 		#define XMEGA_NVM_REG_INTCTRL                0x0D
 		#define XMEGA_NVM_REG_STATUS                 0x0F
 		#define XMEGA_NVM_REG_LOCKBITS               0x10
-		
+
 		#define XMEGA_NVM_CMD_NOOP                   0x00
 		#define XMEGA_NVM_CMD_CHIPERASE              0x40
 		#define XMEGA_NVM_CMD_READNVM                0x43
@@ -108,6 +108,8 @@
 	/* Function Prototypes: */
 		bool XMEGANVM_WaitWhileNVMBusBusy(void);
 		bool XMEGANVM_WaitWhileNVMControllerBusy(void);
+		bool XMEGANVM_EnablePDI(void);
+		void XMEGANVM_DisablePDI(void);
 		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
 		bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
 		bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t Byte);
@@ -118,7 +120,8 @@
 
 		#if defined(INCLUDE_FROM_XMEGANVM_C)
 			static void XMEGANVM_SendNVMRegAddress(const uint8_t Register);
-			static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);		
+			static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);
 		#endif
 
 #endif
+

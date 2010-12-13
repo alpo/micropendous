@@ -1,15 +1,12 @@
-#ifndef Server_h
-#define Server_h
+#ifndef server_h
+#define server_h
 
-extern "C" {
-  #include "utility/types.h"
-}
-
-#include "ArduinoPrint.h"
+#include "Print.h"
 
 class Client;
 
-class Server : public Print {
+class Server : 
+public Print {
 private:
   uint16_t _port;
   void accept();

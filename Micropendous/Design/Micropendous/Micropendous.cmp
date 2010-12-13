@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 19/11/2010 11:38:52
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = 30/11/2010 21:47:12
 
 BeginCmp
 TimeStamp = /494A56AF;
@@ -108,8 +108,8 @@ EndCmp
 BeginCmp
 TimeStamp = /4B227269;
 Reference = C42;
-ValeurCmp = 47u;
-IdModule  = SM1206_Opendous;
+ValeurCmp = 100u;
+IdModule  = SM1210_Opendous;
 EndCmp
 
 BeginCmp
@@ -304,7 +304,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4C46B589;
 Reference = Q1;
-ValeurCmp = SI2303;
+ValeurCmp = FDN304;
 IdModule  = SOT23-3_Opendous;
 EndCmp
 
@@ -438,7 +438,7 @@ BeginCmp
 TimeStamp = /4B739B9C;
 Reference = U3;
 ValeurCmp = microSD;
-IdModule  = MEMORY_CARD_microSD_101-00303_Amphenol;
+IdModule  = Memory_Card_microSD_DM3D-SF;
 EndCmp
 
 BeginCmp
@@ -449,7 +449,7 @@ IdModule  = Pin_Array_Port_5x2_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /4CB871DA;
+TimeStamp = /4CF19A5D;
 Reference = U5;
 ValeurCmp = ARDUINO_PINOUT_MICROPENDOUS;
 IdModule  = Arduino_Pinout_Micropendous;
@@ -1844,6 +1844,20 @@ EndCmp
 BeginCmp
 TimeStamp = /4CBC1A0D;
 Reference = V352;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CF5B6F3;
+Reference = V353;
+ValeurCmp = VIA;
+IdModule  = 1Pin_20mil_VIA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CF5B6F2;
+Reference = V354;
 ValeurCmp = VIA;
 IdModule  = 1Pin_20mil_VIA;
 EndCmp

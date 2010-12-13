@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,12 +47,13 @@ uint32_t RequestID = 0;
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
+uint8_t RNDIS_SendEncapsulatedCommand(void* const Buffer,
+                                      const uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SendEncapsulatedCommand,
+			.bRequest      = RNDIS_REQ_SendEncapsulatedCommand,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = Length,
@@ -71,17 +72,18 @@ uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
+uint8_t RNDIS_GetEncapsulatedResponse(void* const Buffer,
+                                      const uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetEncapsulatedResponse,
+			.bRequest      = RNDIS_REQ_GetEncapsulatedResponse,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = Length,
 		};
-	
+
 	/* Select the control pipe for the request transfer */
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
@@ -100,7 +102,7 @@ uint8_t RNDIS_SendKeepAlive(void)
 
 	RNDIS_KeepAlive_Message_t  KeepAliveMessage;
 	RNDIS_KeepAlive_Complete_t KeepAliveMessageResponse;
-	
+
 	KeepAliveMessage.MessageType     = REMOTE_NDIS_KEEPALIVE_MSG;
 	KeepAliveMessage.MessageLength   = sizeof(RNDIS_KeepAlive_Message_t);
 	KeepAliveMessage.RequestId       = RequestID++;
@@ -110,17 +112,17 @@ uint8_t RNDIS_SendKeepAlive(void)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&KeepAliveMessageResponse,
 	                                               sizeof(RNDIS_KeepAlive_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
-/** Initializes the attached RNDIS device's RNDIS interface.
+/** Initialises the attached RNDIS device's RNDIS interface.
  *
  *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
  *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored
@@ -128,7 +130,8 @@ uint8_t RNDIS_SendKeepAlive(void)
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize)
+uint8_t RNDIS_InitializeDevice(const uint16_t HostMaxPacketSize,
+                               uint16_t* const DeviceMaxPacketSize)
 {
 	uint8_t ErrorCode;
 
@@ -142,13 +145,13 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
 	InitMessage.MajorVersion    = REMOTE_NDIS_VERSION_MAJOR;
 	InitMessage.MinorVersion    = REMOTE_NDIS_VERSION_MINOR;
 	InitMessage.MaxTransferSize = HostMaxPacketSize;
-	
+
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(&InitMessage,
 	                                               sizeof(RNDIS_Initialize_Message_t))) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&InitMessageResponse,
 	                                               sizeof(RNDIS_Initialize_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
@@ -157,9 +160,9 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
 
 	if (InitMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
-	  
+
 	*DeviceMaxPacketSize = InitMessageResponse.MaxTransferSize;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -172,35 +175,37 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
+uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
+                               void* Buffer,
+                               const uint16_t Length)
 {
 	uint8_t ErrorCode;
 
 	struct
 	{
 		RNDIS_Set_Message_t SetMessage;
-		uint8_t             ContigiousBuffer[Length];
+		uint8_t             ContiguousBuffer[Length];
 	} SetMessageData;
-	
+
 	RNDIS_Set_Complete_t SetMessageResponse;
-	
+
 	SetMessageData.SetMessage.MessageType    = REMOTE_NDIS_SET_MSG;
 	SetMessageData.SetMessage.MessageLength  = sizeof(RNDIS_Set_Message_t) + Length;
 	SetMessageData.SetMessage.RequestId      = RequestID++;
-			
+
 	SetMessageData.SetMessage.Oid            = Oid;
 	SetMessageData.SetMessage.InformationBufferLength = Length;
 	SetMessageData.SetMessage.InformationBufferOffset = (sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
 	SetMessageData.SetMessage.DeviceVcHandle = 0;
-	
-	memcpy(&SetMessageData.ContigiousBuffer, Buffer, Length);
+
+	memcpy(&SetMessageData.ContiguousBuffer, Buffer, Length);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(&SetMessageData,
 	                                               SetMessageData.SetMessage.MessageLength)) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&SetMessageResponse,
 	                                               sizeof(RNDIS_Set_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
@@ -209,7 +214,7 @@ uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
 
 	if (SetMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
-	  
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -222,7 +227,9 @@ uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
+uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid,
+                                 void* Buffer,
+                                 const uint16_t MaxLength)
 {
 	uint8_t ErrorCode;
 
@@ -231,13 +238,13 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 	struct
 	{
 		RNDIS_Query_Complete_t QueryMessageResponse;
-		uint8_t                ContigiousBuffer[MaxLength];
+		uint8_t                ContiguousBuffer[MaxLength];
 	} QueryMessageResponseData;
 
 	QueryMessage.MessageType    = REMOTE_NDIS_QUERY_MSG;
 	QueryMessage.MessageLength  = sizeof(RNDIS_Query_Message_t);
 	QueryMessage.RequestId      = RequestID++;
-			
+
 	QueryMessage.Oid            = Oid;
 	QueryMessage.InformationBufferLength = 0;
 	QueryMessage.InformationBufferOffset = 0;
@@ -248,7 +255,7 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&QueryMessageResponseData,
 	                                               sizeof(QueryMessageResponseData))) != HOST_SENDCONTROL_Successful)
 	{
@@ -258,7 +265,7 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 	if (QueryMessageResponseData.QueryMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
 
-	memcpy(Buffer, &QueryMessageResponseData.ContigiousBuffer, MaxLength);
+	memcpy(Buffer, &QueryMessageResponseData.ContiguousBuffer, MaxLength);
 
 	return HOST_SENDCONTROL_Successful;
 }
@@ -270,14 +277,14 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength)
+uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 {
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
+	Pipe_SelectPipe(RNDIS_DATA_IN_PIPE);
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
-	
+
 	if (!(Pipe_IsReadWriteAllowed()))
 	{
 		*PacketLength = 0;
@@ -286,17 +293,18 @@ uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength)
 	}
 
 	RNDIS_Packet_Message_t DeviceMessage;
-	
+
 	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t))) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
-	
+
 	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)));
-	
+
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
+

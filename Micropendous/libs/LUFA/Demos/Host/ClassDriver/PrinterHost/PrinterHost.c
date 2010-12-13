@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the PrinterHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "PrinterHost.h"
 
 /** LUFA Printer Class driver interface configuration and state information. This structure is
@@ -46,7 +46,7 @@ USB_ClassInfo_PRNT_Host_t Printer_PRNT_Interface =
 			{
 				.DataINPipeNumber       = 1,
 				.DataINPipeDoubleBank   = false,
-				
+
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 			},
@@ -62,6 +62,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "Printer Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -69,14 +70,14 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
 				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
-					printf("Error Retrieving Configuration Descriptor.\r\n");
+					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -85,56 +86,57 @@ int main(void)
 				if (PRNT_Host_ConfigurePipes(&Printer_PRNT_Interface,
 				                             ConfigDescriptorSize, ConfigDescriptorData) != PRNT_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Printer Class Device.\r\n");
+					puts_P(PSTR("Attached Device Not a Valid Printer Class Device.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Device Configuration.\r\n");
+					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (PRNT_Host_SetBidirectionalMode(&Printer_PRNT_Interface) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Bidirectional Mode.\r\n");
+					puts_P(PSTR("Error Setting Bidirectional Mode.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
-				printf("Printer Device Enumerated.\r\n");
+
+				puts_P(PSTR("Printer Device Enumerated.\r\n"));
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-				
-				printf("Retrieving Device ID...\r\n");
-				
+
+				puts_P(PSTR("Retrieving Device ID...\r\n"));
+
 				char DeviceIDString[300];
 				if (PRNT_Host_GetDeviceID(&Printer_PRNT_Interface, DeviceIDString,
 				                          sizeof(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Getting Device ID.\r\n");
+					puts_P(PSTR("Error Getting Device ID.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
-				printf("Device ID: %s.\r\n", DeviceIDString);
-				
-				char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
+
+				printf_P(PSTR("Device ID: %s.\r\n"), DeviceIDString);
+
+				char     TestPageData[] = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
 				uint16_t TestPageLength = strlen(TestPageData);
-			
+
 				printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
 
-				if (PRNT_Host_SendData(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
+				if (PRNT_Host_SendString(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
 				{
-					printf("Error Sending Page Data.\r\n");
+					puts_P(PSTR("Error Sending Page Data.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -146,7 +148,7 @@ int main(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 		}
-	
+
 		PRNT_Host_USBTask(&Printer_PRNT_Interface);
 		USB_USBTask();
 	}
@@ -209,12 +211,14 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

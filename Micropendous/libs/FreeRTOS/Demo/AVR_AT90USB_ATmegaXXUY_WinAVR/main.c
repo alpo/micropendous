@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V6.0.2 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
 
     ***************************************************************************
     *                                                                         *
@@ -10,7 +10,7 @@
     *    + Looking for basic training,                                        *
     *    + Wanting to improve your FreeRTOS skills and productivity           *
     *                                                                         *
-    * then take a look at the FreeRTOS eBook                                  *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
     *                                                                         *
     *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
     *                  http://www.FreeRTOS.org/Documentation                  *
@@ -101,19 +101,13 @@ Changes from V4.0.5
 
 */
 
-/* TODO - vAltStartComTestTasks (UART) fails
-*/
-
 #include <stdlib.h>
 #include <string.h>
 
-/* register redefinitions */
-#include "avr_registers.h"
-
-/* USB Functionality */
-#include "USBVirtualSerial_FreeRTOS.h"
-
-#include <avr/eeprom.h>
+#ifdef GCC_MEGA_AVR
+	/* EEPROM routines used only with the WinAVR compiler. */
+	#include <avr/eeprom.h> 
+#endif
 
 /* Scheduler include files. */
 #include "FreeRTOS.h"
@@ -133,22 +127,16 @@ Changes from V4.0.5
 /* Priority definitions for most of the tasks in the demo application.  Some
 tasks just use the idle priority. */
 #define mainLED_TASK_PRIORITY			( tskIDLE_PRIORITY + 1 )
-#define mainCOM_TEST_PRIORITY			( tskIDLE_PRIORITY + 1 )
+#define mainCOM_TEST_PRIORITY			( tskIDLE_PRIORITY + 2 )
 #define mainQUEUE_POLL_PRIORITY			( tskIDLE_PRIORITY + 2 )
-#define mainCHECK_TASK_PRIORITY			( tskIDLE_PRIORITY + 2 )
-
-/* USB and CDC Tasks must run at same priority so that they do not interrupt each other 
-	but must be high priority than other tasks to be certain of proper USB functionality.
-*/
-#define MAIN_TASK_PRIORITY			( tskIDLE_PRIORITY + 2 )
-#define USB_CDC_TASK_PRIORITY	( tskIDLE_PRIORITY + 3 )
+#define mainCHECK_TASK_PRIORITY			( tskIDLE_PRIORITY + 3 )
 
 /* Baud rate used by the serial port tasks. */
-#define mainCOM_TEST_BAUD_RATE			( ( unsigned long ) 9600 )
+#define mainCOM_TEST_BAUD_RATE			( ( unsigned long ) 38400 )
 
 /* LED used by the serial port tasks.  This is toggled on each character Tx,
 and mainCOM_TEST_LED + 1 is toggles on each character Rx. */
-#define mainCOM_TEST_LED				( 5 )
+#define mainCOM_TEST_LED				( 4 )
 
 /* LED that is toggled by the check task.  The check task periodically checks
 that all the other tasks are operating without error.  If no errors are found
@@ -190,75 +178,32 @@ void vApplicationIdleHook( void );
 
 /*-----------------------------------------------------------*/
 
-
-	
-int main(void)
-{
-	SetupHardware();
-
-	prvIncrementResetCount();
-
-	Buffer_Initialize(&Host_to_Device_Buffer);
-	Buffer_Initialize(&Device_to_Host_Buffer);
-
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-
-	// Setup the LED's for output.
-	vParTestInitialise();
-
-	// Create USB Tasks for FreeRTOS
-	xTaskCreate(USBTask, (signed portCHAR *) "usbtask", configMINIMAL_STACK_SIZE, NULL, USB_CDC_TASK_PRIORITY, NULL );
-	xTaskCreate(CDCTask, (signed portCHAR *) "cdctask", configMINIMAL_STACK_SIZE, NULL, USB_CDC_TASK_PRIORITY, NULL );
-	xTaskCreate(MainTask, (signed portCHAR *) "maintask", configMINIMAL_STACK_SIZE, NULL, MAIN_TASK_PRIORITY, NULL );
-
-	// Create the standard demo tasks.
-	vStartIntegerMathTasks( tskIDLE_PRIORITY );
-//	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );
-	vStartPolledQueueTasks( mainQUEUE_POLL_PRIORITY );
-	vStartRegTestTasks();
-
-	// Create the tasks defined within this file.
-	xTaskCreate( vErrorChecks, ( signed char * ) "Check", configMINIMAL_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
-
-	// Create the co-routines that flash the LED's.
-	vStartFlashCoRoutines( mainNUM_FLASH_COROUTINES );
-
-	// Start the scheduler
-	vTaskStartScheduler();
-
-	// Should never get here!
-	return 0;
-}
-	
-/*	
 short main( void )
 {
 	prvIncrementResetCount();
 
-	// Setup the LED's for output.
+	/* Setup the LED's for output. */
 	vParTestInitialise();
 
-	// Create the standard demo tasks.
+	/* Create the standard demo tasks. */
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );
 	vStartPolledQueueTasks( mainQUEUE_POLL_PRIORITY );
 	vStartRegTestTasks();
 	
-	// Create the tasks defined within this file.
+	/* Create the tasks defined within this file. */
 	xTaskCreate( vErrorChecks, ( signed char * ) "Check", configMINIMAL_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
 
-	// Create the co-routines that flash the LED's.
+	/* Create the co-routines that flash the LED's. */
 	vStartFlashCoRoutines( mainNUM_FLASH_COROUTINES );
 	
-	// In this port, to use preemptive scheduler define configUSE_PREEMPTION 
-	// as 1 in portmacro.h.  To use the cooperative scheduler define 
-	// configUSE_PREEMPTION as 0.
+	/* In this port, to use preemptive scheduler define configUSE_PREEMPTION 
+	as 1 in portmacro.h.  To use the cooperative scheduler define 
+	configUSE_PREEMPTION as 0. */
 	vTaskStartScheduler();
 
 	return 0;
 }
-*/
-
 /*-----------------------------------------------------------*/
 
 static void vErrorChecks( void *pvParameters )

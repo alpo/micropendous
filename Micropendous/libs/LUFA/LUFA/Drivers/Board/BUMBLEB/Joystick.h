@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,9 +29,12 @@
 */
 
 /** \file
+ *  \brief Board specific joystick driver header for the Fletchtronics BUMLEB.
  *
- *  Board specific joystick driver header for the USBKEY. The BUMBLEB third-party board does not include any on-board
- *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b).
+ *
+ *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
+ *  external peripheral layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -40,8 +43,9 @@
 /** \ingroup Group_Joystick
  *  @defgroup Group_Joystick_BUMBLEB BUMBLEB
  *
- *  Board specific joystick driver header for the USBKEY. The BUMBLEB third-party board does not include any on-board
- *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB
+ *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral
+ *  layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -89,7 +93,7 @@
 
 			/** Mask for the joystick being pushed inward. */
 			#define JOY_PRESS                 (1 << 4)
-			
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
@@ -97,7 +101,7 @@
 				DDRD  &= ~JOY_MASK;
 				PORTD |= JOY_MASK;
 			}
-			
+
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)
 			{
@@ -113,3 +117,4 @@
 #endif
 
 /** @} */
+

@@ -3,7 +3,7 @@
 /----------------------------------------------------------------------------/
 / Petit FatFs module is an open source software to implement FAT file system to
 / small embedded systems. This is a free software and is opened for education,
-/ research and commercial developments under license policy of following trems.
+/ research and commercial developments under license policy of following terms.
 /
 /  Copyright (C) 2010, ChaN, all right reserved.
 /
@@ -235,3 +235,4 @@ FRESULT pf_readdir (DIR*, FILINFO*);	/* Read a directory item */
 
 
 #endif /* _FATFS */
+

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,10 +47,9 @@ int main(void)
 	TCP_Init();
 	Webserver_Init();
 
-	printf_P(PSTR("\r\n\r\n****** RNDIS Demo running. ******\r\n"));
-
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+	sei();
+
 	for (;;)
 	{
 		Ethernet_Task();
@@ -99,64 +98,46 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup CDC Notification, Rx and Tx Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}							   
+	/* Setup RNDIS Data Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	if (!(Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-
-	if (!(Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the RNDIS control commands,
- *  which set up the USB RNDIS network adapter), so that they can be handled appropriately for the application.
+/** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
+ *  the device from the USB host before passing along unhandled control requests to the library for processing
+ *  internally.
  */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
 	/* Process RNDIS class commands */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_SendEncapsulatedCommand:
+		case RNDIS_REQ_SendEncapsulatedCommand:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Clear the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
-				
+
 				/* Read in the RNDIS message into the message buffer */
 				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, USB_ControlRequest.wLength);
-
-				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
 
 				/* Process the RNDIS message */
 				ProcessRNDISControlMessage();
 			}
-			
+
 			break;
-		case REQ_GetEncapsulatedResponse:
+		case RNDIS_REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-				
 				/* Check if a response to the last message is ready */
 				if (!(MessageHeader->MessageLength))
 				{
@@ -165,16 +146,16 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					MessageHeader->MessageLength = 1;
 				}
 
+				Endpoint_ClearSETUP();
+
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, MessageHeader->MessageLength);
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 
 				/* Reset the message header once again after transmission */
 				MessageHeader->MessageLength = 0;
 			}
-	
+
 			break;
 	}
 }
@@ -191,15 +172,15 @@ void RNDIS_Task(void)
 	/* Check if a message response is ready for the host */
 	if (Endpoint_IsINReady() && ResponseReady)
 	{
-		USB_Notification_t Notification = (USB_Notification_t)
+		USB_Request_Header_t Notification = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bNotification = NOTIF_RESPONSE_AVAILABLE,
+				.bRequest      = RNDIS_NOTIF_ResponseAvailable,
 				.wValue        = 0,
 				.wIndex        = 0,
 				.wLength       = 0,
 			};
-		
+
 		/* Indicate that a message response is ready for the host */
 		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
 
@@ -209,7 +190,7 @@ void RNDIS_Task(void)
 		/* Indicate a response is no longer ready */
 		ResponseReady = false;
 	}
-	
+
 	/* Don't process the data endpoints until the system is in the data initialized state, and the buffer is free */
 	if ((CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
 	{
@@ -218,7 +199,7 @@ void RNDIS_Task(void)
 
 		/* Select the data OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-		
+
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
 		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
 		{
@@ -231,23 +212,23 @@ void RNDIS_Task(void)
 				Endpoint_StallTransaction();
 				return;
 			}
-			
+
 			/* Read in the Ethernet frame into the buffer */
 			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearOUT();
-			
+
 			/* Store the size of the Ethernet frame */
 			FrameIN.FrameLength = RNDISPacketHeader.DataLength;
 
 			/* Indicate Ethernet IN buffer full */
 			FrameIN.FrameInBuffer = true;
 		}
-		
+
 		/* Select the data IN endpoint */
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-		
+
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
 		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
 		{
@@ -265,10 +246,10 @@ void RNDIS_Task(void)
 
 			/* Send the Ethernet frame data to the host */
 			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);
-			
+
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearIN();
-			
+
 			/* Indicate Ethernet OUT buffer no longer full */
 			FrameOUT.FrameInBuffer = false;
 		}
@@ -301,3 +282,4 @@ void Ethernet_Task(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 }
+

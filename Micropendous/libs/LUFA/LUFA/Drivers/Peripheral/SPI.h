@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the SPI peripheral driver.
  *
  *  Hardware SPI subsystem driver for the supported USB AVRs models.
  */
@@ -63,9 +64,11 @@
 		/* Macros: */
 			#define SPI_USE_DOUBLESPEED            (1 << SPE)
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name SPI Prescaler Configuration Masks */
+			//@{
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 2. */
 			#define SPI_SPEED_FCPU_DIV_2           SPI_USE_DOUBLESPEED
 
@@ -86,45 +89,65 @@
 
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 128. */
 			#define SPI_SPEED_FCPU_DIV_128         ((1 << SPR1) | (1 << SPR0))
-			
+			//@}
+
+			/** \name SPI SCK Polarity Configuration Masks */
+			//@{
 			/** SPI clock polarity mask for SPI_Init(). Indicates that the SCK should lead on the rising edge. */
 			#define SPI_SCK_LEAD_RISING            (0 << CPOL)
 
 			/** SPI clock polarity mask for SPI_Init(). Indicates that the SCK should lead on the falling edge. */
 			#define SPI_SCK_LEAD_FALLING           (1 << CPOL)
+			//@}
 
+			/** \name SPI Sample Edge Configuration Masks */
+			//@{
 			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should sampled on the leading edge. */
 			#define SPI_SAMPLE_LEADING             (0 << CPHA)
 
 			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
+			//@}
 			
+			/** \name SPI Data Ordering Configuration Masks */
+			//@{
+			/** SPI data order mask for SPI_Init(). Indicates that data should be shifted out MSB first. */
+			#define SPI_ORDER_MSB_FIRST            (0 << DORD)
+
+			/** SPI data order mask for SPI_Init(). Indicates that data should be shifted out MSB first. */
+			#define SPI_ORDER_LSB_FIRST            (1 << DORD)
+			//@}
+			
+			/** \name SPI Mode Configuration Masks */
+			//@{
 			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
 			#define SPI_MODE_SLAVE                 (0 << MSTR)
 
 			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into master mode. */
 			#define SPI_MODE_MASTER                (1 << MSTR)
-
+			//@}
+			
 		/* Inline Functions: */
-			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
+			/** Initialises the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,
-			 *                         SPI_SCK_*, SPI_SAMPLE_* and SPI_MODE_* masks
+			 *                         SPI_SCK_*, SPI_SAMPLE_*, SPI_ORDER_* and SPI_MODE_* masks.
 			 */
 			static inline void SPI_Init(const uint8_t SPIOptions)
 			{
-				DDRB  |= ((1 << 1) | (1 << 2));
-				PORTB |= ((1 << 0) | (1 << 3));
+				DDRB  |=  ((1 << 1) | (1 << 2));
+				DDRB  &= ~((1 << 0) | (1 << 3));
+				PORTB |=  ((1 << 0) | (1 << 3));
 
 				SPCR   = ((1 << SPE) | SPIOptions);
 
 				if (SPIOptions & SPI_USE_DOUBLESPEED)
-					SPSR |= (1 << SPI2X);
+				  SPSR |= (1 << SPI2X);
 				else
-					SPSR &= ~(1 << SPI2X);
+				  SPSR &= ~(1 << SPI2X);
 			}
-			
+
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
 			static inline void SPI_ShutDown(void)
 			{
@@ -134,12 +157,12 @@
 				SPCR   = 0;
 				SPSR   = 0;
 			}
-			
+
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
 			 *
-			 *  \param[in] Byte  Byte to send through the SPI interface
+			 *  \param[in] Byte  Byte to send through the SPI interface.
 			 *
-			 *  \return Response byte from the attached SPI device
+			 *  \return Response byte from the attached SPI device.
 			 */
 			static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t SPI_TransferByte(const uint8_t Byte)
@@ -152,7 +175,7 @@
 			/** Sends a byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte sent to from the attached SPI device is ignored.
 			 *
-			 *  \param[in] Byte Byte to send through the SPI interface
+			 *  \param[in] Byte  Byte to send through the SPI interface.
 			 */
 			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void SPI_SendByte(const uint8_t Byte)
@@ -164,7 +187,7 @@
 			/** Sends a dummy byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte from the attached SPI device is returned.
 			 *
-			 *  \return The response byte from the attached SPI device
+			 *  \return The response byte from the attached SPI device.
 			 */
 			static inline uint8_t SPI_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t SPI_ReceiveByte(void)
@@ -178,7 +201,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

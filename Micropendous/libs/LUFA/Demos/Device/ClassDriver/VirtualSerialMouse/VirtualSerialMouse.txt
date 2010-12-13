@@ -3,17 +3,17 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Combined Communications Device Class (Virtual Serial Port) and Mouse Demo
  *
  *  \section SSec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs
- *  - Series 6 USB AVRs
- *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  - Series 6 USB AVRs (AT90USBxxx6)
+ *  - Series 4 USB AVRs (ATMEGAxxU4)
+ *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
  *  \section SSec_Info USB Information:
  *
@@ -29,7 +29,7 @@
  *    <td>Communications Device Class (CDC) \n
  *        Human Interface Device Class (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Abstract Control Model (ACM) \n
  *        Mouse Subclass</td>
@@ -46,14 +46,14 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Combined Communications Device Class/Mouse demonstration application.
  *  This gives a simple reference application for implementing a combined
  *  CDC and HID device acting as a both a virtual serial port and a mouse.
  *  Joystick actions are transmitted to the host as strings and as mouse
  *  movements. The device does not respond to serial data sent from the host.
- *  
+ *
  *  After running this demo for the first time on a new computer,
  *  you will need to supply the .INF file located in this demo
  *  project's directory as the device's driver when running under
@@ -74,3 +74,4 @@
  *   </tr>
  *  </table>
  */
+

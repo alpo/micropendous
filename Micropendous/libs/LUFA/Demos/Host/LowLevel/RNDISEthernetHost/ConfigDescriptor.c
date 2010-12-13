@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  needed to communication with an attached USB device. Descriptors are special  computer-readable structures
  *  which the host requests upon device enumeration, to determine the device's capabilities and functions.
  */
- 
+
 #include "ConfigDescriptor.h"
 
 /** Reads and processes an attached device's descriptors, to determine compatibility and pipe configurations. This
@@ -50,7 +50,11 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+
+	USB_Descriptor_Interface_t* RNDISControlInterface  = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint         = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint        = NULL;
+	USB_Descriptor_Endpoint_t*  NotificationEndpoint   = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -64,105 +68,80 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
-	/* Get the CDC control interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoRNDISInterfaceFound;
-	}
 
-	/* Get the IN and OUT data and IN notification endpoints for the RNDIS interface */
-	while (FoundEndpoints != ((1 << RNDIS_NOTIFICATIONPIPE) | (1 << RNDIS_DATAPIPE_IN) | (1 << RNDIS_DATAPIPE_OUT)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
-		/* Fetch the next bulk or interrupt endpoint from the current RNDIS interface */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(RNDISControlInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
-			if (FoundEndpoints & (1 << RNDIS_NOTIFICATIONPIPE))
+			/* Check if we have already found the control interface's notification endpoint or not */
+			if (NotificationEndpoint)
 			{
-				/* Get the next CDC data interface from the configuration descriptor (RNDIS class has two CDC interfaces) */
-				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, 
-				                              DComp_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				/* Get the next RNDIS data interface from the configuration descriptor */
+				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+											  DComp_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
-					return NoRNDISInterfaceFound;
+					return NoCompatibleInterfaceFound;
 				}
+
+				/* Clear any found endpoints */
+				DataINEndpoint       = NULL;
+				DataOUTEndpoint      = NULL;
 			}
 			else
 			{
-				/* Clear the found endpoints mask, since any already processed endpoints aren't in the CDC interface we need */
-				FoundEndpoints = 0;
-
-				/* Disable any already configured pipes from the invalid RNDIS interfaces */
-				Pipe_SelectPipe(RNDIS_NOTIFICATIONPIPE);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(RNDIS_DATAPIPE_OUT);
-				Pipe_DisablePipe();
-			
-				/* Get the next CDC control interface from the configuration descriptor (CDC class has two CDC interfaces) */
+				/* Get the next RNDIS control interface from the configuration descriptor */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-				                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+											  DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
-					return NoRNDISInterfaceFound;
+					return NoCompatibleInterfaceFound;
 				}
+
+				/* Save the interface in case we need to refer back to it later */
+				RNDISControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
+
+				/* Clear any found endpoints */
+				NotificationEndpoint = NULL;
 			}
 
-			/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
-			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-			                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-			{
-				/* Descriptor not found, error out */
-				return NoEndpointFound;
-			}
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
-		
+
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the found endpoint is a interrupt or bulk type descriptor */
-		if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
-			/* If the endpoint is a IN type interrupt endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{							   
-				/* Configure the notification pipe */
-				Pipe_ConfigurePipe(RNDIS_NOTIFICATIONPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-
-				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-				
-				/* Set the flag indicating that the notification pipe has been found */
-				FoundEndpoints |= (1 << RNDIS_NOTIFICATIONPIPE);
-			}
+			/* Check if the found endpoint is a interrupt or bulk type descriptor */
+			if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+			  NotificationEndpoint = EndpointData;
+			else
+			  DataINEndpoint = EndpointData;
 		}
 		else
 		{
-			/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				/* Configure the data IN pipe */
-				Pipe_ConfigurePipe(RNDIS_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-				
-				/* Set the flag indicating that the data IN pipe has been found */
-				FoundEndpoints |= (1 << RNDIS_DATAPIPE_IN);
-			}
-			else
-			{
-				/* Configure the data OUT pipe */
-				Pipe_ConfigurePipe(RNDIS_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-				
-				/* Set the flag indicating that the data OUT pipe has been found */
-				FoundEndpoints |= (1 << RNDIS_DATAPIPE_OUT);
-			}
+			DataOUTEndpoint = EndpointData;
 		}
 	}
+
+	/* Configure the RNDIS data IN pipe */
+	Pipe_ConfigurePipe(RNDIS_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the RNDIS data OUT pipe */
+	Pipe_ConfigurePipe(RNDIS_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the RNDIS notification pipe */
+	Pipe_ConfigurePipe(RNDIS_NOTIFICATION_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+					   NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(NotificationEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
@@ -178,17 +157,21 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the CDC descriptor class, subclass and protocol, break out if correct control interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_CONTROL_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_CONTROL_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_CONTROL_PROTOCOL))
+		if ((Interface->Class    == CDC_CSCP_CDCClass)    &&
+		    (Interface->SubClass == CDC_CSCP_ACMSubclass) &&
+		    (Interface->Protocol == CDC_CSCP_VendorSpecificProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -202,17 +185,21 @@ uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the CDC descriptor class, subclass and protocol, break out if correct data interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_DATA_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_DATA_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_DATA_PROTOCOL))
+		if ((Interface->Class    == CDC_CSCP_CDCDataClass)   &&
+		    (Interface->SubClass == CDC_CSCP_NoDataSubclass) &&
+		    (Interface->Protocol == CDC_CSCP_NoDataProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -228,18 +215,24 @@ uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextCDCDataInterfaceEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
-	
-		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return DESCRIPTOR_SEARCH_Found;
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		/* Check the endpoint type, break out if correct BULK or INTERRUPT type endpoint found */
+		if (((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK) || 
+		    ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}
 
 	return DESCRIPTOR_SEARCH_NotFound;
 }
+

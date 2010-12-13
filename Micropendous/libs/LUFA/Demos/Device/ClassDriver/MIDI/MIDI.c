@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -64,20 +64,21 @@ int main(void)
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+	sei();
+
 	for (;;)
 	{
 		CheckJoystickMovement();
-		
+
 		MIDI_EventPacket_t ReceivedMIDIEvent;
-		if (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
+		while (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
 		{
 			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (ReceivedMIDIEvent.Data3 > 0))
 			  LEDs_SetAllLEDs(ReceivedMIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
 			else
 			  LEDs_SetAllLEDs(LEDS_NO_LEDS);
 		}
-	
+
 		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
 	}
@@ -92,7 +93,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
@@ -107,11 +108,11 @@ void CheckJoystickMovement(void)
 
 	uint8_t MIDICommand = 0;
 	uint8_t MIDIPitch;
-	
+
 	/* Get current joystick mask, XOR with previous to detect joystick changes */
 	uint8_t JoystickStatus  = Joystick_GetStatus();
 	uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
-		
+
 	/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
 	uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
@@ -132,7 +133,7 @@ void CheckJoystickMovement(void)
 		MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3E;
 	}
-	
+
 	if (JoystickChanges & JOY_DOWN)
 	{
 		MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
@@ -144,19 +145,19 @@ void CheckJoystickMovement(void)
 		MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3B;
 	}
-	
+
 	if (MIDICommand)
 	{
 		MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 			{
 				.CableNumber = 0,
 				.Command     = (MIDICommand >> 4),
-				
+
 				.Data1       = MIDICommand | Channel,
 				.Data2       = MIDIPitch,
-				.Data3       = MIDI_STANDARD_VELOCITY,			
+				.Data3       = MIDI_STANDARD_VELOCITY,
 			};
-			
+
 		MIDI_Device_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
 		MIDI_Device_Flush(&Keyboard_MIDI_Interface);
 	}
@@ -179,14 +180,16 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-	
-	if (!(MIDI_Device_ConfigureEndpoints(&Keyboard_MIDI_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	bool ConfigSuccess = true;
+
+	ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&Keyboard_MIDI_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	MIDI_Device_ProcessControlRequest(&Keyboard_MIDI_Interface);
 }
+

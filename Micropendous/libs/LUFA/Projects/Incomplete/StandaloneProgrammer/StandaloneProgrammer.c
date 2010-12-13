@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,7 +40,7 @@
 /** Standard file stream for the currently open file on the disk. */
 FILE DiskStream = FDEV_SETUP_STREAM(NULL, Disk_getchar, _FDEV_SETUP_READ);
 
-/** Petite FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** Petite FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
 /** Stream character fetching routine for the FAT driver so that characters from the currently open file can be
@@ -67,8 +67,8 @@ void EVENT_USB_UIDChange(void)
 }
 #endif
 
-/** Task to determine if the user is wishes to start the programming sequence, and if so executes the 
- *  required functions to program the attached target (if any) with the files loaded to the dataflash.
+/** Task to determine if the user is wishes to start the programming sequence, and if so executes the
+ *  required functions to program the attached target (if any) with the files loaded to the Dataflash.
  */
 void Programmer_Task(void)
 {
@@ -80,11 +80,11 @@ void Programmer_Task(void)
 			HasAttempted = true;
 		else
 			return;
-			
+
 		puts("==== PROGRAMMING CYCLE STARTED ====\r\n");
 
 		#if defined(USB_CAN_BE_BOTH)
-		printf("Using %s Drive...\r\n", (USB_CurrentMode == USB_MODE_HOST) ? "External" : "Internal");
+		printf("Using %s Drive...\r\n", (USB_CurrentMode == USB_MODE_Host) ? "External" : "Internal");
 		#endif
 
 		puts("Reading Configuration File...\r\n");
@@ -108,12 +108,13 @@ int main(void)
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
 		Programmer_Task();
-		  
-		if (USB_CurrentMode == USB_MODE_HOST)
+
+		if (USB_CurrentMode == USB_MODE_Host)
 		{
 			#if defined(USB_CAN_BE_HOST)
 			DiskHost_USBTask();
@@ -125,7 +126,7 @@ int main(void)
 			DiskDevice_USBTask();
 			#endif
 		}
-		
+
 		USB_USBTask();
 	}
 }
@@ -158,3 +159,4 @@ void SetupHardware(void)
 	DataflashManager_ResetDataflashProtections();
 	#endif
 }
+

@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V6.0.3 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
 
     ***************************************************************************
     *                                                                         *
@@ -10,7 +10,7 @@
     *    + Looking for basic training,                                        *
     *    + Wanting to improve your FreeRTOS skills and productivity           *
     *                                                                         *
-    * then take a look at the FreeRTOS eBook                                  *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
     *                                                                         *
     *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
     *                  http://www.FreeRTOS.org/Documentation                  *
@@ -119,7 +119,7 @@ typedef struct corCoRoutineControlBlock
  // Variables in co-routines must be declared static if they must maintain value across a blocking call.
  // This may not be necessary for const variables.
  static const char cLedToFlash[ 2 ] = { 5, 6 };
- static const portTickType xTimeToDelay[ 2 ] = { 200, 400 };
+ static const portTickType uxFlashRates[ 2 ] = { 200, 400 };
 
      // Must start every co-routine with a call to crSTART();
      crSTART( xHandle );

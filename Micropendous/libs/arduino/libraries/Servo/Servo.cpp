@@ -99,21 +99,20 @@ static inline void handle_interrupts(timer16_Sequence_t timer, volatile uint16_t
 
 #ifndef WIRING // Wiring pre-defines signal handlers so don't define any if compiling for the Wiring platform
 // Interrupt handlers for Arduino 
-#if defined(_useTimer1)
-SIGNAL (TIMER1_COMPA_vect) 
-{ 
-  handle_interrupts(_timer1, &TCNT1, &OCR1A); 
-}
-#endif
+
+// Cannot use Timer1 as it is used by FreeRTOS
+//#if defined(_useTimer1)
+//SIGNAL (TIMER1_COMPA_vect) 
+//{ 
+//  handle_interrupts(_timer1, &TCNT1, &OCR1A); 
+//}
+//#endif
 
 #if defined(_useTimer3)
-#ifndef TIMER3COMPAvectDefinition
-#define TIMER3COMPAvectDefinition
 SIGNAL (TIMER3_COMPA_vect) 
 { 
   handle_interrupts(_timer3, &TCNT3, &OCR3A); 
 }
-#endif
 #endif
 
 #if defined(_useTimer4)

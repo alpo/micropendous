@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,8 +29,9 @@
 */
 
 /** \file
+ *  \brief Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
- *  Board specific Dataflash commands header for the AT45DB642D as mounted on the USBKEY.
+ *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
@@ -39,26 +40,31 @@
 /** \ingroup Group_Dataflash_USBKEY
  *  @defgroup Group_Dataflash_USBKEY_AT45DB642D AT45DB642D
  *
- *  Board specific Dataflash commands header for the AT45DB642D as mounted on the USBKEY.
+ *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  *
  *  @{
  */
- 
+
 #ifndef __DATAFLASH_CMDS_H__
 #define __DATAFLASH_CMDS_H__
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name Dataflash Status Values */
+			//@{
 			#define DF_STATUS_READY                         (1 << 7)
 			#define DF_STATUS_COMPMISMATCH                  (1 << 6)
 			#define DF_STATUS_SECTORPROTECTION_ON           (1 << 1)
 			#define DF_STATUS_BINARYPAGESIZE_ON             (1 << 0)
-			
+			//@}
+
 			#define DF_MANUFACTURER_ATMEL                   0x1F
-		
+
+			/** \name Dataflash Commands */
+			//@{
 			#define DF_CMD_GETSTATUS                        0xD7
 			#define DF_CMD_POWERDOWN                        0xB9
 			#define DF_CMD_WAKEUP                           0xAB
@@ -69,12 +75,12 @@
 			#define DF_CMD_MAINMEMTOBUFF2COMP               0x61
 			#define DF_CMD_AUTOREWRITEBUFF1                 0x58
 			#define DF_CMD_AUTOREWRITEBUFF2                 0x59
-			
+
 			#define DF_CMD_MAINMEMPAGEREAD                  0xD2
 			#define DF_CMD_CONTARRAYREAD_LF                 0x03
 			#define DF_CMD_BUFF1READ_LF                     0xD1
 			#define DF_CMD_BUFF2READ_LF                     0xD3
-			
+
 			#define DF_CMD_BUFF1WRITE                       0x84
 			#define DF_CMD_BUFF2WRITE                       0x87
 			#define DF_CMD_BUFF1TOMAINMEMWITHERASE          0x83
@@ -83,7 +89,7 @@
 			#define DF_CMD_BUFF2TOMAINMEM                   0x89
 			#define DF_CMD_MAINMEMPAGETHROUGHBUFF1          0x82
 			#define DF_CMD_MAINMEMPAGETHROUGHBUFF2          0x85
-			
+
 			#define DF_CMD_PAGEERASE                        0x81
 			#define DF_CMD_BLOCKERASE                       0x50
 			#define DF_CMD_SECTORERASE                      0x7C
@@ -93,15 +99,17 @@
 			#define DF_CMD_CHIPERASE_BYTE2                  0x94
 			#define DF_CMD_CHIPERASE_BYTE3                  0x80
 			#define DF_CMD_CHIPERASE_BYTE4                  0x9A
-			
+
 			#define DF_CMD_SECTORPROTECTIONOFF              ((char[]){0x3D, 0x2A, 0x7F, 0x9A})
 			#define DF_CMD_SECTORPROTECTIONOFF_BYTE1        0x3D
 			#define DF_CMD_SECTORPROTECTIONOFF_BYTE2        0x2A
 			#define DF_CMD_SECTORPROTECTIONOFF_BYTE3        0x7F
 			#define DF_CMD_SECTORPROTECTIONOFF_BYTE4        0x9A
-			
+
 			#define DF_CMD_READMANUFACTURERDEVICEINFO       0x9F
+			//@}
 
 #endif
 
 /** @} */
+

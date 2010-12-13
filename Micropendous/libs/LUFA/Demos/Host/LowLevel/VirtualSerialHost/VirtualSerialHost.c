@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the VirtualSerialHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "VirtualSerialHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -46,6 +46,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -111,13 +112,14 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -132,7 +134,7 @@ void CDC_Host_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -142,7 +144,7 @@ void CDC_Host_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -150,7 +152,7 @@ void CDC_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -171,7 +173,7 @@ void CDC_Host_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select the data IN pipe */
-			Pipe_SelectPipe(CDC_DATAPIPE_IN);
+			Pipe_SelectPipe(CDC_DATA_IN_PIPE);
 			Pipe_Unfreeze();
 
 			/* Check to see if a packet has been received */
@@ -186,10 +188,10 @@ void CDC_Host_Task(void)
 					/* Get the length of the pipe data, and create a new buffer to hold it */
 					uint16_t BufferLength = Pipe_BytesInPipe();
 					uint8_t  Buffer[BufferLength];
-					
+
 					/* Read in the pipe data to the temporary buffer */
 					Pipe_Read_Stream_LE(Buffer, BufferLength);
-									
+
 					/* Print out the buffer contents to the USART */
 					for (uint16_t BufferByte = 0; BufferByte < BufferLength; BufferByte++)
 					  putchar(Buffer[BufferByte]);
@@ -203,19 +205,20 @@ void CDC_Host_Task(void)
 			Pipe_Freeze();
 
 			/* Select and unfreeze the notification pipe */
-			Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);
+			Pipe_SelectPipe(CDC_NOTIFICATION_PIPE);
 			Pipe_Unfreeze();
-			
+
 			/* Check if a packet has been received */
 			if (Pipe_IsINReceived())
 			{
 				/* Discard the unused event notification */
 				Pipe_ClearIN();
 			}
-			
+
 			/* Freeze notification IN pipe after use */
 			Pipe_Freeze();
-						
+
 			break;
 	}
 }
+

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the DualVirtualSerial demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
- 
+
 #include "DualVirtualSerial.h"
 
 /** Contains the current baud rate and other settings of the first virtual serial port. While this demo does not use
@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding1 = { .BaudRateBPS = 0,
-                                    .CharFormat  = OneStopBit,
-                                    .ParityType  = Parity_None,
-                                    .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
+                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                     .ParityType  = CDC_PARITY_None,
+                                     .DataBits    = 8                            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -57,10 +57,10 @@ CDC_Line_Coding_t LineEncoding1 = { .BaudRateBPS = 0,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
-                                    .CharFormat  = OneStopBit,
-                                    .ParityType  = Parity_None,
-                                    .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
+                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                     .ParityType  = CDC_PARITY_None,
+                                     .DataBits    = 8                            };
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -69,6 +69,9 @@ CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
 int main(void)
 {
 	SetupHardware();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -116,108 +119,74 @@ void EVENT_USB_Device_Disconnect(void)
  *  of the USB device after enumeration - the device endpoints are configured and the CDC management tasks are started.
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
-{							   
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+{
+	bool ConfigSuccess = true;
 
-	/* Setup CDC Notification, Rx and Tx Endpoints for the first CDC */
-	if (!(Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	/* Setup CDC Notification, Rx and Tx Endpoints for the second CDC */
-	if (!(Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
+	/* Setup first CDC Interface's Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+
+	/* Setup second CDC Interface's Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+
 	/* Reset line encoding baud rates so that the host knows to send new values */
 	LineEncoding1.BaudRateBPS = 0;
 	LineEncoding2.BaudRateBPS = 0;
+
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the CDC control commands,
- *  which are all issued via the control endpoint), so that they can be handled appropriately for the application.
+/** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
+ *  the device from the USB host before passing along unhandled control requests to the library for processing
+ *  internally.
  */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
 	/* Determine which interface's Line Coding data is being set from the wIndex parameter */
-	uint8_t* LineEncodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineEncoding1 : (uint8_t*)&LineEncoding2;
+	void* LineEncodingData = (USB_ControlRequest.wIndex == 0) ? &LineEncoding1 : &LineEncoding2;
 
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
-			{	
-				/* Acknowledge the SETUP packet, ready for data transfer */
+			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
+				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
-			
+
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
-
-				/* Finalize the stream transfer to clear the last packet from the host */
+				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
-	
+
 			break;
-		case REQ_SetControlLineState:
+		case CDC_REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
-				
 				Endpoint_ClearStatusStage();
 			}
-	
+
 			break;
 	}
 }
@@ -230,7 +199,7 @@ void CDC1_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-	
+
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
@@ -253,26 +222,26 @@ void CDC1_Task(void)
 	if ((ReportString != NULL) && (ActionSent == false) && LineEncoding1.BaudRateBPS)
 	{
 		ActionSent = true;
-		
+
 		/* Select the Serial Tx Endpoint */
 		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
-		
+
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for another packet */
 		Endpoint_WaitUntilReady();
-		
+
 		/* Send an empty packet to ensure that the host does not buffer data sent to it */
 		Endpoint_ClearIN();
 	}
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC1_RX_EPNUM);
-	
+
 	/* Throw away any received data from the host */
 	if (Endpoint_IsOUTReceived())
 	  Endpoint_ClearOUT();
@@ -289,16 +258,16 @@ void CDC2_Task(void)
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC2_RX_EPNUM);
-	
+
 	/* Check to see if any data has been received */
 	if (Endpoint_IsOUTReceived())
 	{
 		/* Create a temp buffer big enough to hold the incoming endpoint packet */
 		uint8_t  Buffer[Endpoint_BytesInEndpoint()];
-		
+
 		/* Remember how large the incoming packet is */
 		uint16_t DataLength = Endpoint_BytesInEndpoint();
-	
+
 		/* Read in the incoming packet into the buffer */
 		Endpoint_Read_Stream_LE(&Buffer, DataLength);
 
@@ -307,7 +276,7 @@ void CDC2_Task(void)
 
 		/* Select the Serial Tx Endpoint */
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
-		
+
 		/* Write the received data to the endpoint */
 		Endpoint_Write_Stream_LE(&Buffer, DataLength);
 
@@ -321,3 +290,4 @@ void CDC2_Task(void)
 		Endpoint_ClearIN();
 	}
 }
+

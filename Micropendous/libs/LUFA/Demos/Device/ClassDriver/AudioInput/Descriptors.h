@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,20 +32,19 @@
  *
  *  Header file for Descriptors.c.
  */
- 
+
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Audio.h>
 
 		#include <avr/pgmspace.h>
 
 	/* Macros: */
 		/** Endpoint number of the Audio isochronous streaming data endpoint. */
 		#define AUDIO_STREAM_EPNUM           1
-		
+
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
 		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller
 		 *  USB AVR models will result in unavoidable distorted output.
@@ -62,21 +61,24 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
-			USB_Audio_InputTerminal_t             InputTerminal;
-			USB_Audio_OutputTerminal_t            OutputTerminal;
-			USB_Descriptor_Interface_t            AudioStreamInterface_Alt0;
-			USB_Descriptor_Interface_t            AudioStreamInterface_Alt1;
-			USB_Audio_Interface_AS_t              AudioStreamInterface_SPC;
-			USB_Audio_Format_t                    AudioFormat;
-			USB_Audio_StreamEndpoint_Std_t        AudioEndpoint;
-			USB_Audio_StreamEndpoint_Spc_t        AudioEndpoint_SPC;
+			USB_Descriptor_Configuration_Header_t     Config;
+			USB_Descriptor_Interface_t                Audio_ControlInterface;
+			USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+			USB_Audio_Descriptor_InputTerminal_t      Audio_InputTerminal;
+			USB_Audio_Descriptor_OutputTerminal_t     Audio_OutputTerminal;
+			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt0;
+			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt1;
+			USB_Audio_Descriptor_Interface_AS_t       Audio_StreamInterface_SPC;
+			USB_Audio_Descriptor_Format_t             Audio_AudioFormat;
+			USB_Audio_Descriptor_StreamEndpoint_Std_t Audio_StreamEndpoint;
+			USB_Audio_Descriptor_StreamEndpoint_Spc_t Audio_StreamEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+		                                    const uint8_t wIndex,
+		                                    const void** const DescriptorAddress)
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif
+

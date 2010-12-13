@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-/  Low level disk interface modlue include file  R0.07   (C)ChaN, 2010
+/  Low level disk interface module include file  R0.07   (C)ChaN, 2010
 /-----------------------------------------------------------------------*/
 
 #ifndef _DISKIO
@@ -70,3 +70,4 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 
 #define _DISKIO
 #endif
+

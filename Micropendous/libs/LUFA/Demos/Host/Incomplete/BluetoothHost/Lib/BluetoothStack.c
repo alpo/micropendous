@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,61 +28,47 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main module for the Bluetooth stack. This module contains the overall Bluetooth
+ *  stack state variables and the main Bluetooth stack management functions.
+ */
+
 #include "BluetoothStack.h"
 
-Bluetooth_Connection_t Bluetooth_Connection = {IsConnected: false};
+/** Bluetooth device connection information structure. Once connected to a remote device, this structure tracks the
+ *  connection state of the individual L2CAP channels.
+ */
+Bluetooth_Connection_t Bluetooth_Connection = { IsConnected: false };
 
-Bluetooth_Device_t     Bluetooth_DeviceConfiguration ATTR_WEAK =
-	{
-		Class:   DEVICE_CLASS_MAJOR_MISC,
-		PINCode: "0000",
-		Name:    "LUFA BT Device"
-	};
+/** Bluetooth device state information structure. This structure contains details on the current Bluetooth stack
+ *  state.
+ */
+Bluetooth_Stack_State_t Bluetooth_State     = { IsInitialized: false };
 
-void Bluetooth_Stack_Task(void)
+/** Bluetooth stack initialization function. This function must be called once to initialize the Bluetooth stack,
+ *  ready for connection to remote devices.
+ *
+ *  \note This function only begins the initialization process; the stack is initialized as the main Bluetooth stack
+ *        management task is repeatedly called. The initialization process ends when the IsInitialized element of the
+ *        \ref Bluetooth_State structure becomes true and the \ref Bluetooth_StackInitialized() callback fires.
+ */
+void Bluetooth_Stack_Init(void)
+{
+	/* Reset the HCI state machine - this will reset the adapter and stack when the Bluetooth stack task is called */
+	Bluetooth_State.CurrentHCIState = Bluetooth_Init;
+	Bluetooth_State.NextHCIState    = Bluetooth_Init;
+}
+
+/** Bluetooth stack management task. This task must be repeatedly called to maintain the Bluetooth stack and any connection
+ *  to remote Bluetooth devices, including both the HCI control layer and the ACL channel layer.
+ */
+void Bluetooth_Stack_USBTask(void)
 {
 	if (USB_HostState != HOST_STATE_Configured)
-	  Bluetooth_HCIProcessingState = Bluetooth_Init;
-		
-	Bluetooth_ProcessHCICommands();
-	Bluetooth_ProcessACLPackets();
+	  return;
+
+	Bluetooth_HCITask();
+	Bluetooth_ACLTask();
 }
 
-Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource)
-{
-	Bluetooth_Channel_t* CurrentChannelStructure;
-
-	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
-	{
-		CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
-	
-		uint16_t CurrentChannelNumber = ((SearchBySource) ? CurrentChannelStructure->RemoteNumber : CurrentChannelStructure->LocalNumber);
-	
-		if (CurrentChannelNumber == ChannelNumber)
-		  return CurrentChannelStructure;
-	}
-
-	return NULL;
-}
-
-Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM)
-{
-	Bluetooth_Channel_t* CurrentChannelStructure;
-
-	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
-	{
-		CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
-	
-		if (CurrentChannelStructure->State == Channel_Closed)
-		{
-			CurrentChannelStructure->RemoteNumber = RemoteChannelNumber;
-			CurrentChannelStructure->LocalNumber  = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
-			CurrentChannelStructure->PSM          = PSM;
-			CurrentChannelStructure->State        = Channel_Config;
-			
-			return CurrentChannelStructure;
-		}		
-	}
-
-	return NULL;
-}

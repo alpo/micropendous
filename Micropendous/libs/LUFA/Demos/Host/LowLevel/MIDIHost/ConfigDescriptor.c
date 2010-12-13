@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  needed to communication with an attached USB device. Descriptors are special  computer-readable structures
  *  which the host requests upon device enumeration, to determine the device's capabilities and functions.
  */
- 
+
 #include "ConfigDescriptor.h"
 
 /** Reads and processes an attached device's descriptors, to determine compatibility and pipe configurations. This
@@ -50,7 +50,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+
+	USB_Descriptor_Interface_t* MIDIInterface   = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -64,48 +67,50 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
-	/* Get the MIDI Audio Streaming interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Descriptor not found, error out */
-		return NoCDCInterfaceFound;
-	}
-	
-	/* Get the IN and OUT data endpoints for the MIDI interface */
-	while (FoundEndpoints != ((1 << MIDI_DATAPIPE_IN) | (1 << MIDI_DATAPIPE_OUT)))
-	{
-		/* Fetch the next bulk endpoint from the current MIDI streaming interface */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(MIDIInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Descriptor not found, error out */
-			return NoEndpointFound;
+			/* Get the next Mass Storage interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
+
+			/* Save the interface in case we need to refer back to it later */
+			MIDIInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
+
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
-		
+
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
+		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			/* Configure the data IN pipe */
-			Pipe_ConfigurePipe(MIDI_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-			
-			/* Set the flag indicating that the data IN pipe has been found */
-			FoundEndpoints |= (1 << MIDI_DATAPIPE_IN);
-		}
+		  DataINEndpoint  = EndpointData;
 		else
-		{
-			/* Configure the data OUT pipe */
-			Pipe_ConfigurePipe(MIDI_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-			
-			/* Set the flag indicating that the data OUT pipe has been found */
-			FoundEndpoints |= (1 << MIDI_DATAPIPE_OUT);
-		}
+		  DataOUTEndpoint = EndpointData;
 	}
+
+	/* Configure the MIDI data IN pipe */
+	Pipe_ConfigurePipe(MIDI_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the MIDI data OUT pipe */
+	Pipe_ConfigurePipe(MIDI_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
@@ -121,17 +126,21 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the MIDI descriptor class, subclass and protocol, break out if correct data interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == MIDI_STREAMING_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == MIDI_STREAMING_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MIDI_STREAMING_PROTOCOL))
+		if ((Interface->Class    == AUDIO_CSCP_AudioClass)            &&
+		    (Interface->SubClass == AUDIO_CSCP_MIDIStreamingSubclass) &&
+		    (Interface->Protocol == AUDIO_CSCP_StreamingProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -146,19 +155,21 @@ uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextMIDIStreamingDataEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
-	
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
 		/* Check the endpoint type, break out if correct BULK type endpoint found */
-		if (EndpointType == EP_TYPE_BULK)
+		if ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}
 
 	return DESCRIPTOR_SEARCH_NotFound;
 }
+

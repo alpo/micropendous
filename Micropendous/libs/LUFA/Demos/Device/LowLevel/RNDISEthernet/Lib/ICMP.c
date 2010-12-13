@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  Echo requests from the host, to indicate a successful network connection between the host
  *  and the virtual server.
  */
- 
+
 #include "ICMP.h"
 
 /** Processes an ICMP packet inside an Ethernet frame, and writes the appropriate response
@@ -45,7 +45,8 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t ICMP_ProcessICMPPacket(void* InDataStart, void* OutDataStart)
+int16_t ICMP_ProcessICMPPacket(void* InDataStart,
+                               void* OutDataStart)
 {
 	ICMP_Header_t* ICMPHeaderIN  = (ICMP_Header_t*)InDataStart;
 	ICMP_Header_t* ICMPHeaderOUT = (ICMP_Header_t*)OutDataStart;
@@ -61,19 +62,20 @@ int16_t ICMP_ProcessICMPPacket(void* InDataStart, void* OutDataStart)
 		ICMPHeaderOUT->Checksum = 0;
 		ICMPHeaderOUT->Id       = ICMPHeaderIN->Id;
 		ICMPHeaderOUT->Sequence = ICMPHeaderIN->Sequence;
-		
-		uint16_t DataSize = FrameIN.FrameLength - ((((uint16_t)InDataStart + sizeof(ICMP_Header_t)) - (uint16_t)FrameIN.FrameData));
-		
+
+		intptr_t DataSize = FrameIN.FrameLength - ((((intptr_t)InDataStart + sizeof(ICMP_Header_t)) - (intptr_t)FrameIN.FrameData));
+
 		/* Copy the remaining payload to the response - echo requests should echo back any sent data */
-		memcpy(&((uint8_t*)OutDataStart)[sizeof(ICMP_Header_t)],
-		       &((uint8_t*)InDataStart)[sizeof(ICMP_Header_t)],
-			   DataSize);
+		memmove(&((uint8_t*)OutDataStart)[sizeof(ICMP_Header_t)],
+		        &((uint8_t*)InDataStart)[sizeof(ICMP_Header_t)],
+			    DataSize);
 
 		ICMPHeaderOUT->Checksum = Ethernet_Checksum16(ICMPHeaderOUT, (DataSize + sizeof(ICMP_Header_t)));
 
 		/* Return the size of the response so far */
 		return (DataSize + sizeof(ICMP_Header_t));
 	}
-	
+
 	return NO_RESPONSE;
 }
+

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for Joystick.c.
  */
- 
+
 #ifndef _JOYSTICK_H_
 #define _JOYSTICK_H_
 
@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 		#include <string.h>
 
 		#include "Descriptors.h"
@@ -49,7 +50,6 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 
 	/* Type Defines: */
 		/** Type define for the joystick HID report structure, for creating and sending HID reports to the host PC.
@@ -61,7 +61,7 @@
 			int8_t  Y; /**< Current absolute joystick Y position, as a signed 8-bit integer */
 			uint8_t Button; /**< Bit mask of the currently pressed joystick buttons */
 		} USB_JoystickReport_Data_t;
-			
+
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -81,12 +81,19 @@
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_ControlRequest(void);
 		void EVENT_USB_Device_StartOfFrame(void);
 
-		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
-                                                 const uint8_t ReportType, void* ReportData, uint16_t* ReportSize);
-		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID, 
-		                                          const void* ReportData, const uint16_t ReportSize);
+		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
+		                                         uint8_t* const ReportID,
+		                                         const uint8_t ReportType,
+		                                         void* ReportData,
+		                                         uint16_t* const ReportSize);
+		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
+		                                          const uint8_t ReportID,
+		                                          const uint8_t ReportType,
+		                                          const void* ReportData,
+		                                          const uint16_t ReportSize);
 
 #endif
+

@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V6.0.2 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
 
     ***************************************************************************
     *                                                                         *
@@ -10,7 +10,7 @@
     *    + Looking for basic training,                                        *
     *    + Wanting to improve your FreeRTOS skills and productivity           *
     *                                                                         *
-    * then take a look at the FreeRTOS eBook                                  *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
     *                                                                         *
     *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
     *                  http://www.FreeRTOS.org/Documentation                  *
@@ -69,10 +69,6 @@ Changes from V2.6.0
 	+ Replaced the inb() and outb() functions with direct memory
 	  access.  This allows the port to be built with the 20050414 build of
 	  WinAVR.
-
-Changes from V6.0.2
-
-	+ Adapted for USB AVRs and other modern AVRs by Opendous Inc.
 */
 
 /* BASIC INTERRUPT DRIVEN SERIAL PORT DRIVER. */
@@ -84,73 +80,77 @@ Changes from V6.0.2
 #include "queue.h"
 #include "task.h"
 #include "serial.h"
-#include <LUFA/Drivers/Peripheral/Serial.h>
-
-/* register redefinitions */
-#include "avr_registers.h"
 
 #define serBAUD_DIV_CONSTANT			( ( unsigned long ) 16 )
 
 /* Constants for writing to UCSRB. */
-#define serRX_INT_ENABLE				(1 << RXCIE1)
-#define serRX_ENABLE					(1 << RXEN1)
-#define serTX_ENABLE					(1 << TXEN1)
-#define serTX_INT_ENABLE				(1 << UDRIE1)
+#define serRX_INT_ENABLE				( ( unsigned char ) 0x80 )
+#define serRX_ENABLE					( ( unsigned char ) 0x10 )
+#define serTX_ENABLE					( ( unsigned char ) 0x08 )
+#define serTX_INT_ENABLE				( ( unsigned char ) 0x20 )
 
 /* Constants for writing to UCSRC. */
-#define serEIGHT_DATA_BITS				((1 << UCSZ11) | (1 << UCSZ10))
+#define serUCSRC_SELECT					( ( unsigned char ) 0x80 )
+#define serEIGHT_DATA_BITS				( ( unsigned char ) 0x06 )
 
 static xQueueHandle xRxedChars; 
 static xQueueHandle xCharsForTx; 
 
-#define vInterruptOn()	{ UCSR1B |= serTX_INT_ENABLE; }
-#define vInterruptOff()	{ UCSR1B &= ~serTX_INT_ENABLE; }
+#define vInterruptOn()										\
+{															\
+	unsigned char ucByte;								\
+															\
+	ucByte = UCSRB;											\
+	ucByte |= serTX_INT_ENABLE;								\
+	UCSRB = ucByte;											\
+}																				
+/*-----------------------------------------------------------*/
 
+#define vInterruptOff()										\
+{															\
+	unsigned char ucInByte;								\
+															\
+	ucInByte = UCSRB;										\
+	ucInByte &= ~serTX_INT_ENABLE;							\
+	UCSRB = ucInByte;										\
+}
 /*-----------------------------------------------------------*/
 
 xComPortHandle xSerialPortInitMinimal( unsigned long ulWantedBaud, unsigned portBASE_TYPE uxQueueLength )
 {
-	//unsigned long ulBaudRateCounter;
-	//unsigned char ucByte;
+unsigned long ulBaudRateCounter;
+unsigned char ucByte;
 
-
-	// Create the queues used by the com test task.
-	xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
-	xCharsForTx = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
-
-	Serial_Init(9600, false);
-
-
-/*
 	portENTER_CRITICAL();
 	{
-		// Create the queues used by the com test task.
+		/* Create the queues used by the com test task. */
 		xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
 		xCharsForTx = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
 
-		// Calculate baud rate register value from the equation in the datasheet
+		/* Calculate the baud rate register value from the equation in the
+		data sheet. */
 		ulBaudRateCounter = ( configCPU_CLOCK_HZ / ( serBAUD_DIV_CONSTANT * ulWantedBaud ) ) - ( unsigned long ) 1;
 
-		// Set the baud rate.
+		/* Set the baud rate. */	
 		ucByte = ( unsigned char ) ( ulBaudRateCounter & ( unsigned long ) 0xff );	
-		UBRR1L = ucByte;
+		UBRRL = ucByte;
 
 		ulBaudRateCounter >>= ( unsigned long ) 8;
 		ucByte = ( unsigned char ) ( ulBaudRateCounter & ( unsigned long ) 0xff );	
-		UBRR1H = ucByte;
+		UBRRH = ucByte;
 
-		// Enable the Rx interrupt.  The Tx interrupt will get enabled
-		// later. Also enable the Rx and Tx.
-		UCSR1B = ( serRX_INT_ENABLE | serRX_ENABLE | serTX_ENABLE );
+		/* Enable the Rx interrupt.  The Tx interrupt will get enabled
+		later. Also enable the Rx and Tx. */
+		UCSRB = ( serRX_INT_ENABLE | serRX_ENABLE | serTX_ENABLE );
 
-		// Set the data bits to 8
-		UCSR1C = serEIGHT_DATA_BITS;
+		/* Set the data bits to 8. */
+		UCSRC = ( serUCSRC_SELECT | serEIGHT_DATA_BITS );
 	}
 	portEXIT_CRITICAL();
-*/
-	// Unlike other ports, this serial code does not allow for more than one
-	// com port.  We therefore don't return a pointer to a port structure and can
-	// instead just return NULL.
+	
+	/* Unlike other ports, this serial code does not allow for more than one
+	com port.  We therefore don't return a pointer to a port structure and can
+	instead just return NULL. */
 	return NULL;
 }
 /*-----------------------------------------------------------*/
@@ -203,15 +203,15 @@ unsigned char ucByte;
 	portENTER_CRITICAL();
 	{
 		vInterruptOff();
-		ucByte = UCSR1B;
+		ucByte = UCSRB;
 		ucByte &= ~serRX_INT_ENABLE;
-		UCSR1B = ucByte;
+		UCSRB = ucByte;
 	}
 	portEXIT_CRITICAL();
 }
 /*-----------------------------------------------------------*/
 
-ISR(USART1_RX_vect, ISR_BLOCK)
+SIGNAL( SIG_UART_RECV )
 {
 signed char cChar;
 signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
@@ -220,7 +220,6 @@ signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	If the post causes a task to wake force a context switch as the woken task
 	may have a higher priority than the task we have interrupted. */
 	cChar = UDR;
-//	cChar = Serial_RxByte();
 
 	xQueueSendFromISR( xRxedChars, &cChar, &xHigherPriorityTaskWoken );
 
@@ -231,7 +230,7 @@ signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 }
 /*-----------------------------------------------------------*/
 
-ISR(USART1_UDRE_vect, ISR_BLOCK)
+SIGNAL( SIG_UART_DATA )
 {
 signed char cChar, cTaskWoken;
 
@@ -239,7 +238,6 @@ signed char cChar, cTaskWoken;
 	{
 		/* Send the next character queued for Tx. */
 		UDR = cChar;
-//		Serial_TxByte(cChar);
 	}
 	else
 	{

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,6 +46,7 @@ struct timer ARPTimer;
 /** MAC address of the RNDIS device, when enumerated */
 struct uip_eth_addr MACAddress;
 
+bool HaveIPConfiguration;
 
 /** Configures the uIP stack ready for network traffic. */
 void uIPManagement_Init(void)
@@ -53,7 +54,7 @@ void uIPManagement_Init(void)
 	/* uIP Timing Initialization */
 	clock_init();
 	timer_set(&ConnectionTimer, CLOCK_SECOND / 2);
-	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
+	timer_set(&ARPTimer, CLOCK_SECOND * 10);
 
 	/* uIP Stack Initialization */
 	uip_init();
@@ -62,8 +63,10 @@ void uIPManagement_Init(void)
 
 	/* DHCP/Server IP Settings Initialization */
 	#if defined(ENABLE_DHCP_CLIENT)
+	HaveIPConfiguration = false;
 	DHCPClientApp_Init();
 	#else
+	HaveIPConfiguration = true;
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
 	uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
 	uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
@@ -72,12 +75,14 @@ void uIPManagement_Init(void)
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
 	#endif
-	
+
 	/* HTTP Webserver Initialization */
 	HTTPServerApp_Init();
-	
+
 	/* TELNET Server Initialization */
+	#if defined(ENABLE_TELNET_SERVER)
 	TELNETServerApp_Init();
+	#endif
 }
 
 /** uIP Management function. This function manages the uIP stack when called while an RNDIS device has been
@@ -85,7 +90,7 @@ void uIPManagement_Init(void)
  */
 void uIPManagement_ManageNetwork(void)
 {
-	if ((USB_CurrentMode == USB_MODE_HOST) && (USB_HostState == HOST_STATE_Configured))
+	if ((USB_CurrentMode == USB_MODE_Host) && (USB_HostState == HOST_STATE_Configured))
 	{
 		uIPManagement_ProcessIncomingPacket();
 		uIPManagement_ManageConnections();
@@ -103,9 +108,11 @@ void uIPManagement_TCPCallback(void)
 		case HTONS(HTTP_SERVER_PORT):
 			HTTPServerApp_Callback();
 			break;
+		#if defined(ENABLE_TELNET_SERVER)
 		case HTONS(TELNET_SERVER_PORT):
 			TELNETServerApp_Callback();
 			break;
+		#endif
 	}
 }
 
@@ -129,7 +136,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 	/* If no packet received, exit processing routine */
 	if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface)))
 	  return;
-	  
+
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 	/* Read the Incoming packet straight into the UIP packet buffer */
@@ -155,21 +162,21 @@ static void uIPManagement_ProcessIncomingPacket(void)
 
 					uip_split_output();
 				}
-				
+
 				break;
 			case HTONS(UIP_ETHTYPE_ARP):
 				/* Process ARP packet */
 				uip_arp_arpin();
-				
+
 				/* If a response was generated, send it */
 				if (uip_len > 0)
 				  uip_split_output();
-				
+
 				break;
 		}
 	}
 
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY | ((HaveIPConfiguration) ? LEDMASK_UIP_READY_CONFIG : LEDMASK_UIP_READY_NOCONFIG));
 }
 
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */
@@ -197,7 +204,7 @@ static void uIPManagement_ManageConnections(void)
 		timer_reset(&ConnectionTimer);
 
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-		
+
 		for (uint8_t i = 0; i < UIP_CONNS; i++)
 		{
 			/* Run periodic connection management for each TCP connection */
@@ -213,7 +220,7 @@ static void uIPManagement_ManageConnections(void)
 				uip_split_output();
 			}
 		}
-		
+
 		#if defined(ENABLE_DHCP_CLIENT)
 		for (uint8_t i = 0; i < UIP_UDP_CONNS; i++)
 		{
@@ -242,3 +249,4 @@ static void uIPManagement_ManageConnections(void)
 		uip_arp_timer();
 	}
 }
+

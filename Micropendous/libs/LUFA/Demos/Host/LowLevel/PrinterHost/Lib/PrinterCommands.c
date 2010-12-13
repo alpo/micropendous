@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,23 +44,21 @@
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize)
+uint8_t Printer_SendData(const void* const PrinterCommands,
+                         const uint16_t CommandSize)
 {
 	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
-	
+
 	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, CommandSize)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
-	while (!(Pipe_IsOUTReady()))
-	{
-		if (USB_HostState == HOST_STATE_Unattached)
-		  return PIPE_RWSTREAM_DeviceDisconnected;
-	}
-	
+
+	Pipe_WaitUntilReady();
+
 	Pipe_Freeze();
 
 	return PIPE_RWSTREAM_NoError;
@@ -74,7 +72,8 @@ uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
+uint8_t Printer_GetDeviceID(char* DeviceIDString,
+                            const uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength = 0;
@@ -82,38 +81,38 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetDeviceID,
+			.bRequest      = PRNT_REQ_GetDeviceID,
 			.wValue        = 0,
-			.wIndex        = 0,
+			.wIndex        = PrinterInterfaceNumber,
 			.wLength       = sizeof(DeviceIDStringLength),
 		};
-		
+
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	if ((ErrorCode = USB_Host_SendControlRequest(&DeviceIDStringLength)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
+
 	if (!(DeviceIDStringLength))
 	{
 		DeviceIDString[0] = 0x00;
 		return HOST_SENDCONTROL_Successful;
 	}
-	
+
 	DeviceIDStringLength = SwapEndian_16(DeviceIDStringLength);
 
 	if (DeviceIDStringLength > BufferSize)
 	  DeviceIDStringLength = BufferSize;
 
 	USB_ControlRequest.wLength = DeviceIDStringLength;
-	
+
 	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
+
 	/* Move string back two characters to remove the string length value from the start of the array */
 	memmove(&DeviceIDString[0], &DeviceIDString[2], DeviceIDStringLength - 2);
 
 	DeviceIDString[DeviceIDStringLength - 2] = 0x00;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -124,15 +123,15 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
+uint8_t Printer_GetPortStatus(uint8_t* const PortStatus)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      REQ_GetPortStatus,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       sizeof(uint8_t),
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = PRNT_REQ_GetPortStatus,
+			.wValue        = 0,
+			.wIndex        = PrinterInterfaceNumber,
+			.wLength       = sizeof(uint8_t),
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
@@ -150,9 +149,9 @@ uint8_t Printer_SoftReset(void)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SoftReset,
+			.bRequest      = PRNT_REQ_SoftReset,
 			.wValue        = 0,
-			.wIndex        = 0,
+			.wIndex        = PrinterInterfaceNumber,
 			.wLength       = 0,
 		};
 

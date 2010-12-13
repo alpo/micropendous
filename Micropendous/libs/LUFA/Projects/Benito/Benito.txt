@@ -3,17 +3,17 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Benito Arduino Programmer Project
  *
  *  \section SSec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
- *  - Series 7 USB AVRs
- *  - Series 6 USB AVRs
- *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  - Series 6 USB AVRs (AT90USBxxx6)
+ *  - Series 4 USB AVRs (ATMEGAxxU4)
+ *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
  *  \section SSec_Info USB Information:
  *
@@ -28,7 +28,7 @@
  *   <td><b>USB Class:</b></td>
  *   <td>Communications Device Class (CDC)</td>
  *  </tr>
- *  <tr> 
+ *  <tr>
  *   <td><b>USB Subclass:</b></td>
  *   <td>Abstract Control Model (ACM)</td>
  *  </tr>
@@ -43,7 +43,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Firmware for a USB AVR powered programmer for Arduino boards using the official Arduino bootloader. This
  *  project acts like a regular USB to Serial bridge, except that asserting the DTR line will cause a pulse
@@ -68,33 +68,39 @@
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_PORT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the PORT register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_DDR</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the DDR register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_MASK</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the mask of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the target /RESET pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>TX_RX_LED_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the activity Tx/Rx LEDs.</td>
  *   </tr>
  *   <tr>
  *    <td>PING_PONG_LED_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
- *    <td>Pulse length in milliseconds for the enumeration LED ping-poning between toggles.</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Pulse length in milliseconds for the enumeration LED ping-ponging between toggles.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>RECEIVE_BUFFER_FLUSH_MS</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Period between flushings of received data buffer to the attached USB host.</td>
  *   </tr>
  *  </table>
  */
+
