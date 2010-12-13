@@ -16,3 +16,5 @@
 || VCC_Sel || 3.3V/5V || 3.3V/5V || 5V || 5V ||
 || 3.3V at: || 50mA || 500mA || - || - ||
 || Variations || [Micropendous1_Base] || [Micropendous2_JTAG Micropendous2-JTAG] || - || AT90USB647 ||
+
+Other variations are possible and more designs [http://code.google.com/p/opendous/source/browse/trunk/Abandoned_Designs exist].
