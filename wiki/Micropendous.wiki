@@ -4,11 +4,11 @@ The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this b
 
 A PCB of this design can be purchased at cost through [http://batchpcb.com/index.php/Products/44278 BatchPCB].
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-DIP/Micropendous_AngleView.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Micropendous_AngleView.jpg
 
 == Pinout ==
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-DIP/Micropendous_Pinout.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Micropendous_Pinout.jpg
 
 == Features ==
 
