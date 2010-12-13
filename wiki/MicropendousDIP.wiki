@@ -1,5 +1,4 @@
 #summary USB AVR Development Board for the AT90USB1287
-This board is still under development.
 
 The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-DIP` directory.
 
