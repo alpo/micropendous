@@ -22,7 +22,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
   * USB powered
   * 16MHz crystal
   * 48 General Purpose IO Pins (47 with external SRAM)
-  * !Vcc=VBUS jumper selects whether USB VBUS or an external supply is used to power the board
+  * Vcc=VBUS jumper selects whether USB VBUS or an external supply is used to power the board
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * USB-A Plug
