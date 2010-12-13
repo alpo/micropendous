@@ -1,8 +1,8 @@
-#summary USB AVR Development Board for the AT90USB1287
+#summary USB AVR Development Board for the AT90USB1287 with Arduino Footprint
 
-The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-DIP` directory.
+The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous` directory.
 
-A PCB of this design can be purchased at cost through [http://batchpcb.com/index.php/Products/44278 BatchPCB].
+A PCB of this design can be purchased at cost through [http://batchpcb.com/index.php/Products/48554 BatchPCB].
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Micropendous_AngleView.jpg
 
@@ -27,6 +27,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * USB-B Jack and USB-A Receptacle selectable with a GPIO pin
+  * PortB, PortD, and PortB_3.3V available through [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2735 STK500-style] 10-pin headers
   * JTAG header
   * Size LxWxH (including headers): 3" x 2.1" x 0.8" =~ 8cm x 5.3cm x 2cm
   * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
