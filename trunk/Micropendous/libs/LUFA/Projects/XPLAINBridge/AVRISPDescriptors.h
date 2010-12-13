@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for AVRISPDescriptors.c.
  */
- 
+
 #ifndef _AVRISP_DESCRIPTORS_H_
 #define _AVRISP_DESCRIPTORS_H_
 
@@ -42,11 +42,22 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Endpoint number of the AVRISP bidirectional data endpoint. */
-		#define AVRISP_DATA_EPNUM              2
+		#if !defined(LIBUSB_DRIVER_COMPAT)
+			/** Endpoint number of the AVRISP data OUT endpoint. */
+			#define AVRISP_DATA_OUT_EPNUM      2
+
+			/** Endpoint number of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPNUM       2
+		#else
+			/** Endpoint number of the AVRISP data OUT endpoint. */
+			#define AVRISP_DATA_OUT_EPNUM      2
+
+			/** Endpoint number of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPNUM       3
+		#endif
 
 		/** Size in bytes of the AVRISP data endpoint. */
-		#define AVRISP_DATA_EPSIZE             64	
+		#define AVRISP_DATA_EPSIZE             64
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
@@ -56,12 +67,15 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t    Config;
-			USB_Descriptor_Interface_t               AVRISPInterface;
-			USB_Descriptor_Endpoint_t                DataInEndpoint;
-			USB_Descriptor_Endpoint_t                DataOutEndpoint;
+			USB_Descriptor_Interface_t               AVRISP_Interface;
+			USB_Descriptor_Endpoint_t                AVRISP_DataInEndpoint;
+			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
 		} AVRISP_USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
-		uint16_t AVRISP_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress);
+		uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
+		                              const uint8_t wIndex,
+		                              const void** const DescriptorAddress);
 
 #endif
+

@@ -1,5 +1,9 @@
-# EESchema Netlist Version 1.1 created  14/10/2010 04:07:27
+# EESchema Netlist Version 1.1 created  03/12/2010 05:10:53
 (
+ ( /4CF8BF40 $noname  F1 PTC {Lib=FUSE-MINI}
+  (    1 VDD5 )
+  (    2 VBUS )
+ )
  ( /4CB6BA0D $noname  V267 VIA {Lib=VIA}
   (    1 /FSUSB_S )
  )
@@ -22,7 +26,7 @@
   (    6 /DP )
   (    7 /2DP )
   (    8 /1DP )
-  (    9 N-000035 )
+  (    9 N-000032 )
   (   10 VDD33 )
  )
  ( /4C43E906 $noname  V264 VIA {Lib=VIA}
@@ -45,7 +49,7 @@
  ( /4C09D054 $noname  IC2 AP2101 {Lib=USB_POWER_SWITCH}
   (    1 VBUS_AUX )
   (    2 GND )
-  (    3 N-000082 )
+  (    3 N-000081 )
   (    4 /PE7 )
   (    5 VDD5 )
  )
@@ -207,10 +211,6 @@
  )
  ( /4B7E83F8 $noname  V214 VIA {Lib=VIA}
   (    1 /PC3 )
- )
- ( /4B7E55E2 $noname  L5 FB {Lib=L_MINI}
-  (    1 VDD5 )
-  (    2 VBUS )
  )
  ( /4B794A59 $noname  C37 0u1 {Lib=C_MINI}
   (    1 VDD5 )
@@ -555,8 +555,8 @@
   (    2 GNDPWR )
  )
  ( /4A505F7A $noname  X1 16MHz {Lib=CRYSTAL}
-  (    1 N-000041 )
-  (    2 N-000024 )
+  (    1 N-000020 )
+  (    2 N-000040 )
  )
  ( /4A5053FD $noname  IC5 CY7C1019D_5V_1MBIT_SRAM {Lib=CY7C1019_1MBIT_SRAM}
   (    1 /ADDRESS0 )
@@ -606,11 +606,11 @@
  )
  ( /494A56AF $noname  C1 24pF {Lib=C_MINI}
   (    1 GND )
-  (    2 N-000041 )
+  (    2 N-000020 )
  )
  ( /494A56AB $noname  C2 24pF {Lib=C_MINI}
   (    1 GND )
-  (    2 N-000024 )
+  (    2 N-000040 )
  )
  ( /494A5461 $noname  C11 0u1 {Lib=C_MINI}
   (    1 VDD5 )
@@ -645,7 +645,7 @@
   (    2 VDD5 )
  )
  ( /494A51E2 $noname  C10 1u0 {Lib=C_MINI}
-  (    1 N-000080 )
+  (    1 N-000075 )
   (    2 GND )
  )
  ( /494A5137 $noname  R13 22 {Lib=R_MINI}
@@ -667,7 +667,7 @@
   (    4 /D- )
   (    5 /D+ )
   (    6 GND )
-  (    7 N-000080 )
+  (    7 N-000075 )
   (    8 VBUS )
   (    9 /PE3 )
   (   10 /PB0 )
@@ -683,8 +683,8 @@
   (   20 /RST )
   (   21 VDD5 )
   (   22 GND )
-  (   23 N-000024 )
-  (   24 N-000041 )
+  (   23 N-000040 )
+  (   24 N-000020 )
   (   25 /PD0 )
   (   26 /PD1 )
   (   27 /PD2 )
@@ -728,10 +728,10 @@
   (   65 ? )
  )
  ( /4A89BAAE $noname  TP1 CONN_1 {Lib=CONN_1}
-  (    1 N-000035 )
+  (    1 N-000032 )
  )
  ( /4A89BA84 $noname  R9 15k {Lib=R_MINI}
-  (    1 N-000035 )
+  (    1 N-000032 )
   (    2 GND )
  )
  ( /4A713FC5 $noname  U2 USB-A {Lib=USBCONN}
@@ -751,7 +751,7 @@
   (    1 VDD5 )
  )
  ( /4A8AE602 $noname  V56 VIA {Lib=VIA}
-  (    1 /PE7 )
+  (    1 GND )
  )
  ( /4A8AE5FF $noname  V51 VIA {Lib=VIA}
   (    1 VDD5 )
@@ -760,7 +760,7 @@
   (    1 VDD5 )
  )
  ( /4A8A5F02 $noname  V47 VIA {Lib=VIA}
-  (    1 /2DP )
+  (    1 GND )
  )
  ( /4A8A5EFE $noname  V45 VIA {Lib=VIA}
   (    1 VDD5 )
@@ -799,7 +799,7 @@
   (    1 GND )
  )
  ( /4A8A57C2 $noname  V26 VIA {Lib=VIA}
-  (    1 /2DP )
+  (    1 GND )
  )
  ( /4A8A57C1 $noname  V27 VIA {Lib=VIA}
   (    1 /2DN )
@@ -858,7 +858,7 @@
  )
  ( /4B2272B0 $noname  R40 15k {Lib=R_MINI}
   (    1 VDD5 )
-  (    2 N-000082 )
+  (    2 N-000081 )
  )
  ( /4B22726A $noname  C43 0u1 {Lib=C_MINI}
   (    1 VBUS_AUX )
@@ -906,86 +906,80 @@ $endfootprintlist
 }
 { Pin List by Nets
 Net 1 "GND" "GND"
- C12 2
+ C36 2
+ C35 2
+ SW2 2
+ SW1 2
+ C11 2
+ C10 2
+ U4 2
+ U4 10
+ C1 1
+ C2 1
+ V29 1
+ V30 1
+ V26 1
  IC1 6
  IC1 22
+ IC5 9
+ IC5 25
+ U3 6
+ U3 9
+ IC1 53
+ IC1 63
+ U2 4
+ R9 2
+ V168 1
+ IC7 2
+ C18 2
+ C41 2
+ C46 2
+ V28 1
+ C45 2
+ C44 2
+ V14 1
+ V15 1
+ V16 1
+ V11 1
+ V12 1
+ V6 1
+ V3 1
+ V56 1
+ C37 2
+ V47 1
+ V39 1
+ V40 1
+ V38 1
+ C43 2
+ C42 2
+ C20 2
  C17 2
  C21 2
  C13 2
  U1 4
  C39 2
- U3 6
- U3 9
- IC1 53
- IC1 63
- V168 1
- C41 2
- R9 2
- U2 4
- V29 1
- C11 2
- C2 1
- C1 1
- U4 10
- C10 2
- SW1 2
- SW2 2
- C36 2
- C35 2
- IC5 25
- U4 2
- C20 2
- C42 2
- C43 2
- V38 1
- V40 1
- V39 1
- V3 1
- V6 1
- V12 1
- V11 1
- V16 1
- V15 1
- V14 1
- V28 1
- V30 1
- C18 2
- IC7 2
- C37 2
- C44 2
- C45 2
- C46 2
- C48 2
- V260 1
- V259 1
- V261 1
+ C12 2
  V257 1
- V258 1
- V255 1
- V254 1
- V256 1
- V252 1
- V253 1
- IC6 11
- IC2 2
- C50 2
- C49 2
- V264 1
- IC3 5
- IC4 1
- IC4 10
- R11 1
- V111 1
- IC5 9
- L6 1
- P2 30
- P1 30
+ V261 1
+ V259 1
+ V260 1
  V183 1
  V185 1
  V190 1
+ IC2 2
+ C50 2
+ C49 2
  V188 1
- V187 1
- V189 1
+ R11 1
+ L6 1
+ IC4 1
+ IC6 11
+ IC3 5
+ P1 30
+ V111 1
+ V258 1
+ P2 30
+ IC4 10
  V68 1
  V61 1
  V62 1
@@ -994,482 +988,488 @@ Net 1 "GND" "GND"
  V57 1
  V59 1
  V60 1
-Net 2 "/1DN" "1DN"
- IC3 2
- U2 2
-Net 3 "/2DP" "2DP"
- IC3 7
- U1 3
- V47 1
- V26 1
-Net 4 "/PA2" "PA2"
- IC5 10
- V83 1
+ V254 1
+ V255 1
+ C48 2
+ V189 1
+ V253 1
+ V252 1
+ V187 1
+ V256 1
+ V264 1
+Net 2 "/PA2" "PA2"
  IC1 49
- IC4 4
+ V83 1
  P2 16
-Net 5 "/PA1" "PA1"
- IC5 7
- V220 1
+ IC4 4
+ IC5 10
+Net 3 "/PA1" "PA1"
  IC1 50
  V114 1
- P2 15
+ V220 1
+ IC5 7
  V82 1
+ P2 15
  IC4 3
-Net 6 "/PA6" "PA6"
- IC4 8
- P2 20
+Net 4 "/PA6" "PA6"
+ V225 1
  IC5 26
  IC1 45
- V225 1
+ IC4 8
+ P2 20
  V87 1
-Net 7 "/PA5" "PA5"
- IC1 46
- P2 19
- IC4 7
- IC5 23
+Net 5 "/PA5" "PA5"
  V86 1
  V224 1
-Net 8 "/PA0" "PA0"
- IC1 51
- IC5 6
- V219 1
- P2 14
- IC4 2
- V121 1
-Net 9 "VDD33" "VDD33"
+ P2 19
+ IC4 7
+ IC1 46
+ IC5 23
+Net 6 "VDD33" "VDD33"
  V37 1
  V34 1
  V35 1
- V36 1
- IC6 2
- R41 2
- IC3 10
  C49 1
- P2 4
- C50 1
- V65 1
+ U3 4
+ V36 1
+ IC3 10
  C39 1
+ P2 4
  V265 1
+ R41 2
+ C50 1
  IC7 5
  C18 1
- U3 4
-Net 10 "VDD5" "VDD5"
- IC7 3
- IC7 1
- IC1 3
- IC1 21
- L5 1
- IC4 20
- C37 1
- C44 1
- IC6 19
- V263 1
- C45 1
- C46 1
- V66 1
- C48 1
- IC2 5
- IC5 8
- V55 1
- V54 1
- V53 1
- IC5 24
- IC1 52
- R40 1
- C36 1
- L3 1
- C13 1
- C21 1
- C20 1
- V42 1
- V46 1
- V45 1
- V52 1
- V51 1
- R8 2
- P2 1
- V19 1
- V24 1
- V23 1
- V22 1
- C11 1
- R14 2
- U4 4
- U4 7
-Net 11 "/PF7" "PF7"
- U4 9
+ V65 1
+ IC6 2
+Net 7 "/PF7" "PF7"
  IC1 54
  V92 1
  P2 13
-Net 12 "/PF6" "PF6"
- IC1 55
+ U4 9
+Net 8 "/PF6" "PF6"
  P2 12
  V91 1
+ IC1 55
  U4 3
-Net 13 "/PF5" "PF5"
- V90 1
- IC1 56
- P2 11
+Net 9 "/PF5" "PF5"
  U4 5
-Net 14 "/PE7" "PE7"
- R42 1
- V153 1
- V103 1
- V56 1
- IC1 2
+ IC1 56
+ V90 1
+ P2 11
+Net 10 "/PE7" "PE7"
  P1 29
  IC2 4
-Net 15 "/PE6" "PE6"
- IC1 1
- V104 1
- R11 2
- V262 1
- P1 28
- V102 1
- IC6 10
-Net 16 "/PE4" "PE4"
- P1 26
+ V103 1
+ R42 1
+ IC1 2
+ V153 1
+Net 11 "/PA0" "PA0"
+ IC4 2
+ V219 1
+ IC1 51
+ P2 14
+ V121 1
+ IC5 6
+Net 12 "/PE4" "PE4"
  IC5 5
- V207 1
- V204 1
  IC1 18
-Net 17 "/ADDRESS0" "ADDRESS0"
+ V204 1
+ P1 26
+ V207 1
+Net 13 "/ADDRESS0" "ADDRESS0"
  V195 1
  IC4 19
  IC5 1
-Net 18 "/ADDRESS1" "ADDRESS1"
+Net 14 "/ADDRESS1" "ADDRESS1"
  IC5 2
- IC4 18
  V196 1
-Net 19 "/ADDRESS2" "ADDRESS2"
- IC5 3
- V197 1
+ IC4 18
+Net 15 "/ADDRESS2" "ADDRESS2"
  IC4 17
-Net 20 "/ADDRESS3" "ADDRESS3"
+ V197 1
+ IC5 3
+Net 16 "/ADDRESS3" "ADDRESS3"
+ IC4 16
  IC5 4
  V198 1
- IC4 16
-Net 21 "/PA7" "PA7"
- V128 1
- IC1 44
- IC5 27
- IC4 9
+Net 17 "/PA7" "PA7"
  P2 21
+ V128 1
+ IC5 27
  V226 1
-Net 22 "/PA4" "PA4"
- IC1 47
- IC5 22
- P2 18
- V223 1
+ IC1 44
+ IC4 9
+Net 18 "/PA4" "PA4"
  V125 1
  IC4 6
-Net 23 "/PA3" "PA3"
+ P2 18
+ IC5 22
+ V223 1
+ IC1 47
+Net 19 "/PA3" "PA3"
  IC4 5
- V124 1
- IC1 48
  IC5 11
  V222 1
+ IC1 48
  P2 17
-Net 24 "" ""
- IC1 23
- X1 2
- C2 2
-Net 25 "/PE3" "PE3"
- V172 1
- V156 1
+ V124 1
+Net 20 "" ""
+ IC1 24
+ X1 1
+ C1 2
+Net 21 "/PE3" "PE3"
  V171 1
- IC1 9
- P1 25
+ V156 1
+ V172 1
  R5 1
-Net 26 "/PB5_3.3V" "PB5_3.3V"
- P1 5
+ P1 25
+ IC1 9
+Net 22 "/PB5_3.3V" "PB5_3.3V"
+ IC6 4
  V209 1
  V210 1
- IC6 4
-Net 27 "/PB3_SPI-MISO_3.3V" "PB3_SPI-MISO_3.3V"
+ P1 5
+Net 23 "/PB3_SPI-MISO_3.3V" "PB3_SPI-MISO_3.3V"
+ P1 4
  IC6 6
  V248 1
  U3 7
- P1 4
-Net 28 "/PB2_SPI-MOSI_3.3V" "PB2_SPI-MOSI_3.3V"
- U3 3
- V246 1
- IC6 7
+Net 24 "/PE6" "PE6"
+ IC6 10
+ R11 2
+ IC1 1
+ V262 1
+ V104 1
+ V102 1
+ P1 28
+Net 25 "/PB2_SPI-MOSI_3.3V" "PB2_SPI-MOSI_3.3V"
  P1 3
-Net 29 "/PB1_SPI-SCK_3.3V" "PB1_SPI-SCK_3.3V"
- V243 1
- U3 5
- P1 2
+ U3 3
+ IC6 7
+ V246 1
+Net 26 "/PB1_SPI-SCK_3.3V" "PB1_SPI-SCK_3.3V"
  IC6 8
-Net 30 "/PB0_SPI-SS_3.3V" "PB0_SPI-SS_3.3V"
+ U3 5
+ V243 1
+ P1 2
+Net 27 "/PB0_SPI-SS_3.3V" "PB0_SPI-SS_3.3V"
+ P1 1
  IC6 9
  U3 2
- P1 1
-Net 31 "GNDPWR" "GNDPWR"
- U1 5
- U2 5
- L6 2
- CR3 1
-Net 32 "/RST" "RST"
- V173 1
- V155 1
- V154 1
- IC1 20
- R14 1
- SW1 1
- U4 6
-Net 33 "/AREF" "AREF"
- C41 1
+Net 28 "/AREF" "AREF"
  C12 1
  P2 5
  IC1 62
-Net 34 "VBUS" "VBUS"
- V160 1
+ C41 1
+Net 29 "GNDPWR" "GNDPWR"
+ CR3 1
+ U1 5
+ U2 5
+ L6 2
+Net 30 "/RST" "RST"
+ V154 1
+ V155 1
+ U4 6
+ IC1 20
+ R14 1
+ V173 1
+ SW1 1
+Net 31 "VBUS" "VBUS"
+ F1 2
  V157 1
- V205 1
  IC1 8
  U1 1
- L5 2
+ V160 1
  P2 2
-Net 35 "" ""
+ V205 1
+Net 32 "" ""
+ IC3 9
  TP1 1
  R9 1
- IC3 9
-Net 38 "/1DP" "1DP"
- IC3 8
- U2 3
-Net 40 "/PD0" "PD0"
- IC1 25
- V235 1
- P1 14
-Net 41 "" ""
- X1 1
- C1 2
- IC1 24
-Net 42 "/PF2" "PF2"
+Net 35 "/PF2" "PF2"
  P2 8
  IC1 59
-Net 43 "/PD4" "PD4"
- IC1 29
- V239 1
- P1 18
-Net 44 "/PF3" "PF3"
- P2 9
- IC1 58
-Net 45 "/PD3" "PD3"
- P1 17
- IC1 28
- V238 1
-Net 46 "/PD2" "PD2"
- IC1 27
- V237 1
- P1 16
-Net 47 "/PD1" "PD1"
- V236 1
- P1 15
- IC1 26
-Net 49 "/EN_OTG" "EN_OTG"
- R5 2
- V162 1
- V161 1
- CR3 2
- U1 6
-Net 50 "/2DN" "2DN"
- U1 2
- V27 1
- V203 1
- IC3 3
-Net 51 "" ""
- C17 1
- IC7 4
-Net 52 "VBUS_AUX" "VBUS_AUX"
- P2 3
- U2 1
- C43 1
- C42 1
- IC2 1
-Net 54 "/DP" "DP"
- IC3 6
- R13 2
-Net 55 "/PE2" "PE2"
- V174 1
- R8 1
- V175 1
- IC1 43
- IC4 11
- SW2 1
- P1 24
- V151 1
-Net 56 "/AVCC" "AVCC"
+Net 36 "/1DN" "1DN"
+ U2 2
+ IC3 2
+Net 37 "/PD0" "PD0"
+ V235 1
+ IC1 25
+ P1 14
+Net 38 "/AVCC" "AVCC"
  C35 1
  IC1 64
  L3 2
-Net 57 "/PC1" "PC1"
- V228 1
- V212 1
- IC5 18
- IC1 36
- P2 23
-Net 58 "/PC0" "PC0"
- P2 22
- V227 1
- V211 1
- IC1 35
- IC5 17
-Net 59 "/ADDRESS7" "ADDRESS7"
+Net 39 "/PE2" "PE2"
+ IC4 11
+ IC1 43
+ V175 1
+ R8 1
+ P1 24
+ V174 1
+ SW2 1
+ V151 1
+Net 40 "" ""
+ C2 2
+ IC1 23
+ X1 2
+Net 41 "/PD7" "PD7"
+ IC1 32
+ P1 21
+ V242 1
+Net 42 "/PD4" "PD4"
+ IC1 29
+ P1 18
+ V239 1
+Net 43 "/PF3" "PF3"
+ IC1 58
+ P2 9
+Net 44 "/PD3" "PD3"
+ IC1 28
+ P1 17
+ V238 1
+Net 45 "/PD2" "PD2"
+ IC1 27
+ P1 16
+ V237 1
+Net 46 "/PD1" "PD1"
+ V236 1
+ IC1 26
+ P1 15
+Net 49 "/EN_OTG" "EN_OTG"
+ R5 2
+ U1 6
+ CR3 2
+ V161 1
+ V162 1
+Net 50 "/2DP" "2DP"
+ IC3 7
+ U1 3
+Net 51 "" ""
+ IC7 4
+ C17 1
+Net 52 "VBUS_AUX" "VBUS_AUX"
+ IC2 1
+ C42 1
+ P2 3
+ C43 1
+ U2 1
+Net 54 "VDD5" "VDD5"
+ IC5 8
+ IC7 1
+ IC7 3
+ IC5 24
+ IC1 21
+ P2 1
+ V19 1
+ V51 1
+ C37 1
+ V52 1
+ V45 1
+ V46 1
+ V42 1
+ C20 1
+ C21 1
+ C13 1
+ V55 1
+ V54 1
+ V53 1
+ IC1 52
+ R40 1
+ C11 1
+ C36 1
+ L3 1
+ R8 2
+ R14 2
+ U4 4
+ U4 7
+ C46 1
+ V22 1
+ C45 1
+ V23 1
+ C44 1
+ V24 1
+ V66 1
+ IC4 20
+ C48 1
+ IC6 19
+ F1 1
+ V263 1
+ IC1 3
+ IC2 5
+Net 55 "/PF4" "PF4"
+ P2 10
+ IC1 57
+ U4 1
+Net 56 "/ADDRESS7" "ADDRESS7"
  IC4 12
  V202 1
  IC5 16
-Net 60 "/ADDRESS6" "ADDRESS6"
+Net 57 "/ADDRESS6" "ADDRESS6"
  V201 1
- IC4 13
  IC5 15
-Net 61 "/ADDRESS5" "ADDRESS5"
+ IC4 13
+Net 58 "/ADDRESS5" "ADDRESS5"
+ IC5 14
  V200 1
  IC4 14
- IC5 14
-Net 62 "/ADDRESS4" "ADDRESS4"
+Net 59 "/ADDRESS4" "ADDRESS4"
  IC4 15
  V199 1
  IC5 13
-Net 63 "/PE5" "PE5"
+Net 60 "/PE5" "PE5"
  IC5 32
  P1 27
  IC1 19
-Net 64 "/PE0" "PE0"
+Net 61 "/PE0" "PE0"
  P1 22
- IC5 12
  V149 1
+ IC5 12
  IC1 33
-Net 65 "/PC7" "PC7"
+Net 62 "/PC7" "PC7"
+ IC5 31
+ P2 29
  V218 1
  IC1 42
- P2 29
- IC5 31
-Net 66 "/PC4" "PC4"
- IC1 39
+Net 63 "/PC4" "PC4"
  V231 1
- IC5 21
  P2 26
+ IC1 39
  V215 1
-Net 67 "/PC6" "PC6"
- V217 1
- IC5 30
- P2 28
- IC1 41
+ IC5 21
+Net 64 "/PC6" "PC6"
  V233 1
-Net 68 "/PC3" "PC3"
- P2 25
- IC1 38
+ P2 28
+ V217 1
+ IC1 41
+ IC5 30
+Net 65 "/PC3" "PC3"
  V230 1
- V214 1
+ IC1 38
  IC5 20
-Net 69 "/PF4" "PF4"
- U4 1
- IC1 57
- P2 10
-Net 70 "/PC5" "PC5"
- V216 1
+ P2 25
+ V214 1
+Net 66 "/PC5" "PC5"
  IC5 29
- V232 1
- P2 27
  IC1 40
-Net 71 "/PC2" "PC2"
+ V216 1
+ P2 27
+ V232 1
+Net 67 "/PC2" "PC2"
  IC5 19
- IC1 37
  P2 24
- V229 1
  V213 1
-Net 72 "/PE1" "PE1"
- V101 1
+ V229 1
+ IC1 37
+Net 68 "/PE1" "PE1"
  IC1 34
+ V101 1
  V99 1
- P1 23
- V150 1
  IC5 28
-Net 73 "/D+" "D+"
- IC1 5
- R13 1
-Net 74 "/D-" "D-"
- R12 1
- IC1 4
-Net 75 "/PD7" "PD7"
- P1 21
- IC1 32
- V242 1
-Net 76 "/PF0" "PF0"
+ V150 1
+ P1 23
+Net 69 "/PC1" "PC1"
+ V212 1
+ IC5 18
+ V228 1
+ P2 23
+ IC1 36
+Net 70 "/PC0" "PC0"
+ IC1 35
+ V211 1
+ V227 1
+ P2 22
+ IC5 17
+Net 71 "/PF0" "PF0"
  P2 6
  IC1 61
-Net 77 "/PD6" "PD6"
- V241 1
+Net 72 "/PD6" "PD6"
  P1 20
+ V241 1
  IC1 31
-Net 78 "/PF1" "PF1"
+Net 73 "/PF1" "PF1"
  IC1 60
  P2 7
-Net 79 "/PD5" "PD5"
- IC1 30
- V240 1
+Net 74 "/PD5" "PD5"
  P1 19
-Net 80 "" ""
- IC1 7
+ V240 1
+ IC1 30
+Net 75 "" ""
  C10 1
-Net 81 "/DN" "DN"
+ IC1 7
+Net 76 "/DN" "DN"
  IC3 4
  R12 2
-Net 82 "" ""
+Net 77 "/D-" "D-"
+ R12 1
+ IC1 4
+Net 78 "/DP" "DP"
+ IC3 6
+ R13 2
+Net 79 "/D+" "D+"
+ IC1 5
+ R13 1
+Net 80 "/2DN" "2DN"
+ IC3 3
+ V27 1
+ V203 1
+ U1 2
+Net 81 "" ""
  IC2 3
  R40 2
-Net 83 "/FSUSB_S" "FSUSB_S"
- R41 1
- R42 2
- V266 1
- V267 1
- IC3 1
-Net 84 "/PB7_3.3V" "PB7_3.3V"
+Net 82 "/PB7_3.3V" "PB7_3.3V"
  IC6 1
  P3 3
-Net 85 "/PB4_3.3V" "PB4_3.3V"
+Net 83 "/PB4_3.3V" "PB4_3.3V"
  IC6 5
  P3 2
-Net 86 "/PB6_3.3V" "PB6_3.3V"
- P3 1
+Net 84 "/PB6_3.3V" "PB6_3.3V"
  IC6 3
+ P3 1
+Net 85 "/1DP" "1DP"
+ IC3 8
+ U2 3
+Net 86 "/FSUSB_S" "FSUSB_S"
+ V266 1
+ R42 2
+ R41 1
+ V267 1
+ IC3 1
 Net 87 "/PB6" "PB6"
- IC6 18
  IC1 16
  V135 1
  P1 12
+ IC6 18
 Net 88 "/PB5" "PB5"
- IC6 17
- IC1 15
  P1 11
+ IC1 15
+ IC6 17
 Net 89 "/PB4" "PB4"
- P1 10
+ V133 1
  IC1 14
  IC6 16
- V133 1
+ P1 10
 Net 90 "/PB3" "PB3"
- P1 9
- IC1 13
  IC6 15
+ IC1 13
+ P1 9
 Net 91 "/PB2" "PB2"
  IC6 14
  IC1 12
  P1 8
 Net 92 "/PB1" "PB1"
  P1 7
- IC6 13
  IC1 11
+ IC6 13
 Net 93 "/PB0" "PB0"
- IC6 12
- IC1 10
  P1 6
+ IC1 10
+ IC6 12
 Net 94 "/PB7" "PB7"
- V136 1
- IC1 17
  IC6 20
  P1 13
+ IC1 17
+ V136 1
 }
 #End

@@ -1,26 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-  <title>Arduino - Troubleshooting </title>
-  <link rel='stylesheet' href='arduino.css' type='text/css' />
-  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
-</head>
-<body>
-<div id="page">
-<!--PageHeaderFmt-->
-<div id="pageheader">
-  <div class="title"><a href="http://www.arduino.cc"/>Arduino</a></div>
-  <div class="search">
-    <!-- SiteSearch Google -->    <FORM method=GET action="http://www.google.com/search">    <input type=hidden name=ie value=UTF-8>    <input type=hidden name=oe value=UTF-8>    <INPUT TYPE=text name=q size=25 maxlength=255 value="">    <INPUT type=submit name=btnG VALUE="search">    <input type=hidden name=domains value="http://www.arduino.cc/">
-    <input type=hidden name=sitesearch value="http://www.arduino.cc/">
-    </FORM>    <!-- SiteSearch Google -->
-  </div>
-</div>
-<!--/PageHeaderFmt-->
-<!--PageLeftFmt-->
-<div id="pagenav" style="text-align: right">
-  <div style="float: left;">
-  <p><a class='wikilink' href='http://arduino.cc/en/Main/Buy'>Buy</a>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>  <title>Arduino - Troubleshooting </title>  <link rel='stylesheet' href='arduino.css' type='text/css' />  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" /></head><body><div id="page"><!--PageHeaderFmt--><div id="pageheader">  <div class="title"><a href="http://www.arduino.cc"/>Arduino</a></div>  <div class="search">    <!-- SiteSearch Google -->    <FORM method=GET action="http://www.google.com/search">    <input type=hidden name=ie value=UTF-8>    <input type=hidden name=oe value=UTF-8>    <INPUT TYPE=text name=q size=25 maxlength=255 value="">    <INPUT type=submit name=btnG VALUE="search">    <input type=hidden name=domains value="http://www.arduino.cc/">    <input type=hidden name=sitesearch value="http://www.arduino.cc/">    </FORM>    <!-- SiteSearch Google -->  </div></div><!--/PageHeaderFmt--><!--PageLeftFmt--><div id="pagenav" style="text-align: right">  <div style="float: left;">  <p><a class='wikilink' href='http://arduino.cc/en/Main/Buy'>Buy</a>
 |
 <a class='wikilink' href='http://arduino.cc/en/Main/Software'>Download</a>
 |
@@ -35,15 +13,7 @@
 <a class='wikilink' href='FAQ.html'>FAQ</a>
 </p>
 <p class='vspace'></p>
-
-  </div>
-  <a class="urllink" href="http://www.arduino.cc/blog/" rel="nofollow">Blog &raquo;</a> |
-  <a class="urllink" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl" rel="nofollow">Forum &raquo;</a> |
-  <a class="urllink" href="http://www.arduino.cc/playground/" rel="nofollow">Playground &raquo;</a>
-</div>
-<!--/PageLeftFmt-->
-<div id="pagetext">
-<!--PageText-->
+  </div>  <a class="urllink" href="http://www.arduino.cc/blog/" rel="nofollow">Blog &raquo;</a> |  <a class="urllink" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl" rel="nofollow">Forum &raquo;</a> |  <a class="urllink" href="http://www.arduino.cc/playground/" rel="nofollow">Playground &raquo;</a></div><!--/PageLeftFmt--><div id="pagetext"><!--PageText-->
 <div id='wikitext'>
 <h2>Arduino Troubleshooting</h2>
 <div class='toc'><p><a name='toc' id='toc'></a><b>On this page...</b> (<a id="tocidtog" href="javascript:toggle('tocid');">hide</a>)</p><ul class='toc' id='tocid'><li><a href='#toc1'>Why I can't upload my programs to the Arduino board?</a></li><li><a href='#toc2'>Why do I get "Build folder disappeared or could not be written" (Mac OS X)?</a></li><li><a href='#toc3'>Why doesn't the Arduino software run after I updated the Java on my Mac?</a></li><li><a href='#toc4'>Why do I get a java.lang.StackOverflowError when I try to compile my program?</a></li><li><a href='#toc5'>Why doesn't my sketch start when I'm powering the board with an external power supply?  (Arduino Diecimila or earlier)</a></li><li><a href='#toc6'>Why does the Arduino software freeze when I try to upload a program?  (on Windows)?</a></li><li><a href='#toc7'>What if my board doesn't turn on (the green power LED doesn't light up)?</a></li><li><a href='#toc8'>Why does my Diecimila take such a long time (6-8 seconds) to start my sketch?</a></li><li><a href='#toc9'>What should I do if I get an error when launching arduino.exe on Windows?</a></li><li><a href='#toc10'>Why won't Arduino run on old versions of Mac OS X?</a></li><li><a href='#toc11'>What do I do if I get an UnsatisfiedLinkError error (about native library librxtxSerial.jnilib) when launching Arduino?</a></li><li><a href='#toc12'>What about the error "Could not find the main class."?</a></li><li><a href='#toc13'>What can I do about cygwin conflicts on Windows?</a></li><li><a href='#toc14'>Why does do the Arduino software and the Tools menu take a long time to open (on Windows)?</a></li><li><a href='#toc15'>Why doesn't my board show in the Tools | Serial Port menu ?</a></li><li><a href='#toc16'>What if I get a gnu.io.PortInUseException when uploading code or using the serial monitor (on the Mac)?</a></li><li><a href='#toc17'>I'm having trouble with the FTDI USB drivers.</a></li><li><a href='#toc18'>Why doesn't my sketch start when I power up or reset the Arduino board?</a></li><li><a href='#toc19'>Why does my sketch appear to upload successfully but not do anything?</a></li><li><a href='#toc20'>How can I reduce the size of my sketch?</a></li><li><a href='#toc21'>Why don't I get a PWM (an analog output) when I call analogWrite() on pins other than 3, 5, 6, 9, 10, or 11?</a></li><li><a href='#toc22'>Why do I get errors about undeclared functions or undeclared types?</a></li><li><a href='#toc23'>Why do I get errors about an invalid device signature when trying to upload a sketch?</a></li></ul></div>
@@ -71,7 +41,7 @@
 <p class='vspace'></p><ul><li>Your operating system.
 <p class='vspace'></p></li><li>What kind of board you have.  If it's a Mini, <span class='wikiword'>LilyPad</span> or other board that requires extra wiring, include a photo of your circuit, if possible.
 <p class='vspace'></p></li><li>Whether or not you were ever able to upload to the board.  If so, what were you doing with the board before / when it stopped working, and what software have you recently added or removed from your computer?
-<p class='vspace'></p></li><li>The messages displayed when you try to upload with verbose output enabled.  To do this, you'll need to set upload.verbose to true in your <a class='wikilink' href='http://arduino.cc/en/Hacking/Preferences'>Arduino preferences file</a>.
+<p class='vspace'></p></li><li>The messages displayed when you try to upload with verbose output enabled.  To do this, hold down the shift key while clicking on the upload button in the toolbar.
 </li></ul><p class='vspace'></p><h3><a name='toc2' id='toc2'></a>Why do I get "Build folder disappeared or could not be written" (Mac OS X)?</h3>
 <p>Did you drag the Arduino.app out of the disk image (and into, say, your Applications folder)?  If not, you won't be able to upload the examples.
 </p>
@@ -93,7 +63,18 @@ at java.util.Vector.addElement(Unknown Source)
 at java.util.Stack.push(Unknown Source)
 at com.oroinc.text.regex.Perl5Matcher._pushState(Perl5Matcher.java) 
 </pre>
-<p class='vspace'></p><p>this is what's happening.  Look for unusual sequences involving "double-quotes", "single-quotes", \backslashes, comments, etc.  In particular the sequence '\"' seems to cause problems; use '"' instead.
+<p class='vspace'></p><p>or: 
+</p>
+<p class='vspace'></p><pre>
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java)
+	at com.oroinc.text.regex.Perl5Matcher._match(Perl5Matcher.java) 
+</pre>
+<p class='vspace'></p><p>this is what's happening.  Look for unusual sequences involving "double-quotes", "single-quotes", \backslashes, comments, etc.  For example, missing quotes can cause problems and so can the sequence '\"' (use '"' instead).
 </p>
 <p class='vspace'></p><p><a name='externalpower' id='externalpower'></a>
 </p><h3><a name='toc5' id='toc5'></a>Why doesn't my sketch start when I'm powering the board with an external power supply?  (Arduino Diecimila or earlier)</h3>
@@ -245,13 +226,4 @@ The text of the Arduino getting started guide is licensed under a
 <a class='urllink' href='http://creativecommons.org/licenses/by-sa/3.0/' rel='nofollow'>Creative Commons Attribution-ShareAlike 3.0 License</a>.  Code samples in the guide are released into the public domain.
 </p>
 </div>
-
-</div>
-<!--PageFooterFmt-->
-<div id="pagefooter">
-  <a href='Guide_Troubleshooting?action=edit.html'>Edit Page</a> | <a href='Guide_Troubleshooting?action=diff.html'>Page History</a> | <a href='Guide_Troubleshooting?action=print.html' target='_blank'>Printable View</a> | <a href='http://arduino.cc/en/Site/AllRecentChanges'>All Recent Site Changes</a>
-</div>
-<!--/PageFooterFmt-->
-</div>
-</body>
-</html>
+<!-- AddThis Button BEGIN --><script type="text/javascript">var addthis_language = "en";</script><div class="addthis_container addthis_toolbox addthis_default_style" addthis:url="Guide_Troubleshooting" addthis:title="Arduino Wiki English"><a href="http://www.addthis.com/bookmark.php?v=250&amp;username=arduinoteam" class="addthis_button_compact">Share</a><span class="addthis_separator">|</span><a class="addthis_button_email"></a><a class="addthis_button_favorites"></a><a class="addthis_button_print"></a><a class="addthis_button_facebook"></a><a class="addthis_button_twitter"></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=arduinoteam"></script></div><!-- AddThis Button END --></div><!--PageFooterFmt--><div id="pagefooter">  <a href=.html'Guide_Troubleshooting?action=edit.html'>Edit Page</a> | <a href='Guide_Troubleshooting?action=diff.html'>Page History</a> | <a href='Guide_Troubleshooting?action=print.html' target='_blank'>Printable View</a> | <a href='http://arduino.cc/en/Site/AllRecentChanges'>All Recent Site Changes</a></div><!--/PageFooterFmt--></div></body></html>

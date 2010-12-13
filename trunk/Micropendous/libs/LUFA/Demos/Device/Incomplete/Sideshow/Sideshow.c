@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -36,12 +36,12 @@
 	externally connected interactive display. Upon enumeration, this will
 	appear as a new SideShow device which can have gadgets loaded onto
 	it.
-	
+
 	Note that while the incoming content is buffered in packet struct
 	form, the data is not actually displayed. It is left to the user to
 	write sufficient code to read out the packed data for display to a
 	screen.
-	
+
 	Installed gadgets can be accessed through the InstalledApplications
 	array, with entries that have their InUse flag set being active. As
 	only the active content is displayed on the device due to memory
@@ -58,7 +58,8 @@ int main(void)
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+	sei();
+
 	for (;;)
 	{
 		SideShow_Task();
@@ -75,7 +76,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
@@ -94,51 +95,43 @@ void EVENT_USB_Device_Disconnect(void)
 
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup Sideshow In and Out Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, SIDESHOW_IO_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Setup Sideshow Data Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPNUM,  EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	if (!(Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, SIDESHOW_IO_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
-	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetOSFeatureDescriptor:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE))
 			{
-				void*    DescriptorPointer;
-				uint16_t DescriptorSize;
+				const void* DescriptorPointer;
+				uint16_t    DescriptorSize = USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue,
+				                                                        USB_ControlRequest.wIndex,
+				                                                        &DescriptorPointer);
 
-				if (!(USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
-				                                 &DescriptorPointer, &DescriptorSize)))
-				{
-					return;
-				}
-				
+				if (DescriptorSize == NO_DESCRIPTOR)
+				  return;
+
 				Endpoint_ClearSETUP();
-				
+
 				Endpoint_Write_Control_PStream_LE(DescriptorPointer, DescriptorSize);
-				Endpoint_ClearOUT();				
+				Endpoint_ClearOUT();
 			}
 
 			break;
 	}
 }
-	
+
 void SideShow_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
@@ -147,7 +140,7 @@ void SideShow_Task(void)
 
 	/* Select the SideShow data out endpoint */
 	Endpoint_SelectEndpoint(SIDESHOW_OUT_EPNUM);
-	
+
 	/* Check to see if a new SideShow message has been received */
 	if (Endpoint_IsReadWriteAllowed())
 	{
@@ -155,3 +148,4 @@ void SideShow_Task(void)
 		Sideshow_ProcessCommandPacket();
 	}
 }
+

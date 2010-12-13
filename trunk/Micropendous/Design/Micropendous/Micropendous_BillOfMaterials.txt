@@ -17,7 +17,7 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   7, GRM21BR60J106ME19L          , 0.15 - C13 C21 C41 C45 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
   1, GRM31CR61E106KA12L          , 0.40 - C52 - CAP CER 10UF 25V X5R 1206 (LDO Input)
   1, JMK316B7226ML-T             , 0.58 - C54 - CAP CER 22UF 6.3V X7R 125 degC 1206 (High Temp LDO Output)
-  1, C1206C476M9PACTU            , 0.94 - C42 - CAP CERAMIC 47UF 6.3V X5R 1206
+  1, C1210C107M9PACTU            , 1.23 - C42 - CAP CERAMIC 100UF 6.3V X5R 1210
   1, MBR120VLSFT1G MBRX120-TP    , 0.50 - D1 - DIODE SCHOTTKY 20V 1A SOD123FL
   1, LG R971-KN-1-0-20-R18       , 0.11 - D2 - LED CHIPLED 570NM GREEN 0805 SMD
   1, 0ZCA0050FF2G                , 0.28 - F1 - PTC RESTTBLE 0.50A 8V CHIP 1206
@@ -38,11 +38,11 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   2, PPPC081LFBN-RC              , 0.70 - Power/Analog Headers - CONN HEADER FEMALE 8POS .1" GOLD
   1, 690-004-221-023             , 1.49 - U1 - CONN USB JACK TYPE B HORIZON R/A
   1, 690-004-261-013             , 1.67 - U2 - CONN USB JACK TYPE A VERT RT ANGLE
-  1, 101-00303-68                , 0.86 - U3 - CONN MINI MICRO-SD 8PIN PCB GOLD
-----------------------------Total=40.86
+  1, DM3D-SF                     , 1.93 - U3 - CONN MICRO SD R/A PUSH-PULL SMD
+----------------------------Total=42.22
 
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
-	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor (USB Specification recommends 120uF)
+	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor
 	- FSUSB20MUX (IC3) can (potentially) be substituted with FSUSB30MUX (NOT YET TESTED)
 	- 74VHC573MTCX (IC4) can be substituted with SN74AHC573PWR
 	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ

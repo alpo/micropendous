@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,13 +28,22 @@
   this software.
 */
 
+/** \file
+ *  \brief Master include file for the library USB MIDI Class driver.
+ *
+ *  Master include file for the library USB MIDI Class driver, for both host and device modes, where available.
+ *
+ *  This file should be included in all user projects making use of this optional class driver, instead of
+ *  including any headers in the USB/ClassDriver/Device, USB/ClassDriver/Host or USB/ClassDriver/Common subdirectories.
+ */
+
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassMIDI MIDI Class Driver - LUFA/Drivers/Class/MIDI.h
+ *  @defgroup Group_USBClassMIDI MIDI Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Class/Device/MIDI.c
- *    - LUFA/Drivers/USB/Class/Host/MIDI.c
+ *    - LUFA/Drivers/USB/Class/Device/MIDI.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
+ *    - LUFA/Drivers/USB/Class/Host/MIDI.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Module Description
  *  MIDI Class Driver module. This module contains an internal implementation of the USB MIDI Class, for both Device
@@ -54,15 +63,11 @@
 #define _MIDI_CLASS_H_
 
 	/* Macros: */
-		#define __INCLUDE_FROM_MIDI_DRIVER
 		#define __INCLUDE_FROM_USB_DRIVER
-		
+		#define __INCLUDE_FROM_MIDI_DRIVER
+
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
-
-		#if defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/MIDI.h"
@@ -71,7 +76,8 @@
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/MIDI.h"
 		#endif
-		
+
 #endif
 
 /** @} */
+

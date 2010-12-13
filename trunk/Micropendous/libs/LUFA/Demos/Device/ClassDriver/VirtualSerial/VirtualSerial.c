@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the VirtualSerial demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "VirtualSerial.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -71,19 +71,19 @@ static FILE USBSerialStream;
 int main(void)
 {
 	SetupHardware();
-	
+
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
 		CheckJoystickMovement();
-		 
+
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
-		while (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
-		  CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -112,7 +112,7 @@ void CheckJoystickMovement(void)
 	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
 	char*       ReportString  = NULL;
 	static bool ActionSent    = false;
-	
+
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportString = "Joystick Up\r\n";
 	else if (JoyStatus_LCL & JOY_DOWN)
@@ -125,7 +125,7 @@ void CheckJoystickMovement(void)
 	  ReportString = "Joystick Pressed\r\n";
 	else
 	  ActionSent = false;
-	  
+
 	if ((ReportString != NULL) && (ActionSent == false))
 	{
 		ActionSent = true;
@@ -153,14 +153,16 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+

@@ -1,22 +1,22 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -41,7 +41,7 @@ void BitBuffer_Init(BitBuffer_t* const Buffer)
 {
 	/* Reset the number of stored bits in the buffer */
 	Buffer->Elements        = 0;
-	
+
 	/* Reset the data in and out pointer structures in the buffer to the first buffer bit */
 	Buffer->In.CurrentByte  = Buffer->Data;
 	Buffer->In.ByteMask     = (1 << 0);
@@ -50,15 +50,16 @@ void BitBuffer_Init(BitBuffer_t* const Buffer)
 }
 
 /** Function to store the given bit into the given bit buffer. */
-void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit)
+void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer,
+                            const bool Bit)
 {
 	/* If the bit to store is true, set the next bit in the buffer */
 	if (Bit)
 	  *Buffer->In.CurrentByte |= Buffer->In.ByteMask;
-	
+
 	/* Increment the number of stored bits in the buffer counter */
 	Buffer->Elements++;
-	
+
 	/* Check if the current buffer byte is full of stored bits */
 	if (Buffer->In.ByteMask == (1 << 7))
 	{
@@ -67,8 +68,8 @@ void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit)
 		  Buffer->In.CurrentByte++;
 		else
 		  Buffer->In.CurrentByte = Buffer->Data;
-		  
-		/* Reset the storage bit mask in the current buffer byte to the first bit */		
+
+		/* Reset the storage bit mask in the current buffer byte to the first bit */
 		Buffer->In.ByteMask = (1 << 0);
 	}
 	else
@@ -80,7 +81,7 @@ void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit)
 
 /** Function to retrieve the next bit stored in the given bit buffer. */
 bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer)
-{	
+{
 	/* Retrieve the value of the next bit stored in the buffer */
 	bool Bit = ((*Buffer->Out.CurrentByte & Buffer->Out.ByteMask) != 0);
 
@@ -89,17 +90,17 @@ bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer)
 
 	/* Decrement the number of stored bits in the buffer counter */
 	Buffer->Elements--;
-	
-	/* Check if the current buffer byte is empty of stored bits */	
+
+	/* Check if the current buffer byte is empty of stored bits */
 	if (Buffer->Out.ByteMask == (1 << 7))
 	{
 		/* Check if the end of the buffer has been reached, if so reset to start of buffer, otherwise advance to next bit */
 		if (Buffer->Out.CurrentByte != &Buffer->Data[sizeof(Buffer->Data) - 1])
 		  Buffer->Out.CurrentByte++;
 		else
-		  Buffer->Out.CurrentByte = Buffer->Data;		
-		
-		/* Reset the retrieval bit mask in the current buffer byte to the first bit */		
+		  Buffer->Out.CurrentByte = Buffer->Data;
+
+		/* Reset the retrieval bit mask in the current buffer byte to the first bit */
 		Buffer->Out.ByteMask = (1 << 0);
 	}
 	else
@@ -111,3 +112,4 @@ bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer)
 	/* Return the retrieved bit from the buffer */
 	return Bit;
 }
+

@@ -27,10 +27,11 @@
  by Limor Fried (http://www.ladyada.net)
  example added 9 Jul 2009
  by Tom Igoe 
- modified 25 July 2009
- by David A. Mellis
+ modified 8 Feb 2010
+ by Tom Igoe
 
- 
+ This example code is in the public domain.
+
  http://www.arduino.cc/en/Tutorial/LiquidCrystal
  */
 
@@ -41,7 +42,7 @@
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() {
-  // set up the LCD's number of rows and columns: 
+  // set up the LCD's number of columns and rows: 
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("hello, world!");

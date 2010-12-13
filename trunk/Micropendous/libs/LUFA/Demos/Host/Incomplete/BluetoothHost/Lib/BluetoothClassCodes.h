@@ -1,20 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
+
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -26,6 +27,12 @@
   arising out of or in connection with the use or performance of
   this software.
 */
+
+/** \file
+ *
+ *  Bluetooth class codes, used to describe the type and overall function of a
+ *  Bluetooth device to other Bluetooth devices.
+ */
 
 #ifndef _BLUETOOTH_CLASS_CODES_H_
 #define _BLUETOOTH_CLASS_CODES_H_
@@ -39,7 +46,7 @@
 		#define DEVICE_CLASS_SERVICE_AUDIO                     (1UL << 21)
 		#define DEVICE_CLASS_SERVICE_TELEPHONY                 (1UL << 22)
 		#define DEVICE_CLASS_SERVICE_INFORMATION               (1UL << 23)
-		
+
 		#define DEVICE_CLASS_MAJOR_MISC                        (0x00 << 8)
 		#define DEVICE_CLASS_MAJOR_COMPUTER                    (0x01 << 8)
 		#define DEVICE_CLASS_MAJOR_PHONE                       (0x02 << 8)
@@ -56,7 +63,7 @@
 		#define DEVICE_CLASS_MINOR_COMPUTER_HANDHELD           (0x04 << 2)
 		#define DEVICE_CLASS_MINOR_COMPUTER_PALM               (0x05 << 2)
 		#define DEVICE_CLASS_MINOR_COMPUTER_WEARABLE           (0x06 << 2)
-		
+
 		#define DEVICE_CLASS_MINOR_PHONE_UNCATEGORIZED         (0x00 << 2)
 		#define DEVICE_CLASS_MINOR_PHONE_CELLULAR              (0x01 << 2)
 		#define DEVICE_CLASS_MINOR_PHONE_CORDLESS              (0x02 << 2)
@@ -71,8 +78,8 @@
 		#define DEVICE_CLASS_MINOR_LAN_50_TO_67_PC_UTILIZED    (0x04 << 5)
 		#define DEVICE_CLASS_MINOR_LAN_67_TO_83_PC_UTILIZED    (0x05 << 5)
 		#define DEVICE_CLASS_MINOR_LAN_83_TO_99_PC_UTILIZED    (0x06 << 5)
-		#define DEVICE_CLASS_MINOR_NO_SERVICE_AVAILABLE        (0x07 << 5)
-		
+		#define DEVICE_CLASS_MINOR_LAN_NO_SERVICE_AVAILABLE    (0x07 << 5)
+
 		#define DEVICE_CLASS_MINOR_AV_UNCATEGORIZED            (0x00 << 2)
 		#define DEVICE_CLASS_MINOR_AV_HEADSET                  (0x01 << 2)
 		#define DEVICE_CLASS_MINOR_AV_HANDSFREE                (0x02 << 2)
@@ -90,7 +97,7 @@
 		#define DEVICE_CLASS_MINOR_AV_DISPLAY_AND_LOUDSPEAKER  (0x0F << 2)
 		#define DEVICE_CLASS_MINOR_AV_VIDEO_CONFERENCING       (0x10 << 2)
 		#define DEVICE_CLASS_MINOR_AV_GAMING_TOY               (0x12 << 2)
-		
+
 		#define DEVICE_CLASS_MINOR_PERIPHERAL_KEYBOARD         (0x01 << 6)
 		#define DEVICE_CLASS_MINOR_PERIPHERAL_POINTING         (0x02 << 6)
 		#define DEVICE_CLASS_MINOR_PERIPHERAL_COMBO            (0x03 << 6)
@@ -108,3 +115,4 @@
 		#define DEVICE_CLASS_MINOR_IMAGING_PRINTER             (1 << 7)
 
 #endif
+

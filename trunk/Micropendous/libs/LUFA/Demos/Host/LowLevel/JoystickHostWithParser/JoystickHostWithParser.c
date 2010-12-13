@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the JoystickHostWithParser demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "JoystickHostWithParser.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -46,6 +46,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "Joystick HID Parser Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -63,7 +64,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
@@ -117,7 +118,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -133,7 +134,7 @@ void Joystick_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -143,7 +144,7 @@ void Joystick_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -151,7 +152,7 @@ void Joystick_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-		
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -160,12 +161,12 @@ void Joystick_HID_Task(void)
 
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
 
 			/* Get and process the device's first HID report descriptor */
@@ -177,24 +178,24 @@ void Joystick_HID_Task(void)
 					puts_P(PSTR("Not a valid Joystick." ESC_FG_WHITE));
 				else
 					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-			
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
 
 			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
-				
-				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
-				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
-				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
+
+				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
+				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
+				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 				/* Print out the byte sizes of each report within the device */
 				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
@@ -210,9 +211,9 @@ void Joystick_HID_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select and unfreeze joystick data pipe */
-			Pipe_SelectPipe(JOYSTICK_DATAPIPE);	
+			Pipe_SelectPipe(JOYSTICK_DATA_IN_PIPE);
 			Pipe_Unfreeze();
-			
+
 			/* Check to see if a packet has been received */
 			if (Pipe_IsINReceived())
 			{
@@ -224,11 +225,11 @@ void Joystick_HID_Task(void)
 
 					/* Load in the joystick report */
 					Pipe_Read_Stream_LE(JoystickReport, Pipe_BytesInPipe());
-				
+
 					/* Process the read in joystick report from the device */
 					ProcessJoystickReport(JoystickReport);
 				}
-				
+
 				/* Clear the IN endpoint, ready for next data packet */
 				Pipe_ClearIN();
 			}
@@ -253,15 +254,15 @@ void ProcessJoystickReport(uint8_t* JoystickReport)
 	{
 		/* Create a temporary item pointer to the next report item */
 		HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
-		
+
 		bool FoundData;
 
 		if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
-			(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
+			(ReportItem->ItemType                     == HID_REPORT_ITEM_In))
 		{
 			/* Get the joystick button value */
 			FoundData = USB_GetHIDReportItemInfo(JoystickReport, ReportItem);
-			
+
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
 			  continue;
@@ -273,33 +274,29 @@ void ProcessJoystickReport(uint8_t* JoystickReport)
 		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 				 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
 				  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
-				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+				 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 		{
 			/* Get the joystick relative position value */
 			FoundData = USB_GetHIDReportItemInfo(JoystickReport, ReportItem);
-			
+
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
 			  continue;
-			  
+
 			int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
-			
-			/* Determine if the report is for the X or Y delta movement */
-			if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+
+			/* Check to see if a (non-zero) delta movement has been indicated */
+			if (DeltaMovement)
 			{
-				/* Turn on the appropriate LED according to direction if the delta is non-zero */
-				if (DeltaMovement)
+				/* Determine if the report is for the X or Y delta movement, light LEDs as appropriate */
+				if (ReportItem->Attributes.Usage.Usage == USAGE_X)
 				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
-			}
-			else
-			{
-				/* Turn on the appropriate LED according to direction if the delta is non-zero */
-				if (DeltaMovement)
+				else
 				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
 			}
 		}
 	}
-	
+
 	/* Display the button information on the board LEDs */
 	LEDs_SetAllLEDs(LEDMask);
 }

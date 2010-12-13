@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -59,11 +59,10 @@ int main(void)
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+	sei();
+
 	for (;;)
 	{
-		ProcessNextSample();
-
 		Audio_Device_USBTask(&Microphone_Audio_Interface);
 		USB_USBTask();
 	}
@@ -78,37 +77,52 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
-	USB_Init();
+	Buttons_Init();
 	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
 	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);
-	
+	USB_Init();
+
 	/* Start the ADC conversion in free running mode */
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
 }
 
-/** Processes the next audio sample by reading the last ADC conversion and writing it to the audio
- *  interface, each time the sample reload timer period elapses to give a constant sample rate.
- */
-void ProcessNextSample(void)
+/** ISR to handle the reloading of the data endpoint with the next sample. */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
+	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
+
 	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
-	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
+	if (Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
-		TIFR0 |= (1 << OCF0A);
+		int16_t AudioSample;
 
-		/* Audio sample is ADC value scaled to fit the entire range */
-		int16_t AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
-		
-		#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
-		/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
-		AudioSample -= (SAMPLE_MAX_RANGE / 2));
+		#if defined(USE_TEST_TONE)
+			static uint8_t SquareWaveSampleCount;
+			static int16_t CurrentWaveValue;
+			
+			/* In test tone mode, generate a square wave at 1/256 of the sample rate */
+			if (SquareWaveSampleCount++ == 0xFF)
+			  CurrentWaveValue ^= 0x8000;
+			
+			/* Only generate audio if the board button is being pressed */
+			AudioSample = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
+		#else
+			/* Audio sample is ADC value scaled to fit the entire range */
+			AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
+
+			#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
+			/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
+			AudioSample -= (SAMPLE_MAX_RANGE / 2);
+			#endif
 		#endif
-
+		
 		Audio_Device_WriteSample16(&Microphone_Audio_Interface, AudioSample);
 	}
+
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -117,7 +131,8 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
+	TIMSK0  = (1 << OCIE0A);
+	OCR0A   = ((F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 }
@@ -134,14 +149,16 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-	
-	if (!(Audio_Device_ConfigureEndpoints(&Microphone_Audio_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	bool ConfigSuccess = true;
+
+	ConfigSuccess &= Audio_Device_ConfigureEndpoints(&Microphone_Audio_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	Audio_Device_ProcessControlRequest(&Microphone_Audio_Interface);
 }
+

@@ -1,26 +1,26 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Altered for USBVirtualSerial_FreeRTOS by Opendous Inc. 2010-02
-  For more information visit:  www.Micropendous.org/USBVirtualSerial_FreeRTOS
+  Altered for USBVirtualSerial_FreeRTOS by Opendous Inc. 2010-12
+  For more information visit:  www.Micropendous.org/FreeRTOS
 
   Look for TODO statements in the code for implementation hints
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -41,14 +41,15 @@
 
 #include "USBVirtualSerial_FreeRTOS.h"
 
-#define PINHIGH(PORT, PIN)		PORT |= (1 << PIN);
-#define PINLOW(PORT, PIN)		PORT &= ~(1 << PIN);
+// ensure timely buffer flushing without using a timer resource
+portTickType currTickCount = 0;
+portTickType prevTickCount = 0;
 
-/** Circular buffer to hold data from the host before it is processed by MainTask using standard IO functions */
-RingBuff_t Host_to_Device_Buffer;
+/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
+RingBuff_t HostToDevice_Buffer;
 
-/** Circular buffer to hold data before it is sent to the host. */
-RingBuff_t Device_to_Host_Buffer;
+/** Circular buffer to hold data from the serial port before it is sent to the host. */
+RingBuff_t DeviceToHost_Buffer;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -56,7 +57,7 @@ RingBuff_t Device_to_Host_Buffer;
  */
 USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
-		.Config = 
+		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
 
@@ -80,16 +81,17 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
-	Buffer_Initialize(&Host_to_Device_Buffer);
-	Buffer_Initialize(&Device_to_Host_Buffer);
 
+	RingBuffer_InitBuffer(&HostToDevice_Buffer);
+	RingBuffer_InitBuffer(&DeviceToHost_Buffer);
+
+	LEDs_Init();
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
 	// Create Tasks for FreeRTOS
-	xTaskCreate(USBTask, (signed portCHAR *) "usbtask", configMINIMAL_STACK_SIZE, NULL, USB_CDC_TASK_PRIORITY, NULL );
-	xTaskCreate(CDCTask, (signed portCHAR *) "cdctask", configMINIMAL_STACK_SIZE, NULL, USB_CDC_TASK_PRIORITY, NULL );
 	xTaskCreate(MainTask, (signed portCHAR *) "maintask", configMINIMAL_STACK_SIZE, NULL, MAIN_TASK_PRIORITY, NULL );
+	xTaskCreate(CDCUSBTask, (signed portCHAR *) "cdcusbt", configMINIMAL_STACK_SIZE, NULL, (CDC_USB_TASK_PRIORITY | portPRIVILEGE_BIT), NULL );
+	xTaskCreate(USBSetup, (signed portCHAR *) "usbsetup", configMINIMAL_STACK_SIZE, NULL, USB_SETUP_TASK_TOP_PRIORITY, NULL );
 
 	// Start the scheduler
 	vTaskStartScheduler();
@@ -110,10 +112,10 @@ void SetupHardware(void)
 
 	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
 	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
-	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
-			defined(__AVR_ATmega32U6__)))
+			defined(__AVR_ATmega32U6__))
 		// note the JTD bit must be written twice within 4 clock cycles to disable JTAG
 		// you must also set the IVSEL bit at the same time, which requires IVCE to be set first
 		// port pull-up resistors are enabled - PUD(Pull Up Disable) = 0
@@ -125,8 +127,15 @@ void SetupHardware(void)
 	/* enable Ports based on which IC is being used */
 	/* For more information look over the corresponding AVR's datasheet in the
 		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
-	#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
-		#error The AT90USBxx2 AVRs do not have enough SRAM to run FreeRTOS
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		DDRD = 0;
+		PORTD = 0;
+		DDRB = 0;
+		PORTB = 0;
+		DDRC = 0;
+		PORTC |= (0 << PC2) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7); //only PC2,4,5,6,7 are pins
+		// be careful using PortC as PC0 is used for the Crystal and PC1 is nRESET
 	#endif
 
 	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
@@ -153,10 +162,22 @@ void SetupHardware(void)
 		PORTC = 0;
 		DDRD = 0;
 		PORTD = 0;
-		DDRE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
-		PORTE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
+		DDRE = 0;
+		PORTE = 0;
 		DDRF = 0;
 		PORTF = 0;
+		#if (BOARD == BOARD_MICROPENDOUS)
+		// set PortB pin 1 to an output as it connects to an LED on the Micropendous
+		DDRB |= (1 << PB1);
+		// Set PE4=1 to disable external SRAM, PE6=0 to disable TXB0108, PE7=1 to select USB-B connector
+		DDRE |= ((1 << PE4) | (1 << PE6) | (1 << PE7));
+		PORTE |= ((1 << PE4) | (1 << PE7));
+		PORTE &= ~(1 << PE6);
+		#else // other boards such as the Micropendous3 or Micropendous4
+		// Set PE6=1 to disable external SRAM
+		DDRE |= (1 << PE6);
+		PORTE |= (1 << PE6);
+		#endif
 	#endif
 
 	/* Initialize stdout and stdin for printf and scanf */
@@ -169,54 +190,72 @@ void SetupHardware(void)
 	DDRD =  (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
 	PORTD = (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
 
-	/* Note that you can read PortD with PIND */
-	// uint8_t stateOfPortD = PIND;
+	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
+	TCCR0B = (1 << CS02);
+
+}
+
+
+static void USBSetup(void *pvParameters)
+{
 
 	/* Hardware Initialization */
-	LEDs_Init();
 	USB_Init();
+
+	vTaskSuspend( NULL ); // suspend this task as USB_Init must run only once
+
+	for (;;){ portNOP(); portYIELD(); }
 }
 
 
-// FreeRTOS requires a specific type of function
-static void USBTask(void *pvParameters)
+static void CDCUSBTask(void *pvParameters)
 {
-	portTickType xDelayPeriod = taskDelayPeriod;
-	portTickType xLastWakeTime;
-	xLastWakeTime = xTaskGetTickCount();
+	//portTickType xDelayPeriod = taskDelayPeriod;
+	//portTickType xLastWakeTime;
+	//xLastWakeTime = xTaskGetTickCount();
+	portTickType TickCount = 0;
 
 	for(;;) {
-		USB_USBTask();
-		// vTaskDelayUntil is faster and deterministic
-		vTaskDelayUntil(&xLastWakeTime, xDelayPeriod);
-		// vTaskDelay(xDelayPeriod);
-	}
-}
-
-
-static void CDCTask(void *pvParameters)
-{
-	portTickType xDelayPeriod = taskDelayPeriod;
-	portTickType xLastWakeTime;
-	xLastWakeTime = xTaskGetTickCount();
-
-	for(;;) {
-		/* Read bytes from the USB OUT endpoint into the local buffer */
-		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
+		/* Only try to read in bytes from the CDC interface if the transmit buffer is not full */
+		if (!(RingBuffer_IsFull(&HostToDevice_Buffer)))
 		{
-			if (!(BUFF_STATICSIZE - Host_to_Device_Buffer.Elements))
-				break;
-			Buffer_StoreElement(&Host_to_Device_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+			/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
+			if (!(ReceivedByte < 0))
+				RingBuffer_Insert(&HostToDevice_Buffer, ReceivedByte);
+		}
+		
+		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
+		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&DeviceToHost_Buffer);
+
+		currTickCount = xTaskGetTickCount();
+		if (currTickCount < prevTickCount){
+			TickCount = prevTickCount - currTickCount;
+		} else {
+			TickCount = currTickCount - prevTickCount;
 		}
 
-		/* Read bytes from the data buffer into the USB IN endpoint */
-		while (Device_to_Host_Buffer.Elements)
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Device_to_Host_Buffer));
+		if ((TickCount > 8) || (BufferCount > 200))
+		{
+			/* Read bytes from the USART receive buffer into the USB IN endpoint */
+			while (BufferCount--)
+				CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&DeviceToHost_Buffer));
+		}
+
+		/* Load the next byte from the USART transmit buffer into the USART */
+		//if (!(RingBuffer_IsEmpty(&HostToDevice_Buffer)))
+		//	Serial_TxByte(RingBuffer_Remove(&HostToDevice_Buffer));
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+
+		portENTER_CRITICAL();
+			USB_USBTask();
+		portEXIT_CRITICAL();
+
 		// vTaskDelayUntil is faster and deterministic
-		vTaskDelayUntil(&xLastWakeTime, xDelayPeriod);
-		//vTaskDelay(xDelayPeriod);
+		//vTaskDelayUntil(&xLastWakeTime, xDelayPeriod);
+		vTaskDelay((portTickType) 3 );
 	}
 }
 
@@ -232,6 +271,7 @@ static void MainTask(void *pvParameters)
 
 	for(;;) {
 		Main_Task();
+		// don't need any delays as using preemptive FreeRTOS kernel and MainTask is lowest priority
 		// vTaskDelayUntil is faster and deterministic
 		//vTaskDelayUntil(&xLastWakeTime, xDelayPeriod);
 		//vTaskDelay(xDelayPeriod);
@@ -239,11 +279,12 @@ static void MainTask(void *pvParameters)
 }
 
 
-// TODO - CoRoutines are not enabled, but FreeRTOS complains during compile
+// CoRoutines are not enabled, but FreeRTOS complains during compile
 void vApplicationIdleHook(void)
 {
 	//vCoRoutineSchedule();
 }
+
 
 
 /** Event handler for the library USB Connection event. */
@@ -261,17 +302,19 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
  *
@@ -357,7 +400,6 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 }
 
 
-
 /** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
  *  control line state change (containing the virtual serial control line states, such as DTR). The new control line states
  *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
@@ -390,7 +432,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	an empty buffer
 */
 uint8_t haveData(void) {
-	return (uint8_t)(Host_to_Device_Buffer.Elements);
+	return (uint8_t)(!RingBuffer_IsEmpty(&HostToDevice_Buffer));
 }
 
 /* In order to use printf functions, need a function that will send data over
@@ -403,17 +445,21 @@ static int sendData(char c, FILE *stream) {
 	//if (c == '\n') {
 	//	sendData('\r', stream);
 	//}
-	Buffer_StoreElement(&Device_to_Host_Buffer, (uint8_t)c);
-	return 0;
+	if (!RingBuffer_IsFull(&DeviceToHost_Buffer)) {
+		RingBuffer_Insert(&DeviceToHost_Buffer, (uint8_t)c);
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
-/* Also require a function to receive data from the USB Virtual Serial Port link */
+/* Function to receive data from the USB Virtual Serial Port link */
 int getData(FILE *__stream) {
 	//if (something) return _FDEV_ERR; // cannot implement as GetElement has no error condition
 	if (haveData() == 0) {
 		return _FDEV_EOF;
 	}
-	return (int)Buffer_GetElement(&Host_to_Device_Buffer);
+	return (int)RingBuffer_Remove(&HostToDevice_Buffer);
 }
 
 
@@ -426,7 +472,7 @@ void Main_Task(void)
 
 	// If the host has sent data then process it
 
-	// Example 1 - using standard IO functions
+	// Example 1 - using standard IO functions to echo back data - useful for throughput testing
 	while (haveData()) {	// need to check that data exists before processing it
 		// store data temporarily then send it right back - raw binary - using standard IO functions
 		tempInt = getchar();
@@ -435,7 +481,7 @@ void Main_Task(void)
 
 	// Example 2 - using formatted standard IO functions
 /*	while (haveData()) {
-		// as long as there is data, process it
+		// as long as getchar() is returning data, process it
 		printf_P(PSTR("\r\nUSBVirtualSerial\r\n")); // send a string that is constant and stored in FLASH
 		tempInt = getchar(); // receive a character
 		printf("Received char = %3d\r\n", tempInt); // send a string that is dynamic and stored in SRAM

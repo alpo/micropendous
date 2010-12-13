@@ -14,7 +14,7 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   3, C2012X7R1A105K              , 0.10 - C10 C44 - CAP CER 1.0UF 10V X7R 10% Low ESR 0805
   8, GRM21BR60J106ME19L          , 0.15 - C13 C21 C41 C45 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
   1, C1206C476M9PACTU            , 0.94 - C42 - CAP CERAMIC 47UF 6.3V X5R 1206
-  1, MMZ2012R102A                , 0.07 - L3 - FERRITE CHIP 1000 OHM 500MA 0805
+  1, MMZ2012R102A                , 0.07 - L3 - FERRITE CHIP 1000 OHM 500MA 0805 (Do Not Install)
   1, RMCF0805ZT0R00              , 0.03 - R5 - RES 0.0 OHM 1/8W 0805 SMD (Do Not Install)
   2, MCR10EZPF22R0               , 0.03 - R12 R13 - RES 22.0 OHM 1/8W 1% 0805 SMD
   1, RMCF0805JT1K00              , 0.03 - R42 - RES 1K OHM 1/8W 5% 0805 SMD
@@ -22,23 +22,25 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   2, RMCF0805JT15K0              , 0.03 - R9 R10 - RES 15K OHM 1/8W 5% 0805 SMD
   1, RMCF0805JT47K0              , 0.03 - R8 R14 - RES 47K OHM 1/8W 5% 0805 SMD
   2, EVQ-Q2U03W                  , 0.39 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
-  1, PJ-102AH                    , 0.88 - DC_POWER_JACK(J1) - CONN PWR JACK 2.1X5.5MM HIGH CUR
   1, ABLS2-16.000MHZ-D4Y-T       , 0.64 - X1 - CRYSTAL 16.0000 MHZ 18PF SMD 3.3mm Height
   1, 67997-410HLF                , 0.37 - JTAG(U4) - CONN HEADER 10POS .100 STR TIN
   1, UX60-MB-5ST                 , 1.18 - U5 - CONN RECEPT USB2.0 MINI-B 5POS
   1, 690-004-260-013             , 1.15 - U2 - CONN USB JACK TYPE A VERT STR
-  1, 101-00303-68                , 0.86 - U3 - CONN MINI MICRO-SD 8PIN PCB GOLD
+  1, DM3D-SF                     , 1.93 - U3 - CONN MICRO SD R/A PUSH-PULL SMD
   1, PPPC031LFBN-RC              , 0.39 - P3 - CONN HEADER FEMALE 3POS .1" GOLD
   1, 969102-0000-DA              , 0.06 - * - SHUNT JUMPER .1" BLACK GOLD
   1, 961102-6404-AR              , 0.09 - * - CONN HEADER VERT SGL 2POS GOLD
-----------------------------Total=33.54
+  2, 68000-436HLF                , 1.03 - * - BERGSTIK II .100" SR STRAIGHT (DIP Headers)
+----------------------------Total=36.67
 
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
-	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor (USB Specification recommends 120uF)
+	- C42 can be substituted with TCTAL0J107M8R, a 100uF Tantalum Capacitor
 	- FSUSB20MUX (IC3) can (potentially) be substituted with FSUSB30MUX (NOT YET TESTED)
 	- SN74AHC573DWR (IC4) can be substituted with 74VHC573M
 	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
 	- XC6222B331MR-G (IC7) can be substituted with CAT6219-330TDGT3 or MIC5219-3.3YM5
 	- AP2141WG-7 (IC9) can be substituted with AP2181WG-7
 	- 690-004-260-013 (U2) can be substituted with 690-004-660-013 or UE27AE54100
+	- Instead of using a 2POS header or Ferrite Bead, you can install a PTC Resettable Fuse at L3:
+	  0ZCE0075FF2E - 0.39 - PTC RESTTBLE 0.75A 6V CHIP 0805
 

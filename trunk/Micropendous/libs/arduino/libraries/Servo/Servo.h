@@ -57,22 +57,22 @@
  */
 
 // Say which 16 bit timers can be used and in what order
-#if defined(__AVR_ATmega1280__)
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 #define _useTimer5
 #define _useTimer1 
 #define _useTimer3
 #define _useTimer4 
 typedef enum { _timer5, _timer1, _timer3, _timer4, _Nbr_16timers } timer16_Sequence_t ;
 
-#elif (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
+#elif defined(__AVR_ATmega32U4__)  
 #define _useTimer3
-typedef enum { _timer3, _Nbr_16timers } timer16_Sequence_t ;
+#define _useTimer1 
+typedef enum { _timer3, _timer1, _Nbr_16timers } timer16_Sequence_t ;
 
-#elif (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
-		defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
-		defined(__AVR_ATmega32U6__))
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
 #define _useTimer3
-typedef enum { _timer3, _Nbr_16timers } timer16_Sequence_t ;
+#define _useTimer1
+typedef enum { _timer3, _timer1, _Nbr_16timers } timer16_Sequence_t ;
 
 #elif defined(__AVR_ATmega128__) ||defined(__AVR_ATmega1281__)||defined(__AVR_ATmega2561__)
 #define _useTimer3
@@ -92,9 +92,8 @@ typedef enum { _timer1, _Nbr_16timers } timer16_Sequence_t ;
 #define REFRESH_INTERVAL    20000     // minumim time to refresh servos in microseconds 
 
 #define SERVOS_PER_TIMER       12     // the maximum number of servos controlled by one timer 
-#ifndef MAX_SERVOS
 #define MAX_SERVOS   (_Nbr_16timers  * SERVOS_PER_TIMER)
-#endif
+
 #define INVALID_SERVO         255     // flag indicating an invalid servo index
 
 typedef struct  {

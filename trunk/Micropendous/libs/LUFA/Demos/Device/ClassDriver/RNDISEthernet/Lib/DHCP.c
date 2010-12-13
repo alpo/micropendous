@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  handles the automatic IP negotiation to the host, so that the host will use the provided
  *  IP address given to it by the device.
  */
- 
+
 #include "DHCP.h"
 
 /** Processes a DHCP packet inside an Ethernet frame, and writes the appropriate response
@@ -46,12 +46,14 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, void* DHCPHeaderOutStart)
+int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
+                               void* DHCPHeaderInStart,
+                               void* DHCPHeaderOutStart)
 {
 	IP_Header_t*   IPHeaderIN    = (IP_Header_t*)IPHeaderInStart;
 	DHCP_Header_t* DHCPHeaderIN  = (DHCP_Header_t*)DHCPHeaderInStart;
 	DHCP_Header_t* DHCPHeaderOUT = (DHCP_Header_t*)DHCPHeaderOutStart;
-	
+
 	uint8_t* DHCPOptionsINStart  = (uint8_t*)(DHCPHeaderInStart  + sizeof(DHCP_Header_t));
 	uint8_t* DHCPOptionsOUTStart = (uint8_t*)(DHCPHeaderOutStart + sizeof(DHCP_Header_t));
 
@@ -69,9 +71,9 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, v
 	DHCPHeaderOUT->ElapsedSeconds        = 0;
 	DHCPHeaderOUT->Flags                 = DHCPHeaderIN->Flags;
 	DHCPHeaderOUT->YourIP                = ClientIPAddress;
-	memcpy(&DHCPHeaderOUT->ClientHardwareAddress, &DHCPHeaderIN->ClientHardwareAddress, sizeof(MAC_Address_t));
+	memmove(&DHCPHeaderOUT->ClientHardwareAddress, &DHCPHeaderIN->ClientHardwareAddress, sizeof(MAC_Address_t));
 	DHCPHeaderOUT->Cookie                = SwapEndian_32(DHCP_MAGIC_COOKIE);
-	
+
 	/* Alter the incoming IP packet header so that the corrected IP source and destinations are used - this means that
 	   when the response IP header is generated, it will use the corrected addresses and not the null/broatcast addresses */
 	IPHeaderIN->SourceAddress      = ClientIPAddress;
@@ -79,7 +81,7 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, v
 
 	/* Process the incoming DHCP packet options */
 	while (DHCPOptionsINStart[0] != DHCP_OPTION_END)
-	{	
+	{
 		/* Find the Message Type DHCP option, to determine the type of DHCP packet */
 		if (DHCPOptionsINStart[0] == DHCP_OPTION_MESSAGETYPE)
 		{
@@ -105,14 +107,15 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, v
 				DHCPOptionsOUTStart     += sizeof(IP_Address_t);
 
 				*(DHCPOptionsOUTStart++) = DHCP_OPTION_END;
-				
+
 				return (sizeof(DHCP_Header_t) + 12 + sizeof(IP_Address_t));
 			}
 		}
-		
+
 		/* Go to the next DHCP option - skip one byte if option is a padding byte, else skip the complete option's size */
 		DHCPOptionsINStart += ((DHCPOptionsINStart[0] == DHCP_OPTION_PAD) ? 1 : (DHCPOptionsINStart[1] + 2));
 	}
-	
+
 	return NO_RESPONSE;
 }
+

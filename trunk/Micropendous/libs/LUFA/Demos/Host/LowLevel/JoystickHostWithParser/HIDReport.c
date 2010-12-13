@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,12 +46,12 @@ uint8_t GetHIDReportData(void)
 {
 	/* Create a buffer big enough to hold the entire returned HID report */
 	uint8_t HIDReportData[HIDReportSize];
-	
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Report << 8),
+			.wValue        = (HID_DTYPE_Report << 8),
 			.wIndex        = 0,
 			.wLength       = HIDReportSize,
 		};
@@ -66,7 +66,7 @@ uint8_t GetHIDReportData(void)
 	/* Send the HID report to the parser for processing */
 	if (USB_ProcessHIDReport(HIDReportData, HIDReportSize, &HIDReportInfo) != HID_PARSE_Successful)
 	  return ParseError;
-	
+
 	return ParseSuccessful;
 }
 
@@ -79,7 +79,7 @@ uint8_t GetHIDReportData(void)
  *
  *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
  */
-bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* const CurrentItem)
 {
 	bool IsJoystick = false;
 
@@ -100,7 +100,7 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 	/* If a collection with the joystick usage was not found, indicate that we are not interested in this item */
 	if (!IsJoystick)
 	  return false;
-  
+
 	/* Check the attributes of the current joystick item - see if we are interested in it or not;
 	 * only store BUTTON and GENERIC_DESKTOP_CONTROL items into the Processed HID Report
 	 * structure to save RAM and ignore the rest
@@ -108,3 +108,4 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 	return ((CurrentItem->Attributes.Usage.Page == USAGE_PAGE_BUTTON) ||
 	        (CurrentItem->Attributes.Usage.Page == USAGE_PAGE_GENERIC_DCTRL));
 }
+

@@ -69,9 +69,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="468.99713"
-     inkscape:cy="471.02713"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="548.64345"
+     inkscape:cy="359.44764"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -321,7 +321,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="286.31546"
+       x="286.26175"
        y="498.24396"
        id="text4306"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -329,8 +329,8 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4308"
-         x="286.31546"
-         y="498.24396">PD6 / T1 / 4</tspan></text>
+         x="286.26175"
+         y="498.24396">PD6 / T1 / 6</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -386,7 +386,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="116.32034"
+       x="116.37405"
        y="368.36322"
        id="text4326"
        inkscape:export-filename=".\Micropendous4_Pinout.png"
@@ -394,8 +394,8 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan4328"
-         x="116.32034"
-         y="368.36322">PD1 / SDA / INT1 / OC.2B / 6</tspan></text>
+         x="116.37405"
+         y="368.36322">PD1 / SDA / INT1 / OC.2B / 4</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -617,7 +617,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2868"
          x="717.87933"
-         y="186.76022">PF2 / ADC2</tspan></text>
+         y="186.76022">19 / PF2 / ADC2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -630,7 +630,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2872"
          x="717.87933"
-         y="238.52115">PF4 / ADC4 / TCK</tspan></text>
+         y="238.52115">21 / PF4 / ADC4 / TCK</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -643,7 +643,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2876"
          x="717.87933"
-         y="264.7171">PF5 / ADC5 / TMS</tspan></text>
+         y="264.7171">22 / PF5 / ADC5 / TMS</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -656,7 +656,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2880"
          x="717.87933"
-         y="290.41238">PF6 / ADC6 / TDO</tspan></text>
+         y="290.41238">23 / PF6 / ADC6 / TDO</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -669,7 +669,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2884"
          x="717.87933"
-         y="316.58163">PF7 / ADC7 / TDI</tspan></text>
+         y="316.58163">24 / PF7 / ADC7 / TDI</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -682,7 +682,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2946"
          x="717.87933"
-         y="134.89569">PF0 / ADC0</tspan></text>
+         y="134.89569">17 / PF0 / ADC0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -695,7 +695,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2950"
          x="717.87933"
-         y="160.5856">PF1 / ADC1</tspan></text>
+         y="160.5856">18 / PF1 / ADC1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -708,7 +708,7 @@ Visit www.Micropendous.org for more info.</dc:description>
          sodipodi:role="line"
          id="tspan2954"
          x="717.87933"
-         y="212.23776">PF3 / ADC3</tspan></text>
+         y="212.23776">20 / PF3 / ADC3</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -2717,7 +2717,7 @@ Visit www.Micropendous.org for more info.</dc:description>
     <text
        xml:space="preserve"
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="199.55725"
+       x="210.66893"
        y="-641.1355"
        id="text2776"
        transform="matrix(0,1,-1,0,0,0)"
@@ -2725,8 +2725,8 @@ Visit www.Micropendous.org for more info.</dc:description>
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan2778"
-         x="199.55725"
-         y="-641.1355">Micropendous-1287</tspan></text>
+         x="210.66893"
+         y="-641.1355">Micropendous-DIP</tspan></text>
     <g
        id="g2924"
        transform="translate(1433.1509,-309.85057)"
@@ -3155,5 +3155,5 @@ Visit www.Micropendous.org for more info.</dc:description>
            height="142.85715"
            x="268.57144"
            y="-32.334087" /></flowRegion><flowPara
-         id="flowPara2799"></flowPara></flowRoot>  </g>
+         id="flowPara2799" /></flowRoot>  </g>
 </svg>

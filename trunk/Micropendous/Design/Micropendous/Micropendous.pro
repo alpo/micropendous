@@ -1,4 +1,4 @@
-update=26/11/2010 14:06:07
+update=13/12/2010 04:32:58
 last_client=pcbnew
 [general]
 version=1
@@ -78,21 +78,21 @@ LibName30=valves
 LibName31=opendous
 [pcbnew]
 version=1
-PadDrlX=320
-PadDimH=440
-PadDimV=440
+PadDrlX=0
+PadDimH=315
+PadDimV=591
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=340
 TxtPcbH=340
 TxtModV=340
 TxtModH=340
-TxtModW=80
+TxtModW=500
 VEgarde=10
-DrawLar=70
-EdgeLar=80
-TxtLar=80
-MSegLar=80
+DrawLar=500
+EdgeLar=500
+TxtLar=500
+MSegLar=500
 LastNetListRead=Micropendous.net
 [pcbnew/libraries]
 LibDir=

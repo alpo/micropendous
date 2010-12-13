@@ -34,6 +34,16 @@
 
 #include <avr/version.h>
 
+
+#ifndef PINHIGH
+	#define PINHIGH(PORT, PIN)		PORT |= (1 << PIN);
+#endif
+
+#ifndef PINLOW
+	#define PINLOW(PORT, PIN)		PORT &= ~(1 << PIN);
+#endif
+
+
 /* Missing WinAVR include defines */
 /* WinAVR does not define these for the ATmega??u4*/
 #if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))

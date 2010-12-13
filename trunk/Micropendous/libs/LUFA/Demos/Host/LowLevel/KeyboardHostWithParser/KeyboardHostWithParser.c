@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the KeyboardHostWithParser demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "KeyboardHostWithParser.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -46,6 +46,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "Keyboard HID Parser Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -111,13 +112,14 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -132,7 +134,7 @@ void Keyboard_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -142,7 +144,7 @@ void Keyboard_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -165,9 +167,9 @@ void Keyboard_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
-						
+
 			/* Get and process the device's first HID report descriptor */
 			if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
 			{
@@ -177,13 +179,13 @@ void Keyboard_HID_Task(void)
 					puts_P(PSTR("Not a valid Keyboard." ESC_FG_WHITE));
 				else
 					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-			
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;	
+				break;
 			}
 
 			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
@@ -191,10 +193,10 @@ void Keyboard_HID_Task(void)
 			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
-				
-				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
-				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
-				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
+
+				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
+				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
+				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 				/* Print out the byte sizes of each report within the device */
 				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
@@ -210,7 +212,7 @@ void Keyboard_HID_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select and unfreeze keyboard data pipe */
-			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+			Pipe_SelectPipe(KEYBOARD_DATA_IN_PIPE);
 			Pipe_Unfreeze();
 
 			/* Check to see if a packet has been received */
@@ -224,11 +226,11 @@ void Keyboard_HID_Task(void)
 
 					/* Load in the keyboard report */
 					Pipe_Read_Stream_LE(KeyboardReport, Pipe_BytesInPipe());
-				
+
 					/* Process the read in keyboard report from the device */
 					ProcessKeyboardReport(KeyboardReport);
 				}
-				
+
 				/* Clear the IN endpoint, ready for next data packet */
 				Pipe_ClearIN();
 			}
@@ -252,23 +254,23 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 		/* Create a temporary item pointer to the next report item */
 		HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
 
-		/* Check if the current report item is a keyboard scancode */
+		/* Check if the current report item is a keyboard scan-code */
 		if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
 			(ReportItem->Attributes.BitSize         == 8)                   &&
 			(ReportItem->Attributes.Logical.Maximum > 1)                    &&
-			(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
+			(ReportItem->ItemType                   == HID_REPORT_ITEM_In))
 		{
-			/* Retrieve the keyboard scancode from the report data retrieved from the device */
+			/* Retrieve the keyboard scan-code from the report data retrieved from the device */
 			bool FoundData = USB_GetHIDReportItemInfo(KeyboardReport, ReportItem);
-			
+
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
 			  continue;
-			
+
 			/* Key code is an unsigned char in length, cast to the appropriate type */
 			uint8_t KeyCode = (uint8_t)ReportItem->Value;
 
-			/* If scancode is non-zero, a key is being pressed */
+			/* If scan-code is non-zero, a key is being pressed */
 			if (KeyCode)
 			{
 				/* Toggle status LED to indicate keypress */
@@ -276,23 +278,33 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 
 				char PressedKey = 0;
 
-				/* Convert scancode to printable character if alphanumeric */
-				if ((KeyCode >= 0x04) && (KeyCode <= 0x1D))
-				  PressedKey = (KeyCode - 0x04) + 'A';
-				else if ((KeyCode >= 0x1E) && (KeyCode <= 0x27))
-				  PressedKey = (KeyCode - 0x1E) + '0';
-				else if (KeyCode == 0x2C)
-				  PressedKey = ' ';						
-				else if (KeyCode == 0x28)
-				  PressedKey = '\n';
-					 
+				/* Retrieve pressed key character if alphanumeric */
+				if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
+				{
+					PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
+				}
+				else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
+						 (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+				{
+					PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
+				}
+				else if (KeyCode == HID_KEYBOARD_SC_SPACE)
+				{
+					PressedKey = ' ';
+				}
+				else if (KeyCode == HID_KEYBOARD_SC_ENTER)
+				{
+					PressedKey = '\n';
+				}
+
 				/* Print the pressed key character out through the serial port if valid */
 				if (PressedKey)
 				  putchar(PressedKey);
 			}
-			
-			/* Once a scancode is found, stop scanning through the report items */
+
+			/* Once a scan-code is found, stop scanning through the report items */
 			break;
 		}
 	}
 }
+

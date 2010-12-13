@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief TWI peripheral driver for the U7, U6 and U4 USB AVRs.
  *
  *  Master mode TWI driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
  *
@@ -52,11 +53,12 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		
+
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <util/twi.h>
-		
+		#include <util/delay.h>
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -68,24 +70,27 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Initializes the TWI hardware into master mode, ready for data transmission and reception. This must be
-				 *  before any other TWI operations.
-				 */
-				static inline void TWI_Init(void);
-				
-				/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
-				 *  \ref TWI_Init() before the TWI can be used again.
-				 */				
-				static inline void TWI_ShutDown(void);
-			#else
-				#define TWI_Init()        MACROS{ TWCR |=  (1 << TWEN); }MACROE
-				#define TWI_ShutDown()    MACROS{ TWCR &= ~(1 << TWEN); }MACROE
-			#endif
-
 		/* Inline Functions: */
+			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
+			 *  before any other TWI operations.
+			 */
+			static inline void TWI_Init(void) ATTR_ALWAYS_INLINE;
+			static inline void TWI_Init(void)
+			{
+				TWCR |=  (1 << TWEN);
+			}
+
+			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
+			 *  \ref TWI_Init() before the TWI can be used again.
+			 */
+			static inline void TWI_ShutDown(void) ATTR_ALWAYS_INLINE;
+			static inline void TWI_ShutDown(void)
+			{
+				TWCR &= ~(1 << TWEN);
+			}
+
 			/** Sends a TWI STOP onto the TWI bus, terminating communication with the currently addressed device. */
+			static inline void TWI_StopTransmission(void) ATTR_ALWAYS_INLINE;
 			static inline void TWI_StopTransmission(void)
 			{
 				TWCR = ((1 << TWINT) | (1 << TWSTO) | (1 << TWEN));
@@ -97,10 +102,10 @@
 			 *
 			 *  \return Boolean true if the recipient ACKed the byte, false otherwise
 			 */
-			static inline bool TWI_SendByte(uint8_t Byte)
+			static inline bool TWI_SendByte(const uint8_t Byte)
 			{
 				TWDR = Byte;
-				TWCR = ((1 << TWINT) | (1 << TWEN));	
+				TWCR = ((1 << TWINT) | (1 << TWEN));
 				while (!(TWCR & (1 << TWINT)));
 
 				return ((TWSR & TW_STATUS_MASK) == TW_MT_DATA_ACK);
@@ -108,15 +113,16 @@
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
-			 *  \param[in] Byte  Location where the read byte is to be stored
+			 *  \param[in] Byte      Location where the read byte is to be stored
 			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
 			 *
-			 *  \return Boolean true if the byte reception sucessfully completed, false otherwise
+			 *  \return Boolean true if the byte reception successfully completed, false otherwise
 			 */
-			static inline bool TWI_ReceiveByte(uint8_t* Byte, bool LastByte)
+			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
+			                                   const bool LastByte)
 			{
 				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
-				
+
 				if (!(LastByte))
 				  TWCRMask |= (1 << TWEA);
 
@@ -131,10 +137,12 @@
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
 			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
+			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds
 			 *
 			 *  \return Boolean true if the device is ready for data, false otherwise
 			 */
-			bool TWI_StartTransmission(uint8_t SlaveAddress);
+			bool TWI_StartTransmission(const uint8_t SlaveAddress,
+			                           const uint8_t TimeoutMS);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -144,3 +152,4 @@
 #endif
 
 /** @} */
+

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,9 +29,12 @@
 */
 
 /** \file
+ *  \brief Board specific Buttons driver header for the Fletchtronics BUMBLEB.
  *
- *  Board specific Buttons driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
- *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific Buttons driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b).
+ *
+ *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
+ *  external peripheral layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -40,8 +43,9 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_BUMBLEB BUMBLEB
  *
- *  Board specific Buttons driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
- *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific buttons driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB
+ *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral
+ *  layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -67,12 +71,12 @@
 		#if !defined(__INCLUDE_FROM_BUTTONS_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Button mask for the first button on the board. */
 			#define BUTTONS_BUTTON1      (1 << 7)
-	
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void Buttons_Init(void)
@@ -92,7 +96,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-			
+
 #endif
 
 /** @} */
+

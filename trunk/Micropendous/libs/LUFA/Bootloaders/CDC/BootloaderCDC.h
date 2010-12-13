@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for BootloaderCDC.c.
  */
- 
+
 #ifndef _CDC_H_
 #define _CDC_H_
 
@@ -42,6 +42,7 @@
 		#include <avr/boot.h>
 		#include <avr/eeprom.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
@@ -49,27 +50,12 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** CDC Class Specific request to get the line encoding on a CDC-ACM virtual serial port, including the
-		 *  baud rate, parity, stop bits and data bits.
-		 */
-		#define REQ_GetLineEncoding          0x21
-
-		/** CDC Class Specific request to set the line encoding on a CDC-ACM virtual serial port, including the
-		 *  baud rate, parity, stop bits and data bits.
-		 */
-		#define REQ_SetLineEncoding          0x20
-
-		/** CDC Class Specific request to set the state of the serial handshake lines (such as DCD and RTS) on
-		 *  a CDC-ACM virtual serial port.
-		 */
-		#define REQ_SetControlLineState      0x22
-		
 		/** Version major of the CDC bootloader. */
 		#define BOOTLOADER_VERSION_MAJOR     0x01
 
 		/** Version minor of the CDC bootloader. */
 		#define BOOTLOADER_VERSION_MINOR     0x00
-				
+
 		/** Hardware version major of the CDC bootloader. */
 		#define BOOTLOADER_HWVERSION_MAJOR   0x01
 
@@ -78,53 +64,64 @@
 
 		/** Eight character bootloader firmware identifier reported to the host when requested */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
-		
-	/* Type Defines: */
-		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
-		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
 
-		/** Type define for the CDC-ACM virtual serial port line encoding options, including baud rate, format, parity
-		 *  and size of each data chunk in bits.
+		/** CDC Class specific request to get the current virtual serial port configuration settings. */
+		#define REQ_GetLineEncoding          0x21
+
+		/** CDC Class specific request to set the current virtual serial port configuration settings. */
+		#define REQ_SetLineEncoding          0x20
+
+	/* Type Defines: */
+		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
+		 *  as set by the host via a class specific request.
 		 */
 		typedef struct
 		{
-			uint32_t BaudRateBPS; /**< Baud rate in BPS */
-			uint8_t  CharFormat; /**< Character format, an entry from the BootloaderCDC_CDC_LineCodingFormats_t enum */
-			uint8_t  ParityType; /**< Parity mode, an entry from the BootloaderCDC_CDC_LineCodeingParity_t enum */
-			uint8_t  DataBits; /**< Size of each data chunk, in bits */
+			uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+			uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+			                      *   CDCDevice_CDC_LineCodingFormats_t enum
+			                      */
+			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+			                      *   CDCDevice_LineCodingParity_t enum
+			                      */
+			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
 		} CDC_Line_Coding_t;
-		
+
+		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
+		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
+
 	/* Enums: */
-		/** Enum for the possible line encoding formats on a CDC-ACM virtual serial port */
-		enum BootloaderCDC_CDC_LineCodingFormats_t
+		/** Enum for the possible line encoding formats of a virtual serial port. */
+		enum CDCDevice_CDC_LineCodingFormats_t
 		{
-			OneStopBit          = 0, /**< Single stop bit */
-			OneAndAHalfStopBits = 1, /**< 1.5 stop bits */
-			TwoStopBits         = 2, /**< Two stop bits */
+			OneStopBit          = 0, /**< Each frame contains one stop bit */
+			OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
+			TwoStopBits         = 2, /**< Each frame contains two stop bits */
 		};
-		
-		/** Enum for the possible parity modes on a CDC-ACM virtual serial port */
-		enum BootloaderCDC_CDC_LineCodingParity_t
+
+		/** Enum for the possible line encoding parity settings of a virtual serial port. */
+		enum CDCDevice_LineCodingParity_t
 		{
-			Parity_None         = 0, /**< No data parity checking */
-			Parity_Odd          = 1, /**< Odd data parity checking */
-			Parity_Even         = 2, /**< Even data parity checking */
-			Parity_Mark         = 3, /**< Mark data parity checking */
-			Parity_Space        = 4, /**< Space data parity checking */
+			Parity_None         = 0, /**< No parity bit mode on each frame */
+			Parity_Odd          = 1, /**< Odd parity bit mode on each frame */
+			Parity_Even         = 2, /**< Even parity bit mode on each frame */
+			Parity_Mark         = 3, /**< Mark parity bit mode on each frame */
+			Parity_Space        = 4, /**< Space parity bit mode on each frame */
 		};
-		
+
 	/* Function Prototypes: */
 		void CDC_Task(void);
 		void SetupHardware(void);
-		void ResetHardware(void);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 		#if defined(INCLUDE_FROM_BOOTLOADERCDC_C) || defined(__DOXYGEN__)
+			#if !defined(NO_BLOCK_SUPPORT)
 			static void    ReadWriteMemoryBlock(const uint8_t Command);
+			#endif
 			static uint8_t FetchNextCommandByte(void);
 			static void    WriteNextResponseByte(const uint8_t Response);
 		#endif
 
 #endif
+

@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,13 +33,14 @@
 #if defined(USB_CAN_BE_DEVICE)
 
 #define  __INCLUDE_FROM_AUDIO_DRIVER
+#define  __INCLUDE_FROM_AUDIO_DEVICE_C
 #include "Audio.h"
 
 void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
-	  
+
 	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
 	  return;
 
@@ -49,59 +50,49 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
-				AudioInterfaceInfo->State.InterfaceEnabled = ((USB_ControlRequest.wValue & 0xFF) != 0);
-				  
 				Endpoint_ClearStatusStage();
+
+				AudioInterfaceInfo->State.InterfaceEnabled = ((USB_ControlRequest.wValue & 0xFF) != 0);
 			}
 
 			break;
 	}
 }
 
-bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
+bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	memset(&AudioInterfaceInfo->State, 0x00, sizeof(AudioInterfaceInfo->State));
 
-	if (AudioInterfaceInfo->Config.DataINEndpointNumber)
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_IN, AudioInterfaceInfo->Config.DataINEndpointSize,
-										 ENDPOINT_BANK_DOUBLE)))
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
+
+		if (EndpointNum == AudioInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = AudioInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_ISOCHRONOUS;
+		}
+		else if (EndpointNum == AudioInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = AudioInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_ISOCHRONOUS;
+		}
+		else
+		{
+			continue;
+		}
+
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size, ENDPOINT_BANK_DOUBLE)))
 		{
 			return false;
 		}
 	}
 
-	if (AudioInterfaceInfo->Config.DataOUTEndpointNumber)
-	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_OUT, AudioInterfaceInfo->Config.DataOUTEndpointSize,
-										 ENDPOINT_BANK_DOUBLE)))
-		{
-			return false;
-		}
-	}
-	
 	return true;
-}
-
-bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
-	  return false;
-	
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber);	
-	return Endpoint_IsOUTReceived();
-}
-
-bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
-	  return false;
-	
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber);
-	return Endpoint_IsINReady();
 }
 
 #endif

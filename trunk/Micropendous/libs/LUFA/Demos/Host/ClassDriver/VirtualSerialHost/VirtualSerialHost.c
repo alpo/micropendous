@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the VirtualSerialHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "VirtualSerialHost.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -54,7 +54,7 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 				.NotificationPipeDoubleBank = false,
 			},
 	};
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -65,6 +65,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -72,14 +73,14 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
 				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
-					printf("Error Retrieving Configuration Descriptor.\r\n");
+					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -88,36 +89,36 @@ int main(void)
 				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface,
 				                            ConfigDescriptorSize, ConfigDescriptorData) != CDC_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid CDC Class Device.\r\n");
+					puts_P(PSTR("Attached Device Not a Valid CDC Class Device.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Device Configuration.\r\n");
+					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
-				printf("CDC Device Enumerated.\r\n");
+
+				puts_P(PSTR("CDC Device Enumerated.\r\n"));
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				if (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
 				{
 					/* Echo received bytes from the attached device through the USART */
-					while (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
-					  putchar(CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface));
-					  
-					CDC_Host_Flush(&VirtualSerial_CDC_Interface);  
+					int16_t ReceivedByte = CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface);
+					if (!(ReceivedByte < 0))
+					  putchar(ReceivedByte);
 				}
-			
+
 				break;
 		}
-	
+
 		CDC_Host_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
@@ -180,12 +181,14 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

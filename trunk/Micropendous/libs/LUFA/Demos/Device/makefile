@@ -1,9 +1,9 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
-#      www.fourwalledcubicle.com
+#           www.lufa-lib.org
 #
 
 # Makefile to build all the LUFA Class Driver and Low Level Demos. Call with
@@ -13,6 +13,9 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
+all:
+
 %:
-	make -C ClassDriver/ $@
-	make -C LowLevel/ $@
+	$(MAKE) -C ClassDriver $@
+	$(MAKE) -C LowLevel $@
+

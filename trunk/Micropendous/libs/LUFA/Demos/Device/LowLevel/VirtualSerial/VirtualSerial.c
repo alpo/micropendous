@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
-                                   .CharFormat  = OneStopBit,
-                                   .ParityType  = Parity_None,
-                                   .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                    .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                    .ParityType  = CDC_PARITY_None,
+                                    .DataBits    = 8                            };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -55,8 +55,9 @@ CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -104,86 +105,66 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup CDC Notification, Rx and Tx Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	if (!(Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
+	/* Setup CDC Data Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+
 	/* Reset line encoding baud rate so that the host knows to send new values */
 	LineEncoding.BaudRateBPS = 0;
+
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the CDC control commands,
- *  which are all issued via the control endpoint), so that they can be handled appropriately for the application.
+/** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
+ *  the device from the USB host before passing along unhandled control requests to the library for processing
+ *  internally.
  */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
-			{	
-				/* Acknowledge the SETUP packet, ready for data transfer */
+			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
-			
+
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
-
-				/* Finalize the stream transfer to clear the last packet from the host */
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
-	
+
 			break;
-		case REQ_SetControlLineState:
+		case CDC_REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearStatusStage();
+
 				/* NOTE: Here you can read in the line state mask from the host, to get the current state of the output handshake
 				         lines. The mask is read in from the wValue parameter in USB_ControlRequest, and can be masked against the
 						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
 				*/
-				
-				Endpoint_ClearStatusStage();
 			}
-	
+
 			break;
 	}
 }
@@ -194,33 +175,10 @@ void CDC_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-	
+
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-	  
-#if 0
-	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-	 *       handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
-	 */
-	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
-		{
-			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.Notification     = NOTIF_SerialState,
-			.wValue           = 0,
-			.wIndex           = 0,
-			.wLength          = sizeof(uint16_t),
-		};
-		
-	uint16_t LineStateMask;
-	
-	// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
-	
-	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
-	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
-	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-	Endpoint_ClearIN();
-#endif
 
 	/* Determine if a joystick action has occurred */
 	if (JoyStatus_LCL & JOY_UP)
@@ -246,20 +204,20 @@ void CDC_Task(void)
 
 		/* Write the String to the Endpoint */
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
-		
+
 		/* Remember if the packet to send completely fills the endpoint */
 		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
 
-		/* If the last packet filled the endpoint, send an empty packet to release the buffer on 
+		/* If the last packet filled the endpoint, send an empty packet to release the buffer on
 		 * the receiver (otherwise all data will be cached until a non-full packet is received) */
 		if (IsFull)
 		{
 			/* Wait until the endpoint is ready for another packet */
 			Endpoint_WaitUntilReady();
-			
+
 			/* Send an empty packet to ensure that the host does not buffer data sent to it */
 			Endpoint_ClearIN();
 		}
@@ -267,8 +225,9 @@ void CDC_Task(void)
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-	
+
 	/* Throw away any received data from the host */
 	if (Endpoint_IsOUTReceived())
 	  Endpoint_ClearOUT();
 }
+

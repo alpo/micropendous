@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,119 +32,138 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_HID_CLASS_HOST_C
 #define  __INCLUDE_FROM_HID_DRIVER
+#define  __INCLUDE_FROM_HID_HOST_C
 #include "HID.h"
 
-uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
+uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                                uint16_t ConfigDescriptorSize,
                                 void* ConfigDescriptorData)
 {
-	uint8_t FoundEndpoints = 0;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
+	USB_Descriptor_Interface_t* HIDInterface    = NULL;
+	USB_HID_Descriptor_HID_t*   HIDDescriptor   = NULL;
 
 	memset(&HIDInterfaceInfo->State, 0x00, sizeof(HIDInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return HID_ENUMERROR_InvalidConfigDescriptor;
-	
-	USB_Descriptor_Interface_t* CurrentHIDInterface;
-	
-	do
+
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-									  DComp_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+		if (!(HIDInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		                              DCOMP_HID_Host_NextHIDInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			return HID_ENUMERROR_NoHIDInterfaceFound;
-		}
-		
-		CurrentHIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
-	} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
-	         (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
-
-	HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
-	HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_NON_BOOT_PROTOCOL);
-
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, DComp_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return HID_ENUMERROR_NoHIDDescriptorFound;
-	}
-
-	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_HID_Descriptor_t).HIDReportLength;
-
-	while (FoundEndpoints != (HID_FOUND_DATAPIPE_IN | HID_FOUND_DATAPIPE_OUT))
-	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_HID_Host_NextHIDInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-		{
-			if (FoundEndpoints & HID_FOUND_DATAPIPE_IN)
+			if (DataINEndpoint || DataOUTEndpoint)
 			  break;
-				
-			return HID_ENUMERROR_EndpointsNotFound;
+
+			do
+			{
+				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+				                              DCOMP_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				{
+					return HID_ENUMERROR_NoCompatibleInterfaceFound;
+				}
+
+				HIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+			} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
+					 (HIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
+
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+			                              DCOMP_HID_Host_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				return HID_ENUMERROR_NoCompatibleInterfaceFound;
+			}
+
+			HIDDescriptor = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_HID_Descriptor_HID_t);
+
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			continue;
 		}
-		
+
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-							   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			HIDInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
-			
-			FoundEndpoints |= HID_FOUND_DATAPIPE_IN;
-		}
+		  DataINEndpoint = EndpointData;
 		else
+		  DataOUTEndpoint = EndpointData;
+	}
+
+	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
+	{
+		if (PipeNum == HIDInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-							   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			HIDInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-			
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
+
+			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
+		}
+		else if (PipeNum == HIDInterfaceInfo->Config.DataOUTPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Pipe_SetInterruptPeriod(DataOUTEndpoint->PollingIntervalMS);
+
+			HIDInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
 			HIDInterfaceInfo->State.DeviceUsesOUTPipe = true;
-			
-			FoundEndpoints |= HID_FOUND_DATAPIPE_OUT;		
 		}
 	}
 
-	HIDInterfaceInfo->State.LargestReportSize = 8;
+	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;
+	HIDInterfaceInfo->State.HIDReportSize        = HIDDescriptor->HIDReportLength;
+	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_CSCP_NonBootProtocol);
+	HIDInterfaceInfo->State.LargestReportSize    = 8;
 	HIDInterfaceInfo->State.IsActive = true;
+
 	return HID_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
-		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                                USB_Descriptor_Interface_t);
-	
-		if (CurrentInterface->Class == HID_INTERFACE_CLASS)
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
+		if (Interface->Class == HID_CSCP_HIDClass)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextHID(void* const CurrentDescriptor)
+static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;
 	else
-	  return DESCRIPTOR_SEARCH_NotFound;	  
+	  return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor)
+static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                              USB_Descriptor_Endpoint_t);	
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if (!(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
+	if (Header->Type == DTYPE_Endpoint)
+	{
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		if (!(Pipe_IsEndpointBound(Endpoint->EndpointAddress)))
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}
@@ -153,24 +172,27 @@ static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescri
 }
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID, void* Buffer)
+uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                                   const uint8_t ReportID,
+                                   void* Buffer)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SetReport,
-		.wValue        = ((REPORT_ITEM_TYPE_In + 1) << 8) | ReportID,
+		.bRequest      = HID_REQ_SetReport,
+		.wValue        = ((HID_REPORT_ITEM_In + 1) << 8) | ReportID,
 		.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
-		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In),
+		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, HID_REPORT_ITEM_In),
 	};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	
+
 	return USB_Host_SendControlRequest(Buffer);
-}											   
+}
 #endif
-										   
-uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
+
+uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                               void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return PIPE_READYWAIT_DeviceDisconnected;
@@ -179,21 +201,22 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 
 	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	uint16_t ReportSize;
+	uint8_t* BufferPos = Buffer;
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 	if (!(HIDInterfaceInfo->State.UsingBootProtocol))
 	{
 		uint8_t ReportID = 0;
-	
+
 		if (HIDInterfaceInfo->Config.HIDParserData->UsingReportIDs)
 		{
 			ReportID = Pipe_Read_Byte();
-			*((uint8_t*)Buffer++) = ReportID;
+			*(BufferPos++) = ReportID;
 		}
-		
-		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In);
+
+		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, HID_REPORT_ITEM_In);
 	}
 	else
 #endif
@@ -201,12 +224,12 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 		ReportSize = Pipe_BytesInPipe();
 	}
 
-	if ((ErrorCode = Pipe_Read_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(BufferPos, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	 
-	Pipe_ClearIN();		
+
+	Pipe_ClearIN();
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -214,28 +237,30 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
                                 const uint8_t ReportID,
 #endif
-                                void* Buffer, const uint16_t ReportSize)
+                                const uint8_t ReportType,
+                                void* Buffer,
+                                const uint16_t ReportSize)
 {
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
 
-	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe)
+	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe && (ReportType == HID_REPORT_ITEM_Out))
 	{
 		uint8_t ErrorCode;
-	
+
 		Pipe_SelectPipe(HIDInterfaceInfo->Config.DataOUTPipeNumber);
 		Pipe_Unfreeze();
-		
+
 		if (ReportID)
 		  Pipe_Write_Stream_LE(&ReportID, sizeof(ReportID), NO_STREAM_CALLBACK);
-		
+
 		if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
-		
+
 		Pipe_ClearOUT();
 		Pipe_Freeze();
-		
+
 		return PIPE_RWSTREAM_NoError;
 	}
 	else
@@ -244,18 +269,18 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetReport,
+			.bRequest      = HID_REQ_SetReport,
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-			.wValue        = ((REPORT_ITEM_TYPE_Out + 1) << 8) | ReportID,
+			.wValue        = ((ReportType + 1) << 8) | ReportID,
 #else
-			.wValue        = 0,
+			.wValue        = ((ReportType + 1) << 8),
 #endif
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = ReportSize,
 		};
 
 		Pipe_SelectPipe(PIPE_CONTROLPIPE);
-		
+
 		return USB_Host_SendControlRequest(Buffer);
 	}
 }
@@ -269,11 +294,11 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	ReportReceived = Pipe_IsINReceived();
-	
+
 	Pipe_Freeze();
-	
+
 	return ReportReceived;
 }
 
@@ -284,14 +309,14 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetProtocol,
+			.bRequest      = HID_REQ_SetProtocol,
 			.wValue        = 0,
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 0,
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	
+
 	if (!(HIDInterfaceInfo->State.SupportsBootProtocol))
 	  return HID_ERROR_LOGICAL;
 
@@ -300,7 +325,7 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 
 	HIDInterfaceInfo->State.LargestReportSize = 8;
 	HIDInterfaceInfo->State.UsingBootProtocol = true;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -310,12 +335,12 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 	uint8_t ErrorCode;
 
 	uint8_t HIDReportData[HIDInterfaceInfo->State.HIDReportSize];
-	
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Report << 8),
+			.wValue        = (HID_DTYPE_Report << 8),
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = HIDInterfaceInfo->State.HIDReportSize,
 		};
@@ -324,13 +349,13 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 
 	if ((ErrorCode = USB_Host_SendControlRequest(HIDReportData)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
+
 	if (HIDInterfaceInfo->State.UsingBootProtocol)
 	{
 		USB_ControlRequest = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bRequest      = REQ_SetProtocol,
+				.bRequest      = HID_REQ_SetProtocol,
 				.wValue        = 1,
 				.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 				.wLength       = 0,
@@ -341,10 +366,10 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 
 		HIDInterfaceInfo->State.UsingBootProtocol = false;
 	}
-	
+
 	if (HIDInterfaceInfo->Config.HIDParserData == NULL)
 	  return HID_ERROR_LOGICAL;
-		
+
 	if ((ErrorCode = USB_ProcessHIDReport(HIDReportData, HIDInterfaceInfo->State.HIDReportSize,
 	                                      HIDInterfaceInfo->Config.HIDParserData)) != HID_PARSE_Successful)
 	{
@@ -359,3 +384,4 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 #endif
 
 #endif
+

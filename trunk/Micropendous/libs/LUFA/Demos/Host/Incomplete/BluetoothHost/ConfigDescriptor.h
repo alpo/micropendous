@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,31 +28,37 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for ConfigDescriptor.c.
+ */
+
 #ifndef _CONFIGDESCRIPTOR_H_
 #define _CONFIGDESCRIPTOR_H_
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
-		#include "BluetoothHost.h"
-		
+
 	/* Macros: */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE       512
+		#define BLUETOOTH_DATA_IN_PIPE         1
+		#define BLUETOOTH_DATA_OUT_PIPE        2
+		#define BLUETOOTH_EVENTS_PIPE          3
 
 	/* Enums: */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum BluetoothHost_GetConfigDescriptorDataCodes_t
 		{
-			SuccessfulConfigRead                 = 0,
-			ControlErrorDuringConfigRead         = 1,
-			InvalidConfigDataReturned            = 2,
-			DescriptorTooLarge                   = 3,
-			NoInterfaceFound                     = 4,
-			NoEndpointFound                      = 5,
+			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */
+			DevControlError                 = 1, /**< A control request to the device failed to complete successfully */
+			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
+			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
-	
+
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);
-		
-		uint8_t NextInterfaceBluetoothDataEndpoint(void* CurrentDescriptor);
+
+		uint8_t DComp_NextInterfaceBluetoothDataEndpoint(void* CurrentDescriptor);
 
 #endif
+

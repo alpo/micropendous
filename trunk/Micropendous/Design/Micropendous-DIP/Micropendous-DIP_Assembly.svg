@@ -216,11 +216,11 @@ Visit www.Micropendous.org for more info.</dc:description>
      pagecolor="#ffffff"
      id="base"
      showgrid="false"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="499.87974"
-     inkscape:cy="266.85742"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="312.02887"
+     inkscape:cy="389.15244"
+     inkscape:window-x="0"
+     inkscape:window-y="22"
      inkscape:current-layer="svg2" />
   <title
      id="title4">SVG Picture created as Micropendous-1287-SilkS_Cmp.svg </title>
@@ -9785,13 +9785,13 @@ Visit www.Micropendous.org for more info.</dc:description>
   <text
      xml:space="preserve"
      style="font-size:1719.14929199px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="13638.131"
-     y="70203.391"
+     x="14115.696"
+     y="70159.977"
      id="text20833"><tspan
        sodipodi:role="line"
        id="tspan20835"
-       x="13638.131"
-       y="70203.391">120uF</tspan></text>
+       x="14115.696"
+       y="70159.977">47uF</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:982.37103271px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -9801,7 +9801,7 @@ Visit www.Micropendous.org for more info.</dc:description>
        sodipodi:role="line"
        id="tspan20839"
        x="12863.457"
-       y="71561.023">Tantalum 1206</tspan></text>
+       y="71561.023">Ceramic 1206</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:2947.11303711px;font-style:normal;font-weight:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"

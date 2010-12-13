@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,9 +56,9 @@ void SImage_SendBlockHeader(void)
 
 	/* Write the PIMA block to the data OUT pipe */
 	Pipe_Write_Stream_LE(&PIMA_SendBlock, PIMA_COMMAND_SIZE(0));
-	
+
 	/* If the block type is a command, send its parameters (if any) */
-	if (PIMA_SendBlock.Type == CType_CommandBlock)
+	if (PIMA_SendBlock.Type == PIMA_CONTAINER_CommandBlock)
 	{
 		/* Determine the size of the parameters in the block via the data length attribute */
 		uint8_t ParamBytes = (PIMA_SendBlock.DataLength - PIMA_COMMAND_SIZE(0));
@@ -69,11 +69,11 @@ void SImage_SendBlockHeader(void)
 			/* Write the PIMA parameters to the data OUT pipe */
 			Pipe_Write_Stream_LE(&PIMA_SendBlock.Params, ParamBytes);
 		}
-		
+
 		/* Send the PIMA command block to the attached device */
 		Pipe_ClearOUT();
 	}
-					
+
 	/* Freeze pipe after use */
 	Pipe_Freeze();
 }
@@ -89,16 +89,16 @@ uint8_t SImage_ReceiveEventHeader(void)
 	/* Unfreeze the events pipe */
 	Pipe_SelectPipe(SIMAGE_EVENTS_PIPE);
 	Pipe_Unfreeze();
-	
+
 	/* Read in the event data into the global structure */
 	ErrorCode = Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock));
-	
+
 	/* Clear the pipe after read complete to prepare for next event */
 	Pipe_ClearIN();
-	
+
 	/* Freeze the event pipe again after use */
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -108,30 +108,30 @@ uint8_t SImage_ReceiveEventHeader(void)
  */
 uint8_t SImage_ReceiveBlockHeader(void)
 {
-	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	/* Unfreeze the data IN pipe */
 	Pipe_SelectPipe(SIMAGE_DATA_IN_PIPE);
 	Pipe_Unfreeze();
-	
+
 	/* Wait until data received on the IN pipe */
-	while (!(Pipe_IsReadWriteAllowed()))
+	while (!(Pipe_IsINReceived()))
 	{
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+
 		/* Check to see if a new frame has been issued (1ms elapsed) */
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			/* Clear the flag and decrement the timeout period counter */
-			USB_INT_Clear(USB_INT_HSOFI);
+			/* Save the new frame number and decrement the timeout period */
+			PreviousFrameNumber = CurrentFrameNumber;
 			TimeoutMSRem--;
 
 			/* Check to see if the timeout period for the command has elapsed */
 			if (!(TimeoutMSRem))
-			{
-				/* Return error code */
-				return PIPE_RWSTREAM_Timeout;
-			}
+			  return PIPE_RWSTREAM_Timeout;
 		}
-		
+
 		Pipe_Freeze();
 		Pipe_SelectPipe(SIMAGE_DATA_OUT_PIPE);
 		Pipe_Unfreeze();
@@ -159,17 +159,17 @@ uint8_t SImage_ReceiveBlockHeader(void)
 			/* Return error code */
 			return PIPE_RWSTREAM_PipeStalled;
 		}
-		  
+
 		/* Check to see if the device was disconnected, if so exit function */
 		if (USB_HostState == HOST_STATE_Unattached)
 		  return PIPE_RWSTREAM_DeviceDisconnected;
 	}
-		
+
 	/* Load in the response from the attached device */
 	Pipe_Read_Stream_LE(&PIMA_ReceivedBlock, PIMA_COMMAND_SIZE(0));
-	
+
 	/* Check if the returned block type is a response block */
-	if (PIMA_ReceivedBlock.Type == CType_ResponseBlock)
+	if (PIMA_ReceivedBlock.Type == PIMA_CONTAINER_ResponseBlock)
 	{
 		/* Determine the size of the parameters in the block via the data length attribute */
 		uint8_t ParamBytes = (PIMA_ReceivedBlock.DataLength - PIMA_COMMAND_SIZE(0));
@@ -180,14 +180,14 @@ uint8_t SImage_ReceiveBlockHeader(void)
 			/* Read the PIMA parameters from the data IN pipe */
 			Pipe_Read_Stream_LE(&PIMA_ReceivedBlock.Params, ParamBytes);
 		}
-		
+
 		/* Clear pipe bank after use */
 		Pipe_ClearIN();
 	}
-	
+
 	/* Freeze the IN pipe after use */
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -198,14 +198,15 @@ uint8_t SImage_ReceiveBlockHeader(void)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
+uint8_t SImage_SendData(void* const Buffer,
+                        const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
 	/* Unfreeze the data OUT pipe */
 	Pipe_SelectPipe(SIMAGE_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
-	
+
 	/* Write the data contents to the pipe */
 	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes);
 
@@ -214,7 +215,7 @@ uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
 
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -225,7 +226,8 @@ uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t SImage_ReadData(void* Buffer, uint16_t Bytes)
+uint8_t SImage_ReadData(void* const Buffer,
+                        const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -238,7 +240,7 @@ uint8_t SImage_ReadData(void* Buffer, uint16_t Bytes)
 
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -253,13 +255,14 @@ bool SImage_IsEventReceived(void)
 	/* Unfreeze the Event pipe */
 	Pipe_SelectPipe(SIMAGE_EVENTS_PIPE);
 	Pipe_Unfreeze();
-	
+
 	/* If the pipe contains data, an event has been received */
 	if (Pipe_BytesInPipe())
 	  IsEventReceived = true;
-	
+
 	/* Freeze the pipe after use */
 	Pipe_Freeze();
-	
+
 	return IsEventReceived;
 }
+

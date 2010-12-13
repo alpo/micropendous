@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,8 +46,9 @@ static uint8_t LastReceived[GENERIC_REPORT_SIZE];
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -94,84 +95,55 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup Generic IN Report Endpoint */
-	if (!(Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, GENERIC_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	/* Setup Generic OUT Report Endpoint */
-	if (!(Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_OUT, GENERIC_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Setup HID Report Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the HID commands, which are
- *  all issued via the control endpoint), so that they can be handled appropriately for the application.
+/** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
+ *  the device from the USB host before passing along unhandled control requests to the library for processing
+ *  internally.
  */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
+				CreateGenericHIDReport(GenericData);
 
 				Endpoint_ClearSETUP();
-	
-				CreateGenericHIDReport(GenericData);
 
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 			}
-		
+
 			break;
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
 
 				Endpoint_ClearSETUP();
-				
-				/* Wait until the generic report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()))
-				{
-					if (USB_DeviceState == DEVICE_STATE_Unattached)
-					  return;
-				}
 
+				/* Read the report data from the control endpoint */
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				ProcessGenericHIDReport(GenericData);
-			
-				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
 
-				/* Wait until the host is ready to receive the request confirmation */
-				while (!(Endpoint_IsINReady()))
-				{
-					if (USB_DeviceState == DEVICE_STATE_Unattached)
-					  return;
-				}
-				
-				/* Handshake the request by sending an empty IN packet */
-				Endpoint_ClearIN();
+				ProcessGenericHIDReport(GenericData);
 			}
-			
+
 			break;
 	}
 }
@@ -187,7 +159,7 @@ void ProcessGenericHIDReport(uint8_t* DataArray)
 		DataArray is an array holding the last report from the host. This function is called
 		each time the host has sent a report to the device.
 	*/
-	
+
 	for (uint8_t i = 0; i < GENERIC_REPORT_SIZE; i++)
 	  LastReceived[i] = DataArray[i];
 }
@@ -200,7 +172,7 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 {
 	/*
 		This is where you need to create reports to be sent to the host from the device. This
-		function is called each time the host is ready to accept a new report. DataArray is 
+		function is called each time the host is ready to accept a new report. DataArray is
 		an array to hold the report to the host.
 	*/
 
@@ -215,7 +187,7 @@ void HID_Task(void)
 	  return;
 
 	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
-	
+
 	/* Check to see if a packet has been sent from the host */
 	if (Endpoint_IsOUTReceived())
 	{
@@ -224,26 +196,26 @@ void HID_Task(void)
 		{
 			/* Create a temporary buffer to hold the read in report from the host */
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
-			
+
 			/* Read Generic Report Data */
 			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
-			
+
 			/* Process Generic Report Data */
 			ProcessGenericHIDReport(GenericData);
 		}
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearOUT();
-	}	
+	}
 
 	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
-	
+
 	/* Check to see if the host is ready to accept another packet */
 	if (Endpoint_IsINReady())
 	{
 		/* Create a temporary buffer to hold the report to send to the host */
 		uint8_t GenericData[GENERIC_REPORT_SIZE];
-		
+
 		/* Create Generic Report Data */
 		CreateGenericHIDReport(GenericData);
 
@@ -254,3 +226,4 @@ void HID_Task(void)
 		Endpoint_ClearIN();
 	}
 }
+

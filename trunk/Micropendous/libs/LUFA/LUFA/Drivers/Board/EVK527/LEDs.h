@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -29,8 +29,9 @@
 */
 
 /** \file
+ *  \brief Board specific LED driver header for the Atmel EVK527.
  *
- *  Board specific LED driver header for the EVK527.
+ *  Board specific LED driver header for the Atmel EVK527.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,7 +40,7 @@
 /** \ingroup Group_LEDs
  *  @defgroup Group_LEDs_EVK527 EVK527
  *
- *  Board specific LED driver header for the EVK527.
+ *  Board specific LED driver header for the Atmel EVK527.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -79,7 +80,7 @@
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3)
 
-			/** LED mask for the none of the board LEDs */
+			/** LED mask for none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
 
 		/* Inline Functions: */
@@ -89,7 +90,7 @@
 				DDRD  |=  LEDS_ALL_LEDS;
 				PORTD &= ~LEDS_ALL_LEDS;
 			}
-			
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTD |= LEDMask;
@@ -104,17 +105,18 @@
 			{
 				PORTD = ((PORTD & ~LEDS_ALL_LEDS) | LEDMask);
 			}
-			
-			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
+
+			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
+			                                   const uint8_t ActiveMask)
 			{
 				PORTD = ((PORTD & ~LEDMask) | ActiveMask);
 			}
-			
+
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD = (PORTD ^ (LEDMask & LEDS_ALL_LEDS));
+				PORTD ^= LEDMask;
 			}
-			
+
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
@@ -126,7 +128,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

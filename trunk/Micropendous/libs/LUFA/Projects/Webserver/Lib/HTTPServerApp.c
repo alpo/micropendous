@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Simple HTTP Webserver Application. When connected to the uIP stack,
  *  this will serve out files to HTTP clients on port 80.
  */
- 
+
 #define  INCLUDE_FROM_HTTPSERVERAPP_C
 #include "HTTPServerApp.h"
 
@@ -56,11 +56,11 @@ const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                      "Content-Type: text/plain\r\n\r\n"
                                      "Error 404: File Not Found: /";
 
-/** Default MIME type sent if no other MIME type can be determined. */
-const char PROGMEM DefaultMIMEType[] = "text/plain";
-
 /** Default filename to fetch when a directory is requested */
 const char PROGMEM DefaultDirFileName[] = "index.htm";
+
+/** Default MIME type sent if no other MIME type can be determined. */
+const char PROGMEM DefaultMIMEType[] = "text/plain";
 
 /** List of MIME types for each supported file extension. */
 const MIME_Type_t MIMETypes[] =
@@ -77,7 +77,7 @@ const MIME_Type_t MIMETypes[] =
 		{.Extension = "pdf", .MIMEType = "application/pdf"},
 	};
 
-/** FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** FATFs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
 
@@ -86,8 +86,8 @@ void HTTPServerApp_Init(void)
 {
 	/* Listen on port 80 for HTTP connections from hosts */
 	uip_listen(HTONS(HTTP_SERVER_PORT));
-	
-	/* Mount the dataflash disk via FatFS */
+
+	/* Mount the Dataflash disk via FatFS */
 	f_mount(0, &DiskFATState);
 }
 
@@ -100,13 +100,9 @@ void HTTPServerApp_Callback(void)
 
 	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
-		/* Connection is being terminated for some reason - close file handle */
-		f_close(&AppState->HTTPServer.FileHandle);
-		AppState->HTTPServer.FileOpen = false;
-		
 		/* Lock to the closed state so that no further processing will occur on the connection */
-		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_Closed;
-		AppState->HTTPServer.NextState     = WEBSERVER_STATE_Closed;
+		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_Closing;
+		AppState->HTTPServer.NextState     = WEBSERVER_STATE_Closing;
 	}
 
 	if (uip_connected())
@@ -131,7 +127,7 @@ void HTTPServerApp_Callback(void)
 	if (uip_rexmit())
 	{
 		/* Return file pointer to the last ACKed position */
-		f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);	
+		f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);
 	}
 
 	if (uip_rexmit() || uip_acked() || uip_newdata() || uip_connected() || uip_poll())
@@ -148,12 +144,18 @@ void HTTPServerApp_Callback(void)
 				HTTPServerApp_SendData();
 				break;
 			case WEBSERVER_STATE_Closing:
+				/* Connection is being terminated for some reason - close file handle */
+				f_close(&AppState->HTTPServer.FileHandle);
+				AppState->HTTPServer.FileOpen = false;
+
+				/* If connection is not already closed, close it */
 				uip_close();
-				
-				AppState->HTTPServer.NextState = WEBSERVER_STATE_Closed;
+
+				AppState->HTTPServer.CurrentState = WEBSERVER_STATE_Closed;
+				AppState->HTTPServer.NextState    = WEBSERVER_STATE_Closed;
 				break;
-		}		  
-	}		
+		}
+	}
 }
 
 /** HTTP Server State handler for the Request Process state. This state manages the processing of incoming HTTP
@@ -163,27 +165,27 @@ static void HTTPServerApp_OpenRequestedFile(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
-	
+
 	/* No HTTP header received from the client, abort processing */
 	if (!(uip_newdata()))
 	  return;
-	  
+
 	char* RequestToken      = strtok(AppData, " ");
 	char* RequestedFileName = strtok(NULL, " ");
-			
+
 	/* Must be a GET request, abort otherwise */
-	if (strcmp(RequestToken, "GET") != 0)
+	if (strcmp_P(RequestToken, PSTR("GET")) != 0)
 	{
 		uip_abort();
 		return;
 	}
-	
+
 	/* Copy over the requested filename */
 	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
-	
+
 	/* Ensure filename is null-terminated */
 	AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
-	
+
 	/* Determine the length of the URI so that it can be checked to see if it is a directory */
 	uint8_t FileNameLen = strlen(AppState->HTTPServer.FileName);
 
@@ -196,7 +198,7 @@ static void HTTPServerApp_OpenRequestedFile(void)
 		/* Ensure altered filename is still null-terminated */
 		AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
 	}
-	
+
 	/* Try to open the file from the Dataflash disk */
 	AppState->HTTPServer.FileOpen     = (f_open(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.FileName,
 	                                            (FA_OPEN_EXISTING | FA_READ)) == FR_OK);
@@ -222,13 +224,13 @@ static void HTTPServerApp_SendResponseHeader(void)
 	{
 		/* Copy over the HTTP 404 response header and send it to the receiving client */
 		strcpy_P(AppData, HTTP404Header);
-		strcpy(&AppData[strlen(AppData)], AppState->HTTPServer.FileName);		
+		strcpy(&AppData[strlen(AppData)], AppState->HTTPServer.FileName);
 		uip_send(AppData, strlen(AppData));
-		
+
 		AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
 		return;
 	}
-	
+
 	/* Copy over the HTTP 200 response header and send it to the receiving client */
 	strcpy_P(AppData, HTTP200Header);
 
@@ -240,11 +242,11 @@ static void HTTPServerApp_SendResponseHeader(void)
 		{
 			if (strcmp(&Extension[1], MIMETypes[i].Extension) == 0)
 			{
-				strcpy(&AppData[strlen(AppData)], MIMETypes[i].MIMEType);						
+				strcpy(&AppData[strlen(AppData)], MIMETypes[i].MIMEType);
 				FoundMIMEType = true;
 				break;
 			}
-		} 
+		}
 	}
 
 	/* Check if a MIME type was found and copied to the output buffer */
@@ -253,13 +255,13 @@ static void HTTPServerApp_SendResponseHeader(void)
 		/* MIME type not found - copy over the default MIME type */
 		strcpy_P(&AppData[strlen(AppData)], DefaultMIMEType);
 	}
-	
+
 	/* Add the end-of-line terminator and end-of-headers terminator after the MIME type */
-	strcpy(&AppData[strlen(AppData)], "\r\n\r\n");
-	
+	strcpy_P(&AppData[strlen(AppData)], PSTR("\r\n\r\n"));
+
 	/* Send the MIME header to the receiving client */
 	uip_send(AppData, strlen(AppData));
-	
+
 	/* When the MIME header is ACKed, progress to the data send stage */
 	AppState->HTTPServer.NextState = WEBSERVER_STATE_SendData;
 }
@@ -277,11 +279,12 @@ static void HTTPServerApp_SendData(void)
 
 	/* Read the next chunk of data from the open file */
 	f_read(&AppState->HTTPServer.FileHandle, AppData, MaxChunkSize, &AppState->HTTPServer.SentChunkSize);
-	
+
 	/* Send the next file chunk to the receiving client */
 	uip_send(AppData, AppState->HTTPServer.SentChunkSize);
-			
+
 	/* Check if we are at the last chunk of the file, if so next ACK should close the connection */
 	if (MaxChunkSize != AppState->HTTPServer.SentChunkSize)
 	  AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
 }
+

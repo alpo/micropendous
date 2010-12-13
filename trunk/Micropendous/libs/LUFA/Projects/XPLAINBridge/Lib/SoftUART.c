@@ -1,9 +1,9 @@
 /*
-			 LUFA Library
-	 Copyright (C) Dean Camera, 2010.
-			  
+             LUFA Library
+     Copyright (C) Dean Camera, 2010.
+
   dean [at] fourwalledcubicle [dot] com
-	  www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
@@ -11,13 +11,13 @@
   Copyright 2010  Peter Danneger
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,114 +30,124 @@
   this software.
 */
 
+/** \file
+ *
+ *  Software UART for both data transmission and reception. This
+ *  code continuously monitors the ring buffers set up by the main
+ *  project source file and reads/writes data as it becomes available.
+ */
+
 #include "SoftUART.h"
 
-volatile uint8_t srx_done, stx_count;
-volatile uint8_t srx_data, srx_mask, srx_tmp, stx_data;
+/** Total number of bits remaining to be sent in the current frame */
+static uint8_t TX_BitsRemaining;
 
-uint8_t SoftUART_IsReady(void)
-{
-	return !(stx_count);
-}
+/** Temporary data variable to hold the byte being transmitted as it is shifted out */
+static uint8_t TX_Data;
 
-uint8_t SoftUART_TxByte(uint8_t c)
-{
-	while (stx_count);
+/** Total number of bits remaining to be received in the current frame */
+static uint8_t RX_BitsRemaining;
 
-	stx_data  = ~c;
-	stx_count = 10;
+/** Temporary data variable to hold the byte being received as it is shifted in */
+static uint8_t RX_Data;
 
-	return c;
-}
-
-uint8_t SoftUART_IsReceived(void)
-{
-	return srx_done;
-}
-
-uint8_t SoftUART_RxByte(void)
-{
-	while (!(srx_done));
-
-	srx_done = 0;
-
-	return srx_data;
-}
-
+/** Initialises the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
-	OCR2B  = TCNT2 + 1;						// force first compare
-	TCCR2A = (1 << COM2B1) | (1 << COM2B0);	// T1 mode 0
-	TCCR2B = (1 << FOC2B)  | (1 << CS21); 	// CLK/8, T1 mode 0
-	TIMSK2 = (1 << OCIE2B);					// enable tx and wait for start
-	EICRA  = (1 << ISC01);					// -ve edge
-	EIMSK  = (1 << INT0);					// enable INT0 interrupt
+	/* Set TX pin to output high, enable RX pull-up */
+	STXPORT |= (1 << STX);
+	STXDDR  |= (1 << STX);
+	SRXPORT |= (1 << SRX);
 
-	stx_count = 0;							// nothing to send
-	srx_done = 0;							// nothing received
-	STXPORT |= 1 << STX;					// TX output
-	STXDDR  |= 1 << STX;					// TX output
-	SRXPORT |= (1 << SRX);					// pullup on INT0
+	/* Enable INT0 for the detection of incoming start bits that signal the start of a byte */
+	EICRA  = (1 << ISC01);
+	EIMSK  = (1 << INT0);
+
+	/* Set the transmission and reception timer compare values for the default baud rate */
+	SoftUART_SetBaud(9600);
+
+	/* Setup reception timer compare ISR */
+	TIMSK1 = (1 << ICIE1);
+
+	/* Setup transmission timer compare ISR and start the timer */
+	TIMSK3 = (1 << ICIE3);
+	TCCR3B = ((1 << CS30) | (1 << WGM33) | (1 << WGM32));
 }
 
-/* ISR to detect the start of a bit being sent from the transmitter. */
-ISR(INT0_vect)
+/** ISR to detect the start of a bit being sent to the software UART. */
+ISR(INT0_vect, ISR_BLOCK)
 {
-	OCR2A = TCNT2 + (BIT_TIME / 8 * 3 / 2);	// scan 1.5 bits after start
+	/* Reset the number of reception bits remaining counter */
+	RX_BitsRemaining = 8;
 
-	srx_tmp = 0;							// clear bit storage
-	srx_mask = 1;							// bit mask
+	/* Reset the bit reception timer */
+	TCNT1 = 0;
 
-	TIFR2 = (1 << OCF2A);					// clear pending interrupt
-
-	if (!(SRXPIN & (1 << SRX)))				// still low
+	/* Check to see that the pin is still low (prevents glitches from starting a frame reception) */
+	if (!(SRXPIN & (1 << SRX)))
 	{
-		TIMSK2 = (1 << OCIE2A) | (1 << OCIE2B); // wait for first bit
-		EIMSK &= ~(1 << INT0);
+		/* Disable start bit detection ISR while the next byte is received */
+		EIMSK = 0;
+
+		/* Start the reception timer */
+		TCCR1B = ((1 << CS10) | (1 << WGM13) | (1 << WGM12));
 	}
 }
 
-/* ISR to manage the reception of bits to the transmitter. */
-ISR(TIMER2_COMPA_vect)
+/** ISR to manage the reception of bits to the software UART. */
+ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 {
-	if (srx_mask)
+	/* Cache the current RX pin value for later checking */
+	uint8_t SRX_Cached = (SRXPIN & (1 << SRX));
+
+	/* Check if reception has finished */
+	if (RX_BitsRemaining)
 	{
-		if (SRXPIN & (1 << SRX))
-		  srx_tmp |= srx_mask;
+		/* Shift the current received bit mask to the next bit position */
+		RX_Data >>= 1;
+		RX_BitsRemaining--;
 
-		srx_mask <<= 1;
-
-		OCR2A += BIT_TIME / 8;				// next bit slice
+		/* Store next bit into the received data variable */
+		if (SRX_Cached)
+		  RX_Data |= (1 << 7);
 	}
 	else
 	{
-		srx_done  = 1;						// mark rx data valid
-		srx_data  = srx_tmp;				// store rx data
-		TIMSK2    = (1 << OCIE2B);			// enable tx and wait for start
-		EIMSK    |= (1 << INT0);			// enable START irq
-		EIFR      = (1 << INTF0);			// clear any pending
+		/* Disable the reception timer as all data has now been received, re-enable start bit detection ISR */
+		TCCR1B = 0;
+		EIFR   = (1 << INTF0);
+		EIMSK  = (1 << INT0);
+
+		/* Reception complete, store the received byte if stop bit valid */
+		if (SRX_Cached)
+		  RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
 	}
 }
 
-/* ISR to manage the transmission of bits to the receiver. */
-ISR(TIMER2_COMPB_vect)
+/** ISR to manage the transmission of bits via the software UART. */
+ISR(TIMER3_CAPT_vect, ISR_BLOCK)
 {
-	OCR2B += BIT_TIME / 8;					// next bit slice
-
-	if (stx_count)
+	/* Check if transmission has finished */
+	if (TX_BitsRemaining)
 	{
-		if (--stx_count != 9)				// no start bit
-		{
-			if (!(stx_data & 1))			// test inverted data
-			  TCCR2A = (1 << COM2B1) | (1 << COM2B0);
-			else
-			  TCCR2A = (1 << COM2B1);
-
-			stx_data >>= 1;					// shift zero in from left
-		}
+		/* Set the TX line to the value of the next bit in the byte to send */
+		if (TX_Data & (1 << 0))
+		  STXPORT &= ~(1 << STX);
 		else
-		{
-			TCCR2A = (1 << COM2B1);			// START bit
-		}
+		  STXPORT |=  (1 << STX);
+
+		/* Shift the transmission byte to move the next bit into position and decrement the bits remaining counter */
+		TX_Data >>= 1;
+		TX_BitsRemaining--;
 	}
-} 
+	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoUART_Buffer)))
+	{
+		/* Start bit - TX line low */
+		STXPORT &= ~(1 << STX);
+
+		/* Transmission complete, get the next byte to send (if available) */
+		TX_Data          = ~RingBuffer_Remove(&USBtoUART_Buffer);
+		TX_BitsRemaining = 9;
+	}
+}
+

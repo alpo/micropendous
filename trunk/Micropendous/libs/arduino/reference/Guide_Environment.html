@@ -1,26 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-  <title>Arduino - Environment </title>
-  <link rel='stylesheet' href='arduino.css' type='text/css' />
-  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" />
-</head>
-<body>
-<div id="page">
-<!--PageHeaderFmt-->
-<div id="pageheader">
-  <div class="title"><a href="http://www.arduino.cc"/>Arduino</a></div>
-  <div class="search">
-    <!-- SiteSearch Google -->    <FORM method=GET action="http://www.google.com/search">    <input type=hidden name=ie value=UTF-8>    <input type=hidden name=oe value=UTF-8>    <INPUT TYPE=text name=q size=25 maxlength=255 value="">    <INPUT type=submit name=btnG VALUE="search">    <input type=hidden name=domains value="http://www.arduino.cc/">
-    <input type=hidden name=sitesearch value="http://www.arduino.cc/">
-    </FORM>    <!-- SiteSearch Google -->
-  </div>
-</div>
-<!--/PageHeaderFmt-->
-<!--PageLeftFmt-->
-<div id="pagenav" style="text-align: right">
-  <div style="float: left;">
-  <p><a class='wikilink' href='http://arduino.cc/en/Main/Buy'>Buy</a>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head>  <title>Arduino - Environment </title>  <link rel='stylesheet' href='arduino.css' type='text/css' />  <meta name="verify-v1" content="TtxFIEJAB6zdJ509wLxjnapQzKAMNm9u0Wj4ho6wxIY=" /></head><body><div id="page"><!--PageHeaderFmt--><div id="pageheader">  <div class="title"><a href="http://www.arduino.cc"/>Arduino</a></div>  <div class="search">    <!-- SiteSearch Google -->    <FORM method=GET action="http://www.google.com/search">    <input type=hidden name=ie value=UTF-8>    <input type=hidden name=oe value=UTF-8>    <INPUT TYPE=text name=q size=25 maxlength=255 value="">    <INPUT type=submit name=btnG VALUE="search">    <input type=hidden name=domains value="http://www.arduino.cc/">    <input type=hidden name=sitesearch value="http://www.arduino.cc/">    </FORM>    <!-- SiteSearch Google -->  </div></div><!--/PageHeaderFmt--><!--PageLeftFmt--><div id="pagenav" style="text-align: right">  <div style="float: left;">  <p><a class='wikilink' href='http://arduino.cc/en/Main/Buy'>Buy</a>
 |
 <a class='wikilink' href='http://arduino.cc/en/Main/Software'>Download</a>
 |
@@ -35,15 +13,7 @@
 <a class='wikilink' href='FAQ.html'>FAQ</a>
 </p>
 <p class='vspace'></p>
-
-  </div>
-  <a class="urllink" href="http://www.arduino.cc/blog/" rel="nofollow">Blog &raquo;</a> |
-  <a class="urllink" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl" rel="nofollow">Forum &raquo;</a> |
-  <a class="urllink" href="http://www.arduino.cc/playground/" rel="nofollow">Playground &raquo;</a>
-</div>
-<!--/PageLeftFmt-->
-<div id="pagetext">
-<!--PageText-->
+  </div>  <a class="urllink" href="http://www.arduino.cc/blog/" rel="nofollow">Blog &raquo;</a> |  <a class="urllink" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl" rel="nofollow">Forum &raquo;</a> |  <a class="urllink" href="http://www.arduino.cc/playground/" rel="nofollow">Playground &raquo;</a></div><!--/PageLeftFmt--><div id="pagetext"><!--PageText-->
 <div id='wikitext'>
 <h2>Arduino Development Environment</h2>
 <p>The Arduino development environment contains a text editor for writing code, a message area, a text console, a toolbar with buttons for common functions, and a series of menus.  It connects to the Arduino hardware to upload programs and communicate with them.
@@ -125,6 +95,14 @@
 </p>
 <p class='vspace'></p><p>There is a <a class='wikilink' href='Libraries.html'>list of libraries</a> in the reference.  Some libraries are included with the Arduino software.  Others can be downloaded from a variety of sources.  To install these third-party libraries, create a directory called <strong>libraries</strong> within your <a href='#sketchbook'>sketchbook directory</a>.  Then unzip the library there.  For example, to install the <span class='wikiword'>DateTime</span> library, its files should be in the <strong>/<span class='wikiword'>libraries/DateTime</span></strong> sub-folder of your sketchbook folder.
 </p>
+<p class='vspace'></p><p>To write your own library, see <a class='wikilink' href='http://arduino.cc/en/Hacking/LibraryTutorial'>this tutorial</a>.
+</p>
+<p class='vspace'></p><p><a name='thirdpartyhardware' id='thirdpartyhardware'></a>
+</p><h3>Third-Party Hardware</h3>
+<p>Support for third-party hardware can be added to the <strong>hardware</strong> directory of your sketchbook directory.  Platforms installed there may include board definitions (which appear in the board menu), core libraries, bootloaders, and programmer definitions.  To install, create the <strong>hardware</strong> directory, then unzip the third-party platform into its own sub-directory.  (Don't use "arduino" as the sub-directory name or you'll override the built-in Arduino platform.)  To uninstall, simply delete its directory.  
+</p>
+<p class='vspace'></p><p>For details on creating packages for third-party hardware, see the <a class='urllink' href='http://code.google.com/p/arduino/wiki/Platforms' rel='nofollow'>platforms page</a> on the Google Code developers site.
+</p>
 <p class='vspace'></p><p><a name='serialmonitor' id='serialmonitor'></a>
 </p><h3>Serial Monitor</h3>
 <p>Displays serial data being sent from the Arduino board (USB or serial board).  To send data to the board, enter text and click on the "send" button or press enter.  Choose the baud rate from the drop-down that matches the rate passed to <strong>Serial.begin</strong> in your sketch.  Note that on Mac or Linux, the Arduino board will reset (rerun your sketch from the beginning) when you connect with the serial monitor.
@@ -154,13 +132,4 @@
 <a class='urllink' href='http://creativecommons.org/licenses/by-sa/3.0/' rel='nofollow'>Creative Commons Attribution-ShareAlike 3.0 License</a>.  Code samples in the guide are released into the public domain.
 </p>
 </div>
-
-</div>
-<!--PageFooterFmt-->
-<div id="pagefooter">
-  <a href='Guide_Environment?action=edit.html'>Edit Page</a> | <a href='Guide_Environment?action=diff.html'>Page History</a> | <a href='Guide_Environment?action=print.html' target='_blank'>Printable View</a> | <a href='http://arduino.cc/en/Site/AllRecentChanges'>All Recent Site Changes</a>
-</div>
-<!--/PageFooterFmt-->
-</div>
-</body>
-</html>
+<!-- AddThis Button BEGIN --><script type="text/javascript">var addthis_language = "en";</script><div class="addthis_container addthis_toolbox addthis_default_style" addthis:url="Guide_Environment" addthis:title="Arduino Wiki English"><a href="http://www.addthis.com/bookmark.php?v=250&amp;username=arduinoteam" class="addthis_button_compact">Share</a><span class="addthis_separator">|</span><a class="addthis_button_email"></a><a class="addthis_button_favorites"></a><a class="addthis_button_print"></a><a class="addthis_button_facebook"></a><a class="addthis_button_twitter"></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=arduinoteam"></script></div><!-- AddThis Button END --></div><!--PageFooterFmt--><div id="pagefooter">  <a href=.html'Guide_Environment?action=edit.html'>Edit Page</a> | <a href='Guide_Environment?action=diff.html'>Page History</a> | <a href='Guide_Environment?action=print.html' target='_blank'>Printable View</a> | <a href='http://arduino.cc/en/Site/AllRecentChanges'>All Recent Site Changes</a></div><!--/PageFooterFmt--></div></body></html>

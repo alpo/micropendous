@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Internet Protocol (IP) packet handling routines. This protocol handles IP packets from the
  *  host which typically encapsulate other protocols such as ICMP, UDP and TCP.
  */
- 
+
 #include "IP.h"
 
 /** Processes an IP packet inside an Ethernet frame, and writes the appropriate response
@@ -47,7 +47,9 @@
  *           response was generated, NO_PROCESS if the packet processing was deferred until the
  *           next Ethernet packet handler iteration
  */
-int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart)
+int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* const FrameIN,
+                           void* InDataStart,
+                           void* OutDataStart)
 {
 	DecodeIPHeader(InDataStart);
 
@@ -65,7 +67,7 @@ int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, vo
 	{
 		return NO_RESPONSE;
 	}
-	
+
 	/* Pass off the IP payload to the appropriate protocol processing routine */
 	switch (IPHeaderIN->Protocol)
 	{
@@ -77,15 +79,15 @@ int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, vo
 		case PROTOCOL_TCP:
 			RetSize = TCP_ProcessTCPPacket(InDataStart,
 			                               &((uint8_t*)InDataStart)[HeaderLengthBytes],
-			                               &((uint8_t*)OutDataStart)[sizeof(IP_Header_t)]);		
+			                               &((uint8_t*)OutDataStart)[sizeof(IP_Header_t)]);
 			break;
 		case PROTOCOL_UDP:
 			RetSize = UDP_ProcessUDPPacket(InDataStart,
 			                               &((uint8_t*)InDataStart)[HeaderLengthBytes],
-			                               &((uint8_t*)OutDataStart)[sizeof(IP_Header_t)]);		
+			                               &((uint8_t*)OutDataStart)[sizeof(IP_Header_t)]);
 			break;
 	}
-	
+
 	/* Check to see if the protocol processing routine has filled out a response */
 	if (RetSize > 0)
 	{
@@ -102,12 +104,13 @@ int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, vo
 		IPHeaderOUT->TTL                = DEFAULT_TTL;
 		IPHeaderOUT->SourceAddress      = IPHeaderIN->DestinationAddress;
 		IPHeaderOUT->DestinationAddress = IPHeaderIN->SourceAddress;
-		
+
 		IPHeaderOUT->HeaderChecksum     = Ethernet_Checksum16(IPHeaderOUT, sizeof(IP_Header_t));
-						
+
 		/* Return the size of the response so far */
 		return (sizeof(IP_Header_t) + RetSize);
 	}
-	
+
 	return RetSize;
 }
+

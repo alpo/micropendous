@@ -1,9 +1,9 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
@@ -11,13 +11,13 @@
   Copyright 2010  Peter Danneger
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,18 +30,23 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for SoftUART.c.
+ */
+
 #ifndef _SOFT_UART_
 #define _SOFT_UART_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
-		#include "SoftUART.h"
+		#include <stdbool.h>
+
+		#include "../XPLAINBridge.h"
+		#include "LightweightRingBuff.h"
 
 	/* Macros: */
-		#define BAUD       9600
-		#define BIT_TIME   (uint16_t)((F_CPU + (BAUD / 2)) / BAUD)
-
 		#define SRX        PD0
 		#define SRXPIN     PIND
 		#define SRXPORT    PORTD
@@ -50,11 +55,16 @@
 		#define STXPORT    PORTD
 		#define STXDDR     DDRD
 
+	/* Inline Functions: */
+		static inline void SoftUART_SetBaud(const uint32_t Baud)
+		{
+			uint16_t BitTime = ((F_CPU / Baud) - 1);
+
+			ICR1 = BitTime;
+			ICR3 = BitTime;
+		}
+
 	/* Function Prototypes: */
-		uint8_t SoftUART_IsReady(void);
-		uint8_t SoftUART_TxByte(uint8_t c);
-		uint8_t SoftUART_IsReceived(void);
-		uint8_t SoftUART_RxByte(void);
-		void    SoftUART_Init(void);
+		void SoftUART_Init(void);
 
 #endif

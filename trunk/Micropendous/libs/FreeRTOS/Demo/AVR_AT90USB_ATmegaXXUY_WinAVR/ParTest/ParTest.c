@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V6.0.2 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
 
     ***************************************************************************
     *                                                                         *
@@ -10,7 +10,7 @@
     *    + Looking for basic training,                                        *
     *    + Wanting to improve your FreeRTOS skills and productivity           *
     *                                                                         *
-    * then take a look at the FreeRTOS eBook                                  *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
     *                                                                         *
     *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
     *                  http://www.FreeRTOS.org/Documentation                  *
@@ -66,9 +66,6 @@ Changes from V2.6.0
 #include "FreeRTOS.h"
 #include "task.h"
 #include "partest.h"
-
-/* register redefinitions */
-#include "avr_registers.h"
 
 /*-----------------------------------------------------------
  * Simple parallel port IO routines.

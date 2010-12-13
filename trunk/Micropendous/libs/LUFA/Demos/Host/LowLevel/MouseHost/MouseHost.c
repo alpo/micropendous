@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MouseHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MouseHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -46,6 +46,7 @@ int main(void)
 	puts_P(PSTR(ESC_FG_CYAN "Mouse HID Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -63,7 +64,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
@@ -111,7 +112,8 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
@@ -130,7 +132,7 @@ void ReadNextReport(void)
 	uint8_t                LEDMask = LEDS_NO_LEDS;
 
 	/* Select mouse data pipe */
-	Pipe_SelectPipe(MOUSE_DATAPIPE);	
+	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);
 
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();
@@ -140,10 +142,10 @@ void ReadNextReport(void)
 	{
 		/* No packet received (no movement), turn off LEDs */
 		LEDs_SetAllLEDs(LEDS_NO_LEDS);
-	
+
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-			
+
 		return;
 	}
 
@@ -151,14 +153,14 @@ void ReadNextReport(void)
 	if (Pipe_IsReadWriteAllowed())
 	{
 		/* Read in mouse report data */
-		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
+		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));
 
 		/* Alter status LEDs according to mouse X movement */
 		if (MouseReport.X > 0)
 		  LEDMask |= LEDS_LED1;
 		else if (MouseReport.X < 0)
 		  LEDMask |= LEDS_LED2;
-			
+
 		/* Alter status LEDs according to mouse Y movement */
 		if (MouseReport.Y > 0)
 		  LEDMask |= LEDS_LED3;
@@ -168,9 +170,9 @@ void ReadNextReport(void)
 		/* Alter status LEDs according to mouse button position */
 		if (MouseReport.Button)
 		  LEDMask  = LEDS_ALL_LEDS;
-		
+
 		LEDs_SetAllLEDs(LEDMask);
-		
+
 		/* Print mouse report data through the serial port */
 		printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
 													  MouseReport.Y,
@@ -196,7 +198,7 @@ void Mouse_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -206,7 +208,7 @@ void Mouse_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -223,17 +225,17 @@ void Mouse_HID_Task(void)
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* HID class request to set the mouse protocol to the Boot Protocol */
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-					.bRequest      = REQ_SetProtocol,
+					.bRequest      = HID_REQ_SetProtocol,
 					.wValue        = 0,
 					.wIndex        = 0,
 					.wLength       = 0,
@@ -250,7 +252,7 @@ void Mouse_HID_Task(void)
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -267,3 +269,4 @@ void Mouse_HID_Task(void)
 			break;
 	}
 }
+
