@@ -23,7 +23,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-DI
   * 45 available General Purpose IO Pins
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
-  * USB-B Jack and USB-A Receptacle selectable with a GPIO pin
+  * USB-miniB Jack and USB-A Receptacle selectable with a GPIO pin
   * JTAG header
   * Size LxWxH (including headers): 3.1" x 1" x 1" =~ 8cm x 2.54cm x 2.54cm
   * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
