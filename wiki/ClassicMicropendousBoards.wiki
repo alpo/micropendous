@@ -1,0 +1,18 @@
+#summary Summary of older versions of boards from the Micropendous Project
+
+== Features ==
+
+|| - || [Micropendous1]  || [Micropendous2] || [Micropendous3] || [Micropendous4] ||
+|| IC  || [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB162 AT90USB162] || [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 ATmega32U4] || [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB647 AT90USB647] || [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] ||
+|| FLASH || 12kbytes || 28kbytes || 60kbytes || 120kbytes ||
+|| SRAM || 512 bytes || 2.5kbytes || 4kbytes || 8kbytes ||
+|| [SRAMUsage Ext. SRAM] || - || - || 128kbytes || 128kbytes  ||
+|| EEPROM || 512 bytes || 1kbyte || 2kbytes || 4kbytes ||
+|| USB CONN || miniB || miniB || USB-A Plug  || miniB and USB-A ||
+|| Max GPIO || 21 || 26 || 47 || 47 ||
+|| ADC Pins || None || 12 || 8 || 8 ||
+|| USB Mode || Device || Device || Device/Host || Device/Host/OTG ||
+|| Clock || 8MHz || 8MHz || 16MHz || 16MHz ||
+|| VCC_Sel || 3.3V/5V || 3.3V/5V || 5V || 5V ||
+|| 3.3V at: || 50mA || 500mA || - || - ||
+|| Variations || [Micropendous1_Base] || [Micropendous2_JTAG Micropendous2-JTAG] || - || AT90USB647 ||
