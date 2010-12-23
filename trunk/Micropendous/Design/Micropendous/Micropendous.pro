@@ -107,4 +107,3 @@ LibName8=valves
 LibName9=led
 LibName10=dip_sockets
 LibName11=opendous
-LibName12=C:\\_\\Q2686_Motherboard\\Q2686_Footprint_Modules_Library
