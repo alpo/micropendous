@@ -15,6 +15,7 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   8, GRM21BR60J106ME19L          , 0.15 - C13 C21 C41 C45 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
   1, C1206C476M9PACTU            , 0.94 - C42 - CAP CERAMIC 47UF 6.3V X5R 1206
   1, MMZ2012R102A                , 0.07 - L3 - FERRITE CHIP 1000 OHM 500MA 0805 (Do Not Install)
+  1, BLM18BD102SN1D              , 0.05 - L6 - FERRITE CHIP 1000 OHM 100MA 0603
   1, RMCF0805ZT0R00              , 0.03 - R5 - RES 0.0 OHM 1/8W 0805 SMD (Do Not Install)
   2, MCR10EZPF22R0               , 0.03 - R12 R13 - RES 22.0 OHM 1/8W 1% 0805 SMD
   1, RMCF0805JT1K00              , 0.03 - R42 - RES 1K OHM 1/8W 5% 0805 SMD
