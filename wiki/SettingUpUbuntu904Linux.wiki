@@ -13,8 +13,8 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
  # Install software:
     `sudo apt-get -y install gcc-avr avr-libc build-essential gcc binutils  gdb-avr python python-dev libusb-dev avrdude libtool tofrodos gtkterm rapidsvn subversion`
  # Install [http://downloads.sourceforge.net/dfu-programmer/dfu-programmer-0.5.2.tar.gz dfu-programmer]
-   * `tar xvf dfu-programmer-0.5.2.tar.gz`
-   * `cd dfu-programmer-0.5.2`
+   * `tar xvf dfu-programmer-0.5.4.tar.gz`
+   * `cd dfu-programmer-0.5.4`
    * `./configure --prefix=/usr ; make ; sudo make install`
    * `sudo chmod 775 /usr/bin/dfu-programmer`
  # Install [http://developer.berlios.de/project/showfiles.php?group_id=4354&release_id=13488 PyUSB]
@@ -22,8 +22,8 @@ This procedure has been tested on an [http://www.ubuntu.com/getubuntu/download U
    * `cd pyusb-0.4.2`
    * `sudo python setup.py install`
  # Install [http://downloads.sourceforge.net/pyserial/pyserial-2.4.tar.gz PySerial]
-   * `tar xvf pyserial-2.4.tar.gz`
-   * `cd pyserial-2.4`
+   * `tar xvf pyserial-2.5.tar.gz`
+   * `cd pyserial-2.5`
    * `sudo python setup.py install`
  # To enable flashing Micropendous boards without being root, you must edit USB permissions.  The following has been adapted from [http://www.avrfreaks.net/wiki/index.php/Documentation:Tutorials_AT90UsbKey_under_Linux AVRfreaks.net] to support all the USB AVRs.
    * open for editing, `sudo gedit /etc/udev/rules.d/99-dfu-programmer.rules` and add:
