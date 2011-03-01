@@ -1,9 +1,9 @@
-update=01/03/2011 08:27:34
+update=25/02/2011 07:15:13
 last_client=pcbnew
 [general]
 version=1
-RootSch=
-BoardNm=
+RootSch=Micropendous-32U2.sch
+BoardNm=Micropendous-32U2.brd
 [cvpcb]
 version=1
 NetIExt=net
@@ -75,24 +75,25 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
+LibName31=opendous
 [pcbnew]
 version=1
-PadDrlX=0
-PadDimH=591
-PadDimV=394
+PadDrlX=150
+PadDimH=250
+PadDimV=250
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=340
-TxtPcbH=340
-TxtModV=340
-TxtModH=340
-TxtModW=80
+TxtPcbH=320
+TxtModV=280
+TxtModH=280
+TxtModW=70
 VEgarde=10
 DrawLar=80
 EdgeLar=80
 TxtLar=80
-MSegLar=80
-LastNetListRead=Micropendous-DIP.net
+MSegLar=70
+LastNetListRead=Micropendous-32U2.net
 [pcbnew/libraries]
 LibDir=
 LibName1=sockets
@@ -105,3 +106,4 @@ LibName7=display
 LibName8=valves
 LibName9=led
 LibName10=dip_sockets
+LibName11=opendous

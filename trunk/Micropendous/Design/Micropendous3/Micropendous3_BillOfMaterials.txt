@@ -1,6 +1,6 @@
 QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 
-  1, AT90USB646-MU          , 8.43 - IC1 - IC AVR MCU 64K 64QFN
+  1, AT90USB1287-MU         ,12.92 - IC1 - IC AVR MCU 128K 64QFN
   1, SN74AHC573PWR          , 0.58 - IC4 - IC OCT TRNSP D-TYP LATCH 20TSSOP
   1, CY7C1019D-10ZSXI       , 3.92 - IC5 - IC SRAM 1MBIT 10NS 32TSOP
   2, GRM1555C1H220JZ01D     , 0.01 - C1 C2 - CAP CER 22PF 50V 5% C0G 0402
@@ -21,7 +21,7 @@ QTY, Manufacturer Part#     , Cost($USD each) - References - Description
   1, 0480371000             , 1.47 - U2 - CONN PLUG USB 4POS RT ANG SMD
   1, 951102-8622-AR         , 0.10 - JP1 - CONN HEADER 2POS 2MM VERT T/H
   1, SPN02SYBN-RC           , 0.26 - * - CONN SHUNT 2MM OPEN TOP 2PS GOLD
------------------------Total:21.32
+-----------------------Total:25.81
 
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	- AT90USB646-MU can be replaced by AT90USB647-MU, AT90USB1286-MU, or AT90USB1287-MU

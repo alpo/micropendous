@@ -1,11 +1,10 @@
-QTY, Manufacturer Part#     , Cost($USD each) - References - Description
+QTY, Manufacturer Part#     , Cost($USD each) - Description
 
-3  , 5x2 DIL 0.05" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
-3  , 5x2 DIL 0.1" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
-1  , 24 12x2 female 0.1" header
-
-2  , EVQ-Q2U03W             , 0.39 - SWITCH LT 6MM 260GF H=3.1MM SMD
-
------------------------Total:16.00
+  1, GRPB042VWVN-RC         , 0.48 - CONN HEADER .050" 8POS DL PCB AU
+  3, GRPB052VWVN-RC         , 0.60 - CONN HEADER .050" 10PS DL PCB AU
+  2, EVQ-Q2U03W             , 0.39 - SWITCH LT 6MM 260GF H=3.1MM SMD
+  3, 67997-410HLF           , 0.37 - CONN HEADER 10POS .100 STR TIN
+  1, PPTC122LFBN-RC         , 1.79 - CONN HEADER FMAL 24PS 12x2 .1" DL TIN
+-----------------------Total: 5.96
 
 Notes:	- Component costs listed are for single quantity orders from DigiKey
