@@ -1,15 +1,13 @@
-QTY, Manufacturer Part#     , Cost($USD each) - References - Description
+QTY, Manufacturer Part#     , Cost($USD each) - Description
 
-3  , 5x2 DIL 0.05" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
-3  , 5x2 DIL 0.1" male headers        , 0.04 - CAP CER 22PF 50V NP0 0805
-1  , 20 10x2 female 0.1" RA header 
-1 , 2pos male header and associated jumper
-
-
-2  , EVQ-Q2U03W             , 0.39 - SWITCH LT 6MM 260GF H=3.1MM SMD
-
------------------------Total:16.00
+  1, GRPB042VWVN-RC         , 0.48 - CONN HEADER .050" 8POS DL PCB AU
+  3, GRPB052VWVN-RC         , 0.60 - CONN HEADER .050" 10PS DL PCB AU
+  2, EVQ-Q2U03W             , 0.39 - SWITCH LT 6MM 260GF H=3.1MM SMD
+  2, 67997-410HLF           , 0.37 - CONN HEADER 10POS 5x2 .100 STR TIN
+  1, 67996-420HLF           , 0.97 - CONN HEADER 20POS 10x2 .100 STR TIN
+-----------------------Total: 4.77
 
 Notes:	- Component costs listed are for single quantity orders from DigiKey
-	- Mount the 20-pin female header on the under side to use the board directly or
-	mount a male version to use a cable
+	- It is also possible to use a SFH11-PBPC-D10-RA-BK instead of the 67996-420HLF
+	  and mount it underneath the board in order to have a vertical system
+

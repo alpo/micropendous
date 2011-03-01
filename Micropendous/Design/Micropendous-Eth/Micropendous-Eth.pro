@@ -1,9 +1,9 @@
-update=01/03/2011 08:27:34
+update=01/03/2011 08:30:19
 last_client=pcbnew
 [general]
 version=1
-RootSch=
-BoardNm=
+RootSch=Micropendous-Eth.sch
+BoardNm=Micropendous-Eth.brd
 [cvpcb]
 version=1
 NetIExt=net
@@ -77,9 +77,9 @@ LibName29=contrib
 LibName30=valves
 [pcbnew]
 version=1
-PadDrlX=0
-PadDimH=591
-PadDimV=394
+PadDrlX=200
+PadDimH=340
+PadDimV=340
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=340
@@ -92,7 +92,7 @@ DrawLar=80
 EdgeLar=80
 TxtLar=80
 MSegLar=80
-LastNetListRead=Micropendous-DIP.net
+LastNetListRead=Micropendous-Eth.net
 [pcbnew/libraries]
 LibDir=
 LibName1=sockets

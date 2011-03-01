@@ -29,7 +29,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:opendous
 LIBS:Micropendous-DIP-cache
 EELAYER 24  0
 EELAYER END

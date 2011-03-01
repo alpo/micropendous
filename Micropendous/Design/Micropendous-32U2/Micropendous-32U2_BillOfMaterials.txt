@@ -1,0 +1,24 @@
+Bill of Materials for Micropendous-32U2
+
+ 1, ATMEGA32U2             , 4.40 - IC1 - AT90USB162 or ATmega32U2 QFN or TQFP
+ 2, 500R15N180JV4T         , 0.04 - C1 C2 - CAP CER 18PF 50V NP0 0805
+ 3, GRM21BR71H104KA01L     , 0.04 - C3 C8 C9 - CAP CER .1UF 50V 10% X7R 0805
+ 1, C2012X7R1A105K         , 0.05 - C4 - CAP CER 1.0UF 10V X7R 10% Low ESR 0805
+ 1, C0805C475K8PACTU       , 0.22 - C6 - CAP CER 4.7UF 10V X5R 0805
+ 2, ESD03A5V5R17V          , 0.56 - CR1 CR2 - SUPPRESSOR ESD 0.2PF 5.5VDC 0603
+ 1, BLM21PG221SN1D         , 0.06 - L4 - FERRITE CHIP 220 OHM 2000MA 0805
+ 1, APT2012EC              , 0.13 - D1 - LED 20mA 2X1.2MM 625NM RED WTR CLR SMD 0805
+ 1, APT2012SGC             , 0.13 - D2 - LED 20mA 2X1.2MM 568NM GREEN WTR CLR SMD 0805
+ 2, MCR10EZPF22R0          , 0.04 - R1 R2 - RES 22.0 OHM 1/8W 1% 0805 SMD
+ 2, RMCF0805JT390R         , 0.03 - R5 R6 - RES 390 OHM 1/8W 5% 0805 SMD
+ 2, RMCF0805JT47K0         , 0.03 - R3 R4 - RES 47K OHM 1/8W 5% 0805 SMD
+ 1, UX60-MB-5ST            , 1.18 - J1 - CONN RECEPT MINI USB2.0 5POS
+ 2, EVQ-Q2U03W             , 0.30 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
+ 1, ABLS-16.000MHZ-B4-T    , 0.41 - X1 - CRYSTAL 16.000 MHZ 18PF HC49US 30ppm
+--------------Cost Estimate: 8.81
+
+Notes:	- Component costs listed are for minimal quantity orders from DigiKey
+	- The outer headers can be populated with either of:
+	  - 68001-112HLF    , 0.57 - CONN HEADER 12POS .100 STR 30AU
+	  - PPPC121LFBN-RC  , 0.95 - CONN HEADER FMALE 12POS .1" GOLD
+	- For DIY, SW1, SW2 can be populated with TL59AF160Q, a thru-hole switch
