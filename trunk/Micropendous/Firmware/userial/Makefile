@@ -2,7 +2,7 @@
 BOARD=USERIAL_BOARD
 
 ifeq ($(BOARD), USERIAL_BOARD)
-MCU = at90usb647
+MCU = at90usb1287
 F_CPU = 16000000UL
 F_CLOCK = 16000000UL
 BOARD_ID = USERIAL_BOARD
@@ -97,6 +97,18 @@ cdc_descriptors.o: cdc_descriptors.c
 	$(OBJCOPY) -O ihex $< $@
 
 
+# Program the device.
+flip: 
+	batchisp -hardware usb -device $(MCU) -operation erase f
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(target).hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+
+dfu: 
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash --debug 2 $(target).hex
+	dfu-programmer $(MCU) reset
+
+
 .PHONY: doc
 doc:
 	[ -d doc ] || mkdir doc
@@ -137,3 +149,7 @@ dist: $(elf) $(hex)
 	$(RM) -rf "$(dst)"/contrib "$(dst)"/test $(lss)
 	zip -r "$(dst)".zip "$(dst)"
 	$(RM) -rf "$(dst)"
+
+# Listing of phony targets.
+.PHONY : dfu flip flip-ee dfu-ee
+
