@@ -14,11 +14,13 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 = Uasge =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Picture.jpg
-
 === [Micropendous] ===
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Micropendous_Picture-LCD_Connected.jpg
+
+=== [Micropendous2] ===
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Picture.jpg
 
 Compile and load the USBVirtualSerial-LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
