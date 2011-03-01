@@ -74,6 +74,7 @@ void SetupHardware(void)
 	LEDs_Init();
 	Buttons_Init();
 	USB_Init();
+	SELECT_USB_A;
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -134,6 +135,11 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 void MassStorage_Task(void)
 {
 	uint8_t ErrorCode;
+//printf_P(PSTR("PORTE-start: %d\r\n" ESC_FG_WHITE), PORTE);
+//DDRE |= (1 << PE7);  PORTE &= ~(1 << PE7);
+//printf_P(PSTR("UHWCON: %d\r\n" ESC_FG_WHITE), UHWCON);
+//printf_P(PSTR("OTGCON: %d\r\n" ESC_FG_WHITE), OTGCON);
+//printf_P(PSTR("PORTE: %d\r\n" ESC_FG_WHITE), PORTE);
 
 	switch (USB_HostState)
 	{
@@ -365,6 +371,7 @@ void MassStorage_Task(void)
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
 	}
+//printf_P(PSTR("PORTE-end: %d\r\n" ESC_FG_WHITE), PORTE);
 }
 
 /** Indicates that a communication error has occurred with the attached Mass Storage Device,

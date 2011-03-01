@@ -1,4 +1,5 @@
-Purpose: Simple AVR firmware for testing SPI interface.
+Purpose: Simple ATtiny261 AVR firmware for testing AVRISP-mkII and
+	 USBVirtualSerial-SPI firmware SPI interface.
 
 Usage:	- How to test AVRISP-mkII and USBVirtualSerial-SPI firmware
 	  1) Load AVRISP-mkII firmware onto your USB AVR board

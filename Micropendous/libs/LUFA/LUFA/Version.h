@@ -42,6 +42,7 @@
 
 	/* There are some missing definitions from certain versions of avr-libc */
 	#include "MissingDefines.h"
+	#include "UsefulMicropendousDefines.h"
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */

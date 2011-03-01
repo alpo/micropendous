@@ -9,6 +9,9 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
+  Modified for maximum STDIO throughput by Opendous Inc. 2011-02-27
+  For more information visit: www.Micropendous.org/USBVirtualSerial
+
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -30,17 +33,11 @@
 
 /** \file
  *
- *  Main source file for the USBtoSerial project. This file contains the main tasks of
+ *  Main source file for the VirtualSerial demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
 #include "USBVirtualSerial.h"
-
-/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuff_t HostToDevice_Buffer;
-
-/** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t DeviceToHost_Buffer;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -66,6 +63,14 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 			},
 	};
 
+/** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
+ *  used like any regular character stream in the C APIs
+ */
+static FILE USBSerialStream;
+
+/* Global buffer for use with STDIO functions */
+volatile char buffer[CDC_TXRX_EPSIZE];
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
@@ -73,65 +78,36 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&HostToDevice_Buffer);
-	RingBuffer_InitBuffer(&DeviceToHost_Buffer);
+	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
+	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
 	for (;;)
 	{
-		/* Only try to read in bytes from the CDC interface if the transmit buffer is not full */
-		if (!(RingBuffer_IsFull(&HostToDevice_Buffer)))
-		{
-			int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-
-			/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
-			if (!(ReceivedByte < 0))
-				RingBuffer_Insert(&HostToDevice_Buffer, ReceivedByte);
-		}
-		
-		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
-		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&DeviceToHost_Buffer);
-		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
-		{
-			/* Clear flush timer expiry flag */
-			TIFR0 |= (1 << TOV0);
-
-			/* Read bytes from the USART receive buffer into the USB IN endpoint */
-			while (BufferCount--) {
-				CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&DeviceToHost_Buffer));
-
-				/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
-				//if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_PeekElement(&DeviceToHost_Buffer)) != ENDPOINT_READYWAIT_NoError) {
-				//	break;
-				//}
-
-				/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
-				//RingBuffer_Remove(&DeviceToHost_Buffer);
-			}
-		}
-
-		/* Load the next byte from the USART transmit buffer into the USART */
-		//if (!(RingBuffer_IsEmpty(&HostToDevice_Buffer)))
-		//	Serial_TxByte(RingBuffer_Remove(&HostToDevice_Buffer));
+		MainTask();
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
-
-		MainTask();
 	}
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
-	/* Disable watchdog if enabled by bootloader/fuses */
+	// Disable watchdog if enabled by bootloader/fuses
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
-	/* Disable clock division */
+	// Disable clock division
 	clock_prescale_set(clock_div_1);
+
+	// initialize the buffer to be used with STDIO functions
+	uint8_t i;
+	for (i = 0; i < CDC_TXRX_EPSIZE; i++){
+		buffer[i] = 0;
+	}
 
 	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
 	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
@@ -153,42 +129,42 @@ void SetupHardware(void)
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
 			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
 		DDRD = 0;
-		PORTD = 0;
+		PORTD = 0xFF;
 		DDRB = 0;
-		PORTB = 0;
+		PORTB = 0xFF;
 		DDRC = 0;
-		PORTC |= (0 << PC2) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7); //only PC2,4,5,6,7 are pins
+		PORTC |= (1 << PC2) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7); //only PC2,4,5,6,7 are pins
 		// be careful using PortC as PC0 is used for the Crystal and PC1 is nRESET
 	#endif
 
 	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
 		DDRD = 0;
-		PORTD = 0;
+		PORTD = 0xFF;
 		DDRB = 0;
-		PORTB = 0;
+		PORTB = 0xFF;
 		DDRC = 0;
-		PORTC = (0 << PC6) | (0 << PC7); //only PC6,7 are pins
+		PORTC = (1 << PC6) | (1 << PC7); //only PC6,7 are pins
 		DDRE = 0;
-		PORTE = (0 << PE2) | (0 << PE6); //only PE2,6 are pins
+		PORTE = (1 << PE2) | (1 << PE6); //only PE2,6 are pins
 		DDRF = 0;
-		PORTF = (0 << PF0) | (0 << PF1) | (0 << PF4) | (0 << PF5) | (0 << PF6) | (0 << PF7); // only PF0,1,4,5,6,7 are pins
+		PORTF = (1 << PF0) | (1 << PF1) | (1 << PF4) | (1 << PF5) | (1 << PF6) | (1 << PF7); // only PF0,1,4,5,6,7 are pins
 	#endif
 
 	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega32U6__))
 		DDRA = 0;
-		PORTA = 0;
+		PORTA = 0xFF;
 		DDRB = 0;
-		PORTB = 0;
+		PORTB = 0xFF;
 		DDRC = 0;
-		PORTC = 0;
+		PORTC = 0xFF;
 		DDRD = 0;
-		PORTD = 0;
+		PORTD = 0xFF;
 		DDRE = 0;
-		PORTE = 0;
+		PORTE = 0xFF;
 		DDRF = 0;
-		PORTF = 0;
+		PORTF = 0xFF;
 		#if (BOARD == BOARD_MICROPENDOUS)
 		// set PortB pin 1 to an output as it connects to an LED on the Micropendous
 		DDRB |= (1 << PB1);
@@ -203,23 +179,14 @@ void SetupHardware(void)
 		#endif
 	#endif
 
-	/* Initialize stdout and stdin for printf and scanf */
-	fdevopen(sendData, getData);
-
-	/* TODO - set up ports */
-	/* Look over your AVR datasheet's I/O-Ports chapter for more information */
-	/* For now we will set up half of PortD as input and the other half as output  */
-	/* PD0,1,2,3 will be input (DDR=0, PORT=0) and PD4,5,6,7 will be output with a 1 start state (DDR=1, PORT=1) */
-	DDRD =  (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
-	PORTD = (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
-
-	/* Hardware Initialization */
+	// Hardware Initialization
 	LEDs_Init();
+	DISABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+	SELECT_USB_B;
 	USB_Init();
-
-	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
-	TCCR0B = (1 << CS02);
 }
+
 
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
@@ -250,15 +217,15 @@ void EVENT_USB_Device_ControlRequest(void)
 }
 
 
+
 /** Event handler for the CDC Class driver Line Encoding Changed event.
- *
  *  \param[in] CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
  */
 void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
 	/* TODO - Use Virtual Serial Port settings to control your application.
-		Think of this as another data channel.  Use it for control/status messaging.
-		Leave the data channel (MainTask putchar/getchar) for data only.
+		Think of this as a sideband channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask and sdio.h calls) for data only.
 	*/
 
 	switch (CDCInterfaceInfo->State.LineEncoding.ParityType)
@@ -343,57 +310,34 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
 	/* TODO - Use Virtual Serial Port settings to control your application.
-		Think of this as another data channel.  Use it for control/status messaging.
-		Leave the data channel (MainTask putchar/getchar) for data only.
+		Think of this as a sideband channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask and sdio.h calls) for data only.
 	*/
-
 	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_RTS) {
-		// Host has set the RTS line
+		// Host has set the RTS line - '0'
 	} else {
-		// Host has cleared the RTS line
+		// Host has cleared the RTS line - '1'
 	}
 
 	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_DTR) {
-		// Host has set the DTR line
+		// Host has set the DTR line - '0'
 	} else {
-		// Host has cleared the DTR line
+		// Host has cleared the DTR line - '1'
 	}
 }
 
 
-/* Use this function to make sure data exists.
-	Need this function as RingBuff will crash if getData is called on
-	an empty buffer
-*/
-uint8_t haveData(void) {
-	return (uint8_t)(!RingBuffer_IsEmpty(&HostToDevice_Buffer));
-}
-
-/* In order to use printf functions, need a function that will send data over
-	the USB Virtual Serial Port link
-	return 0 on success, else failure and ensure binary compatibility
-*/
-static int sendData(char c, FILE *stream) {
-	// most terminals require \r\n
-	// however, do not include this conversion as it will break binary transfers 
-	//if (c == '\n') {
-	//	sendData('\r', stream);
-	//}
-	if (!RingBuffer_IsFull(&DeviceToHost_Buffer)) {
-		RingBuffer_Insert(&DeviceToHost_Buffer, (uint8_t)c);
-		return 0;
-	} else {
-		return 1;
-	}
-}
-
-/* Function to receive data from the USB Virtual Serial Port link */
-int getData(FILE *__stream) {
-	//if (something) return _FDEV_ERR; // cannot implement as GetElement has no error condition
-	if (haveData() == 0) {
-		return _FDEV_EOF;
-	}
-	return (int)RingBuffer_Remove(&HostToDevice_Buffer);
+/** CDC class driver event for a send break request sent to the device from the host. This is
+ *  generally used to separate data or to indicate a special condition to the receiving device.
+ *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+ *  \param[in] Duration	Duration of the break that has been sent by the host, in milliseconds.
+ */
+void EVENT_CDC_Device_BreakSent(USB_ClassInfo_CDC_Device_t *const CDCInterfaceInfo, const uint8_t Duration)
+{
+	/* TODO - Use Virtual Serial Port break signal to control your application.
+		Think of this as a sideband channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask and sdio.h calls) for data only.
+	*/
 }
 
 
@@ -402,18 +346,24 @@ int getData(FILE *__stream) {
 /* TODO - place your application code here */
 void MainTask(void)
 {
-	int tempInt = 0;	// temporary storage - integer (16-bit)
+	int count = 0;
 
-	// If the host has sent data then process it
+	// If the host has sent data then echo it back
 
-	// Example 1 - using standard IO functions to echo back data - useful for throughput testing
-	while (haveData()) {	// need to check that data exists before processing it
-		// store data temporarily then send it right back - raw binary - using standard IO functions
-		tempInt = getchar();
-		putchar(tempInt);
+	// Throughput for char reads/writes maxes out at 1 kbyte/second as USB requests are spaced about 1ms apart
+/*	if ((temp = fgetc(&USBSerialStream)) >= 0) {
+		fputc(temp, &USBSerialStream);
+	}
+*/
+
+	// Throughput is maximized if the full EP buffer is read and sent each time
+	// Throughput approaches CDC_TXRX_EPSIZE kbytes/second and depends on transfer size from host 
+	if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
+		fwrite(&buffer, 1, count, &USBSerialStream);
 	}
 
-	// Example 2 - using formatted standard IO functions
+
+	// Example for using formatted standard IO functions
 /*	while (haveData()) {
 		// as long as getchar() is returning data, process it
 		printf_P(PSTR("\r\nUSBVirtualSerial\r\n")); // send a string that is constant and stored in FLASH
@@ -422,4 +372,48 @@ void MainTask(void)
 		// avoid long dynamic strings as there is little SRAM
 	}
 */
-}
+
+	// If the DTR, DSR, ... lines have changed, need to tell the host
+	// For non-USBtoSerial usage, use this as a sideband data channel
+	if (0) {
+
+		// The DCD line state has been set high
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_DCD;
+		}
+
+		// The DSR line state has been set high
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_DSR;
+		}
+
+		// The BREAK line state has been set high
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_BREAK;
+		}
+
+		// The RING line state has been set high
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_RING;
+		}
+
+		// A framing error has occurred
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_FRAMEERROR;
+		}
+
+		// A parity error has occurred
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_PARITYERROR;
+		}
+
+		// A data overrun error has occurred
+		if (0) {
+			(VirtualSerial_CDC_Interface.State.ControlLineStates.DeviceToHost) |= CDC_CONTROL_LINE_IN_OVERRUNERROR;
+		}
+
+		// Tell the host
+		CDC_Device_SendControlLineStateChange(&VirtualSerial_CDC_Interface);
+	}
+
+} // MainTask

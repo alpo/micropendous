@@ -12,8 +12,8 @@ import sys              # needed for command-line input
 def Test_I2C_Communication(comport):
     # open the given serial port for communication
     ser = serial.Serial(comport)
-    ser.setTimeout(2000)
-    ser.setWriteTimeout(2000)
+    ser.setTimeout(2)
+    ser.setWriteTimeout(2)
 
     print ser               # dump all info regarding serial port being used
 
@@ -31,11 +31,12 @@ def Test_I2C_Communication(comport):
     # data is the tuple of data to send over I2C, which includes any sub-addresses
     # Note a 1 element tuple is created with a comma after the data (elem,)
 
-    print "\n\nCurrent Temperature:"
-    i2cfuncs.i2c_readprint(ser, TRGT_ADDRESS, 1, (0x00,)) # send one byte, register address 0x00 and expect 1 byte, the temperature
-    time.sleep(0.5)
     print "\n\nConfiguration Register:"
     i2cfuncs.i2c_readprint(ser, TRGT_ADDRESS, 1, (0x01,)) # send one byte, register address 0x01 and expect 1 byte, the status byte
+    time.sleep(0.5)
+    print "\n\nCurrent Temperature:"
+    i2cfuncs.i2c_readprint(ser, TRGT_ADDRESS, 1, (0x00,)) # send one byte, register address 0x00 and expect 1 byte, the temperature
+
 
     ser.close()             # release/close the serial port
 

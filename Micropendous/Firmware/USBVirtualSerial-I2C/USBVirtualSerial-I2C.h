@@ -49,7 +49,6 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Peripheral/TWI.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/CDC.h>
 
@@ -58,6 +57,8 @@
 			// use software I2C
 			#include "i2cswconf.h"
 			#include <i2csw.h>
+//		#else
+//		#include <LUFA/Drivers/Peripheral/TWI.h>
 //		#endif
 
 

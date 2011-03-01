@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,33 +39,37 @@
 /** Current memory address for FLASH/EEPROM memory read/write commands */
 uint32_t CurrentAddress;
 
-/** Flag to indicate that the next read/write operation must update the device's current address */
-bool MustSetAddress;
+/** Flag to indicate that the next read/write operation must update the device's current extended FLASH address */
+bool MustLoadExtendedAddress;
 
 
-/** ISR for the management of the command execution timeout counter */
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+/** ISR to manage timeouts whilst processing a V2Protocol command */
+ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
 {
-	if (TimeoutMSRemaining)
-	  TimeoutMSRemaining--;
+	if (TimeoutTicksRemaining)
+	  TimeoutTicksRemaining--;
 }
 
-/** Initializes the hardware and software associated with the V2 protocol command handling. */
+/** Initialises the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {
 	#if defined(ADC)
 	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */
 	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
 	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
-	ADC_StartReading(VTARGET_ADC_CHANNEL_MASK | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | VTARGET_ADC_CHANNEL_MASK);
 	#endif
-	
-	/* Millisecond timer initialization for managing the command timeout counter */
-	OCR0A  = ((F_CPU / 64) / 1000);
+
+	/* Timeout timer initialization (10ms period) */
+	OCR0A  = (((F_CPU / 1024) / 100) - 1);
 	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
-	
+	TIMSK0 = (1 << OCIE0A);
+
 	V2Params_LoadNonVolatileParamValues();
+	
+	#if defined(ENABLE_ISP_PROTOCOL)
+	ISPTarget_ConfigureRescueClock();
+	#endif
 }
 
 /** Master V2 Protocol packet handler, for received V2 Protocol packets from a connected host.
@@ -75,10 +79,10 @@ void V2Protocol_Init(void)
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
-	
-	/* Set total command processing timeout value, enable timeout management interrupt */
-	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-	TIMSK0 |= (1 << OCIE0A);
+
+	/* Start the timeout management timer */
+	TimeoutTicksRemaining = COMMAND_TIMEOUT_TICKS;
+	TCCR0B = ((1 << CS02) | (1 << CS00));
 
 	switch (V2Command)
 	{
@@ -104,7 +108,7 @@ void V2Protocol_ProcessCommand(void)
 			break;
 		case CMD_PROGRAM_FLASH_ISP:
 		case CMD_PROGRAM_EEPROM_ISP:
-			ISPProtocol_ProgramMemory(V2Command);			
+			ISPProtocol_ProgramMemory(V2Command);
 			break;
 		case CMD_READ_FLASH_ISP:
 		case CMD_READ_EEPROM_ISP:
@@ -139,11 +143,12 @@ void V2Protocol_ProcessCommand(void)
 			V2Protocol_UnknownCommand(V2Command);
 			break;
 	}
-		
-	/* Disable timeout management interrupt once processing has completed */
-	TIMSK0 &= ~(1 << OCIE0A);
+
+	/* Disable the timeout management timer */
+	TCCR0B = 0;
 
 	Endpoint_WaitUntilReady();
+	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
 
@@ -162,6 +167,7 @@ static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 	}
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_Byte(V2Command);
@@ -173,6 +179,7 @@ static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 static void V2Protocol_SignOn(void)
 {
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_Byte(CMD_SIGN_ON);
@@ -188,11 +195,12 @@ static void V2Protocol_SignOn(void)
 static void V2Protocol_ResetProtection(void)
 {
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+
 	Endpoint_Write_Byte(CMD_RESET_PROTECTION);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_ClearIN();	
+	Endpoint_ClearIN();
 }
 
 
@@ -205,17 +213,18 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
 {
 	uint8_t ParamID = Endpoint_Read_Byte();
 	uint8_t ParamValue;
-	
+
 	if (V2Command == CMD_SET_PARAMETER)
 	  ParamValue = Endpoint_Read_Byte();
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+
 	Endpoint_Write_Byte(V2Command);
-	
+
 	uint8_t ParamPrivs = V2Params_GetParameterPrivileges(ParamID);
-	
+
 	if ((V2Command == CMD_SET_PARAMETER) && (ParamPrivs & PARAM_PRIV_WRITE))
 	{
 		Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -227,7 +236,7 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
 		Endpoint_Write_Byte(V2Params_GetParameterValue(ParamID));
 	}
 	else
-	{	
+	{
 		Endpoint_Write_Byte(STATUS_CMD_FAILED);
 	}
 
@@ -243,11 +252,14 @@ static void V2Protocol_LoadAddress(void)
 	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
-	MustSetAddress = true;
+
+	if (CurrentAddress & (1UL << 31))
+	  MustLoadExtendedAddress = true;
 
 	Endpoint_Write_Byte(CMD_LOAD_ADDRESS);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
+

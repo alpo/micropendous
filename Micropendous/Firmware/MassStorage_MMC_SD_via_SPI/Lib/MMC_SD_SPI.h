@@ -66,5 +66,6 @@
 		void MMC_SD_SPI_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks);
 		void MMC_SD_SPI_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks);
 		uint8_t MMC_SD_SPI_ResetProtections(void);
-		
+		bool MMC_SD_SPI_CheckOperation(void);
+
 #endif //_MMC_SD_SPI_H

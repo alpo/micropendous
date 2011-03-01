@@ -78,6 +78,15 @@
 			static inline void TWI_Init(void)
 			{
 				TWCR |=  (1 << TWEN);
+
+				// Bit rate is set to 400kHz and is based on clock setting and taken from AVR315 AppNote
+				#if (F_CLOCK == 16000000)
+					TWBR = 0x03; // 0x12 = 18 for 100kHz
+				#else
+					TWBR = 0x08; // 0x08 for 100kHz
+				#endif
+
+				TWSR = 0;
 			}
 
 			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to

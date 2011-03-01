@@ -5,20 +5,23 @@ with the following modifications:
 Files Added:
 
 * Defines missing from certain versions of avr-gcc
-  .\LUFA\MissingDefines.h
+  ./LUFA/MissingDefines.h
+
+* Defines related to Micropendous and Micropendous-DIP boards (SRAM, TXB0108, USB switch)
+  ./LUFA/UsefulMicropendousDefines.h
 
 * General purpose includes for boards with no LEDs and just an HWB button
-  .\LUFA\Drivers\Board\Board\..
+  ./LUFA/Drivers/Board/Board/..
 
 * Includes for Micropendous boards
-  .\LUFA\Drivers\Board\Micropendous\..
+  ./LUFA/Drivers/Board/Micropendous/..
 
 
 
 Files Changed:
 
-* To add the above functionality
-  .\LUFA\Drivers\Board\Buttons.h
-  .\LUFA\Drivers\Board\LEDs.h
-  .\LUFA\Drivers\Board\Joystick.h
-  .\LUFA\Common\BoardTypes.h
+  ./LUFA/Drivers/Board/Buttons.h
+  ./LUFA/Drivers/Board/LEDs.h
+  ./LUFA/Drivers/Board/Joystick.h
+  ./LUFA/Common/BoardTypes.h
+  ./LUFA/Drivers/USB/LowLevel/Host.c

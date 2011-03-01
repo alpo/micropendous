@@ -30,25 +30,26 @@
 
 /** \file
  *
- *  Header file for USBtoSerial.c.
+ *  Header file for VirtualSerial.c.
  */
 
-#ifndef _USB_VIRTUAL_SERIAL_H_
-#define _USB_VIRTUAL_SERIAL_H_
+#ifndef _USB_VIRTUALSERIAL_H_
+#define _USB_VIRTUALSERIAL_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
-		#include <avr/interrupt.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
+		#include <string.h>
+		#include <stdio.h>
+		#include <stdint.h>
+		#include <ctype.h>
 
 		#include "Descriptors.h"
 
-		#include "Lib/LightweightRingBuff.h"
-
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
@@ -67,15 +68,10 @@
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void MainTask(void);
-		uint8_t haveData(void);
-		static int sendData(char c, FILE *stream);
-		int getData(FILE *__stream);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
 
-		void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
-
-#endif // _USB_VIRTUAL_SERIAL_H_
+#endif // _USB_VIRTUALSERIAL_H_

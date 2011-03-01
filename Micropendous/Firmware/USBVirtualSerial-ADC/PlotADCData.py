@@ -1,7 +1,7 @@
 #    Purpose: Plot data from a device loaded with USBVirtualSerial_ADC firmware
-#        Visit www.Micropendous.org for more info.
+#        Visit  www.Micropendous.org/USBVirtualSerial-ADC  for more info.
 #    Created: 2009-06-19 by Opendous Inc.
-#    Last Edit: 2009-10-04 by Opendous Inc.
+#    Last Edit: 2011-02-28 by Opendous Inc.
 #    Released under the MIT License
 import time
 import matplotlib
@@ -116,13 +116,14 @@ def PlotADCData(comport, sampleSize):
 # if this file is the program actually being run, print usage info or run SerialSendReceive
 if __name__ == '__main__':
     if (len(sys.argv) != 3):
-        print "Plot ADC Data from USBVirtualSerial_ADC"
+        print "Plot ADC Data from USBVirtualSerial-ADC"
         print "    Usage:"
         print "      python", sys.argv[0], "<port> <plotPoints>"
         print "        Where <port> = serial port; COM? on Windows, '/dev/ttyACM0 on Linux'"
         print "          Enumerated serial port can be found on Linux using dmesg"
         print "          look for something like  cdc_acm 2-1:1.0: ttyACM0: USB ACM device"
-        print "        Where <plotPoints> = the number of points per plot/frame, 128 is a good value"
-        print "      python", sys.argv[0], "COM5  128"
+        print "        Where <plotPoints> = the number of points per plot/frame, 64 is a good value"
+        print "                                             Lower <plotPoints> values will increase FPS"
+        print "      python", sys.argv[0], "COM5  64"
         exit()
     PlotADCData(sys.argv[1], int(sys.argv[2]))

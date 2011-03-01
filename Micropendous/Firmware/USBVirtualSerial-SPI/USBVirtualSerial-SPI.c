@@ -1,9 +1,9 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
@@ -53,13 +53,13 @@
 
   Look for TODO statements in the code for implementation hints
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -74,35 +74,35 @@
 
 /** \file
  *
- *  Main source file for the USBtoSerial-SPI project. This file contains the main tasks of
+ *  Main source file for the USBtoSerial project. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
 #include "USBVirtualSerial-SPI.h"
 
-/* TODO - define which pins are used for SPI ^CS Pins */
+// TODO - define which pin is used for SPI nCS Pins
 #define CS_PIN			PB4
 #define CS_PORT		PORTB
 #define CS_DDR			DDRB
 
-
 #define CS_HIGH		CS_PORT |= (1 << CS_PIN);
 #define CS_LOW		CS_PORT &= ~(1 << CS_PIN);
 
-
 #define NOP() do { __asm__ __volatile__ ("nop"); } while (0)
 
-/* some global variables */
+
+// some global variables
 volatile uint8_t tempIOreg = 0;
 volatile uint8_t firstRun = 1;
 volatile uint8_t spiClkHighOff = 0;
 volatile uint8_t sendSPIsettingsRegisters = 0;
 
-/** Circular buffer to hold data from the host before it is processed by MainTask using standard IO functions */
-RingBuff_t Host_to_Device_Buffer;
 
-/** Circular buffer to hold data before it is sent to the host. */
-RingBuff_t Device_to_Host_Buffer;
+/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
+RingBuff_t HostToDevice_Buffer;
+
+/** Circular buffer to hold data from the serial port before it is sent to the host. */
+RingBuff_t DeviceToHost_Buffer;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -110,7 +110,7 @@ RingBuff_t Device_to_Host_Buffer;
  */
 USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
-		.Config = 
+		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
 
@@ -134,31 +134,86 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
-	Buffer_Initialize(&Host_to_Device_Buffer);
-	Buffer_Initialize(&Device_to_Host_Buffer);
+
+	RingBuffer_InitBuffer(&HostToDevice_Buffer);
+	RingBuffer_InitBuffer(&DeviceToHost_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
+	// Alternate for(...) loop retrieved multiple bytes per loop run to comply with SPI protocol
 	for (;;)
 	{
-		/* Read bytes from the USB OUT endpoint into the local buffer */
-		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
-		{
-			if (!(BUFF_STATICSIZE - Host_to_Device_Buffer.Elements))
-				break;
-			Buffer_StoreElement(&Host_to_Device_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+		// Read bytes from the USB OUT endpoint into the local data buffer
+		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--) {
+			// Only try to read in bytes from the CDC interface if the transmit buffer is not full
+			if (!(RingBuffer_IsFull(&HostToDevice_Buffer)))
+			{
+				int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+				// Read bytes from the USB OUT endpoint into the local data buffer
+				if (!(ReceivedByte < 0))
+					RingBuffer_Insert(&HostToDevice_Buffer, ReceivedByte);
+			}
 		}
 
-		/* Read bytes from the data buffer into the USB IN endpoint */
-		while (Device_to_Host_Buffer.Elements)
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Device_to_Host_Buffer));
+		// Read bytes from the local data buffer into the USB IN endpoint
+		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&DeviceToHost_Buffer);
+		while (BufferCount--)
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&DeviceToHost_Buffer));
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 
 		MainTask();
 	}
+
+
+	/* Original for(...) loop with only a single byte retrieved from the OUT buffer per loop
+	for (;;)
+	{
+		// Only try to read in bytes from the CDC interface if the transmit buffer is not full
+		if (!(RingBuffer_IsFull(&HostToDevice_Buffer)))
+		{
+			int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+			// Read bytes from the USB OUT endpoint into the USART transmit buffer
+			if (!(ReceivedByte < 0))
+				RingBuffer_Insert(&HostToDevice_Buffer, ReceivedByte);
+		}
+		
+		// Check if the UART receive buffer flush timer has expired or the buffer is nearly full
+		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&DeviceToHost_Buffer);
+		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
+		{
+			// Clear flush timer expiry flag
+			TIFR0 |= (1 << TOV0);
+
+			// Read bytes from the USART receive buffer into the USB IN endpoint
+			while (BufferCount--) {
+				CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&DeviceToHost_Buffer));
+
+				// Try to send the next byte of data to the host, abort if there is an error without dequeuing
+				//if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_PeekElement(&DeviceToHost_Buffer)) != ENDPOINT_READYWAIT_NoError) {
+				//	break;
+				//}
+
+				// Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred
+				//RingBuffer_Remove(&DeviceToHost_Buffer);
+			}
+		}
+
+		// Load the next byte from the USART transmit buffer into the USART
+		//if (!(RingBuffer_IsEmpty(&HostToDevice_Buffer)))
+		//	Serial_TxByte(RingBuffer_Remove(&HostToDevice_Buffer));
+
+		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+		USB_USBTask();
+
+		MainTask();
+	}
+*/
+
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
@@ -173,10 +228,10 @@ void SetupHardware(void)
 
 	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
 	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
-	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
-			defined(__AVR_ATmega32U6__)))
+			defined(__AVR_ATmega32U6__))
 		// note the JTD bit must be written twice within 4 clock cycles to disable JTAG
 		// you must also set the IVSEL bit at the same time, which requires IVCE to be set first
 		// port pull-up resistors are enabled - PUD(Pull Up Disable) = 0
@@ -188,14 +243,15 @@ void SetupHardware(void)
 	/* enable Ports based on which IC is being used */
 	/* For more information look over the corresponding AVR's datasheet in the
 		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
-	#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
 		DDRD = 0;
 		PORTD = 0;
 		DDRB = 0;
 		PORTB = 0;
 		DDRC = 0;
 		PORTC |= (0 << PC2) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7); //only PC2,4,5,6,7 are pins
-		// be careful using PortC as PC0 is used for the Crystal and PC1 is RESET
+		// be careful using PortC as PC0 is used for the Crystal and PC1 is nRESET
 	#endif
 
 	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
@@ -222,27 +278,46 @@ void SetupHardware(void)
 		PORTC = 0;
 		DDRD = 0;
 		PORTD = 0;
-		DDRE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
-		PORTE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
+		DDRE = 0;
+		PORTE = 0;
 		DDRF = 0;
 		PORTF = 0;
+		#if (BOARD == BOARD_MICROPENDOUS)
+		// set PortB pin 1 to an output as it connects to an LED on the Micropendous
+		DDRB |= (1 << PB1);
+		// Set PE4=1 to disable external SRAM, PE6=0 to disable TXB0108, PE7=1 to select USB-B connector
+		DDRE |= ((1 << PE4) | (1 << PE6) | (1 << PE7));
+		PORTE |= ((1 << PE4) | (1 << PE7));
+		PORTE &= ~(1 << PE6);
+		#else // other boards such as the Micropendous3 or Micropendous4
+		// Set PE6=1 to disable external SRAM
+		DDRE |= (1 << PE6);
+		PORTE |= (1 << PE6);
+		#endif
 	#endif
 
 	/* Initialize stdout and stdin for printf and scanf */
 	fdevopen(sendData, getData);
 
+	/* TODO - set up ports */
+	/* Look over your AVR datasheet's I/O-Ports chapter for more information */
 	/* Set up IO Pins for SPI - PB1(SCLK),PB2(MOSI) are output, PB3(MISO) is input*/
 	DDRB |= ((1 << PB1) | (1 << PB2) | (0 << PB3));
 	PORTB |= ((0 << PB1) | (0 << PB2) | (0 << PB3));
 	/* Set ChipSelect pins as output and set to 1/High as they are active-low signals */
 	CS_DDR |= (1 << CS_PIN);
 	CS_PORT |= (1 << CS_PIN);
-
+	SPI_Init((SPI_MODE_MASTER | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING));
 
 	/* Hardware Initialization */
-	SPI_Init((SPI_MODE_MASTER | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING));
 	LEDs_Init();
+	ENABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+	SELECT_USB_B;
 	USB_Init();
+
+	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
+	TCCR0B = (1 << CS02);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -260,17 +335,19 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
  *
@@ -399,7 +476,6 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 }
 
 
-
 /** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
  *  control line state change (containing the virtual serial control line states, such as DTR). The new control line states
  *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
@@ -408,19 +484,21 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	/* Use Serial Port settings to control the application.
+	/* TODO - Use Virtual Serial Port settings to control your application.
+		Think of this as another data channel.  Use it for control/status messaging.
+		Leave the data channel (MainTask putchar/getchar) for data only.
 	*/
 
 	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_RTS) {
-		// Host has set (activated to 0/Low) the RTS line
+		// Host has set the RTS line
 	} else {
-		// Host has cleared (deactivated to 1/High) the RTS line
+		// Host has cleared the RTS line
 	}
 
 	if ((CDCInterfaceInfo->State.ControlLineStates.HostToDevice) & CDC_CONTROL_LINE_OUT_DTR) {
-		// Host has set (activated to 0/Low) the DTR line
+		// Host has set the DTR line
 	} else {
-		// Host has cleared (deactivated to 1/High) the DTR line
+		// Host has cleared the DTR line
 	}
 }
 
@@ -430,7 +508,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	an empty buffer
 */
 uint8_t haveData(void) {
-	return (uint8_t)(Host_to_Device_Buffer.Elements);
+	return (uint8_t)(!RingBuffer_IsEmpty(&HostToDevice_Buffer));
 }
 
 /* In order to use printf functions, need a function that will send data over
@@ -443,17 +521,21 @@ static int sendData(char c, FILE *stream) {
 	//if (c == '\n') {
 	//	sendData('\r', stream);
 	//}
-	Buffer_StoreElement(&Device_to_Host_Buffer, (uint8_t)c);
-	return 0;
+	if (!RingBuffer_IsFull(&DeviceToHost_Buffer)) {
+		RingBuffer_Insert(&DeviceToHost_Buffer, (uint8_t)c);
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
-/* Also require a function to receive data from the USB Virtual Serial Port link */
+/* Function to receive data from the USB Virtual Serial Port link */
 int getData(FILE *__stream) {
 	//if (something) return _FDEV_ERR; // cannot implement as GetElement has no error condition
 	if (haveData() == 0) {
 		return _FDEV_EOF;
 	}
-	return (int)Buffer_GetElement(&Host_to_Device_Buffer);
+	return (int)RingBuffer_Remove(&HostToDevice_Buffer);
 }
 
 
@@ -467,7 +549,7 @@ void MainTask(void)
 	while (haveData()) {	// need to check that data exists before processing it
 		CS_LOW;		// enable target device by activating its ^CS line
 
-		// send data over SPI (while simultaneously receiving) and send received SPI data over VirtualSerial to the host
+		// send data over SPI (while simultaneously receiving) and send received SPI data over USBVirtualSerial to the host
 		tempByte = SPI_TransferByte((uint8_t)getchar());
 		putchar((int)tempByte);
 
