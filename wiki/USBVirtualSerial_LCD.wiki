@@ -196,6 +196,12 @@ rprintf(" of something")
 
 Do not use `\n` or `\r\n` newline characters as they are not properly handled.  Use `lcdGotoXY()` to position your text.
 
+= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD =
+
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
+
+The current USBVirtualSerial-LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.  All non-Vcc other connections are standard.
+
 = Connecting a Micropendous to a HD44780 LCD using 2 Ports =
 
 The version that uses a full 8-bit data bus is slightly faster an is available in the `USBVirtualSerial-LCD_2PortVersion` directory.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
@@ -249,10 +255,3 @@ The key settings that determine functionality are in `Micropendous/Firmware/USBV
   #endif
 #endif
 }}}
-
-
-= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD =
-
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
-
-The current USBVirtualSerial-LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.  All non-Vcc other connections are standard.
