@@ -2,7 +2,7 @@
 
 Micropendous1 is an Open Hardware Development Board for Atmel's [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U2 ATmega32U2] USB AVR Microcontroller.
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-32U2` directory.  ~~PCBs of this design are available at cost from [http://batchpcb.com/index.php/Products/44151 BatchPCB]~~.  This board is [http://stores.ebay.com/NooElec/Atmel-USB-Devices-/_i.html?_fsub=1881869012 available for sale] from !NooElec.
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-32U2` directory.  ~~PCBs of this design are available at cost from [http://batchpcb.com/index.php/Products/44151 BatchPCB]~~.  This board is [http://stores.ebay.com/NooElec/Atmel-USB-Devices-/_i.html?_fsub=1881869012 available for sale] from [http://stores.ebay.com/NooElec NooElec].
 
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-32U2/Micropendous-32U2_Picture.jpg
