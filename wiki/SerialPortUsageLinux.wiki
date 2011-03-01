@@ -53,6 +53,8 @@ Save the file.  Permissions have been set up.  You can also add more permissions
 
 = Communicating with Serial Devices using gtkterm =
 
+http://micropendous.googlecode.com/svn/trunk/Pictures/SerialTutorial_Linux-01_Find_Enumerated_Serial_Port.jpg
+
 *gtkterm* is already installed on your system if you have followed the instructions in [LinuxQuickStart].
 
 After plugging in your board, run `gtkterm --port /dev/ttyACM0` in a Terminal.  If you are using a board loaded with [USBVirtualSerial], [USBVirtualSerial_FreeRTOS], or [LUFAduino] firmware then anything you type will echo back.
