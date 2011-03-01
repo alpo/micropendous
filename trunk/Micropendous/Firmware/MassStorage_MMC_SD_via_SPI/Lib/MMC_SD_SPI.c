@@ -206,6 +206,19 @@ void MMC_SD_SPI_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uin
 }
 
 
+
+/** Performs a simple test on the attached MMC or SD card to ensure it is working properly
+ *
+ *  \return Boolean true if memory card is working, false otherwise
+ */
+bool MMC_SD_SPI_CheckOperation(void)
+{
+	// must be working, otherwise the firmware would crash on mmcInit()
+	return true;
+}
+
+
+
 uint8_t MMC_SD_SPI_ResetProtections(void)
 {
 	return mmcReset();

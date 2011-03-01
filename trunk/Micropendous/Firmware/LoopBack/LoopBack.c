@@ -67,6 +67,7 @@ int main(void)
 	SetupHardware();
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{
@@ -105,7 +106,8 @@ void SetupHardware(void)
 	/* enable Ports based on which IC is being used */
 	/* For more information look over the corresponding AVR's datasheet in the
 		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
-	#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
 		DDRD = 0;
 		PORTD = 0;
 		DDRB = 0;
@@ -162,8 +164,12 @@ void SetupHardware(void)
 	DDRD =  (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
 	PORTD = (0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
 
+	DISABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+
 	LEDs_Init();
 	USB_Init();
+	SELECT_USB_B;
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -268,7 +274,7 @@ void SendDataToHost(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Write data to the host */
-		Endpoint_Write_Stream_LE(&dataToSend, sizeof(dataToSend));
+		Endpoint_Write_Stream_LE(&dataToSend, sizeof(dataToSend), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -288,7 +294,7 @@ void ReceiveDataFromHost(void)
 		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Read in data from the host */
-			Endpoint_Read_Stream_LE(&dataReceived, sizeof(dataReceived));
+			Endpoint_Read_Stream_LE(&dataReceived, sizeof(dataReceived), NULL);
 		}
 
 		/* Handshake the OUT Endpoint - clear endpoint and get ready for next transfer */

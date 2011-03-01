@@ -70,6 +70,7 @@ void SetupHardware(void)
 	SerialStream_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+	SELECT_USB_A;
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and

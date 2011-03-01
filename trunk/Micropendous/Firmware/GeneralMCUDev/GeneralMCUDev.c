@@ -1,5 +1,5 @@
 /*  General Purpose MCU Development Demo
-    (C) 2010-03-10 By Opendous Inc. - www.Micropendous.org
+    (C) 2011-02-25 By Opendous Inc. - www.Micropendous.org
 
   Look for TODO comments for implementation hints.
 
@@ -24,59 +24,52 @@
 
 int main(void)
 {
-	uint8_t tempByte = 0;
+	uint16_t timer1val = 0;
 
-	/* initialize the board for general purpose non-usb AVR development */
+	// initialize the board for general purpose non-usb AVR development
 	SetupHardware();
 
-	/* TODO - Custom Hardware Initialization */
+	// enable pin PD6 as output
+	DDRD |= (1 << PD6);
+	PORTD &= ~(1 << PD6);
 
-	/* Initialize IO ports */
-	/* For now we will set up half of PortD as input and the other half as output  */
-	/* PD4,5,6,7 will be input (DDR=0, PORT=0) and PD0,1,2,3 will be output with a 1 start state (DDR=1, PORT=1) */
-	DDRD =  (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (0 << PD4) | (0 << PD5) | (0 << PD6) | (0 << PD7);
-	PORTD = (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (0 << PD4) | (0 << PD5) | (0 << PD6) | (0 << PD7);
+	//start the 16-bit timer
+	TCCR1A = 0;
+	TCCR1B = ((1 << CS02) | (0 << CS01) | (0 << CS00)); // prescale Timer0 clock by CLK/512
+	timer1val = TCNT1; // read Timer1 value to start the timer
 
-
-	/* Initialize the HWB Button as input, but after IO Ports to be certain HWB is input */
-	BUTTON1_Init();
-
-
-	/* TODO - this is the main program loop where your code should go */
+	// TODO - this is the main program loop where your code should go
 	while (1) {
-
-        // if Button1 (HWB) is pressed turn on a LED connected to PD0
-		if (BUTTON1_GetStatus() > 0) {
-			// turn on a LED connected to PORTD Pin 0 - PD0
-			PORTD |= (1 << PD0);
+		// if Timer1 passes 16000 then set PD6 high, else leave it low to flash an LED connected to PD6
+		timer1val = TCNT1;
+		if (timer1val > 16000) {
+			PORTD &= ~(1 << PD6); // set PD6 low
 		} else {
-			// turn off a LED connected to PORTD Pin 0 - PD0
-			PORTD &= ~(1 << PD0);
+			PORTD |= (1 << PD6); // set PD6 high
 		}
-
-	} // end while(1)
+	}
 
 }
 
 
 
-/* To use an USB AVR board as a General Purpose Microcontroller Development board */
-/*   simply disable the USB system */
+// To use an USB AVR board as a General Purpose Microcontroller Development board
+//   simply disable the USB system
 void SetupHardware(void)
 {
-	/* Disable watchdog if enabled by bootloader/fuses */
+	// Disable watchdog if enabled by bootloader/fuses
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
-	/* Disable clock division */
+	// Disable clock division
 	clock_prescale_set(clock_div_1);
 
-	/* disable USB */
+	// disable USB
 	USBCON = ((0 << USBE) | (1 << FRZCLK));
 	PRR1 |= (1 << PRUSB);
 
-	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
-	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
+	// disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7
+	// TODO - remove this if you want to use your JTAG debugger to debug this firmware
 	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
@@ -88,11 +81,12 @@ void SetupHardware(void)
 		MCUCR = (1 << JTD) | (0 << IVSEL) | (0 << IVCE) | (0 << PUD);
 	#endif
 
-	/* Hardware Initialization */
-	/* enable Ports based on which IC is being used */
-	/* For more information look over the corresponding AVR's datasheet in the
-		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
-	#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
+	// Hardware Initialization
+	// enable Ports based on which IC is being used
+	// For more information look over the corresponding AVR's datasheet in the
+	//	'I/O Ports' Chapter under subheading 'Ports as General Digital I/O'
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
 		DDRD = 0;
 		PORTD = 0;
 		DDRB = 0;
@@ -132,7 +126,7 @@ void SetupHardware(void)
 		PORTF = 0;
 	#endif
 
-	/* Hardware Initialization */
+	// Hardware Initialization
 	LEDs_Init();
 
 }

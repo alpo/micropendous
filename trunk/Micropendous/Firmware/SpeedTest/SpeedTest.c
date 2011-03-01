@@ -62,7 +62,8 @@ void SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
-	/* TODO - disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
+	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
+	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
 	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
@@ -75,17 +76,18 @@ void SetupHardware(void)
 	#endif
 
 	/* Hardware Initialization */
-	/* TODO - enable Ports based on which IC is being used */
+	/* enable Ports based on which IC is being used */
 	/* For more information look over the corresponding AVR's datasheet in the
 		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
-	#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
 		DDRD = 0;
 		PORTD = 0;
 		DDRB = 0;
 		PORTB = 0;
 		DDRC = 0;
 		PORTC |= (0 << PC2) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7); //only PC2,4,5,6,7 are pins
-		// be careful using PortC as PC0 is used for the Crystal
+		// be careful using PortC as PC0 is used for the Crystal and PC1 is RESET
 	#endif
 
 	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
@@ -94,11 +96,11 @@ void SetupHardware(void)
 		DDRB = 0;
 		PORTB = 0;
 		DDRC = 0;
-		PORTC |= (0 << PC6) | (0 << PC7); //only PC6,7 are pins
+		PORTC = (0 << PC6) | (0 << PC7); //only PC6,7 are pins
 		DDRE = 0;
-		PORTE |= (0 << PE2) | (0 << PE6); //only PE2,6 are pins
+		PORTE = (0 << PE2) | (0 << PE6); //only PE2,6 are pins
 		DDRF = 0;
-		PORTF |= (0 << PF0) | (0 << PF1) | (0 << PF4) | (0 << PF5) | (0 << PF6) | (0 << PF7); // only PF0,1,4,5,6,7 are pins
+		PORTF = (0 << PF0) | (0 << PF1) | (0 << PF4) | (0 << PF5) | (0 << PF6) | (0 << PF7); // only PF0,1,4,5,6,7 are pins
 	#endif
 
 	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
@@ -112,11 +114,15 @@ void SetupHardware(void)
 		PORTC = 0;
 		DDRD = 0;
 		PORTD = 0;
-		DDRE = ((1 << PE4) | (1 << PE6));	// set PE4,PE6 to HIGH to disable external SRAM, if connected
-		PORTE = ((1 << PE4) | (1 << PE6));	// set PE4,PE6 to HIGH to disable external SRAM, if connected
+		DDRE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
+		PORTE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
 		DDRF = 0;
 		PORTF = 0;
 	#endif
+
+	DISABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+	SELECT_USB_B;
 
 	USB_Init();
 }

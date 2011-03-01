@@ -9,7 +9,7 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Altered for USBVirtualSerial-I2C by Opendous Inc. 2010-05
+  Altered for USBVirtualSerial-I2C by Opendous Inc. 2011-02
   For more information visit:  www.Micropendous.org/USBVirtualSerial_I2C
 
   Usage Protocol is:
@@ -59,13 +59,13 @@
 #include "USBVirtualSerial-I2C.h"
 
 /* What is the default main clock division value */
-#define DEFAULT_CLOCK_DIV		clock_div_1
-
 
 #if (F_CLOCK == 16000000)
 	#define CLOCK_DIV		clock_div_16
+	#define DEFAULT_CLOCK_DIV		clock_div_2
 #else
 	#define CLOCK_DIV		clock_div_4
+	#define DEFAULT_CLOCK_DIV		clock_div_1
 #endif
 
 #define PINHIGH(PORT, PIN)		PORT |= (1 << PIN);
@@ -444,7 +444,7 @@ void MainTask(void)
 
 		// Check if there is enough data to fit the protocol
 		// if it contains more than 4 bytes, then we have data to process
-		if (haveData() > 4)
+		if (haveData() >= 5)
 		{
 			i2cInit();  // re-initialize the I2C bus and...
 			i = 254; while (i > 0) { i--; }  // ... delay a short while to to let it settle

@@ -193,6 +193,7 @@ void SetupHardware(void)
 	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
 	TCCR0B = (1 << CS02);
 
+	SELECT_USB_B;
 }
 
 

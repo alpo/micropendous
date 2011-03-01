@@ -83,7 +83,7 @@ F_CPU = 16000000
 
 
 # Target board: NONE for projects not requiring LUFA board drivers.
-# USER for boards with no LEDs and just and HWB button such as
+# USER for boards with no LEDs and just an HWB button such as
 # Micropendous1, Micropendous2, Micropendous3, or Micropendous4
 # MICROPENDOUS for the Micropendous and Micropendous-DIP
 #     Typical values are:

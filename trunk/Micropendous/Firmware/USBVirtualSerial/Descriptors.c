@@ -66,7 +66,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
 	.VendorID               = 0x03EB,
-	.ProductID              = 0x204B,
+	.ProductID              = 0x2044,
 	.ReleaseNumber          = VERSION_BCD(00.01),
 
 	.ManufacturerStrIndex   = 0x01,
@@ -214,9 +214,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(16), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(23), .Type = DTYPE_String},
 
-	.UnicodeString          = L"USBVirtualSerial"
+	.UnicodeString          = L"LUFA USB Virtual Serial"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

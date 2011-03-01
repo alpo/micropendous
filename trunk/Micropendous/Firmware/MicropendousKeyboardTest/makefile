@@ -66,9 +66,9 @@
 #MCU = atmega32u2
 #MCU = atmega32u4
 #MCU = at90usb646
-#MCU = at90usb647
+MCU = at90usb647
 #MCU = at90usb1286
-MCU = at90usb1287
+#MCU = at90usb1287
 
 
 # Processor frequency.
@@ -83,14 +83,14 @@ F_CPU = 16000000
 
 
 # Target board: NONE for projects not requiring LUFA board drivers.
-# USER for boards with no LEDs and just and HWB button such as
+# USER for boards with no LEDs and just an HWB button such as
 # Micropendous1, Micropendous2, Micropendous3, or Micropendous4
 # MICROPENDOUS for the Micropendous and Micropendous-DIP
 #     Typical values are:
 #         BOARD = NONE
 #         BOARD = USER
 #         BOARD = MICROPENDOUS
-BOARD = MICROPENDOUS
+BOARD = USER
 
 
 # Input clock frequency.
@@ -694,6 +694,7 @@ clean_list :
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).hex
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map

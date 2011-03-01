@@ -43,26 +43,51 @@
 //#define LCD_MEMORY_INTERFACE
 #define LCD_PORT_INTERFACE
 
-// Enter the parameters for your chosen interface'
+// LCD display geometry
+// change these definitions to adapt settings
+#define LCD_LINES				2	// visible lines
+#define LCD_LINE_LENGTH			16	// line length (in characters)
+
+// Enter the parameters for your chosen interface
 // if you chose the LCD_PORT_INTERFACE:
-#ifdef LCD_PORT_INTERFACE
-	#ifndef LCD_CTRL_PORT
-		// port and pins you will use for control lines
-		#define LCD_CTRL_PORT	PORTD
-		#define LCD_CTRL_DDR	DDRD
-		#define LCD_CTRL_RS		0
-		#define LCD_CTRL_RW		1
-		#define LCD_CTRL_E			2
+#ifdef USE_4BIT_LCD_INTERFACE
+	#ifdef LCD_PORT_INTERFACE
+		#ifndef LCD_CTRL_PORT
+			// port and pins you will use for control lines
+			#define LCD_CTRL_PORT	PORTD
+			#define LCD_CTRL_DDR	DDRD
+			#define LCD_CTRL_RS		0
+			#define LCD_CTRL_RW		1
+			#define LCD_CTRL_E			2
+		#endif
+		#ifndef LCD_DATA_POUT
+			// port you will use for data lines
+			#define LCD_DATA_POUT	PORTD
+			#define LCD_DATA_PIN		PIND
+			#define LCD_DATA_DDR	DDRD
+			// access mode you will use (default is 8bit unless 4bit is selected)
+			#define LCD_DATA_4BIT
+		#endif
 	#endif
-	#ifndef LCD_DATA_POUT
-		// port you will use for data lines
-		#define LCD_DATA_POUT	PORTD
-		#define LCD_DATA_PIN		PIND
-		#define LCD_DATA_DDR	DDRD
-		// access mode you will use (default is 8bit unless 4bit is selected)
-		#define LCD_DATA_4BIT
+#else // USE 8BIT LCD INTERFACE
+	#ifdef LCD_PORT_INTERFACE
+		#ifndef LCD_CTRL_PORT
+			// port and pins you will use for control lines
+			#define LCD_CTRL_PORT	PORTC
+			#define LCD_CTRL_DDR	DDRC
+			#define LCD_CTRL_RS		7
+			#define LCD_CTRL_RW		6
+			#define LCD_CTRL_E		5
+		#endif
+		#ifndef LCD_DATA_POUT
+			// port you will use for data lines
+			#define LCD_DATA_POUT	PORTB
+			#define LCD_DATA_PIN	PINB
+			#define LCD_DATA_DDR	DDRB
+		#endif
 	#endif
 #endif
+
 
 // if you chose the LCD_MEMORY_INTERFACE:
 #ifdef LCD_MEMORY_INTERFACE
@@ -77,10 +102,6 @@
 #endif
 
 
-// LCD display geometry
-// change these definitions to adapt settings
-#define LCD_LINES				2	// visible lines
-#define LCD_LINE_LENGTH			16	// line length (in characters)
 // cursor position to DDRAM mapping
 #define LCD_LINE0_DDRAMADDR		0x00
 #define LCD_LINE1_DDRAMADDR		0x40
@@ -101,4 +122,4 @@
 // use this for a fail-safe delay
 // #define LCD_DELAY	delay_us(5);
 
-#endif
+#endif // LCDCONF_H

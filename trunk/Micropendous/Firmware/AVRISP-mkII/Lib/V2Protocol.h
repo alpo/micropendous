@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,9 +37,11 @@
 #define _V2_PROTOCOL_
 
 	/* Includes: */
+		#include <avr/io.h>
+		#include <avr/interrupt.h>
+	
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
-		
+
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
@@ -49,10 +51,14 @@
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			
+
 			#if !defined(ENABLE_XPROG_PROTOCOL)
 				#define ENABLE_XPROG_PROTOCOL
 			#endif
+		#endif
+
+		#if defined(USB_SERIES_4_AVR) && ((VTARGET_ADC_CHANNEL == 2) || (VTARGET_ADC_CHANNEL == 3))
+			#error The U4 AVR chips do not contain ADC channels 2 or 3. Please change VTARGET_ADC_CHANNEL or define NO_VTARGET_DETECT in the makefile.
 		#endif
 
 	/* Macros: */
@@ -61,26 +67,26 @@
 			#define _GETADCMUXMASK(x, y)        _GETADCMUXMASK2(x, y)
 		#endif
 
-		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
+		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing. */
 		#define PROGRAMMER_ID              "AVRISP_MK2"
-		
-		/** Timeout period for each issued command from the host before it is aborted */
-		#define COMMAND_TIMEOUT_MS         200
-		
-		/** Command timeout counter register, GPIOR for speed */
-		#define TimeoutMSRemaining         GPIOR0
-		
-		/** MUX mask for the VTARGET ADC channel number */
+
+		/** Timeout period for each issued command from the host before it is aborted (in 10ms ticks). */
+		#define COMMAND_TIMEOUT_TICKS      100
+
+		/** Command timeout counter register, GPIOR for speed. */
+		#define TimeoutTicksRemaining      GPIOR1
+
+		/** MUX mask for the VTARGET ADC channel number. */
 		#define VTARGET_ADC_CHANNEL_MASK   _GETADCMUXMASK(ADC_CHANNEL, VTARGET_ADC_CHANNEL)
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;
-		extern bool     MustSetAddress;
+		extern bool     MustLoadExtendedAddress;
 
 	/* Function Prototypes: */
 		void V2Protocol_Init(void);
 		void V2Protocol_ProcessCommand(void);
-		
+
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
 			static void V2Protocol_UnknownCommand(const uint8_t V2Command);
 			static void V2Protocol_SignOn(void);

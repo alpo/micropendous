@@ -58,7 +58,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-
 # MCU name - uncomment _ONE_ of the following
 #MCU = at90usb82
 #MCU = at90usb162
@@ -83,14 +82,14 @@ F_CPU = 16000000
 
 
 # Target board: NONE for projects not requiring LUFA board drivers.
-# USER for boards with no LEDs and just and HWB button such as
+# USER for boards with no LEDs and just an HWB button such as
 # Micropendous1, Micropendous2, Micropendous3, or Micropendous4
 # MICROPENDOUS for the Micropendous and Micropendous-DIP
 #     Typical values are:
 #         BOARD = NONE
 #         BOARD = USER
 #         BOARD = MICROPENDOUS
-BOARD = MICROPENDOUS
+BOARD = USER
 
 
 # Input clock frequency.
@@ -152,7 +151,6 @@ LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-LUFA_OPTS += -D INTERRUPT_CONTROL_ENDPOINT
 LUFA_OPTS += -D NO_INTERNAL_SERIAL
 # Using NO_INTERNAL_SERIAL will remove a USB AVRs unique serial number from
 # its descriptors but this will cause Windows systems to nag about drivers each time
@@ -209,7 +207,7 @@ EXTRAINCDIRS = $(LUFA_PATH)/  $(AVRLIB_PATH)/
 #     gnu89 = c89 plus GCC extensions
 #     c99   = ISO C99 standard (not yet fully implemented)
 #     gnu99 = c99 plus GCC extensions
-CSTANDARD = -std=c99
+CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
@@ -242,6 +240,7 @@ CPPDEFS += $(LUFA_OPTS)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
+# -E flag will pre-process only
 CFLAGS = -g$(DEBUG)
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
@@ -336,6 +335,8 @@ MATH_LIB = -lm
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
+
+
 
 
 
@@ -543,7 +544,7 @@ flip: $(TARGET).hex
 
 dfu: $(TARGET).hex
 	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
+	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
 
 flip-ee: $(TARGET).hex $(TARGET).eep
@@ -699,6 +700,7 @@ clean_list :
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).hex
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map

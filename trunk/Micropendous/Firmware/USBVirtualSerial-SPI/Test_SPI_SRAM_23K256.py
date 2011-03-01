@@ -1,14 +1,15 @@
 #    Purpose: Communicate over SPI with a 23K256 SRAM device connected to a Micropendous
 #        programmed with USBVirtualSerial-SPI firmware.  Visit Micropendous.org for more info.
-#        NOTE: The 23K256 runs at 3.3V so DO NOT connect it to a 5V USB AVR board
+#        NOTE: The 23K256 runs at 3.6V max so DO NOT connect it to a 5V USB AVR board
 #    Created: 2009-04-15 by Opendous Inc.
-#    Last Edit: 2010-03-13 by Opendous Inc.
+#    Last Edit: 2011-02-25 by Opendous Inc.
 #    Released under the MIT License
 import serial           # for accessing the serial port on multiple platforms
 import time             # needed for sleep function
 import sys              # needed for command-line input
 import binascii         # for converting received ASCII data to a workable form
 import baseconvert      # for printing in binary format
+import random
 
 
 # spi_transfer: read and write data to/from a SPI device
@@ -60,7 +61,9 @@ def Test_SPI_SRAM_23K256_Communication(comport):
     ser.parity = serial.PARITY_NONE
     ser.stopbits = serial.STOPBITS_ONE
 
-    ser.setBaudrate(38400)  # set the SPI clock speed to 1MHz (2MHz if AVR is running at 16MHz)
+    ser.setBaudrate(57600)  # set the SPI clock speed to 500kHz (1MHz if AVR is running at 16MHz)
+
+    randByte = random.randint(0, 255)
 
     print ser                # dump all info regarding serial port being used
     print "\n"
@@ -71,25 +74,25 @@ def Test_SPI_SRAM_23K256_Communication(comport):
     printFormatted(dataToSend, returnedData, 1)
     print ""
 
-    print "read status register (2nd byte)"
+    print "read status register (2nd byte returned should be 0x01)"
     dataToSend = (0x05, 0x00)
     returnedData = spi_transfer(ser, dataToSend)
     printFormatted(dataToSend, returnedData, 2)
     print ""
 
-    print "read data (4th byte) at address 0b0101010101010101 = 0x5555"
+    print "read data (the 4th byte below) at address 0b0101010101010101 = 0x5555"
     dataToSend = (0x03, 0x55, 0x55, 0x00)
     returnedData = spi_transfer(ser, dataToSend)
     printFormatted(dataToSend, returnedData, 2)
     print ""
 
-    print "write to address 0b0101010101010101 = 0x5555 data byte 0xAA = 170"
-    dataToSend = (0x02, 0x55,0x55, 0xAA)
+    print "write to address 0b0101010101010101 = 0x5555 data byte", randByte
+    dataToSend = (0x02, 0x55,0x55, randByte)
     returnedData = spi_transfer(ser, dataToSend)
     printFormatted(dataToSend, returnedData, 1)
     print ""
 
-    print "read data (4th byte) at address 0b0101010101010101 = 0x5555"
+    print "read data (the 4th byte below) at address 0b0101010101010101 = 0x5555 which should be", randByte
     dataToSend = (0x03, 0x55, 0x55, 0x00)
     returnedData = spi_transfer(ser, dataToSend)
     printFormatted(dataToSend, returnedData, 2)
@@ -102,32 +105,32 @@ def Test_SPI_SRAM_23K256_Communication(comport):
     """
     Expected Output under Windows with a 23K256 Device:
     C:\Micropendous\Firmware\USBVirtualSerial-SPI>python  Test_SPI_SRAM_23K256.py  COM5
-    Serial<id=0xbac310, open=True>(port='COM5', baudrate=38400, bytesize=8, parity='N', stopbits=1, timeout=2000, xonxoff=0, rtscts=0, dsrdtr=0)
+	Serial<id=0xbb3090, open=True>(port='COM5', baudrate=57600, bytesize=8, parity='N', stopbits=1, timeout=2000, xonxoff=0, rtscts=0, dsrdtr=0)
 
-    write to status register to disable HOLD function
-    Data Sent (1, 1)  Data Returned: [255, 255]
+	write to status register to disable HOLD function
+	Data Sent (1, 1)  Data Returned: [255, 255]
 
-    read status register (2nd byte)
-    76543210 - Hex  - Int - Data Sent (5, 0)  Data Returned: [255, 1]
-    11111111 - 0xff - 255
-    00000001 - 0x1 - 001
+	read status register (2nd byte returned should be 0x01)
+	76543210 - Hex  - Int - Data Sent (5, 0)  Data Returned: [255, 1]
+	11111111 - 0xff - 255
+	00000001 - 0x1 - 001
 
-    read data (4th byte) at address 0b0101010101010101 = 0x5555
-    76543210 - Hex  - Int - Data Sent (3, 85, 85, 0)  Data Returned: [127, 255, 255, 0]
-    01111111 - 0x7f - 127
-    11111111 - 0xff - 255
-    11111111 - 0xff - 255
-    00000000 - 0x0 - 000
+	read data (the 4th byte below) at address 0b0101010101010101 = 0x5555
+	76543210 - Hex  - Int - Data Sent (3, 85, 85, 0)  Data Returned: [127, 255, 255, 12]
+	01111111 - 0x7f - 127
+	11111111 - 0xff - 255
+	11111111 - 0xff - 255
+	00001100 - 0xc - 012
 
-    write to address 0b0101010101010101 = 0x5555 data byte 0xAA = 170
-    Data Sent (2, 85, 85, 170)  Data Returned: [255, 255, 255, 255]
+	write to address 0b0101010101010101 = 0x5555 data byte 175
+	Data Sent (2, 85, 85, 175)  Data Returned: [255, 255, 255, 255]
 
-    read data (4th byte) at address 0b0101010101010101 = 0x5555
-    76543210 - Hex  - Int - Data Sent (3, 85, 85, 0)  Data Returned: [255, 255, 255, 170]
-    11111111 - 0xff - 255
-    11111111 - 0xff - 255
-    11111111 - 0xff - 255
-    10101010 - 0xaa - 170
+	read data (the 4th byte below) at address 0b0101010101010101 = 0x5555 which should be 175
+	76543210 - Hex  - Int - Data Sent (3, 85, 85, 0)  Data Returned: [255, 255, 255, 175]
+	11111111 - 0xff - 255
+	11111111 - 0xff - 255
+	11111111 - 0xff - 255
+	10101111 - 0xaf - 175
     """
 
 

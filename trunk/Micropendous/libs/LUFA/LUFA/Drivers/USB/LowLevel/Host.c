@@ -80,6 +80,20 @@ void USB_Host_ProcessNextHostState(void)
 				USB_Host_VBUS_Auto_Enable();
 				USB_Host_VBUS_Auto_On();
 
+				#if (BOARD == BOARD_MICROPENDOUS)
+					// Micropendous boards require manual control of pin PE7's UVcon function
+					USB_Host_VBUS_Manual_Enable();
+					// clear VBUSREQ; AT90USB128 2009-11 Datasheet Pg#260
+					OTGCON &= ~(1 << VBUSREQ);
+					USB_Host_VBUS_Manual_Off();
+				#endif
+				/* The above can also be done directly instead of through LUFA functions
+				UHWCON &= ~(1 << UVCONE);
+				OTGCON &= ~(1 << VBUSREQ);
+				OTGCON |=  (1 << VBUSHWC);
+				DDRE |= (1 << PE7);   PORTE &= ~(1 << PE7); PORTE = 0;
+				*/
+
 				USB_HostState = HOST_STATE_Powered_WaitForConnect;
 			}
 
@@ -184,7 +198,9 @@ void USB_Host_ProcessNextHostState(void)
 	{
 		EVENT_USB_Host_DeviceEnumerationFailed(ErrorCode, SubErrorCode);
 
-		USB_Host_VBUS_Auto_Off();
+		//USB_Host_VBUS_Auto_Off();
+		USB_Host_VBUS_Manual_Off();
+		//PORTE = 0;
 
 		EVENT_USB_Host_DeviceUnattached();
 

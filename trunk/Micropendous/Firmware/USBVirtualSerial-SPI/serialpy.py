@@ -5,7 +5,6 @@
 #    Released to the Public Domain
 import serial			 # PySerial for accessing the serial port on multiple platforms
 import sys                # command-line argument handling
-import time               # delays
 
 # function which sends then reads data from the given serial port
 # comport should be a string

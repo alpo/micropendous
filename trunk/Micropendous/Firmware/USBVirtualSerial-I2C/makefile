@@ -60,10 +60,14 @@
 
 
 # MCU name - uncomment _ONE_ of the following
+#MCU = at90usb82
 #MCU = at90usb162
+#MCU = atmega16u2
+#MCU = atmega32u2
 #MCU = atmega32u4
 #MCU = at90usb646
 #MCU = at90usb647
+#MCU = at90usb1286
 MCU = at90usb1287
 
 
@@ -78,10 +82,29 @@ MCU = at90usb1287
 F_CPU = 16000000
 
 
-# Target board (see library "Board Types" documentation, NONE for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
-# "Board" inside the application directory.
-BOARD  = USER
+# Target board: NONE for projects not requiring LUFA board drivers.
+# USER for boards with no LEDs and just an HWB button such as
+# Micropendous1, Micropendous2, Micropendous3, or Micropendous4
+# MICROPENDOUS for the Micropendous and Micropendous-DIP
+#     Typical values are:
+#         BOARD = NONE
+#         BOARD = USER
+#         BOARD = MICROPENDOUS
+BOARD = MICROPENDOUS
+
+
+# Input clock frequency.
+#     This will define a symbol, F_CLOCK, in all source code files equal to the
+#     input clock frequency (before any prescaling is performed) in Hz. This value may
+#     differ from F_CPU if prescaling is used on the latter, and is required as the
+#     raw input clock is fed directly to the PLL sections of the AVR for high speed
+#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
+#     at the end, this will be done automatically to create a 32-bit value in your
+#     source code.
+#
+#     If no clock division is performed on the input clock inside the AVR (via the
+#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
+F_CLOCK = $(F_CPU)
 
 
 # Input clock frequency.
@@ -127,7 +150,7 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../libs/LUFA
+LUFA_PATH = .
 AVRLIB_PATH = ../../libs/avrlib
 
 

@@ -160,6 +160,7 @@ void SetupHardware()
 	Joystick_Init();
 	LEDs_Init();
 	Buttons_Init();
+	SELECT_USB_B;
 	USB_Init();
 }
 

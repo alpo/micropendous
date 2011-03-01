@@ -3,17 +3,18 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
-/** \mainpage USB to Serial Converter Project
+
+/** \mainpage SRAM Test
  *
  *  \section SSec_Compat Project Compatibility:
  *
- *  The following list indicates what microcontrollers are compatible with this project.
+ *  The following list indicates what boards are compatible with this project.
  *
- *  - Series 7 USB AVRs
- *  - Series 6 USB AVRs
- *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - Micropendous www.micropendous.org/Micropendous
+ *  - Micropendous-DIP www.micropendous.org/Micropendous-DIP
+ *  - Micropendous3 with external SRAM IC www.micropendous.org/Micropendous3
+ *  - Micropendous4 with external SRAM IC www.micropendous.org/Micropendous4
+ *  - Custom AT90USB64/128 boards with external zero-wait-state SRAM
  *
  *  \section SSec_Info USB Information:
  *
@@ -28,7 +29,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Communications Device Class (CDC)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Abstract Control Model (ACM)</td>
  *   </tr>
@@ -42,17 +43,16 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
- *  USBVirtualSerial Project. This project allows a USB AVR to emulate
- *  a serial port and process data sent to it.
- *  When programmed into a USB AVR, the AVR will enumerate as a
- *  virtual COM Port.
+ *  External SRAM testing and communication firmware.
+ *  When programmed into a AT90USB64 or AT90USB128 USB AVR,
+ *  the AVR will enumerate as a virtual COM port.
  *
- *  You can use the Virtual Serial Port's baud rate, parity, and other
- *  settings to control you application, sort of like a secondary
- *  communication channel.  Use the main data channel, the serial port,
- *  for data transfer.
+ *  Connecting to the virtual COM port and sending an 'h' will
+ *  list the communication protocol/help message.  
+ *
+ *  All communication is done at Full Speed USB (12Mbit/s) speed.
  *
  *  After running this project for the first time on a new computer,
  *  you will need to supply the .INF file located in this project
@@ -79,3 +79,4 @@
  *   </tr>
  *  </table>
  */
+

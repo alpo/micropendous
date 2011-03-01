@@ -1,26 +1,24 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Altered for SRAM_Test by Opendous Inc. 2010-03
+  Altered for SRAM_Test by Opendous Inc. 2011-02
   For more information visit:  www.Micropendous.org/SRAM
 
-  Look for TODO statements in the code for implementation hints
-
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -35,37 +33,11 @@
 
 /** \file
  *
- *  Main source file for the SRAM_Test project. This file contains the main tasks of
+ *  Main source file for the USBtoSerial project. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
 #include "SRAM_Test.h"
-
-/* Defines related to SRAM */
-/* TODO - which Micropendous version are you using (they use different IO pins for SRAM control) */
-#if  0	// set to one if using the Micropendous-1287 which uses PE4 for CE and PE5 for bank select
-	#define ENABLE_EXTSRAM						PORTE &= ~(1 << PE4);
-	#define DISABLE_EXTSRAM						PORTE |= (1 << PE4);
-	#define SELECT_EXTSRAM_BANK0		PORTE &= ~(1 << PE5);
-	#define SELECT_EXTSRAM_BANK1		PORTE |= (1 << PE5);
-	#define PORTE_EXTSRAM_SETUP			PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
-#else	// otherwise you are using a Micropendous4 or 5 which use PE6 for CE and PE7 for bank select
-	#define ENABLE_EXTSRAM						PORTE &= ~(1 << PE6);
-	#define DISABLE_EXTSRAM						PORTE |= (1 << PE6);
-	#define SELECT_EXTSRAM_BANK0		PORTE &= ~(1 << PE7);
-	#define SELECT_EXTSRAM_BANK1		PORTE |= (1 << PE7);	
-	#define PORTE_EXTSRAM_SETUP			PORTE = ((0 << PE4) | (0 << PE5) | (1 << PE0) | (1 << PE1) | (1 << PE2));
-#endif
-
-	
-#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB1286__))
-	#define EXT_SRAM_START		0x2100
-#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB646__) || defined(__AVR_ATmega32U6__))
-	#define EXT_SRAM_START		0x1100
-#endif
-#define EXT_SRAM_END			0xFFFF
-#define EXT_SRAM_SIZE			(EXT_SRAM_END - EXT_SRAM_START)
-
 
 /* Global pointer to the start of external memory */
 static uint8_t* ExtMemArray = (uint8_t*)EXT_SRAM_START;
@@ -79,11 +51,11 @@ volatile uint8_t FillingRAM = 0;
 volatile uint8_t currentHelpPage = 0;
 
 
-/** Circular buffer to hold data from the host before it is processed by MainTask using standard IO functions */
-RingBuff_t Host_to_Device_Buffer;
+/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
+RingBuff_t HostToDevice_Buffer;
 
-/** Circular buffer to hold data before it is sent to the host. */
-RingBuff_t Device_to_Host_Buffer;
+/** Circular buffer to hold data from the serial port before it is sent to the host. */
+RingBuff_t DeviceToHost_Buffer;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -91,7 +63,7 @@ RingBuff_t Device_to_Host_Buffer;
  */
 USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
-		.Config = 
+		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
 
@@ -115,25 +87,33 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
-	Buffer_Initialize(&Host_to_Device_Buffer);
-	Buffer_Initialize(&Device_to_Host_Buffer);
+
+	RingBuffer_InitBuffer(&HostToDevice_Buffer);
+	RingBuffer_InitBuffer(&DeviceToHost_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
+
 
 	for (;;)
 	{
-		/* Read bytes from the USB OUT endpoint into the local buffer */
-		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
-		{
-			if (!(BUFF_STATICSIZE - Host_to_Device_Buffer.Elements))
-				break;
-			Buffer_StoreElement(&Host_to_Device_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+		// Read bytes from the USB OUT endpoint into the local data buffer
+		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--) {
+			// Only try to read in bytes from the CDC interface if the transmit buffer is not full
+			if (!(RingBuffer_IsFull(&HostToDevice_Buffer)))
+			{
+				int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+				// Read bytes from the USB OUT endpoint into the local data buffer
+				if (!(ReceivedByte < 0))
+					RingBuffer_Insert(&HostToDevice_Buffer, ReceivedByte);
+			}
 		}
 
-		/* Read bytes from the data buffer into the USB IN endpoint */
-		while (Device_to_Host_Buffer.Elements)
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Device_to_Host_Buffer));
+		// Read bytes from the local data buffer into the USB IN endpoint
+		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&DeviceToHost_Buffer);
+		while (BufferCount--)
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&DeviceToHost_Buffer));
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -154,10 +134,10 @@ void SetupHardware(void)
 
 	/* disable JTAG to allow corresponding pins to be used - PF4, PF5, PF6, PF7 */
 	/* TODO - remove this if you want to use your JTAG debugger to debug this firmware */
-	#if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
-			defined(__AVR_ATmega32U6__)))
+			defined(__AVR_ATmega32U6__))
 		// note the JTD bit must be written twice within 4 clock cycles to disable JTAG
 		// you must also set the IVSEL bit at the same time, which requires IVCE to be set first
 		// port pull-up resistors are enabled - PUD(Pull Up Disable) = 0
@@ -166,38 +146,83 @@ void SetupHardware(void)
 	#endif
 
 	/* Hardware Initialization */
-	DDRA = 0;
-	PORTA = 0;
-	DDRB = 0;
-	PORTB = 0;
-	DDRC = 0;
-	PORTC = 0;
-	DDRD = 0;
-	PORTD = 0;
-	DDRE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
-	PORTE = ((1 << PE4) | (1 << PE6));	// set PE4, PE6 to HIGH to disable external SRAM, if connected
-	DDRF = 0;
-	PORTF = 0;
+	/* enable Ports based on which IC is being used */
+	/* For more information look over the corresponding AVR's datasheet in the
+		'I/O Ports' Chapter under subheading 'Ports as General Digital I/O' */
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+			defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		DDRD = 0;
+		PORTD = 0;
+		DDRB = 0;
+		PORTB = 0;
+		DDRC = 0;
+		PORTC |= (0 << PC2) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7); //only PC2,4,5,6,7 are pins
+		// be careful using PortC as PC0 is used for the Crystal and PC1 is nRESET
+	#endif
+
+	#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
+		DDRD = 0;
+		PORTD = 0;
+		DDRB = 0;
+		PORTB = 0;
+		DDRC = 0;
+		PORTC = (0 << PC6) | (0 << PC7); //only PC6,7 are pins
+		DDRE = 0;
+		PORTE = (0 << PE2) | (0 << PE6); //only PE2,6 are pins
+		DDRF = 0;
+		PORTF = (0 << PF0) | (0 << PF1) | (0 << PF4) | (0 << PF5) | (0 << PF6) | (0 << PF7); // only PF0,1,4,5,6,7 are pins
+	#endif
+
+	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
+			defined(__AVR_ATmega32U6__))
+		DDRA = 0;
+		PORTA = 0;
+		DDRB = 0;
+		PORTB = 0;
+		DDRC = 0;
+		PORTC = 0;
+		DDRD = 0;
+		PORTD = 0;
+		DDRE = 0;
+		PORTE = 0;
+		DDRF = 0;
+		PORTF = 0;
+		#if (BOARD == BOARD_MICROPENDOUS)
+		// set PortB pin 1 to an output as it connects to an LED on the Micropendous
+		DDRB |= (1 << PB1);
+		// Set PE4=1 to disable external SRAM, PE6=0 to disable TXB0108, PE7=1 to select USB-B connector
+		DDRE |= ((1 << PE4) | (1 << PE6) | (1 << PE7));
+		PORTE |= ((1 << PE4) | (1 << PE7));
+		PORTE &= ~(1 << PE6);
+		#else // other boards such as the Micropendous3 or Micropendous4
+		// Set PE6=1 to disable external SRAM
+		DDRE |= (1 << PE6);
+		PORTE |= (1 << PE6);
+		#endif
+	#endif
 
 	/* Initialize stdout and stdin for printf and scanf */
 	fdevopen(sendData, getData);
 
 	/* Enable External SRAM */
-	DDRE = 0xFF;	// PORTE is all output
-	PORTE_EXTSRAM_SETUP;
-	ENABLE_EXTSRAM;
+	DISABLE_VOLTAGE_TXRX;
+	PORTE_EXT_SRAM_SETUP;
+	ENABLE_EXT_SRAM;
 	// enable external SRAM with 0 wait states
 	XMCRA = ((1 << SRE));
 	XMCRB = 0;
 
-	SELECT_EXTSRAM_BANK0; // set bank 0 as current SRAM bank
+	// perform pattern tests on the external SRAM
+	SELECT_EXT_SRAM_BANK0; // set bank 0 as current SRAM bank
 	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd); // test it
-	SELECT_EXTSRAM_BANK1;
-	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd);
-	SELECT_EXTSRAM_BANK0;
+	SELECT_EXT_SRAM_BANK1; // set bank 1 as current SRAM bank
+	SRAMTestStatus = TestEXTSRAM(ExtMemArray, extSramStart, extSramEnd); // test it
+	SELECT_EXT_SRAM_BANK0;
 
 	/* Hardware Initialization */
 	LEDs_Init();
+	SELECT_USB_B;
 	USB_Init();
 }
 
@@ -216,17 +241,19 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
  *
@@ -234,8 +261,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
  */
 void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	/* Not of any use for SRAM_Test
-		Use Virtual Serial Port settings to control your application.
+	/* TODO - Use Virtual Serial Port settings to control your application.
 		Think of this as another data channel.  Use it for control/status messaging.
 		Leave the data channel (MainTask putchar/getchar) for data only.
 	*/
@@ -313,7 +339,6 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 }
 
 
-
 /** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
  *  control line state change (containing the virtual serial control line states, such as DTR). The new control line states
  *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
@@ -322,8 +347,7 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	/* Not of any use for SRAM_Test
-		Use Virtual Serial Port settings to control your application.
+	/* TODO - Use Virtual Serial Port settings to control your application.
 		Think of this as another data channel.  Use it for control/status messaging.
 		Leave the data channel (MainTask putchar/getchar) for data only.
 	*/
@@ -347,7 +371,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	an empty buffer
 */
 uint8_t haveData(void) {
-	return (uint8_t)(Host_to_Device_Buffer.Elements);
+	return (uint8_t)(!RingBuffer_IsEmpty(&HostToDevice_Buffer));
 }
 
 /* In order to use printf functions, need a function that will send data over
@@ -360,21 +384,27 @@ static int sendData(char c, FILE *stream) {
 	//if (c == '\n') {
 	//	sendData('\r', stream);
 	//}
-	Buffer_StoreElement(&Device_to_Host_Buffer, (uint8_t)c);
-	return 0;
+	if (!RingBuffer_IsFull(&DeviceToHost_Buffer)) {
+		RingBuffer_Insert(&DeviceToHost_Buffer, (uint8_t)c);
+		return 0;
+	}  else {
+		return 1;
+	}
 }
 
-/* Also require a function to receive data from the USB Virtual Serial Port link */
+/* Function to receive data from the USB Virtual Serial Port link */
 int getData(FILE *__stream) {
 	//if (something) return _FDEV_ERR; // cannot implement as GetElement has no error condition
 	if (haveData() == 0) {
 		return _FDEV_EOF;
 	}
-	return (int)Buffer_GetElement(&Host_to_Device_Buffer);
+	return (int)RingBuffer_Remove(&HostToDevice_Buffer);
 }
 
 
-
+/* Test a SRAM address range with various patterns.
+	Return 0 if all addresses work correctly, otherwise return test number that failed
+*/
 uint16_t TestEXTSRAM(uint8_t* array, uint16_t startAddress, uint16_t endAddress)
 {
 	uint16_t i = 0;
@@ -505,7 +535,7 @@ void MainTask(void)
 			} else {
 				printf_P(PSTR("i?? - data at SRAM array index ?? \r\n"));
 				printf_P(PSTR("n - data at next SRAM array index - set start index with i?? \r\n"));
-				printf_P(PSTR("\tThis is the end of the help page.\r\n"));
+				printf_P(PSTR("\tThis is the end of the help page.\r\n\r\n"));
 				currentHelpPage = 0;
 			}
 		} else if (tempByte1 == 'o') { // print info regarding SRAM
@@ -523,11 +553,11 @@ void MainTask(void)
 				printf_P(PSTR(" Failed_Test "));
 				printf("%u\r\n", SRAMTestStatus);
 			} else {
-				printf_P(PSTR("SRAM_Passed_Tests\r\n"));
+				printf_P(PSTR("External_SRAM_Passed_Pattern_Tests\r\n"));
 			}
 		} else if (tempByte1 == 's') { // size of SRAM
 			printf("%5u\r\n", ((uint16_t)EXT_SRAM_SIZE));
-		} else if (tempByte1 == 'f') { // start filling SRAM, each subsequent byte will fill next index, need to fill all of it
+		} else if (tempByte1 == 'f') { // 0x67='f' start filling SRAM, each subsequent byte will fill next index, need to fill all of it
 			tempByte2 = getchar();
 			tempByte3 = getchar();
 			tempByte1 = getchar();
@@ -545,18 +575,18 @@ void MainTask(void)
 			ExtMemArray[tempWord] = tempByte1;
 		} else if (tempByte1 == 'b') { // print current SRAM bank
 			printf_P(PSTR("SRAM_Bank = "));
-			printf("%u\r\n", (PINE >> 7));
+			printf("%u\r\n", (uint8_t)CURRENT_SRAM_BANK);
 		} else if (tempByte1 == '0') { // select SRAM bank 0 for usage
-			SELECT_EXTSRAM_BANK0;
+			SELECT_EXT_SRAM_BANK0;
 		} else if (tempByte1 == '1') { // select SRAM bank 1 for usage
-			SELECT_EXTSRAM_BANK1;
+			SELECT_EXT_SRAM_BANK1;
 		} else if (tempByte1 == 'a') { // get the data byte from memory location defined by subsequent 2 bytes (word)
 			tempByte2 = getchar();
 			tempByte3 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));
 			tempBytePtr = (uint8_t*)tempWord;
 			printf("Addr: %5u: = %3u\r\n", tempWord, ((uint8_t)(*tempBytePtr)));
-		} else if (tempByte1 == 'i') { // get the data byte from ExtMemArray at index defined by subsequent 2 bytes (word)
+		} else if (tempByte1 == 'i') { // 0x69='i' get the data byte from ExtMemArray at index defined by subsequent 2 bytes (word)
 			tempByte2 = getchar();
 			tempByte3 = getchar();
 			tempWord = (((uint16_t)tempByte2 << 8) + ((uint16_t)tempByte3));

@@ -21,9 +21,8 @@ Table of Contents:
     used for general microcontroller development like other AVR-based boards.
     A USB bootloader allows Micropendous boards to be programmed without the
     need for an external programmer.  Micropendous boards work with the
-    Open Source LUFA (http://www.fourwalledcubicle.com/LUFA.php)
-    AVR USB firmware library.  Tutorials, examples, and firmware can be found
-    online at www.Micropendous.org.
+    Open Source LUFA (http://www.LUFA-lib.org) AVR USB firmware library.
+    Tutorials, examples, and firmware can be found online: www.Micropendous.org
 
     The Micropendous Firmware/Software/Design Distribution is available at
     http://www.Micropendous.org/Distribution
@@ -32,16 +31,14 @@ Table of Contents:
   Common Features:
     -USB powered
     -all I/O pins are accessible
-    -Vcc_Sel jumper selects 5V or 3.3V operation on 8MHz boards
     -RESET and HWB buttons to enable firmware loading over USB
     -HWB button can be used by user applications
-    -standard USB Mini-B connector
     -Open Hardware - all design files available for Open Source KiCAD
 
   General Advice:
     -Read "USB in a Nutshell" to get a sense of writing USB software and
      firmware: (http://www.beyondlogic.org/usbnutshell/usb-in-a-nutshell.pdf)
-    -http://www.fourwalledcubicle.com/LUFA.php for info on the firmware library
+    -http://www.LUFA-lib.org for info on the firmware library
     -http://libusb.sourceforge.net/doc for info on the libusb software library
 
 
@@ -65,6 +62,10 @@ Table of Contents:
   firmware.  This firmware enumerates as a keyboard.  Connecting any IO pins
   to GND will cause the pin's name to be typed.  For example, GND'ing B0 will
   type 'b0'.
+
+  After plugging in a MicropendousKeyboardTest programmed board, if Windows
+  complains about drivers simply follow the automated prompts to do a
+  non Internet-based search for drivers and install Window's own drivers.
 
   *** Be careful NOT to connect GND and VCC/VBUS as this will short your board
   and may damage it or your computer! ***
@@ -133,6 +134,6 @@ Table of Contents:
 By Opendous Inc.
 www.Micropendous.org
 www.opendous.org
-October 11, 2009
+February 12, 2011
 Copyright Under the Creative Commons Attribution License
 http://creativecommons.org/licenses/by/3.0/
