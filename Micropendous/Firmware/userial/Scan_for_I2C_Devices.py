@@ -90,6 +90,7 @@ def userialI2CScan(comport):
         print "Returned:", retrnd
 
 
+
     ser.close()			 # release/close the serial port
 
 
