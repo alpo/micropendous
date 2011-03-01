@@ -200,6 +200,15 @@ Do not use `\n` or `\r\n` newline characters as they are not properly handled.  
 
 The version that uses a full 8-bit data bus is slightly faster an is available in the `USBVirtualSerial-LCD_2PortVersion` directory.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
 
+To enable 8-Bit mode you must comment out the `USE_4BIT_LCD_INTERFACE` line in the `makefile`:
+{{{
+  LUFA_OPTS += -D USE_4BIT_LCD_INTERFACE
+}}}
+Should become:
+{{{
+  #LUFA_OPTS += -D USE_4BIT_LCD_INTERFACE
+}}}
+
 The connections are as follows:
 
 || Micropendous  || LCD Name || LCD Pin ||
