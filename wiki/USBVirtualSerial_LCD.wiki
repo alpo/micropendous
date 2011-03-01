@@ -233,7 +233,7 @@ The connections are as follows:
 || PB6 || Data6 || 13 ||
 || PB7 || Data7 || 14 ||
 
-The key settings that determine functionality are in `Micropendous/Firmware/USBVirtualSerial-LCD_2PortVersion/lcdconf.h`:
+The key settings that determine functionality are in `Micropendous/Firmware/USBVirtualSerial-LCD/lcdconf.h`:
 
 {{{
 #ifdef LCD_PORT_INTERFACE
