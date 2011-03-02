@@ -2,17 +2,28 @@
 
 The SRAM IC used is the [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D] which has 17-bit address space.
 
-AVRs have 16-bit addresses so a total of 64kbytes of memory space is available.  The AVR uses memory-mapped IO so some of the address space is used by peripherals.  The AVR's internal SRAM also uses some of the address space, 8kbytes in the case of the AT90USB1287.  This means that the full 128kbytes of external SRAM cannot be easily accessed.  Several options are available.
+AVRs have 16-bit address space so a total of 64kbytes of memory space is available.  The AVR uses memory-mapped IO so some of the address space is used by peripherals.  The AVR's internal SRAM also uses some of the address space, 8kbytes in the case of the AT90USB1287.  This means that the full 128kbytes of external SRAM cannot be easily accessed.  Several options are available.
 
-Note pin PE6 controls SRAM Chip Enable and must be kept low to use external SRAM.  Pins PE0, PE1, PE2, and PE7 are also used by the external SRAM so be careful if you use them.  If you must use these other pins, make sure the SRAM chip is disabled by setting PE6 high.
+Included in the Micropendous [http://code.google.com/p/micropendous/downloads/list distribution] is [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/LUFA/UsefulMicropendousDefines.h UsefulMicropendousDefines.h] which contains `#define`s to make SRAM usage easier and compatible across boards.
 
-If you do not need to make use of the external SRAM, disable it by setting PE6 high.
+{{{
+ PORTE_EXT_SRAM_SETUP;  // set up control port
+ ENABLE_EXT_SRAM;       // enables external SRAM (use after above)
+ DISABLE_EXT_SRAM;      // suspend external SRAM (data is retained)
+ SELECT_EXT_SRAM_BANK0; // select bank 0
+ SELECT_EXT_SRAM_BANK1; // select bank 1
+ CURRENT_SRAM_BANK;     // returns 0 or 1 depending on current bank
+}}}
+
+With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, PE1, PE2.
 
 == Simple Way - 56kbytes made available ==
 
 Allow the linker and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.
 
-Enable external memory space in the `makefile`:
+Enable external memory space in the `makefile` by setting the `BOARD` variable to `MICROPENDOUS`.
+
+For custom boards or when modifying a [http://www.LUFA-lib.org LUFA] demo simply uncomment the appropriate `EXTMEMOPTS`:
 
 {{{
 #---------------- External Memory Options ----------------
@@ -21,66 +32,56 @@ Enable external memory space in the `makefile`:
 EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
 }}}
 
-Near the start of `main()` enable the external SRAM interface (XMEM):
+
+In your initialization code near the start of `main()` enable the external SRAM interface (XMEM):
 
 {{{
 // Enable External SRAM
-DDRE = 0xFF;  // set PortE for output
-// PE6 is chip enable (^CS - active low); PE7 is highest address bit (bank); PE0,1,2 are SRAM-related
-PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
-XMCRA = ((1 << SRE));  // enable external SRAM with 0 wait states
+PORTE_EXT_SRAM_SETUP;  // set up control port
+ENABLE_EXT_SRAM;       // enable the external SRAM
+XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
 XMCRB = 0;
 }}}
 
 
-Then simply use [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to allocate SRAM.
+Then simply use [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to allocate up to 56 kbytes of SRAM (~63 if you include the AVR's internal SRAM).
 
 
 == Slightly Complex Way - 112kbytes made available ==
 
 Control bank selection yourself.  The full 128kbytes (17-bit addresses) cannot be accessed through the AVR's XMEM interface as the AVR uses 16-bit addresses.  This means the 128kbyte SRAM needs to be split into two banks by controlling the highest address bit manually.
 
-Useful Defines for your code:
-{{{
-// Defines related to SRAM
-#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB1286__))
-        #define EXT_SRAM_START          0x2100
-#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB646__) || defined(__AVR_ATmega32U6__))
-        #define EXT_SRAM_START          0x1100
-#endif
-#define EXT_SRAM_END                    0xFFFF
-#define EXT_SRAM_SIZE                   (EXT_SRAM_END - EXT_SRAM_START)
-#define SELECT_EXTSRAM_BANK0            PORTE &= ~(1 << PE7);
-#define SELECT_EXTSRAM_BANK1            PORTE |= (1 << PE7);
-}}}
-
 
 Near the start of `main()` enable the external SRAM interface (XMEM):
 
 {{{
 // Enable External SRAM
-DDRE = 0xFF;
-// PE6 is chip enable (^CS - active low); PE7 is highest address bit (bank); PE0,1,2 are SRAM-related
-PORTE = ((0 << PE6) | (0 << PE7) | (1 << PE0) | (1 << PE1) | (1 << PE2));
-XMCRA = ((1 << SRE));  // enable external SRAM with 0 wait states
+PORTE_EXT_SRAM_SETUP;  // set up control port
+ENABLE_EXT_SRAM;       // enable the external SRAM
+XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
 XMCRB = 0;
 }}}
 
 To use the external SRAM:
 
-  * create a global pointer to the start of the tail 56kbyte of SRAM
+  * create a global pointer to the start of the external SRAM
 {{{
 static uint8_t* ExtMemArray = (uint8_t*)EXT_SRAM_START;
 }}}
 
-  * simply use the pointer as an array throughout your code
+  * simply use the pointer as an array throughout your code.
 {{{
+// store the value 20 as the first item in Bank0
+SELECT_EXT_SRAM_BANK0;
 ExtMemArray[1] = (uint8_t)20;
 }}}
 
   * for example, the following will test external SRAM with data
 {{{
 uint16_t ArraySize = (uint16_t)(EXT_SRAM_SIZE);
+SRAMfailAddress firstSRAMfailAddress = 0;
+
+SELECT_EXT_SRAM_BANK0;
 
 // Test SRAM with an upward count
 for (i = 0; i < ArraySize; i++) {
@@ -89,17 +90,20 @@ for (i = 0; i < ArraySize; i++) {
 
 for (i = 0; i < ArraySize; i++) {
   if (ExtMemArray[i] != (uint8_t)i) {
+    // the & give the address of array[i]
     SRAMfailAddress = (uint16_t)(&array[i]);
   }
 }
 }}}
 
-  * control which bank is currently being used with the defines
+  * control which bank is currently being used with the previously mentioned defines
 {{{
+// 100'th item in Bank0 will be 20 and 100'th item in Bank1 will be 40
+SELECT_EXTSRAM_BANK0;
 ExtMemArray[100] = (uint8_t)20;
+
 SELECT_EXTSRAM_BANK1;
 ExtMemArray[100] = (uint8_t)40;
-SELECT_EXTSRAM_BANK0;
 }}}
 
 
