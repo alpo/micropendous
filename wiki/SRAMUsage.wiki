@@ -15,7 +15,7 @@ Included in the Micropendous [http://code.google.com/p/micropendous/downloads/li
  CURRENT_SRAM_BANK;     // returns 0 or 1 depending on current bank
 }}}
 
-With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, PE1, PE2.
+With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, PE1, PE2.  However, note that PE2 is also the HWB button so be very careful it is not pressed by users while the external SRAM is in use.
 
 == Simple Way - 56kbytes made available ==
 
