@@ -8,7 +8,7 @@ Instructions for using the external SRAM are [http://www.micropendous.org/SRAM a
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/SRAM_Test View] or [http://www.Micropendous.org/Distribution Download]
 
-*Targets:* [Micropendous], [Micropendous_DIP Micropendous-DIP], [Micropendous3], or [Micropendous4] with 128kbytes of external SRAM
+*Targets:* [Micropendous], [MicropendousDIP Micropendous-DIP], [Micropendous3], or [Micropendous4] with 128kbytes of external SRAM
 
 *USB Mode:* Device-mode enumerating as USB Virtual Serial Port
 
