@@ -136,3 +136,5 @@ search for "Aliases" and add your own:
 {{{
 alias gtkt0='gtkterm --port /dev/ttyACM0'
 }}}
+
+You can now run `gtkterm --port /dev/ttyACM0` from the terminal with the `gtkt0` command.
