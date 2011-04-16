@@ -121,3 +121,18 @@ Lets go over what the code does.  Python supports [http://en.wikipedia.org/wiki/
 Proceed to [FirmwareDevelopment Firmware Development]
 
 Back to [QuickStart]
+
+
+== Useful Note ==
+
+To avoid typing `gtkterm --port /dev/ttyACM0` each time you want to start the Terminal for your USB Serial device you can edit your `[http://tldp.org/LDP/abs/html/sample-bashrc.html .bashrc]` file and add a permanent alias.  Start a Terminal to edit your `.bashrc`
+
+{{{
+sudo gedit $HOME/.bashrc
+}}}
+
+search for "Aliases" and add your own:
+
+{{{
+alias gtkt0='gtkterm --port /dev/ttyACM0'
+}}}
