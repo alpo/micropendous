@@ -37,11 +37,11 @@ To make sure `malloc()` initializers have access to external memory, place Exter
 void EnableExternalSRAM (void) __attribute__ ((naked)) __attribute__ ((section (".init3")));
 void EnableExternalSRAM(void)
 {
-PORTE_EXT_SRAM_SETUP;  // set up control port
-ENABLE_EXT_SRAM;       // enable the external SRAM
-XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
-XMCRB = 0;
-SELECT_EXT_SRAM_BANK0; // select Bank 0
+  PORTE_EXT_SRAM_SETUP;  // set up control port
+  ENABLE_EXT_SRAM;       // enable the external SRAM
+  XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
+  XMCRB = 0;
+  SELECT_EXT_SRAM_BANK0; // select Bank 0
 }
 }}}
 
@@ -53,13 +53,9 @@ static uint32_t* ExtMemArray;
 Then simply use [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html malloc()] to allocate up to 56 kbytes of external SRAM:
 
 {{{
-ExtMemArray = (uint32_t *) malloc(57056);
- // 57056/4 = 14264
-
+ExtMemArray = (uint32_t *) malloc(57056); // 57056/4 = 14264
 if (ExtMemArray == NULL) {
-
   abort(); // shut down the AVR to complain malloc() failed
-
 }
 
 }}}
