@@ -15,41 +15,71 @@ Included in the Micropendous [http://code.google.com/p/micropendous/downloads/li
  CURRENT_SRAM_BANK;     // returns 0 or 1 depending on current bank
 }}}
 
-With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, PE1, PE2.  However, note that PE2 is also the HWB button so be very careful it is not pressed by users while the external SRAM is in use.
+With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, PE1, PE2.  However, note that PE2 is also the HWB button so be very careful it is not pressed by users while the external SRAM is being accessed.
 
 == Simple Way - 56kbytes made available ==
 
-Allow the linker and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.  The [http://www.nongnu.org/avr-libc/user-manual/malloc.html most useful setup] is to place the heap in external SRAM and everything else in internal SRAM.
-
-Enable external memory space in the `makefile` by setting the `BOARD` variable to `MICROPENDOUS`.
-
-For custom boards or when modifying a [http://www.LUFA-lib.org LUFA] demo simply uncomment the appropriate `EXTMEMOPTS`:
+Allow the linker and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.  The most useful setup is to place the heap in external SRAM and everything else in internal SRAM.  In your `makefile`:
 
 {{{
 #---------------- External Memory Options ----------------
-# for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
+# for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x2100
 # 0xFFFF(65535) - 0x2100(8448) ==> 4-byte boundary 0xDEFC(57084) ~~> 56Kbytes of available external SRAM
-EXTMEMOPTS += -Wl,--defsym=__heap_start=0x802100,--defsym=__heap_end=0x80ffff
+EXTMEMOPTS +=-Wl,--defsym=__heap_start=0x802100,--defsym=__heap_end=0x80ffff
 }}}
 
+When modifying LUFA demos make sure to change the `makefile` appropriately by setting the `BOARD` variable to `MICROPENDOUS`.
 
-In your initialization code near the start of `main()` enable the external SRAM interface (XMEM):
+To make sure `malloc()` initializers have access to external memory, place External Memory (XMEM) initialization code into an `.init` section in your main `.c` file above `main()`:
 
 {{{
-// Enable External SRAM
+// set up external SRAM prior to anything else to make sure malloc() has access to it
+
+void EnableExternalSRAM (void) __attribute__ ((naked)) __attribute__ ((section (".init3")));
+
+void EnableExternalSRAM(void)
+
+{
+
 PORTE_EXT_SRAM_SETUP;  // set up control port
 ENABLE_EXT_SRAM;       // enable the external SRAM
 XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
 XMCRB = 0;
+
+SELECT_EXT_SRAM_BANK0; // select Bank 0
+}
 }}}
 
+Create a global pointer to your external SRAM memory array.  For unsigned 32-bit integers the code would be:
+{{{
+static uint32_t* ExtMemArray;
+}}}
 
-Then simply use [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to allocate up to 56 kbytes of SRAM (~63 if you include the AVR's internal SRAM).
+Then simply use [http://www.nongnu.org/avr-libc/user-manual/group__avr__stdlib.html malloc()] to allocate up to 56 kbytes of external SRAM:
+
+{{{
+ExtMemArray = (uint32_t *) malloc(57056);
+ // 57056/4 = 14264
+
+if (ExtMemArray == NULL) {
+
+  abort(); // shut down the AVR to complain malloc() failed
+
+}
+
+}}}
+
+You can now access `ExtMemArray` which is composed of 14,264 unsigned 32-bit integers throughout your code.
+{{{
+ExtMemArray[0]     = (uint32_t)4294967295;
+ExtMemArray[14264] = (uint32_t)1234567890;
+printf("ExtMemArray[0]=%10lu\r\n", ((uint32_t)ExtMemArray[0]));
+}}}
 
 
 == Slightly Complex Way - 112kbytes made available ==
 
-Control bank selection yourself.  The full 128kbytes (17-bit addresses) cannot be accessed through the AVR's XMEM interface as the AVR uses 16-bit addresses.  This means the 128kbyte SRAM needs to be split into two banks by controlling the highest address bit manually.
+Access the external memory directly.  The full 128kbytes (17-bit addresses) cannot be accessed through the AVR's XMEM interface as the AVR uses 16-bit addresses.  This means the 128kbyte SRAM needs to be split into two banks by controlling the highest address bit manually.
 
 
 Near the start of `main()` enable the external SRAM interface (XMEM):
@@ -98,7 +128,7 @@ for (i = 0; i < ArraySize; i++) {
 
   * control which bank is currently being used with the previously mentioned defines
 {{{
-// 100'th item in Bank0 will be 20 and 100'th item in Bank1 will be 40
+// 100'th item in Bank0 will be 20 and 100'th item in Bank1 will be 40. Note the same array pointer is used.  Bank selection controls the 17th address bit in order to access different memory.
 SELECT_EXTSRAM_BANK0;
 ExtMemArray[100] = (uint8_t)20;
 
