@@ -34,18 +34,13 @@ To make sure `malloc()` initializers have access to external memory, place Exter
 
 {{{
 // set up external SRAM prior to anything else to make sure malloc() has access to it
-
 void EnableExternalSRAM (void) __attribute__ ((naked)) __attribute__ ((section (".init3")));
-
 void EnableExternalSRAM(void)
-
 {
-
 PORTE_EXT_SRAM_SETUP;  // set up control port
 ENABLE_EXT_SRAM;       // enable the external SRAM
 XMCRA = ((1 << SRE));  // enable XMEM interface with 0 wait states
 XMCRB = 0;
-
 SELECT_EXT_SRAM_BANK0; // select Bank 0
 }
 }}}
