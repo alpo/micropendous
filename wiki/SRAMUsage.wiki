@@ -19,7 +19,9 @@ With the external SRAM suspended/disabled you can reuse PORTA, PORTC, and PE0, P
 
 == Simple Way - 56kbytes made available ==
 
-Allow the `avr-ld` [http://www.nongnu.org/avr-libc/user-manual/using_tools.html linker] and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.  The most useful setup is to place the heap in external SRAM and everything else in internal SRAM.  In your `makefile`:
+Allow the `avr-ld` [http://www.nongnu.org/avr-libc/user-manual/using_tools.html linker] and [http://www.nongnu.org/avr-libc/user-manual/malloc.html malloc()] to take care of everything.  The most useful setup is to place the heap in external SRAM and everything else in internal SRAM.  Example firmware based on [USBVirtualSerial] that does the following is [http://code.google.com/p/micropendous/downloads/detail?name=USBVirtualSerial-ExtSRAMTest.zip available].
+
+In your `makefile`:
 
 {{{
 #---------------- External Memory Options ----------------
