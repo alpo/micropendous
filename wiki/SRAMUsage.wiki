@@ -123,7 +123,7 @@ for (i = 0; i < ArraySize; i++) {
 {{{
 // 100'th item in Bank0 will be 20 and 100'th item in Bank1 will be 40.
 // Note the same array pointer is used.  Bank selection controls the
-// 17th address bit in order to access different memory.
+// 17th address bit in order to access different memory in the SRAM IC.
 SELECT_EXTSRAM_BANK0;
 ExtMemArray[100] = (uint8_t)20;
 
