@@ -4,6 +4,8 @@ A version of this page for Windows is also [ProgramAndTestWindows available].
 
 == Loading Firmware ==
 
+  * This tutorial assumes you have already completed [LinuxQuickStart] installation steps.
+
   * Download and extract the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution]
 
   * Plug in your Micropendous board and enter bootloader mode by pressing the RESET and HWB buttons, then release the RESET button, then release the HWB button.  HWB stands for _Hardware Bootloader_ and is connected to pin PE2 on Micropendous boards (except on the [Micropendous1] board where it is connected to PD7).
@@ -23,7 +25,7 @@ Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_change_directory.jpg 
 
-  * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] and has an 8MHz clock.
+  * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] and has an 8MHz clock.  `USER` simply includes general purpose drivers that don't do anything in order to allow compilation and loading of various [http://www.LUFA-lib.org LUFA-Lib] and Micropendous demos.
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_gedit.jpg
   {{{
 MCU = atmega32u4
@@ -31,7 +33,7 @@ F_CPU = 8000000
 BOARD  = USER
   }}}
 
-  * now compile and load the firmware.  If you get errors, try running `make clean` before `make dfu`.
+  * now compile and load the firmware.  If you get errors, try running `make clean` before `make dfu`.  If you get a "Device not present" error, try running `sudo make dfu`.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_compile_load.jpg
 
