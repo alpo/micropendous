@@ -25,7 +25,7 @@ Bus 002 Device 039: ID 03eb:2ff4 Atmel Corp.
 
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_change_directory.jpg 
 
-  * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] and has an 8MHz clock.  `USER` simply includes general purpose drivers that don't do anything in order to allow compilation and loading of various [http://www.LUFA-lib.org LUFA-Lib] and Micropendous demos.
+  * edit the key settings based on which USB AVR you are using: `MCU`, `F_CPU`, and `BOARD`.  For example, a [Micropendous2] board is based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=ATmega32U4 Atmega32U4] and has an 8MHz clock.  `BOARD=USER` simply includes general purpose drivers that don't do anything in order to allow compilation and loading of various [http://www.LUFA-lib.org LUFA-Lib] and Micropendous demos.
   http://micropendous.googlecode.com/svn/trunk/Pictures/LinuxQuickStart_gedit.jpg
   {{{
 MCU = atmega32u4
