@@ -27,6 +27,8 @@ Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	- SN74AHC573PWR can be replaced by 74VHC573MTCX, also in TSSOP-20
 	- USB Hosting can be accomplished with an adapter:
 	    AE1474-ND (A-USB-4-R)  -  ADAPTER USB A FMALE TO A FMALE
+	- The PTC Fuse (F1) can be replaced with:
+	    MF-PSMF050X-2 - FUSE PTC RESETTABLE SMD 0.50A-Hold 1A-Trip 6V 0805
 	- For USB Hosting applications, the USB-A Plug connector (U2) can be replaced
 	  with a SMD USB-A Receptacle connector:
 	    U-Y1006-2-R  -  CONN RCPT USB 4POS RT ANG SMD
@@ -38,5 +40,5 @@ Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	  have reverse current protection:
 	    XC6222B331MR-G - IC REG LDO 700mA 3.3V SOT-25
 	    MIC5219-3.3YM5 - IC REG LDO 500mA 3.3V SOT23-5
-	    TPS73633DBVT    - IC LDO REG 400mA 3.3V SOT23-5
+	    TPS73633DBVT   - IC LDO REG 400mA 3.3V SOT23-5
 
