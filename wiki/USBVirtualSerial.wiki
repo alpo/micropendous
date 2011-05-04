@@ -34,7 +34,7 @@ The following is the core of this firmware and where your code should be placed.
 /* Main_Task will run periodically once initialization is complete */
 void MainTask(void)
 {
-  int tempInt = 0; // temporary storage - integer (16-bit)
+  int count = 0;
 
   // If the host has sent data then process it
 
@@ -43,17 +43,6 @@ void MainTask(void)
   if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
     fwrite(&buffer, 1, count, &USBSerialStream);
   }
-
-
-  // Example 2 - using formatted standard IO functions
-/*while (haveData()) {
-    // as long as getchar() is returning data, process it
-    printf_P(PSTR("\r\nUSBVirtualSerial\r\n")); // send a string that is constant and stored in FLASH
-    tempInt = getchar(); // receive a character
-    printf("Received char = %3d\r\n", tempInt); // send a string that is dynamic and stored in SRAM
-    // avoid long dynamic strings as there is little SRAM
-  }
-*/
 }
 
 }}}
