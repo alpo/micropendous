@@ -43,7 +43,17 @@ void MainTask(void)
   if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
     fwrite(&buffer, 1, count, &USBSerialStream);
   }
-}
+
+
+  if (count == 14) {
+    // Examples of using formatted standard IO functions
+
+    // 1) send a string that is constant and stored in FLASH
+    fprintf_P(&USBSerialStream, PSTR("\r\nUSBVirtualSerial\r\n"));
+
+    // 2) send a string that is dynamic and stored in SRAM
+    fprintf(&USBSerialStream, "Received count = %3d\r\n", count);
+  }
 
 }}}
 
