@@ -38,12 +38,12 @@ void MainTask(void)
 
   // If the host has sent data then process it
 
-  // Example 1 - using standard IO functions
-  while (haveData()) {    // need to check that data exists before processing it
-    // store data temporarily then send it right back - raw binary - using standard IO functions
-    tempInt = getchar();
-    putchar(tempInt);
+  // Throughput is maximized if the full EP buffer is read and sent each time
+  // Throughput approaches CDC_TXRX_EPSIZE kbytes/second and depends on transfer size from host 
+  if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
+    fwrite(&buffer, 1, count, &USBSerialStream);
   }
+
 
   // Example 2 - using formatted standard IO functions
 /*while (haveData()) {
