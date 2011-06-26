@@ -25,15 +25,16 @@ QTY, Manufacturer Part#     , Cost($USD each) - References - Description
 Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	- AT90USB1287-MU can be replaced by AT90USB647-MU, AT90USB1286-MU, or AT90USB646-MU
 	- SN74AHC573PWR can be replaced by 74VHC573MTCX, also in TSSOP-20
+	- ABM7 Crystal can be substituted with ABM3 crystal ABM3-16.000MHZ-D2Y-T
 	- USB Hosting can be accomplished with an adapter:
 	    AE1474-ND (A-USB-4-R)  -  ADAPTER USB A FMALE TO A FMALE
 	- The PTC Fuse (F1) can be replaced with:
 	    MF-PSMF050X-2 - FUSE PTC RESETTABLE SMD 0.50A-Hold 1A-Trip 6V 0805
 	- For USB Hosting applications, the USB-A Plug connector (U2) can be replaced
-	  with a SMD USB-A Receptacle connector:
-	    U-Y1006-2-R  -  CONN RCPT USB 4POS RT ANG SMD
+	  with a SMD USB-A Reverse-Type Receptacle connector such as the FCI 74626 Series
+	  but the mounting pins needs to be cut to position the connector correctly.
 	- A USB extension cable may also prove useful: AK669/2-18-R or AK669/2-30-R
-	- If you cut the copper trace on the underside of VCC=VBUS, you can replace it with:
+	- If you cut the VCC=VBUS copper trace jumper on the board underside, you can replace it with:
 	    951102-8622-AR - CONN HEADER 2POS 2MM VERT T/H
   	    SPN02SYBN-RC   - CONN SHUNT Jumper 2MM OPEN TOP 2PS GOLD
 	- The underside has a footprint for a 3.3V regulator which must
