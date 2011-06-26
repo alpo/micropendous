@@ -1,6 +1,6 @@
 #summary Open Hardware Development Board for Atmel's AT90USB1287 USB AVR
 
-*This Wiki page is currently being updated.*
+*This Wiki page is in the process of being updated.*
 
 Micropendous-A is an Open Hardware Development Board for Atmel's 64-pin [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] USB AVR Microcontroller.
 
@@ -39,7 +39,6 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * PE2 (HWB) is pulled up to Vcc with a 43k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
  * to power the board externally when USB Hosting, simply provide regulated 4.5V-5.5V power to the board through the VBUS or VCC pins (VBUS=VCC)
-
  * to power the board externally at other IO voltages, simply cut the VBUS=VCC trace jumper on the underside of the board and provide regulated 3V-5.5V power to the board through the VCC pin and regulated 4.5V-5.5V power to the board through the VBUS pin.  The VBUS pin is always connected to the USB connector power rail so do not provide VBUS if the board is connected to a USB Host.  Only connect power to the VBUS pin when the board is the USB Host.  Note that operation at 16MHz and/or use of the external SRAM requires 4.5V-5.5V VCC.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
@@ -78,7 +77,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
 
 == Modifying the board for 3.3V IO ==
 
-
+Details and pictures coming soon.
 
 == Removing your Micropendous-A from a Breadboard ==
 
