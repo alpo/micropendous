@@ -32,7 +32,7 @@ Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	    MF-PSMF050X-2 - FUSE PTC RESETTABLE SMD 0.50A-Hold 1A-Trip 6V 0805
 	- For USB Hosting applications, the USB-A Plug connector (U2) can be replaced
 	  with a SMD USB-A Reverse-Type Receptacle connector such as the FCI 74626 Series
-	  but the mounting pins needs to be cut to position the connector correctly.
+	  but the mounting pins need to be shortened to position the connector correctly.
 	- A USB extension cable may also prove useful: AK669/2-18-R or AK669/2-30-R
 	- If you cut the VCC=VBUS copper trace jumper on the board underside, you can replace it with:
 	    951102-8622-AR - CONN HEADER 2POS 2MM VERT T/H
