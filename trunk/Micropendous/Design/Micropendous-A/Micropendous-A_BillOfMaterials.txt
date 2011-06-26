@@ -40,6 +40,6 @@ Notes:	- Component costs are based on minimum quantity orders from DigiKey
 	- The underside has a footprint for a 3.3V regulator which must
 	  have reverse current protection:
 	    XC6222B331MR-G - IC REG LDO 700mA 3.3V SOT-25
-	    MIC5219-3.3YM5 - IC REG LDO 500mA 3.3V SOT23-5
-	    TPS73633DBVT   - IC LDO REG 400mA 3.3V SOT23-5
+	    MIC5219-3.3YM5 - IC REG LDO 500mA 3.3V SOT23-5 (UNTESTED)
+	    TPS73633DBVT   - IC LDO REG 400mA 3.3V SOT23-5 (UNTESTED)
 
