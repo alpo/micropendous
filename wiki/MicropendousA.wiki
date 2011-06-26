@@ -6,11 +6,11 @@ Micropendous-A is an Open Hardware Development Board for Atmel's 64-pin [http://
 
 The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in ~~the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via~~ [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-A` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous-A/ directory].
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_USB_Plug_Connector_Picture-Top-Small.jpg
 
 == Pinout ==
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_Pinout.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_Pinout.jpg
 
 
 == Features ==
@@ -19,9 +19,9 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
   * USB Full Speed (12Mbit/s)
   * USB Device and/or Host Modes supported
   * 120kb of available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
-  * 8 kbytes SRAM and 4 kbytes of EEPROM
+  * On-chip 8 kbytes SRAM and 4 kbytes of EEPROM
   * [http://www.Micropendous.org/SRAM 128kbytes External SRAM]
-  * USB or externally powered and can be modified for 3.3V IO
+  * USB or externally powered and can be [http://code.google.com/p/micropendous/wiki/MicropendousA#Modifying_the_board_for_3.3V_IO modified for 3.3V IO]
   * 16MHz crystal
   * 47 General Purpose IO Pins operating at 5V
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
@@ -38,6 +38,9 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then HWB
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * PE2 (HWB) is pulled up to Vcc with a 43k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
+ * to power the board externally when USB Hosting, simply provide regulated 4.5V-5.5V power to the board through the VBUS or VCC pins (VBUS=VCC)
+
+ * to power the board externally at other IO voltages, simply cut the VBUS=VCC trace jumper on the underside of the board and provide regulated 3V-5.5V power to the board through the VCC pin and regulated 4.5V-5.5V power to the board through the VBUS pin.  The VBUS pin is always connected to the USB connector power rail so do not provide VBUS if the board is connected to a USB Host.  Only connect power to the VBUS pin when the board is the USB Host.  Note that operation at 16MHz and/or use of the external SRAM requires 4.5V-5.5V VCC.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
  * you may need to edit the `makefile` before compiling Micropendous firmware demos.  The three key variables you need to be mindful of are:
@@ -72,6 +75,10 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
 The board needs to be powered externally with a regulated 5V power supply through the VBUS pin to allow USB Hosting:
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_BluetoothHosting.jpg
+
+== Modifying the board for 3.3V IO ==
+
+
 
 == Removing your Micropendous-A from a Breadboard ==
 
