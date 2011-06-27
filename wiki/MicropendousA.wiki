@@ -63,6 +63,10 @@ F_CPU = 16000000
     #endif
 }}}
 
+== Power Supply Design ==
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_Power_Schematic.jpg
+
 == Powering the board externally ==
 
 A Micropendous-A board can be externally powered through its VCC pin (regardless whether it is connected to a USB Host).  Simply remove the VCC=VBUS trace jumper on the underside of the board to disconnect VBUS from VCC then power the board with an external regulated 3.1V to 5V power supply through the VCC pin.
