@@ -65,7 +65,7 @@ F_CPU = 16000000
 
 == Power Supply Design ==
 
-The power supply follows _Figure 21-3_ of the [http://www.atmel.com/dyn/resources/prod_documents/doc7593.pdf Datasheet] by defualt and _Figure 21-4_ with the `VBUS=VCC` trace cut and powered externally through the `VCC` pin.
+The power supply follows _Figure 21-3_ of the [http://www.atmel.com/dyn/resources/prod_documents/doc7593.pdf Datasheet] by defualt and _Figure 21-4_ with the `VBUS=VCC` `JP1` trace cut and the board powered externally through the `VCC` pin.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_Power_Schematic.jpg
 
