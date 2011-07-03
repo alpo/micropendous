@@ -20,10 +20,10 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/
   * USB Device and/or Host Modes supported
   * 120kb of available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * On-chip 8 kbytes SRAM and 4 kbytes of EEPROM
-  * [http://www.Micropendous.org/SRAM 128kbytes External SRAM]
+  * optional [http://www.Micropendous.org/SRAM 128kbytes External SRAM]
   * USB or externally powered and can be [http://code.google.com/p/micropendous/wiki/MicropendousA#Modifying_the_board_for_3.3V_IO modified for 3.3V IO]
   * 16MHz crystal
-  * 47 General Purpose IO Pins operating at 5V
+  * 48 General Purpose IO Pins operating at 5V (up to 47 with External SRAM)
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * USB-A Plug or Receptacle
