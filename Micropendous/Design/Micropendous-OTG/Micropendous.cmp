@@ -1,16 +1,16 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = 7/22/2011 12:48:58 PM
+Cmp-Mod V01 Created by CvPCB (2011-04-29 BZR 2986)-stable date = 5/19/2011 9:03:16 AM
 
 BeginCmp
 TimeStamp = /494A56AF;
 Reference = C1;
-ValeurCmp = 18p;
+ValeurCmp = 24p;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /494A56AB;
 Reference = C2;
-ValeurCmp = 18p;
+ValeurCmp = 24p;
 IdModule  = SM0805_Opendous;
 EndCmp
 
@@ -31,7 +31,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4DCF785D;
 Reference = C5;
-ValeurCmp = 1u0;
+ValeurCmp = 4u7;
 IdModule  = 0805_Opendous;
 EndCmp
 
@@ -129,7 +129,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4B22726A;
 Reference = C43;
-ValeurCmp = u01;
+ValeurCmp = 0u1;
 IdModule  = SM0805_Opendous;
 EndCmp
 
@@ -234,7 +234,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4CB7B88D;
 Reference = IC3;
-ValeurCmp = FSUSB30;
+ValeurCmp = FSUSB20;
 IdModule  = MSOP10-0.5mmPitch_Opendous;
 EndCmp
 
@@ -269,7 +269,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4DB27896;
 Reference = IC9;
-ValeurCmp = AP2151;
+ValeurCmp = AP2140;
 IdModule  = SOT23-5_Opendous;
 EndCmp
 
@@ -302,15 +302,15 @@ IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /4DDA6910;
-Reference = L2;
+TimeStamp = /494A537A;
+Reference = L3;
 ValeurCmp = FB;
-IdModule  = 0805_Opendous;
+IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
-TimeStamp = /494A537A;
-Reference = L3;
+TimeStamp = /4AE0054C;
+Reference = L6;
 ValeurCmp = FB;
 IdModule  = SM0805_Opendous;
 EndCmp
@@ -332,8 +332,8 @@ EndCmp
 BeginCmp
 TimeStamp = /4DD49704;
 Reference = R1;
-ValeurCmp = 100;
-IdModule  = 0805_Opendous;
+ValeurCmp = DNI;
+IdModule  = 0603_Opendous;
 EndCmp
 
 BeginCmp
@@ -346,14 +346,14 @@ EndCmp
 BeginCmp
 TimeStamp = /4A89BA84;
 Reference = R9;
-ValeurCmp = 10k;
+ValeurCmp = 15k;
 IdModule  = SM0805_Opendous;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AE01F89;
 Reference = R11;
-ValeurCmp = 10k;
+ValeurCmp = 15k;
 IdModule  = SM0805_Opendous;
 EndCmp
 
@@ -381,7 +381,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4B2272B0;
 Reference = R40;
-ValeurCmp = 10k;
+ValeurCmp = 15k;
 IdModule  = SM0805_Opendous;
 EndCmp
 
@@ -395,7 +395,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4CB7B80E;
 Reference = R42;
-ValeurCmp = 5k1;
+ValeurCmp = 1k;
 IdModule  = SM0805_Opendous;
 EndCmp
 
@@ -1214,13 +1214,6 @@ EndCmp
 BeginCmp
 TimeStamp = /4AE2978A;
 Reference = V101;
-ValeurCmp = VIA;
-IdModule  = 1Pin_20mil_VIA;
-EndCmp
-
-BeginCmp
-TimeStamp = /4DDA6FF5;
-Reference = V102;
 ValeurCmp = VIA;
 IdModule  = 1Pin_20mil_VIA;
 EndCmp
