@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version 2.3  Date: 8/13/2011 7:08:59 PM
+EESchema-LIBRARY Version 2.3  Date: 5/19/2011 9:29:10 AM
 #encoding utf-8
 #
 # 74VHC573
@@ -516,10 +516,10 @@ DEF Opennect-Controller-MCU-PWR U 0 40 Y Y 1 F N
 F0 "U" 0 -1000 50 H V C CNN
 F1 "Opennect-Controller-MCU-PWR" 0 1000 60 H V C CNN
 DRAW
-T 0 -100 700 30 0 0 0 100mA  Normal 0 C C
-T 0 -50 -800 30 0 0 0 100mA  Normal 0 C C
+T 0 -100 700 30 0 0 0 150mA  Normal 0 C C
 T 0 -100 800 30 0 0 0 150mA  Normal 0 C C
-T 0 150 750 30 0 0 0 850mA  Normal 0 C C
+T 0 -50 -800 30 0 0 0 150mA  Normal 0 C C
+T 0 150 750 30 0 0 0 750mA  Normal 0 C C
 T 0 0 -900 30 0 0 0 End~x1  Normal 0 C C
 T 0 0 -155 20 0 0 0 Mechanical~Key  Normal 0 C C
 S 350 950 -350 -950 0 0 2 f

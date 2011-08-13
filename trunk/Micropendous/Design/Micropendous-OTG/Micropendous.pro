@@ -1,9 +1,14 @@
-update=5/23/2011 10:03:28 AM
-last_client=cvpcb
+update=4/20/2011 8:50:16 AM
+last_client=eeschema
 [general]
 version=1
 RootSch=Micropendous.sch
 BoardNm=Micropendous.brd
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 PadDrlX=0
@@ -22,6 +27,7 @@ TxtLar=80
 MSegLar=80
 LastNetListRead=Micropendous.net
 [pcbnew/libraries]
+LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -32,7 +38,6 @@ LibName7=display
 LibName8=valves
 LibName9=led
 LibName10=dip_sockets
-LibDir=
 [eeschema]
 version=1
 LibDir=
@@ -95,8 +100,3 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
