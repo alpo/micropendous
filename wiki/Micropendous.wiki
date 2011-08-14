@@ -23,6 +23,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * DC Power Jack, 2.1mm ID, 5.5V to 16V Input
   * 16MHz crystal
   * 25 available General Purpose IO Pins in an [http://www.Arduino.cc Arduino] configuration
+  * [http://www.Opennect.org Opennect-MCU] connector for small and cheap expansion modules
   * PortB is [http://focus.ti.com/docs/prod/folders/print/txb0108.html bidirectionally voltage translated] to communicate with microSD or external peripherals
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
