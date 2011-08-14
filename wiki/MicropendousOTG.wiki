@@ -1,0 +1,52 @@
+#summary USB AVR Development Board for the AT90USB1287 with Arduino Footprint
+
+This is an older revision of the [Micropendous] design based on the same schematic as the [MicropendousDIP] which has OTG capability provisions (which this board does not).
+
+The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-OTG` directory.
+
+A PCB of this design can be purchased at cost through [http://batchpcb.com/index.php/Products/49244 BatchPCB].
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-OTG/Micropendous_AngleView.jpg
+
+== Pinout ==
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-OTG/Micropendous_Pinout.jpg
+
+== Features ==
+
+  * Based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287]
+  * USB Full Speed (12Mbit/s)
+  * USB Device/Host/OTG Modes of operation
+  * 120kb available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
+  * 8 kbytes SRAM and 4 kbytes of EEPROM
+  * 112 kbytes of [http://www.Micropendous.org/SRAM external SRAM]
+  * microSD connector in SPI Mode
+  * USB powered or DC powered
+  * DC Power Jack, 2.1mm ID, 7V to 15V Input
+  * 16MHz crystal
+  * 25 available General Purpose IO Pins
+  * PortB is [http://focus.ti.com/docs/prod/folders/print/txb0108.html bidirectionally voltage translated]
+  * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
+  * HWB can be used as a user button
+  * USB-B Jack and USB-A Receptacle selectable with a GPIO pin
+  * PortB, PortD, and PortB_3.3V available through [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2735 STK500-style] 10-pin headers
+  * JTAG header
+  * Size LxWxH (including headers): 3" x 2.1" x 0.8" =~ 8cm x 5.3cm x 2cm
+  * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
+  * works with Open Source [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB firmware library and Open Source [http://libusb.sourceforge.net LibUSB] software library, or with Open Source [http://pyserial.wiki.sourceforge.net/pySerial PySerial] library if using USBtoSerial or CDC based firmware.
+  * [http://www.linux.org/ Linux] + [http://gcc.gnu.org/ AVR-GCC] + [http://www.fourwalledcubicle.com/LUFA.php LUFA] + [http://www.fourwalledcubicle.com/LUFA.php LUFA Bootloader] + [http://kicad.sourceforge.net KiCAD] + [http://dfu-programmer.sourceforge.net/ DFU-Programmer] allow you to develop Open Source and/or Open Hardware projects around a Micropendous-DIP board without ever touching proprietary software.
+
+== !QuickNotes ==
+ * *DO NOT* connect *GND* and *VCC*.  This will short your computer's USB power supply and may damage your computer and your Micropendous-DIP
+ * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then release HWB
+ * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
+ * PE2 (HWB) is pulled up to Vcc with a 47k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
+ * observe precautions for electrostatic sensitive components while handling the board
+ * if your board has a communication error after being plugged in, press RESET
+ * important pins: *PE6* controls TXB0108 `OE` pin, *PE4* is SRAM `nCE`, *PE5* is SRAM address bit 17, and *PE7* controls USB switch with USB-B=`1` and USB-B=`0`.
+ * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
+{{{
+MCU = at90usb1287
+F_CPU = 16000000
+BOARD = MICROPENDOUS_OTG
+}}}
