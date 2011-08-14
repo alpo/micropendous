@@ -16,7 +16,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-OT
 
   * Based on the [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287]
   * USB Full Speed (12Mbit/s)
-  * USB Device/Host/OTG Modes of operation
+  * USB Device and Host Modes of operation
   * 120kb available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 8 kbytes SRAM and 4 kbytes of EEPROM
   * 112 kbytes of [http://www.Micropendous.org/SRAM external SRAM]
