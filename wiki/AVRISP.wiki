@@ -6,7 +6,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AVRISP-mkII View] or [http://www.Micropendous.org/Distribution Download]
 
-*Targets*: [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
+*Targets*: Any USB AVR based board with accessible SPI pins
 
 *USB Mode:* Device-mode enumerating as Custom-Class USB Device
 
