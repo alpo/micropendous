@@ -27,7 +27,7 @@ In your `makefile`:
 #---------------- External Memory Options ----------------
 # for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x2100
 # 0xFFFF(65535) - 0x2100(8448) ==> 4-byte boundary 0xDEFC(57084) ~~> 56Kbytes of available external SRAM
-EXTMEMOPTS +=-Wl,--defsym=__heap_start=0x802100,--defsym=__heap_end=0x80ffff
+    EXTMEMOPTS +=-Wl,--defsym=__stack=0x8020FC,--section-start,.data=0x802100,--defsym=__heap_start=0x80DFFF,--defsym=__heap_end=0x80FFFF
 }}}
 
 When modifying LUFA demos make sure to change the `makefile` appropriately by setting the `BOARD` variable to `MICROPENDOUS`.
