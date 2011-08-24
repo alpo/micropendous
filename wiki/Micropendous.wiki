@@ -33,7 +33,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * PortB, PortD, and PortB_3.3V available through [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2735 STK500-style] 10-pin headers
   * JTAG header
   * Size LxWxH (including headers): 3" x 2.1" x 0.8" =~ 8cm x 5.3cm x 2cm
-  * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions available for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
+  * completely OpenHardware Design, schematic/layout/!BillOfMaterials/assembly instructions [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous/ available] for Open Source [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD]
   * works with Open Source [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB firmware library and Open Source [http://libusb.sourceforge.net LibUSB] software library, or with Open Source [http://pyserial.wiki.sourceforge.net/pySerial PySerial] library if using USBtoSerial or CDC based firmware.
   * [http://www.linux.org/ Linux] + [http://gcc.gnu.org/ AVR-GCC] + [http://www.fourwalledcubicle.com/LUFA.php LUFA] + [http://www.fourwalledcubicle.com/LUFA.php LUFA Bootloader] + [http://kicad.sourceforge.net KiCAD] + [http://dfu-programmer.sourceforge.net/ DFU-Programmer] allow you to develop Open Source and/or Open Hardware projects around a Micropendous-DIP board without ever touching proprietary software.
 
