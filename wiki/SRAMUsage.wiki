@@ -1,6 +1,6 @@
-#summary How to use the External SRAM on a Micropendous4 board.
+#summary How to use the External SRAM on a Micropendous board.
 
-The SRAM IC used is the [http://www.cypress.com/products/?rpn=CY7C1019D&fid=36 CY7C1019D] which has 17-bit address space.
+The SRAM IC used is either the [http://www.issi.com/pdf/61-64C1024AL.pdf IS61C1024AL-12JLI] or the [http://www.cypress.com/?mpn=CY7C1019D-10ZSXI CY7C1019D-10ZSXI] which have 17-bit address space.
 
 AVRs have 16-bit address space so a total of 64kbytes of memory space is available.  The AVR uses memory-mapped IO so some of the address space is used by peripherals.  The AVR's internal SRAM also uses some of the address space, 8kbytes in the case of the AT90USB1287.  This means that the full 128kbytes of external SRAM cannot be easily accessed.  Several options are available.
 
