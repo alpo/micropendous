@@ -17,7 +17,7 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   7, JMK212BJ106KG-T             , 0.48 - C13 C17 C21 C41 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
   1, GRM31CR61E106KA12L          , 0.51 - C52 - CAP CER 10UF 25V X5R 1206 (LDO Input)
   1, TR3A226K010C0900            , 1.20 - C54 - CAP TANT 22UF 10V 10% SMD 1206 (LDO Output) (0.2ohm<ESR<1ohm)
-  1, TAJB107M010RNJ              , 1.38 - C42 - CAPACITOR TANT 100UF 10V 20% SMD 1210 Size-Code-B
+  1, C3225X5R0J107M              , 1.30 - C42 - CAP CER 100UF 6.3V X5R 20% 1210
   1, PMEG3020ER,115              , 0.60 - D1 - SCHOTTKY RECT 30V 2.0A SOD-123W
   1, APT2012SGC                  , 0.13 - D2 - LED 2X1.2MM 568NM GN WTR CLR SMD 0805
   1, MF-NSMF075-2                , 0.41 - F1 - PTC RESETTABLE Fuse Ihold=0.75A 6V 1206
@@ -39,28 +39,28 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
   1, 690-004-661-013             , 1.24 - U2 - CONN USB RCPT A-TYPE VERT RA
   1, DM3D-SF                     , 1.92 - U3 - CONN MICRO SD R/A PUSH-PULL SMD
   1, NWE18DHRN-T941              , 2.47 - U9 - CONN PCI EXPRESS 36POS VERT PCB
-----------------------------Total=49.90
+----------------------------Total=49.82
 
-Notes:	- Component costs are based on minimum quantity orders from DigiKey
-	- Intended to be used with Volgen's KTPS24-06035MP or
-	  CUI's EMSA060300-P5P-SZ Multi-blade Wall Adapter Power Supplies or
-	  any switching 6V DC 2A+ Power Supply with a 2.1mm Center-Positive Connector
-	- FSUSB30MUX (IC3) can be substituted with FSUSB20MUX or TS3USB30EDGSR
-	- SN74AHC573PWR (IC4) can be substituted with 74VHC573MTCX
-	- IS61C1024AL-12JLI (IC5) can be substituted with IDT71024S15TYG8 with increased power consumption
-	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
-	- XC6222B331PR-G can be substituted with XC6220B331PR-G
-	- AP2151WG-7 (IC9) can be substituted with AP2171WG-7, or AP2191WG-7
-	- LM358DGKR (IC10) can be substituted with LM358ADGKR,LM358ST, or LM358AST
-	- MIC39100-5.0WS (IC11) can be substituted with LM2940IMP-5.0/NOPB
-	- GRM21BR71C105KA01L (C5 1uF) must be rated 16V+, such as C0805C105K4RACTU
-	- GRM21BR71H104KA01L (C53 0.1uF) must be rated 25V+
-	- TAJB107M010RNJ (C42) can be substituted with C1210C107M9PACTU
-	- MF-NSMF075-2 (F1) can be substituted with 0ZCA0075FF2G
-	- BLM21PG300SN1D (FB) can be substituted with MPZ2012S300A
-	- FDN304PZ can be substituted with SI2323DS-T1-E3
-	- LED (D2) can be substituted with any 0805 LED but may need to adjust value of R45
-	- ESR03EZPJ101 (R1) can be substituted with CRCW0603100RFKEAHP
-	- EVQ-Q2U03W can be substituted with TL59AF160Q, a thru-hole switch
-	- ABLS2-16.000MHZ-D4Y-T can be substituted with ABLS-16.000MHZ-K4T or ECS-160-18-5PXEN-TR
-	- NWE18DHRN-T941 (U9) can be substituted with PCIE-036-02-F-D-EMS2 from Samtec.com
+Notes:- Component costs are based on minimum quantity orders from DigiKey
+      - The board is intended to be used with Volgen's KTPS24-06035MP or
+        CUI's EMSA060300-P5P-SZ Multi-blade Wall Adapter Power Supplies or
+        some other switching 6V DC 2A+ Power Supply with a 2.1mm Center-Positive Connector
+      - FSUSB30MUX (IC3) can be substituted with FSUSB20MUX or TS3USB30EDGSR
+      - SN74AHC573PWR (IC4) can be substituted with 74VHC573MTCX
+      - IS61C1024AL-12JLI (IC5) can be substituted with IDT71024S15TYG8 which has increased power consumption
+      - TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
+      - XC6222B331PR-G can be substituted with XC6220B331PR-G
+      - AP2151WG-7 (IC9) can be substituted with AP2171WG-7, or AP2191WG-7
+      - LM358DGKR (IC10) can be substituted with LM358ADGKR, LM358ST, or LM358AST
+      - MIC39100-5.0WS (IC11) can be substituted with LM2940IMP-5.0/NOPB
+      - GRM21BR71C105KA01L (C5 1uF) must be rated 16V+, such as C0805C105K4RACTU
+      - GRM21BR71H104KA01L (C53 0.1uF) must be rated 25V+
+      - C3225X5R0J107M (C42 100uF) can be another low-ESR capacitor such as C1210C107M9PACTU or TPSB107M010R0400
+      - MF-NSMF075-2 (F1) can be substituted with 0ZCA0075FF2G
+      - BLM21PG300SN1D (FB) can be substituted with MPZ2012S300A
+      - FDN304PZ can be substituted with SI2323DS-T1-E3
+      - LED (D2) can be substituted with any 0805 LED but may need to adjust value of R45
+      - ESR03EZPJ101 (R1) can be substituted with CRCW0603100RFKEAHP
+      - EVQ-Q2U03W can be substituted with TL59AF160Q, a thru-hole switch
+      - ABLS2-16.000MHZ-D4Y-T can be substituted with ABLS-16.000MHZ-K4T or ECS-160-18-5PXEN-TR
+      - NWE18DHRN-T941 (U9) can be substituted with PCIE-036-02-F-D-EMS2 from Samtec.com
