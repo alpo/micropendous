@@ -42,6 +42,8 @@ QTY, Manufacturer Part#          , Cost($USD each) - References - Description
 ----------------------------Total=49.82
 
 Notes:- Component costs are based on minimum quantity orders from DigiKey
+      - Components are chosen for operation over the Industrial Temperature Range (-40C to 85C)
+        However, note that most microSD cards can only operate over Commercial Range (-10C to 70C)
       - The board is intended to be used with Volgen's KTPS24-06035MP or
         CUI's EMSA060300-P5P-SZ Multi-blade Wall Adapter Power Supplies or
         some other switching 6V DC 2A+ Power Supply with a 2.1mm Center-Positive Connector
