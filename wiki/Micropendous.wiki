@@ -4,6 +4,8 @@
 
 The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous` directory.
 
+The current Micropendous Distribution has not been updated for this board revision.  However, it should work with all the [http://code.google.com/p/lufa-lib/downloads/list LUFA] demos simply by changing `F_CPU=16000000` in the `makefiles`.
+
 A PCB of this design can be purchased at cost through [http://batchpcb.com/index.php/Products/67008 BatchPCB].
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Micropendous-Small_Picture.jpg
