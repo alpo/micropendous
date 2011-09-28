@@ -12,7 +12,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 *Status:* _Working_
 
-= Uasge =
+= Usage =
 
 === [Micropendous] ===
 
