@@ -1,0 +1,67 @@
+Bill Of Materials for the Micropendous Project
+
+QTY, Manufacturer Part#          , Cost($USD each) - References - Description
+  1, AT90USB1287-AU              ,12.92 - IC1 - IC AVR MCU 128K 64TQFP
+  1, FSUSB30MUX                  , 1.79 - IC3 - IC USB SWITCH DUAL 2X1 10MSOP
+  1, SN74AHC573PWR               , 0.58 - IC4 - IC OCT TRNSP D-TYP LATCH 20TSSOP
+  1, IS61C1024AL-12JLI           , 3.64 - IC5 - IC SRAM 1MBIT 12NS 32SOJ 300-MIL-Wide
+  1, TXB0108PWR                  , 2.80 - IC6 - IC 8-BIT TRNSTR 15KV ESD 20TSSOP
+  1, XC6222B331PR-G              , 0.76 - IC7 - IC REG LDO 3.3V SOT-89-5
+  1, AP2151WG-7                  , 0.99 - IC9 - IC PWR SW USB 1CH 0.5A SOT-25-5
+  1, LM358DGKR                   , 0.59 - IC10 - IC OPAMP GP 700KHZ DUAL 8MSOP
+  1, MIC39100-5.0WS              , 1.40 - IC11 - IC REG LDO 1A 5.0V SOT223 16V Max. Input
+  2, 500R15N180JV4T              , 0.04 - C1 C2 - CAP CER 18PF 50V NP0 0805
+  2, 08055C103KAT2A              , 0.03 - C12 C43 - CAP CER 10000PF = 0.01uF 50V X7R 10% Low ESR 0805
+ 11, GRM21BR71H104KA01L          , 0.06 - C3 C4 C11 C35 C36 C37 C39 C46 C51 C53 C55 - CAP CER .1UF 50V 10% X7R 0805
+  3, GRM21BR71C105KA01L          , 0.14 - C5 C10 C44 - CAP CER 1.0UF 16V 10% X7R 0805
+  7, JMK212BJ106KG-T             , 0.48 - C13 C17 C21 C41 C48 C49 C50 - CAP CER 10UF 6.3V 20% X5R 0805
+  1, GRM31CR61E106KA12L          , 0.51 - C52 - CAP CER 10UF 25V X5R 1206 (LDO Input)
+  1, TPSB226K016R0600            , 1.00 - C54 - CAP TANT 22UF 16V 10% (LDO Output) (0.2ohm<ESR<1ohm) 1210 Size-Code-B
+  1, B45197A2157K409             , 1.69 - C42 - CAP TANT 150UF 10V 10% (ESR<100mOhm) SMD 2917 Size-Code-D
+  1, PMEG3020ER,115              , 0.60 - D1 - SCHOTTKY RECT 30V 2.0A SOD-123W
+  1, APT2012SGC                  , 0.13 - D2 - LED 2X1.2MM 568NM GN WTR CLR SMD 0805
+  1, MF-NSMF075-2                , 0.41 - F1 - PTC RESETTABLE Fuse Ihold=0.75A 6V 1206
+  2, BLM21PG300SN1D              , 0.28 - L2 L3 - FERRITE CHIP 30 OHM 3000MA 0805 0.15-Ohm-DCR
+  1, FDN304PZ                    , 0.61 - Q1 - MOSFET P-CH 20V 2.4A SSOT-3
+  2, MCR10EZPF22R0               , 0.03 - R12 R13 - RES 22.0 OHM 1/8W 1% 0805 SMD
+  1, ESR03EZPJ101                , 0.83 - R1 - RES 100 OHM 1/5W 5% Anti-Surge 0603 SMD
+  1, RMCF0805JT1K00              , 0.03 - R45 - RES 1K OHM 1/8W 5% 0805 SMD
+  1, RMCF0805JT5K10              , 0.03 - R42 - RES 5.1K OHM 1/8W 5% 0805 SMD
+  6, RC0603JR-0710KL             , 0.01 - R9 R11 R40 R41 R43 R44 - RES 10K OHM 1/10W 5% 0603 SMD
+  2, RC0603JR-0747KL             , 0.01 - R8 R14 - RES 47K OHM 1/10W 5% 0603 SMD
+  2, EVQ-Q2U03W                  , 0.29 - SW1 SW2 - SWITCH LT 6MM 260GF H=3.1MM SMD
+  1, PJ-102AH                    , 0.88 - DC_POWER_JACK(J1) - CONN PWR JACK 2.1X5.5MM HIGH CURRENT
+  1, ABLS2-16.000MHZ-D4Y-T       , 0.64 - X1 - CRYSTAL 16.0000 MHZ 18PF SMD HC49/US -40C to +85C
+  4, 67997-410HLF                , 0.40 - PORTB(U7) PORTB_3V3(U6) PORTD(U8) JTAG(U4) - CONN HEADER 10POS .100 STR TIN
+  2, PPPC061LFBN-RC              , 0.61 - Power/Analog Headers - CONN HEADER FEMALE 6POS .1" GOLD
+  2, PPPC081LFBN-RC              , 0.76 - Digital Headers - CONN HEADER FEMALE 8POS .1" GOLD
+  1, 61729-1011BLF               , 1.16 - U1 - USB RCPT B-TYPE TH HORIZONTAL RA FULL BACK
+  1, 73725-0110BLF               , 1.26 - U2 - CONN USB RCPT A-TYPE VERT RA FCI
+  1, DM3D-SF                     , 2.02 - U3 - CONN MICRO SD R/A PUSH-PULL SMD
+  1, NWE18DHRN-T941              , 2.47 - U9 - CONN PCI EXPRESS 36POS VERT PCB
+----------------------------Total=49.93
+
+Notes:	- Component costs are based on minimum quantity orders from DigiKey
+	- Intended to be used with Volgen's KTPS24-06035MP or
+	  CUI's EMSA060300-P5P-SZ Multi-blade Wall Adapter Power Supplies or
+	  any switching 6V DC 2A+ Power Supply with a 2.1mm Center-Positive Connector
+	- FSUSB30MUX (IC3) can be substituted with FSUSB20MUX or TS3USB30EDGSR
+	- SN74AHC573PWR (IC4) can be substituted with 74VHC573MTCX
+	- IS61C1024AL-12JLI (IC5) can be substituted with IDT71024S15TYG8 with increased power consumption
+	- TXB0108PWR (IC6) can be substituted with ADG3300BRUZ
+	- XC6222B331PR-G can be substituted with XC6220B331PR-G
+	- AP2151WG-7 (IC9) can be substituted with AP2171WG-7, or AP2191WG-7
+	- LM358DGKR (IC10) can be substituted with LM358ADGKR,LM358ST, or LM358AST
+	- MIC39100-5.0WS (IC11) can be substituted with LM2940IMP-5.0/NOPB
+	- GRM21BR71C105KA01L (C5 1uF) must be rated 16V+, such as C0805C105K4RACTU
+	- GRM21BR71H104KA01L (C53 0.1uF) must be rated 25V+
+	- TAJB107M010RNJ (C42) can be substituted with C1210C107M9PACTU
+	- MF-NSMF075-2 (F1) can be substituted with 0ZCA0075FF2G
+	- BLM21PG300SN1D (FB) can be substituted with MPZ2012S300A
+	- FDN304PZ can be substituted with SI2323DS-T1-E3
+	- LED (D2) can be substituted with any 0805 LED but may need to adjust value of R45
+	- ESR03EZPJ101 (R1) can be substituted with CRCW0603100RFKEAHP
+	- EVQ-Q2U03W can be substituted with TL59AF160Q, a thru-hole switch
+	- ABLS2-16.000MHZ-D4Y-T can be substituted with ABLS-16.000MHZ-K4T or ECS-160-18-5PXEN-TR
+	- NWE18DHRN-T941 (U9) can be substituted with PCIE-036-02-F-D-EMS2 from Samtec.com
+

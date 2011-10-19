@@ -1,0 +1,1329 @@
+# EESchema Netlist Version 1.1 created  10/19/2011 1:41:09 PM
+(
+ ( /494A56AF SM0805_Opendous C1 18p
+  ( 1 GND )
+  ( 2 N-000068 )
+ )
+ ( /494A56AB SM0805_Opendous C2 18p
+  ( 1 GND )
+  ( 2 N-000051 )
+ )
+ ( /4DAEAEB3 SM0805_Opendous C3 0u1
+  ( 1 VDD33 )
+  ( 2 GND )
+ )
+ ( /4DCF64E0 0805_Opendous C4 0u1
+  ( 1 N-000102 )
+  ( 2 GND )
+ )
+ ( /4DCF785D 0805_Opendous C5 1u0
+  ( 1 VIN )
+  ( 2 GND )
+ )
+ ( /494A51E2 SM0805_Opendous C10 1u0
+  ( 1 N-000057 )
+  ( 2 GND )
+ )
+ ( /494A5461 SM0805_Opendous C11 0u1
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /494A4EA2 SM0805_Opendous C12 u01
+  ( 1 /AREF )
+  ( 2 GND )
+ )
+ ( /4A714C1D SM0805_Opendous C13 10u
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4AD6CD5E SM0805_Opendous C17 10u
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4A89EF10 SM0805_Opendous C21 10u
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /494A53A6 SM0805_Opendous C35 0u1
+  ( 1 /AVCC )
+  ( 2 GND )
+ )
+ ( /494A53A3 SM0805_Opendous C36 0u1
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4B794A59 SM0805_Opendous C37 0u1
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4B7965DD SM0805_Opendous C39 0u1
+  ( 1 VDD33 )
+  ( 2 GND )
+ )
+ ( /4AE2BFBB SM0805_Opendous C41 10u
+  ( 1 /AREF )
+  ( 2 GND )
+ )
+ ( /4B227269 2917_7343-Metric C42 150u
+  ( 1 VBUS_AUX )
+  ( 2 GND )
+ )
+ ( /4B22726A SM0805_Opendous C43 u01
+  ( 1 VBUS_AUX )
+  ( 2 GND )
+ )
+ ( /4B7E552C SM0805_Opendous C44 1u0
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4B7E552A SM0805_Opendous C46 0u1
+  ( 1 VDD33 )
+  ( 2 GND )
+ )
+ ( /4B853668 SM0805_Opendous C48 10u
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4C41619A SM0805_Opendous C49 10u
+  ( 1 VDD33 )
+  ( 2 GND )
+ )
+ ( /4C416199 SM0805_Opendous C50 10u
+  ( 1 VDD33 )
+  ( 2 GND )
+ )
+ ( /4C46B944 SM0805_Opendous C51 0u1
+  ( 1 N-000070 )
+  ( 2 GND )
+ )
+ ( /4C46B03B SM1206_Opendous C52 10u
+  ( 1 VIN )
+  ( 2 GND )
+ )
+ ( /4C46B03C SM0805_Opendous C53 0u1
+  ( 1 VIN )
+  ( 2 GND )
+ )
+ ( /4DD509F9 1210_Opendous C54 22uF
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4C6C8935 SM0805_Opendous C55 0u1
+  ( 1 VDD5 )
+  ( 2 GND )
+ )
+ ( /4C46AF9E SOD123 D1 PMEG
+  ( 1 VIN )
+  ( 2 N-000037 )
+ )
+ ( /4CB87613 SM0805_Opendous D2 LED
+  ( 1 GND )
+  ( 2 N-000033 )
+ )
+ ( /4C46B014 SM1206_Opendous F1 PolyFuse
+  ( 1 N-000040 )
+  ( 2 VBUS )
+ )
+ ( /494A3BCE QFP64_0.8mmPitch_AT90USB1287 IC1 AT90USB1287-AU
+  ( 1 /PE6 )
+  ( 2 /PE7 )
+  ( 3 VDD5 )
+  ( 4 /D- )
+  ( 5 /D+ )
+  ( 6 GND )
+  ( 7 N-000057 )
+  ( 8 VBUS )
+  ( 9 /PE3 )
+  ( 10 /PB0 )
+  ( 11 /PB1 )
+  ( 12 /PB2 )
+  ( 13 /PB3 )
+  ( 14 /PB4 )
+  ( 15 /PB5 )
+  ( 16 /PB6 )
+  ( 17 /PB7 )
+  ( 18 /PE4 )
+  ( 19 /PE5 )
+  ( 20 /RST )
+  ( 21 VDD5 )
+  ( 22 GND )
+  ( 23 N-000051 )
+  ( 24 N-000068 )
+  ( 25 /PD0 )
+  ( 26 /PD1 )
+  ( 27 /PD2 )
+  ( 28 /PD3 )
+  ( 29 /PD4 )
+  ( 30 /PD5 )
+  ( 31 /PD6 )
+  ( 32 /PD7 )
+  ( 33 /PE0 )
+  ( 34 /PE1 )
+  ( 35 /PC0 )
+  ( 36 /PC1 )
+  ( 37 /PC2 )
+  ( 38 /PC3 )
+  ( 39 /PC4 )
+  ( 40 /PC5 )
+  ( 41 /PC6 )
+  ( 42 /PC7 )
+  ( 43 /PE2 )
+  ( 44 /PA7 )
+  ( 45 /PA6 )
+  ( 46 /PA5 )
+  ( 47 /PA4 )
+  ( 48 /PA3 )
+  ( 49 /PA2 )
+  ( 50 /PA1 )
+  ( 51 /PA0 )
+  ( 52 VDD5 )
+  ( 53 GND )
+  ( 54 /PF7 )
+  ( 55 /PF6 )
+  ( 56 /PF5 )
+  ( 57 /PF4 )
+  ( 58 /PF3 )
+  ( 59 /PF2 )
+  ( 60 /PF1 )
+  ( 61 /PF0 )
+  ( 62 /AREF )
+  ( 63 GND )
+  ( 64 /AVCC )
+  ( 65 ? )
+ )
+ ( /4CB7B88D MSOP10-0.5mmPitch_Opendous IC3 FSUSB30
+  ( 1 /FSUSB_S )
+  ( 2 /1DP )
+  ( 3 /2DP )
+  ( 4 /DP )
+  ( 5 GNDPWR )
+  ( 6 /DN )
+  ( 7 /2DN )
+  ( 8 /1DN )
+  ( 9 N-000061 )
+  ( 10 N-000102 )
+ )
+ ( /4AE00D2B TSSOP20_PW IC4 74AHC573
+  ( 1 GND )
+  ( 2 /PA0 )
+  ( 3 /PA1 )
+  ( 4 /PA2 )
+  ( 5 /PA3 )
+  ( 6 /PA4 )
+  ( 7 /PA5 )
+  ( 8 /PA6 )
+  ( 9 /PA7 )
+  ( 10 GND )
+  ( 11 /PE2 )
+  ( 12 /ADDRESS7 )
+  ( 13 /ADDRESS6 )
+  ( 14 /ADDRESS5 )
+  ( 15 /ADDRESS4 )
+  ( 16 /ADDRESS3 )
+  ( 17 /ADDRESS2 )
+  ( 18 /ADDRESS1 )
+  ( 19 /ADDRESS0 )
+  ( 20 VDD5 )
+ )
+ ( /4DAEE6FE SOJ32_300mil IC5 IS61C1024AL-12JLI
+  ( 1 ? )
+  ( 2 /PE5 )
+  ( 3 /PC7 )
+  ( 4 /PC6 )
+  ( 5 /ADDRESS0 )
+  ( 6 /ADDRESS1 )
+  ( 7 /ADDRESS2 )
+  ( 8 /ADDRESS3 )
+  ( 9 /ADDRESS4 )
+  ( 10 /ADDRESS5 )
+  ( 11 /ADDRESS6 )
+  ( 12 /ADDRESS7 )
+  ( 13 /PA3 )
+  ( 14 /PA5 )
+  ( 15 /PA7 )
+  ( 16 GND )
+  ( 17 /PA6 )
+  ( 18 /PA4 )
+  ( 19 /PA2 )
+  ( 20 /PA1 )
+  ( 21 /PA0 )
+  ( 22 /PE4 )
+  ( 23 /PC0 )
+  ( 24 /PE1 )
+  ( 25 /PC1 )
+  ( 26 /PC2 )
+  ( 27 /PC3 )
+  ( 28 /PC4 )
+  ( 29 /PE0 )
+  ( 30 VDD5 )
+  ( 31 /PC5 )
+  ( 32 VDD5 )
+ )
+ ( /4B81D4FC TSSOP20_PW IC6 TXB0108
+  ( 1 /PB7_3.3V )
+  ( 2 VDD33 )
+  ( 3 /PB6_3.3V )
+  ( 4 /PB5_3.3V )
+  ( 5 /PB4_3.3V )
+  ( 6 /PB3_SPI-MISO_3.3V )
+  ( 7 /PB2_SPI-MOSI_3.3V )
+  ( 8 /PB1_SPI-SCK_3.3V )
+  ( 9 /PB0_SPI-SS_3.3V )
+  ( 10 /PE3 )
+  ( 11 GND )
+  ( 12 /PB0 )
+  ( 13 /PB1 )
+  ( 14 /PB2 )
+  ( 15 /PB3 )
+  ( 16 /PB4 )
+  ( 17 /PB5 )
+  ( 18 /PB6 )
+  ( 19 VDD5 )
+  ( 20 /PB7 )
+ )
+ ( /4DAED697 SOT89-5_Opendous IC7 REG3V3
+  ( 1 VDD5 )
+  ( 2 GND )
+  ( 3 ? )
+  ( 4 VDD5 )
+  ( 5 VDD33 )
+ )
+ ( /4DB27896 SOT23-5_Opendous IC9 AP2151
+  ( 1 VBUS_AUX )
+  ( 2 GND )
+  ( 3 /PE6 )
+  ( 4 /FSUSB_S )
+  ( 5 VDD5 )
+ )
+ ( /4C46B4C2 MSOP8_DGK IC10 LM358
+  ( 1 N-000039 )
+  ( 2 VDD33 )
+  ( 3 N-000070 )
+  ( 4 GND )
+  ( 5 GND )
+  ( 6 GND )
+  ( 7 ? )
+  ( 8 VDD5 )
+ )
+ ( /4DD50944 SOT223_Opendous IC11 MIC39100-5.0WS
+  ( 1 VIN )
+  ( 2 GNDPWR )
+  ( 3 VDD5 )
+  ( 4 GNDPWR )
+ )
+ ( /4C4694FF Power_Plug_PJ102A J1 DC_POWER_JACK
+  ( 1 N-000037 )
+  ( 2 GND )
+  ( 3 GND )
+ )
+ ( /4DAECE19 SM0805_Opendous L1 FB
+  ( 1 VDD33 )
+  ( 2 VDD33 )
+ )
+ ( /4DDA6910 0805_Opendous L2 FB
+  ( 1 GND )
+  ( 2 GNDPWR )
+ )
+ ( /494A537A SM0805_Opendous L3 FB
+  ( 1 VDD5 )
+  ( 2 /AVCC )
+ )
+ ( /4DAECEFE 1Pin_SMT Mask1 VIA
+  ( 1 ? )
+ )
+ ( /4C46B589 SOT23-3_Opendous Q1 FDN304
+  ( 1 N-000039 )
+  ( 2 VDD5 )
+  ( 3 N-000040 )
+ )
+ ( /4DD49704 0603_Opendous R1 100
+  ( 1 N-000102 )
+  ( 2 VDD33 )
+ )
+ ( /494A52C6 0603_Opendous R8 47k
+  ( 1 /PE2 )
+  ( 2 VDD5 )
+ )
+ ( /4A89BA84 0603_Opendous R9 10k
+  ( 1 N-000061 )
+  ( 2 GND )
+ )
+ ( /4AE01F89 0603_Opendous R11 10k
+  ( 1 GND )
+  ( 2 /PE3 )
+ )
+ ( /494A512F SM0805_Opendous R12 22
+  ( 1 /D- )
+  ( 2 /DN )
+ )
+ ( /494A5137 SM0805_Opendous R13 22
+  ( 1 /D+ )
+  ( 2 /DP )
+ )
+ ( /494A5258 0603_Opendous R14 47k
+  ( 1 /RST )
+  ( 2 VDD5 )
+ )
+ ( /4B2272B0 0603_Opendous R40 10k
+  ( 1 VDD5 )
+  ( 2 /PE6 )
+ )
+ ( /4C09C288 0603_Opendous R41 10k
+  ( 1 /FSUSB_S )
+  ( 2 GND )
+ )
+ ( /4CB7B80E SM0805_Opendous R42 5k1
+  ( 1 /PE7 )
+  ( 2 /FSUSB_S )
+ )
+ ( /4C46B8CC 0603_Opendous R43 10k
+  ( 1 N-000070 )
+  ( 2 VIN )
+ )
+ ( /4C46B8E5 0603_Opendous R44 10k
+  ( 1 GND )
+  ( 2 N-000070 )
+ )
+ ( /4CB8760A SM0805_Opendous R45 1k
+  ( 1 N-000033 )
+  ( 2 /PB1 )
+ )
+ ( /494A525F Switch_SMT_TH_EVQ_TL59_Minimized SW1 RESET
+  ( 1 /RST )
+  ( 2 GND )
+ )
+ ( /494A52C7 Switch_SMT_TH_EVQ_TL59_Minimized SW2 HWB
+  ( 1 /PE2 )
+  ( 2 GND )
+ )
+ ( /4A89BAAE 1Pin_TH_40milVia TP1 CONN_1
+  ( 1 N-000061 )
+ )
+ ( /4C6DB763 1Pin_25mil_VIA TP2 PE6
+  ( 1 /PE6 )
+ )
+ ( /4C469E3D CONN_USB_B U1 USB-B
+  ( 1 VBUS )
+  ( 2 /1DN )
+  ( 3 /1DP )
+  ( 4 GND )
+  ( 5 GNDPWR )
+ )
+ ( /4A713FC5 CONN_USB-A-RA-Vertical_FCI_73725 U2 USB-A
+  ( 1 VBUS_AUX )
+  ( 2 /2DN )
+  ( 3 /2DP )
+  ( 4 GND )
+  ( 5 GNDPWR )
+ )
+ ( /4B739B9C Memory_Card_microSD_DM3D-SF U3 microSD
+  ( 1 ? )
+  ( 2 /PB0_SPI-SS_3.3V )
+  ( 3 /PB2_SPI-MOSI_3.3V )
+  ( 4 VDD33 )
+  ( 5 /PB1_SPI-SCK_3.3V )
+  ( 6 GND )
+  ( 7 /PB3_SPI-MISO_3.3V )
+  ( 8 ? )
+  ( 9 GNDPWR )
+  ( 10 ? )
+ )
+ ( /494E15BF Pin_Array_Port_5x2_Opendous U4 JTAG
+  ( 1 /PF4 )
+  ( 2 GND )
+  ( 3 /PF6 )
+  ( 4 VDD5 )
+  ( 5 /PF5 )
+  ( 6 /RST )
+  ( 7 VDD5 )
+  ( 8 ? )
+  ( 9 /PF7 )
+  ( 10 GND )
+ )
+ ( /4CF19A5D ARDUINO_PINOUT_MICROPENDOUS U5 ARDUINO_PINOUT_MICROPENDOUS
+  ( 1 /PD2 )
+  ( 2 /PD3 )
+  ( 3 /PD4 )
+  ( 4 /PD5 )
+  ( 5 /PD1 )
+  ( 6 /PD0 )
+  ( 7 /PD6 )
+  ( 8 /PD7 )
+  ( 9 /PB4 )
+  ( 10 /PB5 )
+  ( 11 /PB0 )
+  ( 12 /PB2 )
+  ( 13 /PB3 )
+  ( 14 /PB1 )
+  ( 15 GND )
+  ( 16 /AREF )
+  ( 17 /PF5 )
+  ( 18 /PF4 )
+  ( 19 /PF3 )
+  ( 20 /PF2 )
+  ( 21 /PF1 )
+  ( 22 /PF0 )
+  ( 23 VIN )
+  ( 24 GND )
+  ( 25 GND )
+  ( 26 VDD5 )
+  ( 27 VDD33 )
+  ( 28 /RST )
+ )
+ ( /4C459684 Pin_Array_Port_5x2_Opendous U6 PORTB_3V3
+  ( 1 /PB0_SPI-SS_3.3V )
+  ( 2 /PB1_SPI-SCK_3.3V )
+  ( 3 /PB2_SPI-MOSI_3.3V )
+  ( 4 /PB3_SPI-MISO_3.3V )
+  ( 5 /PB4_3.3V )
+  ( 6 /PB5_3.3V )
+  ( 7 /PB6_3.3V )
+  ( 8 /PB7_3.3V )
+  ( 9 GND )
+  ( 10 VDD33 )
+ )
+ ( /4C459683 Pin_Array_Port_5x2_Opendous U7 PORTB
+  ( 1 /PB0 )
+  ( 2 /PB1 )
+  ( 3 /PB2 )
+  ( 4 /PB3 )
+  ( 5 /PB4 )
+  ( 6 /PB5 )
+  ( 7 /PB6 )
+  ( 8 /PB7 )
+  ( 9 GND )
+  ( 10 VDD5 )
+ )
+ ( /4C47F00F Pin_Array_Port_5x2_Opendous U8 PORTD
+  ( 1 /PD0 )
+  ( 2 /PD1 )
+  ( 3 /PD2 )
+  ( 4 /PD3 )
+  ( 5 /PD4 )
+  ( 6 /PD5 )
+  ( 7 /PD6 )
+  ( 8 /PD7 )
+  ( 9 GND )
+  ( 10 VDD5 )
+ )
+ ( /4DAFD536 CONN_x1_StraddleMount U9 Opennect-Controller-MCU_5V-PWR_5W
+  ( A1 GND )
+  ( A2 VIN )
+  ( A3 VIN )
+  ( A4 GND )
+  ( A5 /PB1 )
+  ( A6 /PB3 )
+  ( A7 /PB2 )
+  ( A8 /PD6 )
+  ( A9 /PD7 )
+  ( A10 GND )
+  ( A11 GND )
+  ( A12 GND )
+  ( A13 /PF7 )
+  ( A14 /PB4 )
+  ( A15 GND )
+  ( A16 /PF4 )
+  ( A17 /PD5 )
+  ( A18 GND )
+  ( B1 GND )
+  ( B2 VDD33 )
+  ( B3 VDD5 )
+  ( B4 GND )
+  ( B5 /PD0 )
+  ( B6 /PD1 )
+  ( B7 /PD4 )
+  ( B8 /PD1 )
+  ( B9 /PD2 )
+  ( B10 /PD3 )
+  ( B11 GND )
+  ( B12 GND )
+  ( B13 GND )
+  ( B14 /PF6 )
+  ( B15 /PF5 )
+  ( B16 GND )
+  ( B17 VDD5 )
+  ( B18 GND )
+ )
+ ( /4E9EF744 CONN_USB_microAB_ZX62-AB-5PA-11 U10 USB-microB
+  ( 1 VBUS )
+  ( 2 /1DN )
+  ( 3 /1DP )
+  ( 4 GND )
+  ( 5 GNDPWR )
+  ( 6 ? )
+ )
+ ( /4DAEF0B6 1Pin_20mil_VIA V1 VIA
+  ( 1 GND )
+ )
+ ( /4DAFF4BB 1Pin_20mil_VIA V2 VIA
+  ( 1 /PF5 )
+ )
+ ( /4A8A2142 1Pin_20mil_VIA V3 VIA
+  ( 1 GND )
+ )
+ ( /4DAFF4BC 1Pin_20mil_VIA V4 VIA
+  ( 1 /PF5 )
+ )
+ ( /4DAFF4BA 1Pin_20mil_VIA V5 VIA
+  ( 1 /PF5 )
+ )
+ ( /4A8A214F 1Pin_20mil_VIA V6 VIA
+  ( 1 GND )
+ )
+ ( /4DAFF4B8 1Pin_20mil_VIA V7 VIA
+  ( 1 /PD3 )
+ )
+ ( /4DAFF4B7 1Pin_20mil_VIA V8 VIA
+  ( 1 /PD6 )
+ )
+ ( /4DAFF4B6 1Pin_20mil_VIA V9 VIA
+  ( 1 /PD4 )
+ )
+ ( /4DAFF4B4 1Pin_20mil_VIA V10 VIA
+  ( 1 /PD4 )
+ )
+ ( /4A8A2171 1Pin_20mil_VIA V11 VIA
+  ( 1 GND )
+ )
+ ( /4A8A2170 1Pin_20mil_VIA V12 VIA
+  ( 1 GND )
+ )
+ ( /4DAFF4B5 1Pin_20mil_VIA V13 VIA
+  ( 1 /PD7 )
+ )
+ ( /4A8A2176 1Pin_20mil_VIA V14 VIA
+  ( 1 GND )
+ )
+ ( /4A8A2175 1Pin_20mil_VIA V15 VIA
+  ( 1 GND )
+ )
+ ( /4A8A2174 1Pin_20mil_VIA V16 VIA
+  ( 1 GND )
+ )
+ ( /4DAFFEA8 1Pin_20mil_VIA V17 VIA
+  ( 1 /PD6 )
+ )
+ ( /4DAFFEA7 1Pin_20mil_VIA V18 VIA
+  ( 1 /PD2 )
+ )
+ ( /4A8A444A 1Pin_20mil_VIA V19 VIA
+  ( 1 GND )
+ )
+ ( /4DAFFEA9 1Pin_20mil_VIA V20 VIA
+  ( 1 /PD1 )
+ )
+ ( /4DAFFEAA 1Pin_20mil_VIA V21 VIA
+  ( 1 /PB4 )
+ )
+ ( /4A8A444F 1Pin_20mil_VIA V22 VIA
+  ( 1 VDD5 )
+ )
+ ( /4A8A444E 1Pin_20mil_VIA V23 VIA
+  ( 1 VDD5 )
+ )
+ ( /4A8A444D 1Pin_20mil_VIA V24 VIA
+  ( 1 VDD5 )
+ )
+ ( /4DAFFEAB 1Pin_20mil_VIA V25 VIA
+  ( 1 VDD33 )
+ )
+ ( /4A8A57C2 1Pin_20mil_VIA V26 VIA
+  ( 1 GND )
+ )
+ ( /4A8A57C1 1Pin_20mil_VIA V27 VIA
+  ( 1 GND )
+ )
+ ( /4A8A57C0 1Pin_20mil_VIA V28 VIA
+  ( 1 GND )
+ )
+ ( /4A8A57C6 1Pin_20mil_VIA V29 VIA
+  ( 1 GND )
+ )
+ ( /4A8A57C5 1Pin_20mil_VIA V30 VIA
+  ( 1 GND )
+ )
+ ( /4DAFFEAC 1Pin_20mil_VIA V31 VIA
+  ( 1 VDD33 )
+ )
+ ( /4DAFFEAE 1Pin_20mil_VIA V32 VIA
+  ( 1 /PE4 )
+ )
+ ( /4DAFFEAD 1Pin_20mil_VIA V33 VIA
+  ( 1 /PE4 )
+ )
+ ( /4A8A5EED 1Pin_20mil_VIA V34 VIA
+  ( 1 GND )
+ )
+ ( /4A8A5EEC 1Pin_20mil_VIA V35 VIA
+  ( 1 GND )
+ )
+ ( /4A8A5EEB 1Pin_20mil_VIA V36 VIA
+  ( 1 /PB3_SPI-MISO_3.3V )
+ )
+ ( /4A8A5EF1 1Pin_20mil_VIA V37 VIA
+  ( 1 VDD33 )
+ )
+ ( /4A8A5EF0 1Pin_20mil_VIA V38 VIA
+  ( 1 GND )
+ )
+ ( /4A8A5EF5 1Pin_20mil_VIA V39 VIA
+  ( 1 GND )
+ )
+ ( /4A8A5EF4 1Pin_20mil_VIA V40 VIA
+  ( 1 GND )
+ )
+ ( /4DB01D68 1Pin_20mil_VIA V41 VIA
+  ( 1 /PB1 )
+ )
+ ( /4A8A5EFA 1Pin_20mil_VIA V42 VIA
+  ( 1 VDD5 )
+ )
+ ( /4DB01D69 1Pin_20mil_VIA V43 VIA
+  ( 1 /PB2 )
+ )
+ ( /4DB01D67 1Pin_20mil_VIA V44 VIA
+  ( 1 /PB3 )
+ )
+ ( /4A8A5EFE 1Pin_20mil_VIA V45 VIA
+  ( 1 VDD5 )
+ )
+ ( /4A8A5EFD 1Pin_20mil_VIA V46 VIA
+  ( 1 VDD5 )
+ )
+ ( /4DB01D66 1Pin_20mil_VIA V47 VIA
+  ( 1 /PF6 )
+ )
+ ( /4DB01D65 1Pin_20mil_VIA V48 VIA
+  ( 1 /PB1 )
+ )
+ ( /4DB01D64 1Pin_20mil_VIA V49 VIA
+  ( 1 /PB2 )
+ )
+ ( /4DB01D62 1Pin_20mil_VIA V50 VIA
+  ( 1 /PB3 )
+ )
+ ( /4A8AE5FF 1Pin_20mil_VIA V51 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A8AE5FE 1Pin_20mil_VIA V52 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A8AE605 1Pin_20mil_VIA V53 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A8AE604 1Pin_20mil_VIA V54 VIA
+  ( 1 VDD5 )
+ )
+ ( /4A8AE603 1Pin_20mil_VIA V55 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4A8AE602 1Pin_20mil_VIA V56 VIA
+  ( 1 /PB3_SPI-MISO_3.3V )
+ )
+ ( /4AE19ABF 1Pin_20mil_VIA V57 VIA
+  ( 1 GND )
+ )
+ ( /4DB01D63 1Pin_20mil_VIA V58 VIA
+  ( 1 /PF6 )
+ )
+ ( /4AE19ABD 1Pin_20mil_VIA V59 VIA
+  ( 1 GND )
+ )
+ ( /4AE19ABC 1Pin_20mil_VIA V60 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AC3 1Pin_20mil_VIA V61 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AC2 1Pin_20mil_VIA V62 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AC1 1Pin_20mil_VIA V63 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AC0 1Pin_20mil_VIA V64 VIA
+  ( 1 GND )
+ )
+ ( /4AE19ADA 1Pin_20mil_VIA V65 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AD9 1Pin_20mil_VIA V66 VIA
+  ( 1 VDD5 )
+ )
+ ( /4DB02880 1Pin_20mil_VIA V67 VIA
+  ( 1 /PD7 )
+ )
+ ( /4AE19AD7 1Pin_20mil_VIA V68 VIA
+  ( 1 GND )
+ )
+ ( /4DB0287F 1Pin_20mil_VIA V69 VIA
+  ( 1 /PD6 )
+ )
+ ( /4DB02881 1Pin_20mil_VIA V70 VIA
+  ( 1 /PF7 )
+ )
+ ( /4DB02882 1Pin_20mil_VIA V71 VIA
+  ( 1 /PF7 )
+ )
+ ( /4DB02883 1Pin_20mil_VIA V72 VIA
+  ( 1 /PB4 )
+ )
+ ( /4DB02884 1Pin_20mil_VIA V73 VIA
+  ( 1 /PB4 )
+ )
+ ( /4DB02886 1Pin_20mil_VIA V74 VIA
+  ( 1 /PD2 )
+ )
+ ( /4DB02885 1Pin_20mil_VIA V75 VIA
+  ( 1 /PD7 )
+ )
+ ( /4DB1DC24 1Pin_20mil_VIA V76 VIA
+  ( 1 GND )
+ )
+ ( /4DB1DC25 1Pin_20mil_VIA V77 VIA
+  ( 1 GND )
+ )
+ ( /4DD49597 1Pin_20mil_VIA V78 VIA
+  ( 1 GND )
+ )
+ ( /4DD4959E 1Pin_20mil_VIA V79 VIA
+  ( 1 GND )
+ )
+ ( /4DD4959C 1Pin_20mil_VIA V80 VIA
+  ( 1 GND )
+ )
+ ( /4DD4959D 1Pin_20mil_VIA V81 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AE9 1Pin_20mil_VIA V82 VIA
+  ( 1 /PA1 )
+ )
+ ( /4AE19AE8 1Pin_20mil_VIA V83 VIA
+  ( 1 /PA2 )
+ )
+ ( /4DD4959F 1Pin_20mil_VIA V84 VIA
+  ( 1 /PE3 )
+ )
+ ( /4DD49599 1Pin_20mil_VIA V85 VIA
+  ( 1 GND )
+ )
+ ( /4AE19AED 1Pin_20mil_VIA V86 VIA
+  ( 1 /PA5 )
+ )
+ ( /4AE19AEC 1Pin_20mil_VIA V87 VIA
+  ( 1 /PA6 )
+ )
+ ( /4DD4959A 1Pin_20mil_VIA V88 VIA
+  ( 1 GND )
+ )
+ ( /4DD4959B 1Pin_20mil_VIA V89 VIA
+  ( 1 GND )
+ )
+ ( /4AE2952E 1Pin_20mil_VIA V90 VIA
+  ( 1 /PF5 )
+ )
+ ( /4DD50C94 1Pin_20mil_VIA V91 VIA
+  ( 1 GND )
+ )
+ ( /4DD50C8D 1Pin_20mil_VIA V92 VIA
+  ( 1 GND )
+ )
+ ( /4DD50C8E 1Pin_20mil_VIA V93 VIA
+  ( 1 GND )
+ )
+ ( /4DD514F0 1Pin_20mil_VIA V94 VIA
+  ( 1 GND )
+ )
+ ( /4DD514F3 1Pin_20mil_VIA V95 VIA
+  ( 1 GND )
+ )
+ ( /4DD514F5 1Pin_20mil_VIA V96 VIA
+  ( 1 GND )
+ )
+ ( /4DD514D2 1Pin_20mil_VIA V97 VIA
+  ( 1 GND )
+ )
+ ( /4DD514D8 1Pin_20mil_VIA V98 VIA
+  ( 1 GND )
+ )
+ ( /4AE29784 1Pin_20mil_VIA V99 VIA
+  ( 1 GND )
+ )
+ ( /4DD514C6 1Pin_20mil_VIA V100 VIA
+  ( 1 GND )
+ )
+ ( /4AE2978A 1Pin_20mil_VIA V101 VIA
+  ( 1 GND )
+ )
+ ( /4DDA6FF5 1Pin_20mil_VIA V102 VIA
+  ( 1 GND )
+ )
+ ( /4AE29788 1Pin_20mil_VIA V103 VIA
+  ( 1 /FSUSB_S )
+ )
+ ( /4AE29787 1Pin_20mil_VIA V104 VIA
+  ( 1 /PE6 )
+ )
+ ( /4E9F0B3A 1Pin_20mil_VIA V105 VIA
+  ( 1 GND )
+ )
+ ( /4AE29790 1Pin_20mil_VIA V111 VIA
+  ( 1 GND )
+ )
+ ( /4AE2A145 1Pin_20mil_VIA V114 VIA
+  ( 1 /PA1 )
+ )
+ ( /4AE2A256 1Pin_20mil_VIA V121 VIA
+  ( 1 /PA0 )
+ )
+ ( /4AE2A253 1Pin_20mil_VIA V124 VIA
+  ( 1 /PA3 )
+ )
+ ( /4AE2A25A 1Pin_20mil_VIA V125 VIA
+  ( 1 /PA4 )
+ )
+ ( /4AE2A257 1Pin_20mil_VIA V128 VIA
+  ( 1 /PA7 )
+ )
+ ( /4AE2A25F 1Pin_20mil_VIA V136 VIA
+  ( 1 /PB7 )
+ )
+ ( /4AE2C28A 1Pin_20mil_VIA V149 VIA
+  ( 1 /PE0 )
+ )
+ ( /4AE2C587 1Pin_20mil_VIA V153 VIA
+  ( 1 /FSUSB_S )
+ )
+ ( /4AE2C586 1Pin_20mil_VIA V154 VIA
+  ( 1 /RST )
+ )
+ ( /4AE2C585 1Pin_20mil_VIA V155 VIA
+  ( 1 /RST )
+ )
+ ( /4AE2C584 1Pin_20mil_VIA V156 VIA
+  ( 1 /PE3 )
+ )
+ ( /4AE2C58B 1Pin_20mil_VIA V157 VIA
+  ( 1 VBUS )
+ )
+ ( /4AE2C588 1Pin_20mil_VIA V160 VIA
+  ( 1 VBUS )
+ )
+ ( /4AE2D6B1 1Pin_20mil_VIA V168 VIA
+  ( 1 GND )
+ )
+ ( /4AE3FC0B 1Pin_20mil_VIA V174 VIA
+  ( 1 /PE2 )
+ )
+ ( /4AE3FC0A 1Pin_20mil_VIA V175 VIA
+  ( 1 GND )
+ )
+ ( /4AE410D9 1Pin_20mil_VIA V183 VIA
+  ( 1 GND )
+ )
+ ( /4AE412C9 1Pin_20mil_VIA V185 VIA
+  ( 1 GND )
+ )
+ ( /4AE41592 1Pin_20mil_VIA V187 VIA
+  ( 1 GND )
+ )
+ ( /4AE41591 1Pin_20mil_VIA V188 VIA
+  ( 1 GND )
+ )
+ ( /4AE41593 1Pin_20mil_VIA V189 VIA
+  ( 1 GND )
+ )
+ ( /4AE412CB 1Pin_20mil_VIA V190 VIA
+  ( 1 GND )
+ )
+ ( /4B7E46C3 1Pin_20mil_VIA V195 VIA
+  ( 1 /PF4 )
+ )
+ ( /4B7E46C2 1Pin_20mil_VIA V196 VIA
+  ( 1 GND )
+ )
+ ( /4B7E46C1 1Pin_20mil_VIA V197 VIA
+  ( 1 GND )
+ )
+ ( /4B7E46C0 1Pin_20mil_VIA V198 VIA
+  ( 1 /PF4 )
+ )
+ ( /4B7E46CA 1Pin_20mil_VIA V204 VIA
+  ( 1 /PE4 )
+ )
+ ( /4B7E46CF 1Pin_20mil_VIA V207 VIA
+  ( 1 /PE4 )
+ )
+ ( /4B7E8764 1Pin_20mil_VIA V219 VIA
+  ( 1 /PA0 )
+ )
+ ( /4B7E8761 1Pin_20mil_VIA V222 VIA
+  ( 1 /PA3 )
+ )
+ ( /4B7E8768 1Pin_20mil_VIA V223 VIA
+  ( 1 /PA4 )
+ )
+ ( /4B7E8767 1Pin_20mil_VIA V224 VIA
+  ( 1 /PA5 )
+ )
+ ( /4B7E8766 1Pin_20mil_VIA V225 VIA
+  ( 1 /PA6 )
+ )
+ ( /4B7E8765 1Pin_20mil_VIA V226 VIA
+  ( 1 /PA7 )
+ )
+ ( /4B81570D 1Pin_20mil_VIA V231 VIA
+  ( 1 GND )
+ )
+ ( /4B81570C 1Pin_20mil_VIA V232 VIA
+  ( 1 GND )
+ )
+ ( /4B81C9C7 1Pin_20mil_VIA V235 VIA
+  ( 1 /PD0 )
+ )
+ ( /4B81C9C6 1Pin_20mil_VIA V236 VIA
+  ( 1 /PD1 )
+ )
+ ( /4B81C9C5 1Pin_20mil_VIA V237 VIA
+  ( 1 /PD2 )
+ )
+ ( /4B81C9C4 1Pin_20mil_VIA V238 VIA
+  ( 1 /PD3 )
+ )
+ ( /4B81C9CB 1Pin_20mil_VIA V239 VIA
+  ( 1 /PD4 )
+ )
+ ( /4B81C9CA 1Pin_20mil_VIA V240 VIA
+  ( 1 /PD5 )
+ )
+ ( /4B81C9C9 1Pin_20mil_VIA V241 VIA
+  ( 1 /PD6 )
+ )
+ ( /4B81C9C8 1Pin_20mil_VIA V242 VIA
+  ( 1 /PD7 )
+ )
+ ( /4B827DA8 1Pin_20mil_VIA V243 VIA
+  ( 1 GND )
+ )
+ ( /4B827DA5 1Pin_20mil_VIA V246 VIA
+  ( 1 GND )
+ )
+ ( /4B827DAB 1Pin_20mil_VIA V248 VIA
+  ( 1 GND )
+ )
+ ( /4B853F71 1Pin_20mil_VIA V252 VIA
+  ( 1 GND )
+ )
+ ( /4B853F70 1Pin_20mil_VIA V253 VIA
+  ( 1 GND )
+ )
+ ( /4B854047 1Pin_20mil_VIA V254 VIA
+  ( 1 GND )
+ )
+ ( /4B854048 1Pin_20mil_VIA V255 VIA
+  ( 1 GND )
+ )
+ ( /4B854045 1Pin_20mil_VIA V256 VIA
+  ( 1 GND )
+ )
+ ( /4B85404A 1Pin_20mil_VIA V257 VIA
+  ( 1 GND )
+ )
+ ( /4B854049 1Pin_20mil_VIA V258 VIA
+  ( 1 GND )
+ )
+ ( /4B8541F7 1Pin_20mil_VIA V259 VIA
+  ( 1 GND )
+ )
+ ( /4B8541F8 1Pin_20mil_VIA V260 VIA
+  ( 1 GND )
+ )
+ ( /4B8541F5 1Pin_20mil_VIA V261 VIA
+  ( 1 GND )
+ )
+ ( /4C41670F 1Pin_20mil_VIA V262 VIA
+  ( 1 /PE3 )
+ )
+ ( /4C43E719 1Pin_20mil_VIA V263 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C43E906 1Pin_20mil_VIA V264 VIA
+  ( 1 GND )
+ )
+ ( /4C443C89 1Pin_20mil_VIA V265 VIA
+  ( 1 /PA2 )
+ )
+ ( /4C443C88 1Pin_20mil_VIA V266 VIA
+  ( 1 /PF4 )
+ )
+ ( /4C443C7E 1Pin_20mil_VIA V268 VIA
+  ( 1 /PF7 )
+ )
+ ( /4C443C7C 1Pin_20mil_VIA V269 VIA
+  ( 1 /PF7 )
+ )
+ ( /4C443C78 1Pin_20mil_VIA V271 VIA
+  ( 1 /PF0 )
+ )
+ ( /4C443C7B 1Pin_20mil_VIA V272 VIA
+  ( 1 /PF1 )
+ )
+ ( /4C443C76 1Pin_20mil_VIA V273 VIA
+  ( 1 /PF2 )
+ )
+ ( /4C443C77 1Pin_20mil_VIA V274 VIA
+  ( 1 /PF3 )
+ )
+ ( /4C443C8E 1Pin_20mil_VIA V276 VIA
+  ( 1 /PE0 )
+ )
+ ( /4C443C90 1Pin_20mil_VIA V277 VIA
+  ( 1 /PE5 )
+ )
+ ( /4C443C92 1Pin_20mil_VIA V278 VIA
+  ( 1 /PE5 )
+ )
+ ( /4C443C93 1Pin_20mil_VIA V279 VIA
+  ( 1 /PE5 )
+ )
+ ( /4C443C91 1Pin_20mil_VIA V280 VIA
+  ( 1 /PE5 )
+ )
+ ( /4C443C95 1Pin_20mil_VIA V281 VIA
+  ( 1 VDD33 )
+ )
+ ( /4C443C94 1Pin_20mil_VIA V282 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C443C9F 1Pin_20mil_VIA V283 VIA
+  ( 1 /PB0 )
+ )
+ ( /4C443C9E 1Pin_20mil_VIA V284 VIA
+  ( 1 /PB1 )
+ )
+ ( /4C443CA0 1Pin_20mil_VIA V285 VIA
+  ( 1 /PB2 )
+ )
+ ( /4C443CA2 1Pin_20mil_VIA V286 VIA
+  ( 1 /PB3 )
+ )
+ ( /4C443CA3 1Pin_20mil_VIA V287 VIA
+  ( 1 /PB4 )
+ )
+ ( /4C443CA1 1Pin_20mil_VIA V288 VIA
+  ( 1 /PB5 )
+ )
+ ( /4C443CA5 1Pin_20mil_VIA V289 VIA
+  ( 1 GND )
+ )
+ ( /4C443CA4 1Pin_20mil_VIA V290 VIA
+  ( 1 GND )
+ )
+ ( /4C443C9C 1Pin_20mil_VIA V291 VIA
+  ( 1 /PB0 )
+ )
+ ( /4C443C9D 1Pin_20mil_VIA V292 VIA
+  ( 1 /PB1 )
+ )
+ ( /4C443C9B 1Pin_20mil_VIA V293 VIA
+  ( 1 /PB2 )
+ )
+ ( /4C443C99 1Pin_20mil_VIA V294 VIA
+  ( 1 /PB3 )
+ )
+ ( /4C443C98 1Pin_20mil_VIA V295 VIA
+  ( 1 GND )
+ )
+ ( /4C443C9A 1Pin_20mil_VIA V296 VIA
+  ( 1 GND )
+ )
+ ( /4C443C96 1Pin_20mil_VIA V297 VIA
+  ( 1 /PB6 )
+ )
+ ( /4C443C97 1Pin_20mil_VIA V298 VIA
+  ( 1 GND )
+ )
+ ( /4C443CBF 1Pin_20mil_VIA V299 VIA
+  ( 1 VIN )
+ )
+ ( /4C443CBE 1Pin_20mil_VIA V300 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C443CC2 1Pin_20mil_VIA V302 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C443CC3 1Pin_20mil_VIA V303 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C443CC1 1Pin_20mil_VIA V304 VIA
+  ( 1 VDD5 )
+ )
+ ( /4C443CC5 1Pin_20mil_VIA V305 VIA
+  ( 1 /PB1_SPI-SCK_3.3V )
+ )
+ ( /4C443CC4 1Pin_20mil_VIA V306 VIA
+  ( 1 GND )
+ )
+ ( /4C443CBC 1Pin_20mil_VIA V307 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4C443CBD 1Pin_20mil_VIA V308 VIA
+  ( 1 GND )
+ )
+ ( /4C443CBB 1Pin_20mil_VIA V309 VIA
+  ( 1 /AREF )
+ )
+ ( /4C443CB9 1Pin_20mil_VIA V310 VIA
+  ( 1 /AREF )
+ )
+ ( /4C443CB8 1Pin_20mil_VIA V311 VIA
+  ( 1 GND )
+ )
+ ( /4C443CBA 1Pin_20mil_VIA V312 VIA
+  ( 1 GND )
+ )
+ ( /4C443CB6 1Pin_20mil_VIA V313 VIA
+  ( 1 /2DN )
+ )
+ ( /4C443CB7 1Pin_20mil_VIA V314 VIA
+  ( 1 GND )
+ )
+ ( /4C443CAC 1Pin_20mil_VIA V315 VIA
+  ( 1 /PB1 )
+ )
+ ( /4C443CAD 1Pin_20mil_VIA V316 VIA
+  ( 1 /PB2 )
+ )
+ ( /4C443CAB 1Pin_20mil_VIA V317 VIA
+  ( 1 GND )
+ )
+ ( /4C443CA9 1Pin_20mil_VIA V318 VIA
+  ( 1 GND )
+ )
+ ( /4C443CA8 1Pin_20mil_VIA V319 VIA
+  ( 1 GND )
+ )
+ ( /4C443CAA 1Pin_20mil_VIA V320 VIA
+  ( 1 GND )
+ )
+ ( /4C443CA6 1Pin_20mil_VIA V321 VIA
+  ( 1 GND )
+ )
+ ( /4C443CA7 1Pin_20mil_VIA V322 VIA
+  ( 1 GND )
+ )
+ ( /4C443CAF 1Pin_20mil_VIA V323 VIA
+  ( 1 /PB1_SPI-SCK_3.3V )
+ )
+ ( /4CA9ACE9 1Pin_20mil_VIA V324 VIA
+  ( 1 GND )
+ )
+ ( /4CA9ACEB 1Pin_20mil_VIA V325 VIA
+  ( 1 GND )
+ )
+ ( /4CA9ACEC 1Pin_20mil_VIA V326 VIA
+  ( 1 GND )
+ )
+ ( /4CA9ACEA 1Pin_20mil_VIA V327 VIA
+  ( 1 GND )
+ )
+ ( /4CB61CAA 1Pin_20mil_VIA V328 VIA
+  ( 1 GND )
+ )
+ ( /4CB61CA8 1Pin_20mil_VIA V329 VIA
+  ( 1 GND )
+ )
+ ( /4CB61CA7 1Pin_20mil_VIA V330 VIA
+  ( 1 GND )
+ )
+ ( /4CB61CA9 1Pin_20mil_VIA V331 VIA
+  ( 1 GND )
+ )
+ ( /4CB621C7 1Pin_25mil_VIA V332 VIA
+  ( 1 VDD5 )
+ )
+ ( /4CB621C6 1Pin_25mil_VIA V333 VIA
+  ( 1 GNDPWR )
+ )
+ ( /4CB87457 1Pin_20mil_VIA V334 VIA
+  ( 1 /PE3 )
+ )
+ ( /4CBC029A 1Pin_20mil_VIA V336 VIA
+  ( 1 /1DP )
+ )
+ ( /4CBC0295 1Pin_20mil_VIA V339 VIA
+  ( 1 VDD33 )
+ )
+ ( /4CBC0289 1Pin_20mil_VIA V340 VIA
+  ( 1 VDD33 )
+ )
+ ( /4CBC0804 1Pin_20mil_VIA V341 VIA
+  ( 1 VDD33 )
+ )
+ ( /4CBC0803 1Pin_20mil_VIA V342 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0B68 1Pin_20mil_VIA V343 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0B69 1Pin_20mil_VIA V344 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0B54 1Pin_20mil_VIA V345 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0F7F 1Pin_20mil_VIA V346 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0F7B 1Pin_20mil_VIA V347 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0F7A 1Pin_20mil_VIA V348 VIA
+  ( 1 GND )
+ )
+ ( /4CBC0F7C 1Pin_20mil_VIA V349 VIA
+  ( 1 GND )
+ )
+ ( /4CBC1316 1Pin_20mil_VIA V350 VIA
+  ( 1 GND )
+ )
+ ( /4CBC1479 1Pin_20mil_VIA V351 VIA
+  ( 1 GND )
+ )
+ ( /4CBC1A0D 1Pin_20mil_VIA V352 VIA
+  ( 1 GND )
+ )
+ ( /4CF5B6F3 1Pin_20mil_VIA V353 VIA
+  ( 1 GND )
+ )
+ ( /4CF5B6F2 1Pin_20mil_VIA V354 VIA
+  ( 1 GND )
+ )
+ ( /4A505F7A HC49-US_Minimized X1 16MHz
+  ( 1 N-000068 )
+  ( 2 N-000051 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component D1
+ D?
+ SO*
+ SM*
+ SLP1006P2
+$endlist
+$component IC7
+ SOT89-5
+ SOT89-5_Opendous
+$endlist
+$component U6
+ Pin_Array_Port_5x2_STK500
+$endlist
+$component U7
+ Pin_Array_Port_5x2_STK500
+$endlist
+$component U8
+ Pin_Array_Port_5x2_STK500
+$endlist
+$endfootprintlist
+}
