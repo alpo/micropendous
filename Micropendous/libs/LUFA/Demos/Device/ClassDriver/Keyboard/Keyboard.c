@@ -1,14 +1,14 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -37,7 +37,7 @@
 #include "Keyboard.h"
 
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
+static uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -57,6 +57,7 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
     };
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -138,8 +139,11 @@ void EVENT_USB_Device_StartOfFrame(void)
  *
  *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
-bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
-                                         const uint8_t ReportType, void* ReportData, uint16_t* const ReportSize)
+bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
+                                         uint8_t* const ReportID,
+                                         const uint8_t ReportType,
+                                         void* ReportData,
+                                         uint16_t* const ReportSize)
 {
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 
@@ -176,7 +180,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
  *  \param[in] ReportID    Report ID of the received report from the host
  *  \param[in] ReportType  The type of report that the host has sent, either HID_REPORT_ITEM_Out or HID_REPORT_ITEM_Feature
- *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
+ *  \param[in] ReportData  Pointer to a buffer where the received report has been stored
  *  \param[in] ReportSize  Size in bytes of the received HID report
  */
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,

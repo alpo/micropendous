@@ -8,7 +8,7 @@
  */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Dave Fletcher (fletch [at] fletchtronics [dot] net)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -46,46 +46,46 @@
 #include "MissileLauncher.h"
 
 /** Launcher first init command report data sequence */
-uint8_t CMD_INITA[8]     = {  85, 83, 66, 67,  0,  0,  4,  0  };
+static const uint8_t CMD_INITA[8]     = {  85, 83, 66, 67,  0,  0,  4,  0  };
 
 /** Launcher second init command report data sequence */
-uint8_t CMD_INITB[8]     = {  85, 83, 66, 67,  0, 64,  2,  0  };
+static const uint8_t CMD_INITB[8]     = {  85, 83, 66, 67,  0, 64,  2,  0  };
 
 /** Launcher command report data sequence to stop all movement */
-uint8_t CMD_STOP[8]      = {   0,  0,  0,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_STOP[8]      = {   0,  0,  0,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left */
-uint8_t CMD_LEFT[8]      = {   0,  1,  0,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_LEFT[8]      = {   0,  1,  0,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right */
-uint8_t CMD_RIGHT[8]     = {   0,  0,  1,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_RIGHT[8]     = {   0,  0,  1,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move up */
-uint8_t CMD_UP[8]        = {   0,  0,  0,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_UP[8]        = {   0,  0,  0,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move down */
-uint8_t CMD_DOWN[8]      = {   0,  0,  0,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_DOWN[8]      = {   0,  0,  0,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left and up */
-uint8_t CMD_LEFTUP[8]    = {   0,  1,  0,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_LEFTUP[8]    = {   0,  1,  0,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right and up */
-uint8_t CMD_RIGHTUP[8]   = {   0,  0,  1,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_RIGHTUP[8]   = {   0,  0,  1,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left and down */
-uint8_t CMD_LEFTDOWN[8]  = {   0,  1,  0,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_LEFTDOWN[8]  = {   0,  1,  0,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right and down */
-uint8_t CMD_RIGHTDOWN[8] = {   0,  0,  1,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_RIGHTDOWN[8] = {   0,  0,  1,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to fire a missile */
-uint8_t CMD_FIRE[8]      = {   0,  0,  0,  0,  0,  1,  8,  8  };
+static const uint8_t CMD_FIRE[8]      = {   0,  0,  0,  0,  0,  1,  8,  8  };
 
 /** Last command sent to the launcher, to determine what new command (if any) must be sent */
-uint8_t* CmdState;
+static const uint8_t* CmdState;
 
 /** Buffer to hold a command to send to the launcher */
-uint8_t  CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
+static uint8_t CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -103,8 +103,8 @@ int main(void)
 	for (;;)
 	{
 		Read_Joystick_Status();
-
-		HID_Host_Task();
+		DiscardNextReport();
+		
 		USB_USBTask();
 	}
 }
@@ -151,7 +151,7 @@ void Read_Joystick_Status(void)
  *  \param[in] Report  Report data to send.
  *  \param[in] ReportSize  Report length in bytes.
  */
-void Send_Command_Report(uint8_t* const Report,
+void Send_Command_Report(const uint8_t* const Report,
                          const uint16_t ReportSize)
 {
 	memcpy(CmdBuffer, Report, 8);
@@ -162,7 +162,7 @@ void Send_Command_Report(uint8_t* const Report,
  *
  *  \param[in] Command  One of the command constants.
  */
-void Send_Command(uint8_t* const Command)
+void Send_Command(const uint8_t* const Command)
 {
 	if ((CmdState == CMD_STOP && Command != CMD_STOP) ||
 		(CmdState != CMD_STOP && Command == CMD_STOP))
@@ -198,13 +198,29 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	/* Get and process the configuration descriptor data */
+	if (ProcessConfigurationDescriptor() != SuccessfulConfigRead)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	for(;;);
@@ -222,6 +238,9 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 /** Reads in and discards the next report from the attached device. */
 void DiscardNextReport(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select and unfreeze HID data IN pipe */
 	Pipe_SelectPipe(HID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -250,6 +269,9 @@ void DiscardNextReport(void)
 void WriteNextReport(uint8_t* const ReportOUTData,
                      const uint16_t ReportLength)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 
@@ -269,7 +291,7 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 		}
 
 		/* Write out HID report data */
-		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength, NULL);
 
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearOUT();
@@ -294,48 +316,6 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 
 		/* Send the request to the device */
 		USB_Host_SendControlRequest(ReportOUTData);
-	}
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and to send reports if desired.
- */
-void HID_Host_Task(void)
-{
-	uint8_t ErrorCode;
-
-	/* Switch to determine what user-application handled host state the host state machine is in */
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			DiscardNextReport();
-
-			break;
 	}
 }
 

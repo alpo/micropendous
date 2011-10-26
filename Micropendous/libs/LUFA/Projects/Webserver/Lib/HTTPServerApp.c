@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -47,7 +47,7 @@ const char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                      "Content-Type: ";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
- *  given URL is invalid, and gives extra error information.
+ *  URL is invalid, and gives extra error information.
  */
 const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                      "Server: LUFA " LUFA_VERSION_STRING "\r\n"
@@ -181,22 +181,16 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	}
 
 	/* Copy over the requested filename */
-	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
-
-	/* Ensure filename is null-terminated */
-	AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
+	strlcpy(AppState->HTTPServer.FileName, &RequestedFileName[1], sizeof(AppState->HTTPServer.FileName));
 
 	/* Determine the length of the URI so that it can be checked to see if it is a directory */
 	uint8_t FileNameLen = strlen(AppState->HTTPServer.FileName);
 
 	/* If the URI is a directory, append the default filename */
-	if (AppState->HTTPServer.FileName[FileNameLen - 1] == '/')
+	if ((AppState->HTTPServer.FileName[FileNameLen - 1] == '/') || !(FileNameLen))
 	{
-		strncpy_P(&AppState->HTTPServer.FileName[FileNameLen], DefaultDirFileName,
+		strlcpy_P(&AppState->HTTPServer.FileName[FileNameLen], DefaultDirFileName,
 		          (sizeof(AppState->HTTPServer.FileName) - FileNameLen));
-
-		/* Ensure altered filename is still null-terminated */
-		AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
 	}
 
 	/* Try to open the file from the Dataflash disk */

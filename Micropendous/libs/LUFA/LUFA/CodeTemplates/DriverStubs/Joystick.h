@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -36,16 +36,13 @@
    inside the application's folder.
 
    This stub is for the board-specific component of the LUFA Joystick
-   driver, a small surface mount four-way (plus button) digital joystick
-   on most USB AVR boards.
+   driver, for a digital four-way (plus button) joystick.
 */
 
 #ifndef __JOYSTICK_USER_H__
 #define __JOYSTICK_USER_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		// TODO: Add any required includes here
 
 	/* Enable C linkage for C++ Compilers: */

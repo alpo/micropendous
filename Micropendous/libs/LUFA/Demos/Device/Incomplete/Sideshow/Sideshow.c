@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -80,7 +80,10 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 void EVENT_USB_Device_Connect(void)

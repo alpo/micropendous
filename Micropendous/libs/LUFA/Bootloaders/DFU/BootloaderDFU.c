@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,59 +38,59 @@
 
 /** Flag to indicate if the bootloader is currently running in secure mode, disallowing memory operations
  *  other than erase. This is initially set to the value set by SECURE_MODE, and cleared by the bootloader
- *  once a memory erase has completed.
+ *  once a memory erase has completed in a bootloader session.
  */
-bool IsSecure      = SECURE_MODE;
+static bool IsSecure = SECURE_MODE;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
  *  jumped to via an indirect jump to location 0x0000 (or other location specified by the host).
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 /** Flag to indicate if the bootloader is waiting to exit. When the host requests the bootloader to exit and
  *  jump to the application address it specifies, it sends two sequential commands which must be properly
  *  acknowledged. Upon reception of the first the RunBootloader flag is cleared and the WaitForExit flag is set,
  *  causing the bootloader to wait for the final exit command before shutting down.
  */
-bool WaitForExit = false;
+static bool WaitForExit = false;
 
 /** Current DFU state machine state, one of the values in the DFU_State_t enum. */
-uint8_t DFU_State = dfuIDLE;
+static uint8_t DFU_State = dfuIDLE;
 
 /** Status code of the last executed DFU command. This is set to one of the values in the DFU_Status_t enum after
  *  each operation, and returned to the host when a Get Status DFU request is issued.
  */
-uint8_t DFU_Status = OK;
+static uint8_t DFU_Status = OK;
 
 /** Data containing the DFU command sent from the host. */
-DFU_Command_t SentCommand;
+static DFU_Command_t SentCommand;
 
 /** Response to the last issued Read Data DFU command. Unlike other DFU commands, the read command
  *  requires a single byte response from the bootloader containing the read data when the next DFU_UPLOAD command
  *  is issued by the host.
  */
-uint8_t ResponseByte;
+static uint8_t ResponseByte;
 
 /** Pointer to the start of the user application. By default this is 0x0000 (the reset vector), however the host
  *  may specify an alternate address when issuing the application soft-start command.
  */
-AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
+static AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
 
 /** 64-bit flash page number. This is concatenated with the current 16-bit address on USB AVRs containing more than
  *  64KB of flash memory.
  */
-uint8_t Flash64KBPage = 0;
+static uint8_t Flash64KBPage = 0;
 
 /** Memory start address, indicating the current address in the memory being addressed (either FLASH or EEPROM
  *  depending on the issued command from the host).
  */
-uint16_t StartAddr = 0x0000;
+static uint16_t StartAddr = 0x0000;
 
-/** Memory end address, indicating the end address to read to/write from in the memory being addressed (either FLASH
+/** Memory end address, indicating the end address to read from/write to in the memory being addressed (either FLASH
  *  of EEPROM depending on the issued command from the host).
  */
-uint16_t EndAddr = 0x0000;
+static uint16_t EndAddr = 0x0000;
 
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
@@ -101,6 +101,26 @@ int main(void)
 {
 	/* Configure hardware required by the bootloader */
 	SetupHardware();
+
+	#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+	/* Disable JTAG debugging */
+	MCUCR |= (1 << JTD);
+	MCUCR |= (1 << JTD);
+
+	/* Enable pull-up on the JTAG TCK pin so we can use it to select the mode */
+	PORTF |= (1 << 4);
+	Delay_MS(10);
+
+	/* If the TCK pin is not jumpered to ground, start the user application instead */
+	RunBootloader = (!(PINF & (1 << 4)));
+	
+	/* Re-enable JTAG debugging */
+	MCUCR &= ~(1 << JTD);
+	MCUCR &= ~(1 << JTD);	
+	#endif
+
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	LEDs_SetAllLEDs(LEDS_LED1);
 
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
@@ -132,17 +152,28 @@ void SetupHardware(void)
 
 	/* Initialize the USB subsystem */
 	USB_Init();
+	LEDs_Init();
+	
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));
 }
 
 /** Resets all configured hardware required for the bootloader back to their original states. */
 void ResetHardware(void)
 {
 	/* Shut down the USB subsystem */
-	USB_ShutDown();
+	USB_Disable();
 
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
 	MCUCR = 0;
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
@@ -150,13 +181,23 @@ void ResetHardware(void)
  *  internally.
  */
 void EVENT_USB_Device_ControlRequest(void)
-{
+{	
+	/* Ignore any requests that aren't directed to the DFU interface */
+	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
+	    (REQTYPE_CLASS | REQREC_INTERFACE))
+	{
+		return;
+	}
+
+	/* Activity - toggle indicator LEDs */
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+
 	/* Get the size of the command and data from the wLength value */
 	SentCommand.DataSize = USB_ControlRequest.wLength;
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_DFU_DNLOAD:
+		case DFU_REQ_DNLOAD:
 			Endpoint_ClearSETUP();
 
 			/* Check if bootloader is waiting to terminate */
@@ -179,7 +220,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* First byte of the data stage is the DNLOAD request's command */
-				SentCommand.Command = Endpoint_Read_Byte();
+				SentCommand.Command = Endpoint_Read_8();
 
 				/* One byte of the data stage is the command, so subtract it from the total data bytes */
 				SentCommand.DataSize--;
@@ -188,7 +229,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				for (uint8_t DataByte = 0; (DataByte < sizeof(SentCommand.Data)) &&
 				     Endpoint_BytesInEndpoint(); DataByte++)
 				{
-					SentCommand.Data[DataByte] = Endpoint_Read_Byte();
+					SentCommand.Data[DataByte] = Endpoint_Read_8();
 					SentCommand.DataSize--;
 				}
 
@@ -243,7 +284,7 @@ void EVENT_USB_Device_ControlRequest(void)
 							}
 
 							/* Write the next word into the current flash page */
-							boot_page_fill(CurrFlashAddress.Long, Endpoint_Read_Word_LE());
+							boot_page_fill(CurrFlashAddress.Long, Endpoint_Read_16_LE());
 
 							/* Adjust counters */
 							WordsInFlashPage      += 1;
@@ -292,7 +333,7 @@ void EVENT_USB_Device_ControlRequest(void)
 							}
 
 							/* Read the byte from the USB interface and write to to the EEPROM */
-							eeprom_write_byte((uint8_t*)StartAddr, Endpoint_Read_Byte());
+							eeprom_write_byte((uint8_t*)StartAddr, Endpoint_Read_8());
 
 							/* Adjust counters */
 							StartAddr++;
@@ -309,7 +350,7 @@ void EVENT_USB_Device_ControlRequest(void)
 			Endpoint_ClearStatusStage();
 
 			break;
-		case REQ_DFU_UPLOAD:
+		case DFU_REQ_UPLOAD:
 			Endpoint_ClearSETUP();
 
 			while (!(Endpoint_IsINReady()))
@@ -324,12 +365,12 @@ void EVENT_USB_Device_ControlRequest(void)
 				{
 					/* Blank checking is performed in the DFU_DNLOAD request - if we get here we've told the host
 					   that the memory isn't blank, and the host is requesting the first non-blank address */
-					Endpoint_Write_Word_LE(StartAddr);
+					Endpoint_Write_16_LE(StartAddr);
 				}
 				else
 				{
 					/* Idle state upload - send response to last issued command */
-					Endpoint_Write_Byte(ResponseByte);
+					Endpoint_Write_8(ResponseByte);
 				}
 			}
 			else
@@ -364,9 +405,9 @@ void EVENT_USB_Device_ControlRequest(void)
 
 						/* Read the flash word and send it via USB to the host */
 						#if (FLASHEND > 0xFFFF)
-							Endpoint_Write_Word_LE(pgm_read_word_far(CurrFlashAddress.Long));
+							Endpoint_Write_16_LE(pgm_read_word_far(CurrFlashAddress.Long));
 						#else
-							Endpoint_Write_Word_LE(pgm_read_word(CurrFlashAddress.Long));
+							Endpoint_Write_16_LE(pgm_read_word(CurrFlashAddress.Long));
 						#endif
 
 						/* Adjust counters */
@@ -393,7 +434,7 @@ void EVENT_USB_Device_ControlRequest(void)
 						}
 
 						/* Read the EEPROM byte and send it via USB to the host */
-						Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)StartAddr));
+						Endpoint_Write_8(eeprom_read_byte((uint8_t*)StartAddr));
 
 						/* Adjust counters */
 						StartAddr++;
@@ -408,27 +449,27 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_GETSTATUS:
+		case DFU_REQ_GETSTATUS:
 			Endpoint_ClearSETUP();
 
 			/* Write 8-bit status value */
-			Endpoint_Write_Byte(DFU_Status);
+			Endpoint_Write_8(DFU_Status);
 
 			/* Write 24-bit poll timeout value */
-			Endpoint_Write_Byte(0);
-			Endpoint_Write_Word_LE(0);
+			Endpoint_Write_8(0);
+			Endpoint_Write_16_LE(0);
 
 			/* Write 8-bit state value */
-			Endpoint_Write_Byte(DFU_State);
+			Endpoint_Write_8(DFU_State);
 
 			/* Write 8-bit state string ID number */
-			Endpoint_Write_Byte(0);
+			Endpoint_Write_8(0);
 
 			Endpoint_ClearIN();
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_CLRSTATUS:
+		case DFU_REQ_CLRSTATUS:
 			Endpoint_ClearSETUP();
 
 			/* Reset the status value variable to the default OK status */
@@ -436,17 +477,17 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_GETSTATE:
+		case DFU_REQ_GETSTATE:
 			Endpoint_ClearSETUP();
 
 			/* Write the current device state to the endpoint */
-			Endpoint_Write_Byte(DFU_State);
+			Endpoint_Write_8(DFU_State);
 
 			Endpoint_ClearIN();
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_ABORT:
+		case DFU_REQ_ABORT:
 			Endpoint_ClearSETUP();
 
 			/* Reset the current state variable to the default idle state */
@@ -479,7 +520,7 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 		}
 		else
 		{
-			Endpoint_Discard_Byte();
+			Endpoint_Discard_8();
 		}
 	}
 }

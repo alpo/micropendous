@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -68,6 +68,9 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY           LEDS_LED2
 
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY            false
+
 	/* Global Variables: */
 		extern MS_CommandBlockWrapper_t  CommandBlock;
 		extern MS_CommandStatusWrapper_t CommandStatus;
@@ -86,8 +89,6 @@
 			static bool ReadInCommandBlock(void);
 			static void ReturnCommandStatus(void);
 		#endif
-
-		uint8_t StreamCallback_AbortOnMassStoreReset(void);
 
 #endif
 

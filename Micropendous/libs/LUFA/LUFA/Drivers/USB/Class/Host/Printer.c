@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -29,7 +29,8 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "../../HighLevel/USBMode.h"
+#include "../../Core/USBMode.h"
+
 #if defined(USB_CAN_BE_HOST)
 
 #define  __INCLUDE_FROM_PRINTER_DRIVER
@@ -71,7 +72,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
-		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		if ((EndpointData->EndpointAddress & ENDPOINT_DIR_MASK) == ENDPOINT_DIR_IN)
 		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;
@@ -79,21 +80,41 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		bool     DoubleBanked;
+
 		if (PipeNum == PRNTInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = PRNTInterfaceInfo->Config.DataINPipeDoubleBank;
 
 			PRNTInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == PRNTInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank;
 
 			PRNTInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
+		}
+		else
+		{
+			continue;
+		}
+
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return PRNT_ENUMERROR_PipeConfigurationFailed;
 		}
 	}
 
@@ -160,19 +181,11 @@ uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInte
 	{
 		uint8_t ErrorCode;
 
-		USB_ControlRequest = (USB_Request_Header_t)
-			{
-				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
-				.bRequest      = REQ_SetInterface,
-				.wValue        = PRNTInterfaceInfo->State.AlternateSetting,
-				.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
-				.wLength       = 0,
-			};
-
-		Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-		if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-		  return ErrorCode;
+		if ((ErrorCode = USB_Host_SetInterfaceAltSetting(PRNTInterfaceInfo->State.InterfaceNumber,
+		                                                 PRNTInterfaceInfo->State.AlternateSetting)) != HOST_SENDCONTROL_Successful)
+		{
+			return ErrorCode;
+		}
 	}
 
 	return HOST_SENDCONTROL_Successful;
@@ -191,7 +204,6 @@ uint8_t PRNT_Host_GetPortStatus(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceIn
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
 	return USB_Host_SendControlRequest(PortStatus);
 }
 
@@ -207,7 +219,6 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
 	return USB_Host_SendControlRequest(NULL);
 }
 
@@ -260,15 +271,14 @@ uint8_t PRNT_Host_SendByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 		  return ErrorCode;
 	}
 
-	Pipe_Write_Byte(Data);
+	Pipe_Write_8(Data);
 	Pipe_Freeze();
 
 	return PIPE_READYWAIT_NoError;
 }
 
 uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-                             void* Buffer,
-                             const uint16_t Length)
+                             void* String)
 {
 	uint8_t ErrorCode;
 
@@ -278,7 +288,31 @@ uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 
-	if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, Length, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Write_Stream_LE(String, strlen(String), NULL)) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+
+	Pipe_ClearOUT();
+
+	ErrorCode = Pipe_WaitUntilReady();
+
+	Pipe_Freeze();
+
+	return ErrorCode;
+}
+
+uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                           void* Buffer,
+                           const uint16_t Length)
+{
+	uint8_t ErrorCode;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Unfreeze();
+
+	if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, Length, NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
@@ -333,7 +367,7 @@ int16_t PRNT_Host_ReceiveByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo
 	if (Pipe_IsINReceived())
 	{
 		if (Pipe_BytesInPipe())
-		  ReceivedByte = Pipe_Read_Byte();
+		  ReceivedByte = Pipe_Read_8();
 
 		if (!(Pipe_BytesInPipe()))
 		  Pipe_ClearIN();
@@ -371,7 +405,7 @@ uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo
 		return HOST_SENDCONTROL_Successful;
 	}
 
-	DeviceIDStringLength = SwapEndian_16(DeviceIDStringLength);
+	DeviceIDStringLength = be16_to_cpu(DeviceIDStringLength);
 
 	if (DeviceIDStringLength > BufferSize)
 	  DeviceIDStringLength = BufferSize;

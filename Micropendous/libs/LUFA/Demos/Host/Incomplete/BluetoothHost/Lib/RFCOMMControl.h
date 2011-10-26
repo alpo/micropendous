@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -44,7 +44,7 @@
 		#include <stdio.h>
 
 		#include <LUFA/Common/Common.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "BluetoothStack.h"
 		#include "RFCOMM.h"
@@ -77,9 +77,9 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			unsigned char EA   : 1;
-			unsigned char CR   : 1;
-			unsigned char DLCI : 6;
+			unsigned EA   : 1;
+			unsigned CR   : 1;
+			unsigned DLCI : 6;
 		} RFCOMM_Address_t;
 
 		typedef struct
@@ -90,21 +90,21 @@
 
 		typedef struct
 		{
-			unsigned char EA      : 1;
-			unsigned char CR      : 1;
-			unsigned char Command : 6;
+			unsigned EA      : 1;
+			unsigned CR      : 1;
+			unsigned Command : 6;
 		} RFCOMM_Command_t;
 
 		typedef struct
 		{
-			uint8_t          DLCI;
-			unsigned char    FrameType        : 4;
-			unsigned char    ConvergenceLayer : 4;
-			uint8_t          Priority;
-			uint8_t          ACKTimerTicks;
-			uint16_t         MaximumFrameSize;
-			uint8_t          MaxRetransmissions;
-			uint8_t          RecoveryWindowSize;
+			uint8_t  DLCI;
+			unsigned FrameType        : 4;
+			unsigned ConvergenceLayer : 4;
+			uint8_t  Priority;
+			uint8_t  ACKTimerTicks;
+			uint16_t MaximumFrameSize;
+			uint8_t  MaxRetransmissions;
+			uint8_t  RecoveryWindowSize;
 		} RFCOMM_DPN_Parameters_t;
 
 		typedef struct

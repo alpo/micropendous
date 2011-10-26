@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -64,6 +64,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
  *  used like any regular character stream in the C APIs
  */
 static FILE USBSerialStream;
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -134,7 +135,7 @@ void CheckJoystickMovement(void)
 		fputs(ReportString, &USBSerialStream);
 
 		/* Alternatively, without the stream: */
-		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));
+		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
 	}
 }
 

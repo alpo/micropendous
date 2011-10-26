@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,7 @@
 #include "V2ProtocolParams.h"
 
 /* Non-Volatile Parameter Values for EEPROM storage */
-uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
+static uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 
 /* Volatile Parameter Values for RAM storage */
 static ParameterItem_t ParameterTable[] =

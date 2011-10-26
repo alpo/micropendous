@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -72,21 +72,21 @@
 		/** Type define of an IP packet header. */
 		typedef struct
 		{
-			unsigned char  HeaderLength   : 4; /**< Total length of the packet header, in 4-byte blocks */
-			unsigned char  Version        : 4; /**< IP protocol version */
-			uint8_t        TypeOfService; /**< Special service type identifier, indicating delay/throughput/reliability levels */
-			uint16_t       TotalLength; /**< Total length of the IP packet, in bytes */
+			unsigned     HeaderLength   : 4; /**< Total length of the packet header, in 4-byte blocks */
+			unsigned     Version        : 4; /**< IP protocol version */
+			uint8_t      TypeOfService; /**< Special service type identifier, indicating delay/throughput/reliability levels */
+			uint16_t     TotalLength; /**< Total length of the IP packet, in bytes */
 
-			uint16_t       Identification; /**< Identification value for identifying fragmented packets */
-			unsigned int   FragmentOffset : 13; /**< Offset of this IP fragment */
-			unsigned int   Flags          : 3; /**< Fragment flags, to indicate if a packet is fragmented */
+			uint16_t     Identification; /**< Identification value for identifying fragmented packets */
+			unsigned     FragmentOffset : 13; /**< Offset of this IP fragment */
+			unsigned     Flags          : 3; /**< Fragment flags, to indicate if a packet is fragmented */
 
-			uint8_t        TTL; /**< Maximum allowable number of hops to reach the packet destination */
-			uint8_t        Protocol; /**< Encapsulated protocol type */
-			uint16_t       HeaderChecksum; /**< Ethernet checksum of the IP header */
+			uint8_t      TTL; /**< Maximum allowable number of hops to reach the packet destination */
+			uint8_t      Protocol; /**< Encapsulated protocol type */
+			uint16_t     HeaderChecksum; /**< Ethernet checksum of the IP header */
 
-			IP_Address_t  SourceAddress; /**< Source protocol IP address of the packet */
-			IP_Address_t  DestinationAddress; /**< Destination protocol IP address of the packet */
+			IP_Address_t SourceAddress; /**< Source protocol IP address of the packet */
+			IP_Address_t DestinationAddress; /**< Destination protocol IP address of the packet */
 		} IP_Header_t;
 
 	/* Function Prototypes: */

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -73,6 +73,9 @@
 
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
 		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
+		
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY            false
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,13 +38,13 @@
  */
 
 /** \ingroup Group_USBClassHID
- *  @defgroup Group_USBClassHIDDevice HID Class Device Mode Driver
+ *  \defgroup Group_USBClassHIDDevice HID Class Device Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/HID.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Device Mode USB Class driver framework interface, for the HID USB Class driver.
  *
  *  @{
@@ -57,8 +57,6 @@
 		#include "../../USB.h"
 		#include "../Common/HID.h"
 
-		#include <string.h>
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -69,18 +67,13 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_HID_DEVICE_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
-
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief HID Class Device Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made for each HID interface
 			 *  within the user application, and passed to each of the HID class driver functions as the
-			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
+			 *  \c HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
 			 *
 			 *  \note Due to technical limitations, the HID device class driver does not utilize a separate OUT
 			 *        endpoint for host->device communications. Instead, the host->device data (if any) is sent to
@@ -100,18 +93,18 @@
 					                              *  stored by the driver, for comparison purposes to detect report changes that
 					                              *  must be sent immediately to the host. This should point to a buffer big enough
 					                              *  to hold the largest HID input report sent from the HID interface. If this is set
-												  *  to NULL, it is up to the user to force transfers when needed in the
+												  *  to \c NULL, it is up to the user to force transfers when needed in the
 												  *  \ref CALLBACK_HID_Device_CreateHIDReport() callback function.
 												  *
 												  *  \note Due to the single buffer, the internal driver can only correctly compare
 												  *        subsequent reports with identical report IDs. In multiple report devices,
-												  *        this buffer should be set to NULL and the decision to send reports made
+												  *        this buffer should be set to \c NULL and the decision to send reports made
 												  *        by the user application instead.
 					                              */
 					uint8_t  PrevReportINBufferSize; /**< Size in bytes of the given input report buffer. This is used to create a
 					                                  *  second buffer of the same size within the driver so that subsequent reports
 					                                  *  can be compared. If the user app is to determine when reports are to be sent
-					                                  *  exclusively (i.e. \ref PrevReportINBuffer is NULL) this value must still be
+					                                  *  exclusively (i.e. \ref PrevReportINBuffer is \c NULL) this value must still be
 													  *  set to the size of the largest report the device can issue to the host.
 					                                  */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
@@ -133,13 +126,9 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
-			 *  \note The endpoint index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or endpoint bank corruption will occur. Gaps in the allocated endpoint numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved endpoint indexes.
-			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -169,8 +158,8 @@
 			 *  \param[out]    ReportData        Pointer to a buffer where the generated HID report should be stored.
 			 *  \param[out]    ReportSize        Number of bytes in the generated input report, or zero if no report is to be sent.
 			 *
-			 *  \return Boolean true to force the sending of the report even if it is identical to the previous report and still within
-			 *          the idle period (useful for devices which report relative movement), false otherwise.
+			 *  \return Boolean \c true to force the sending of the report even if it is identical to the previous report and still within
+			 *          the idle period (useful for devices which report relative movement), \c false otherwise.
 			 */
 			bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
 			                                         uint8_t* const ReportID,

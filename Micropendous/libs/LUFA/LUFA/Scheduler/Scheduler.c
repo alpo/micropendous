@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -31,18 +31,20 @@
 #include "Scheduler.h"
 
 volatile SchedulerDelayCounter_t Scheduler_TickCounter;
-volatile uint8_t                 Scheduler_TotalTasks;
+volatile uint_least8_t           Scheduler_TotalTasks;
 
-bool Scheduler_HasDelayElapsed(const uint16_t Delay,
+bool Scheduler_HasDelayElapsed(const uint_least16_t Delay,
                                SchedulerDelayCounter_t* const DelayCounter)
 {
 	SchedulerDelayCounter_t CurrentTickValue_LCL;
 	SchedulerDelayCounter_t DelayCounter_LCL;
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		CurrentTickValue_LCL = Scheduler_TickCounter;
-	}
+	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+	GlobalInterruptDisable();
+
+	CurrentTickValue_LCL = Scheduler_TickCounter;
+
+	SetGlobalInterruptMask(CurrentGlobalInt);
 
 	DelayCounter_LCL = *DelayCounter;
 
@@ -83,7 +85,7 @@ void Scheduler_SetTaskMode(const TaskPtr_t Task,
 	}
 }
 
-void Scheduler_SetGroupTaskMode(const uint8_t GroupID,
+void Scheduler_SetGroupTaskMode(const uint_least8_t GroupID,
                                 const bool TaskStatus)
 {
 	TaskEntry_t* CurrTask = &Scheduler_TaskList[0];

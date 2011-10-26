@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -29,7 +29,8 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "../../HighLevel/USBMode.h"
+#include "../../Core/USBMode.h"
+
 #if defined(USB_CAN_BE_DEVICE)
 
 #define  __INCLUDE_FROM_HID_DRIVER
@@ -59,8 +60,11 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportType, ReportData, &ReportSize);
 
 				if (HIDInterfaceInfo->Config.PrevReportINBuffer != NULL)
-				  memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportData, HIDInterfaceInfo->Config.PrevReportINBufferSize);
-
+				{
+					memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportData,
+					       HIDInterfaceInfo->Config.PrevReportINBufferSize);
+				}
+				
 				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 
 				Endpoint_ClearSETUP();
@@ -80,8 +84,9 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				Endpoint_ClearSETUP();
 				Endpoint_Read_Control_Stream_LE(ReportData, ReportSize);
 				Endpoint_ClearIN();
-
-				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportType, ReportData, ReportSize);
+				
+				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportType,
+				                                     &ReportData[ReportID ? 1 : 0], ReportSize - (ReportID ? 1 : 0));
 			}
 
 			break;
@@ -89,7 +94,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Byte(HIDInterfaceInfo->State.UsingReportProtocol);
+				Endpoint_Write_8(HIDInterfaceInfo->State.UsingReportProtocol);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -119,7 +124,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Byte(HIDInterfaceInfo->State.IdleCount >> 2);
+				Endpoint_Write_8(HIDInterfaceInfo->State.IdleCount >> 2);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -132,7 +137,7 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 {
 	memset(&HIDInterfaceInfo->State, 0x00, sizeof(HIDInterfaceInfo->State));
 	HIDInterfaceInfo->State.UsingReportProtocol = true;
-	HIDInterfaceInfo->State.IdleCount = 500;
+	HIDInterfaceInfo->State.IdleCount           = 500;
 
 	if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber, EP_TYPE_INTERRUPT,
 									 ENDPOINT_DIR_IN, HIDInterfaceInfo->Config.ReportINEndpointSize,
@@ -177,9 +182,9 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 			Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 
 			if (ReportID)
-			  Endpoint_Write_Byte(ReportID);
+			  Endpoint_Write_8(ReportID);
 
-			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
+			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NULL);
 
 			Endpoint_ClearIN();
 		}

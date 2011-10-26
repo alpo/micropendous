@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassPrinter
- *  @defgroup Group_USBClassPrinterCommon  Common Class Definitions
+ *  \defgroup Group_USBClassPrinterCommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Printer Class.
  *
@@ -51,9 +51,7 @@
 #define _PRINTER_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
-
-		#include <string.h>
+		#include "../../Core/StdDescriptors.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

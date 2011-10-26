@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -55,6 +55,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -69,80 +70,8 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (SI_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
-				                           ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Still Image Class Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Still Image Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				puts_P(PSTR("Opening Session...\r\n"));
-
-				if (SI_Host_OpenSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
-				{
-					puts_P(PSTR("Could not open PIMA session.\r\n"));
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Turning off Device...\r\n"));
-
-				SI_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, NULL);
-				if (SI_Host_ReceiveResponse(&DigitalCamera_SI_Interface))
-				{
-					puts_P(PSTR("Could not turn off device.\r\n"));
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Device Off.\r\n"));
-
-				puts_P(PSTR("Closing Session...\r\n"));
-
-				if (SI_Host_CloseSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
-				{
-					puts_P(PSTR("Could not close PIMA session.\r\n"));
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-		}
-
+		StillImageHost_Task();
+		
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}
@@ -159,10 +88,54 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
-	SELECT_USB_A;
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
+}
+
+/** Task to manage an enumerated USB Still Image device once connected, to manage a
+ *  new PIMA session in order to send commands to the attached device.
+ */
+void StillImageHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	puts_P(PSTR("Opening Session...\r\n"));
+
+	if (SI_Host_OpenSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
+	{
+		puts_P(PSTR("Could not open PIMA session.\r\n"));
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Turning off Device...\r\n"));
+
+	SI_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, NULL);
+	if (SI_Host_ReceiveResponse(&DigitalCamera_SI_Interface))
+	{
+		puts_P(PSTR("Could not turn off device.\r\n"));
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Device Off.\r\n"));
+
+	puts_P(PSTR("Closing Session...\r\n"));
+
+	if (SI_Host_CloseSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
+	{
+		puts_P(PSTR("Could not close PIMA session.\r\n"));
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	USB_Host_SetDeviceConfiguration(0);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -188,13 +161,42 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (SI_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
+	                           ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Still Image Class Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("Still Image Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);

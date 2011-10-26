@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,7 @@
 #include "Joystick.h"
 
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevJoystickHIDReportBuffer[sizeof(USB_JoystickReport_Data_t)];
+static uint8_t PrevJoystickHIDReportBuffer[sizeof(USB_JoystickReport_Data_t)];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -57,6 +57,7 @@ USB_ClassInfo_HID_Device_t Joystick_HID_Interface =
 				.PrevReportINBufferSize       = sizeof(PrevJoystickHIDReportBuffer),
 			},
 	};
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -160,7 +161,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	  JoystickReport->X =  100;
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  JoystickReport->Button  = (1 << 1);
+	  JoystickReport->Button |= (1 << 1);
 
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  JoystickReport->Button |= (1 << 0);
@@ -174,7 +175,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
  *  \param[in] ReportID    Report ID of the received report from the host
  *  \param[in] ReportType  The type of report that the host has sent, either HID_REPORT_ITEM_Out or HID_REPORT_ITEM_Feature
- *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
+ *  \param[in] ReportData  Pointer to a buffer where the received report has been stored
  *  \param[in] ReportSize  Size in bytes of the received HID report
  */
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,

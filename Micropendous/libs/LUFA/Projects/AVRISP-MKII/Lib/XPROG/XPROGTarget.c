@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -140,7 +140,7 @@ void XPROGTarget_SendByte(const uint8_t Byte)
 	UDR1    = Byte;
 }
 
-/** Receives a byte via the software USART, blocking until data is received.
+/** Receives a byte via the hardware USART, blocking until data is received or timeout expired.
  *
  *  \return Received byte from the USART
  */
@@ -151,7 +151,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	  XPROGTarget_SetRxMode();
 
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)) && TimeoutTicksRemaining);
+	while (!(UCSR1A & (1 << RXC1)) && !(TimeoutExpired));
 
 	return UDR1;
 }
@@ -174,9 +174,14 @@ void XPROGTarget_SendIdle(void)
 
 static void XPROGTarget_SetTxMode(void)
 {
-	/* Wait for a full cycle of the clock */
-	while (PIND & (1 << 5));
-	while (!(PIND & (1 << 5)));
+    /* Need to do nothing for a full frame to send a BREAK - only one cycle should be needed, however
+	 * there are reports that sometimes the interface will get stuck in some environments. */
+    for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
+    {
+        /* Wait for a full cycle of the clock */
+        while (PIND & (1 << 5));
+        while (!(PIND & (1 << 5)));
+    }
 
 	PORTD  |=  (1 << 3);
 	DDRD   |=  (1 << 3);

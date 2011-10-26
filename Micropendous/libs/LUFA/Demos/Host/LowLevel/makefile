@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -14,6 +14,12 @@
 # code.
 
 all:
+	$(MAKE) -C AudioInputHost clean
+	$(MAKE) -C AudioInputHost all
+
+	$(MAKE) -C AudioOutputHost clean
+	$(MAKE) -C AudioOutputHost all
+
 	$(MAKE) -C GenericHIDHost clean
 	$(MAKE) -C GenericHIDHost all
 
@@ -48,6 +54,8 @@ all:
 	$(MAKE) -C VirtualSerialHost all
 
 %:
+	$(MAKE) -C AudioInputHost $@
+	$(MAKE) -C AudioOutputHost $@
 	$(MAKE) -C GenericHIDHost $@
 	$(MAKE) -C JoystickHostWithParser $@
 	$(MAKE) -C KeyboardHost $@

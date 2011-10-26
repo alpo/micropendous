@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -41,13 +41,13 @@
 		#include <avr/pgmspace.h>
 		#include <stdio.h>
 
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 
 	/* Function Prototypes: */
-		void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* const FrameINData);
+		void DecodeEthernetFrameHeader(void* InDataStart);
 		void DecodeARPHeader(void* InDataStart);
 		void DecodeIPHeader(void* InDataStart);
 		void DecodeICMPHeader(void* InDataStart);

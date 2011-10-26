@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -100,7 +100,6 @@ void Ethernet_ProcessPacket(void)
 
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
 			FrameOUT.FrameLength            = (sizeof(Ethernet_Frame_Header_t) + RetSize);
-			FrameOUT.FrameInBuffer          = true;
 		}
 	}
 
@@ -108,7 +107,7 @@ void Ethernet_ProcessPacket(void)
 	if (RetSize != NO_PROCESS)
 	{
 		/* Clear the frame buffer */
-		FrameIN.FrameInBuffer = false;
+		FrameIN.FrameLength = 0;
 	}
 }
 

@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -14,13 +14,17 @@
 # code.
 
 all:
-	$(MAKE) -C DFU clean
-	$(MAKE) -C DFU all
-
 	$(MAKE) -C CDC clean
 	$(MAKE) -C CDC all
 
+	$(MAKE) -C HID clean
+	$(MAKE) -C HID all
+
+	$(MAKE) -C DFU clean
+	$(MAKE) -C DFU all
+
 %:
-	$(MAKE) -C DFU $@
 	$(MAKE) -C CDC $@
+	$(MAKE) -C DFU $@
+	$(MAKE) -C HID $@
 

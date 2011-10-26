@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -159,7 +159,7 @@ bool GetNextReport(USB_JoystickReport_Data_t* const ReportData)
 	  ReportData->X =  100;
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  ReportData->Button  = (1 << 1);
+	  ReportData->Button |= (1 << 1);
 
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 0);
@@ -194,7 +194,7 @@ void HID_Task(void)
 		GetNextReport(&JoystickReportData);
 
 		/* Write Joystick Report Data */
-		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
+		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -42,7 +42,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -55,7 +55,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2047,
-	.ReleaseNumber          = VERSION_BCD(00.01),
+	.ReleaseNumber          = VERSION_BCD(00.02),
 
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
@@ -69,7 +69,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -191,7 +191,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.Audio_AudioFormat =
 		{
-			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Format_t), .Type = DTYPE_CSInterface},
+			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Format_t) +
+			                                     sizeof(ConfigurationDescriptor.Audio_AudioFormatSampleRates),
+			                             .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_FormatType,
 
 			.FormatType               = 0x01,
@@ -199,9 +201,17 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.SubFrameSize             = 0x02,
 			.BitResolution            = 16,
-			.SampleFrequencyType      = AUDIO_TOTAL_SAMPLE_RATES,
 
-			.SampleFrequencies        = {AUDIO_SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)}
+			.TotalDiscreteSampleRates = (sizeof(ConfigurationDescriptor.Audio_AudioFormatSampleRates) / sizeof(USB_Audio_SampleFreq_t)),
+		},
+	
+	.Audio_AudioFormatSampleRates =
+		{
+			AUDIO_SAMPLE_FREQ(8000),
+			AUDIO_SAMPLE_FREQ(11025),
+			AUDIO_SAMPLE_FREQ(22050),
+			AUDIO_SAMPLE_FREQ(44100),
+			AUDIO_SAMPLE_FREQ(48000),
 		},
 
 	.Audio_StreamEndpoint =
@@ -210,7 +220,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				{
 					.Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-					.EndpointAddress     = (ENDPOINT_DESCRIPTOR_DIR_IN | AUDIO_STREAM_EPNUM),
+					.EndpointAddress     = (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM),
 					.Attributes          = (EP_TYPE_ISOCHRONOUS | ENDPOINT_ATTR_SYNC | ENDPOINT_USAGE_DATA),
 					.EndpointSize        = AUDIO_STREAM_EPSIZE,
 					.PollingIntervalMS   = 0x01
@@ -225,7 +235,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Spc_t), .Type = DTYPE_CSEndpoint},
 			.Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
-			.Attributes               = AUDIO_EP_ACCEPTS_SMALL_PACKETS,
+			.Attributes               = (AUDIO_EP_ACCEPTS_SMALL_PACKETS | AUDIO_EP_SAMPLE_FREQ_CONTROL),
 
 			.LockDelayUnits           = 0x00,
 			.LockDelay                = 0x0000
@@ -236,7 +246,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -247,7 +257,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -258,7 +268,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
 

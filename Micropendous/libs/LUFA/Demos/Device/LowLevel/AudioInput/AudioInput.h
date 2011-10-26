@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -57,7 +57,7 @@
 		/** ADC channel MUX mask for the microphone input. */
 		#define MIC_IN_ADC_MUX_MASK       ADC_CHANNEL2
 
-		/** Maximum ADC sample value for the microphone input. */
+		/** Maximum audio sample value for the microphone input. */
 		#define SAMPLE_MAX_RANGE          0xFFFF
 
 		/** Maximum ADC range for the microphone input. */

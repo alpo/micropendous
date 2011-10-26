@@ -1,6 +1,6 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
@@ -9,7 +9,7 @@
 /*
   Copyright 2010  David Prentice (david.prentice [at] farming [dot] uk)
   Copyright 2010  Peter Danneger
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -51,7 +51,8 @@ static uint8_t RX_BitsRemaining;
 /** Temporary data variable to hold the byte being received as it is shifted in */
 static uint8_t RX_Data;
 
-/** Initialises the software UART, ready for data transmission and reception into the global ring buffers. */
+
+/** Initializes the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
 	/* Set TX pin to output high, enable RX pull-up */
@@ -67,11 +68,11 @@ void SoftUART_Init(void)
 	SoftUART_SetBaud(9600);
 
 	/* Setup reception timer compare ISR */
-	TIMSK1 = (1 << ICIE1);
+	TIMSK1 = (1 << OCIE1A);
 
 	/* Setup transmission timer compare ISR and start the timer */
-	TIMSK3 = (1 << ICIE3);
-	TCCR3B = ((1 << CS30) | (1 << WGM33) | (1 << WGM32));
+	TIMSK3 = (1 << OCIE3A);
+	TCCR3B = ((1 << CS30) | (1 << WGM32));
 }
 
 /** ISR to detect the start of a bit being sent to the software UART. */
@@ -80,8 +81,10 @@ ISR(INT0_vect, ISR_BLOCK)
 	/* Reset the number of reception bits remaining counter */
 	RX_BitsRemaining = 8;
 
-	/* Reset the bit reception timer */
-	TCNT1 = 0;
+	/* Reset the bit reception timer to -(1/2) of the total bit time, so that the first data bit is
+	 * sampled mid way through the total bit time, making reception more robust.
+	 */
+	TCNT1 = -(OCR1A >> 1);
 
 	/* Check to see that the pin is still low (prevents glitches from starting a frame reception) */
 	if (!(SRXPIN & (1 << SRX)))
@@ -90,12 +93,12 @@ ISR(INT0_vect, ISR_BLOCK)
 		EIMSK = 0;
 
 		/* Start the reception timer */
-		TCCR1B = ((1 << CS10) | (1 << WGM13) | (1 << WGM12));
+		TCCR1B = ((1 << CS10) | (1 << WGM12));
 	}
 }
 
 /** ISR to manage the reception of bits to the software UART. */
-ISR(TIMER1_CAPT_vect, ISR_BLOCK)
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Cache the current RX pin value for later checking */
 	uint8_t SRX_Cached = (SRXPIN & (1 << SRX));
@@ -125,7 +128,7 @@ ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 }
 
 /** ISR to manage the transmission of bits via the software UART. */
-ISR(TIMER3_CAPT_vect, ISR_BLOCK)
+ISR(TIMER3_COMPA_vect, ISR_BLOCK)
 {
 	/* Check if transmission has finished */
 	if (TX_BitsRemaining)

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -39,22 +39,22 @@
 /** Contains the current baud rate and other settings of the first virtual serial port. This must be retained as some
  *  operating systems will not open the port unless the settings can be set successfully.
  */
-CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
-                                   .CharFormat  = OneStopBit,
-                                   .ParityType  = Parity_None,
-                                   .DataBits    = 8            };
+static CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                           .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                           .ParityType  = CDC_PARITY_None,
+                                           .DataBits    = 8                            };
 
 /** Current address counter. This stores the current address of the FLASH or EEPROM as set by the host,
  *  and is used when reading or writing to the AVRs memory (either FLASH or EEPROM depending on the issued
  *  command.)
  */
-uint32_t CurrAddress;
+static uint32_t CurrAddress;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a watchdog reset. When cleared the bootloader will exit, starting the watchdog and entering an infinite
  *  loop until the AVR restarts and the application runs.
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
@@ -65,6 +65,9 @@ int main(void)
 {
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
+
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	LEDs_SetAllLEDs(LEDS_LED1);
 
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
@@ -100,6 +103,17 @@ void SetupHardware(void)
 
 	/* Initialize USB Subsystem */
 	USB_Init();
+	LEDs_Init();
+	
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));	
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
@@ -127,27 +141,37 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void EVENT_USB_Device_ControlRequest(void)
 {
+	/* Ignore any requests that aren't directed to the CDC interface */
+	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
+	    (REQTYPE_CLASS | REQREC_INTERFACE))
+	{
+		return;
+	}
+
+	/* Activity - toggle indicator LEDs */
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
 
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
 
@@ -294,7 +318,7 @@ static uint8_t FetchNextCommandByte(void)
 	}
 
 	/* Fetch the next byte from the OUT endpoint */
-	return Endpoint_Read_Byte();
+	return Endpoint_Read_8();
 }
 
 /** Writes the next response byte to the CDC data IN endpoint, and sends the endpoint back if needed to free up the
@@ -319,8 +343,8 @@ static void WriteNextResponseByte(const uint8_t Response)
 		}
 	}
 
-	/* Write the next byte to the OUT endpoint */
-	Endpoint_Write_Byte(Response);
+	/* Write the next byte to the IN endpoint */
+	Endpoint_Write_8(Response);
 }
 
 /** Task to read in AVR910 commands from the CDC data OUT endpoint, process them, perform the required actions

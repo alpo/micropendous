@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -73,11 +73,9 @@
 		void SetupHardware(void);
 
 		void Read_Joystick_Status(void);
-        void Send_Command_Report(uint8_t* const Report,
+        void Send_Command_Report(const uint8_t* const Report,
 		                         const uint16_t ReportSize);
-        void Send_Command(uint8_t* const Command);
-
-		void HID_Host_Task(void);
+        void Send_Command(const uint8_t* const Command);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

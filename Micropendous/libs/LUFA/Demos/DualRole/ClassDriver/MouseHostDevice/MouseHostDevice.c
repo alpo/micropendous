@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -53,7 +53,7 @@ int main(void)
 		/* Determine which USB mode we are currently in */
 		if (USB_CurrentMode == USB_MODE_Host)
 		{
-			MouseHostTask();
+			MouseHost_Task();
 			HID_Host_USBTask(&Mouse_HID_Host_Interface);
 		}
 		else
@@ -76,11 +76,14 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	Joystick_Init();
 	Buttons_Init();
 	USB_Init(USB_MODE_UID);
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 /** Event handler for the library USB mode change event. */

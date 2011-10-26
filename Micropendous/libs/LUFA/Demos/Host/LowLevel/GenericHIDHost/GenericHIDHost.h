@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Header file for MouseHost.c.
+ *  Header file for GenericHIDHost.c.
  */
 
 #ifndef _GENERICHID_HOST_H_
@@ -47,7 +47,7 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
 		#include "ConfigDescriptor.h"
@@ -76,20 +76,18 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void HID_Host_Task(void);
-
+		void ReadNextReport(void);
+		void WriteNextReport(uint8_t* ReportOUTData,
+		                     const uint8_t ReportIndex,
+		                     const uint8_t ReportType,
+		                     uint16_t ReportLength);
+		
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 		                                            const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-
-		void ReadNextReport(void);
-		void WriteNextReport(uint8_t* ReportOUTData,
-		                     const uint8_t ReportIndex,
-		                     const uint8_t ReportType,
-		                     uint16_t ReportLength);
 
 #endif
 

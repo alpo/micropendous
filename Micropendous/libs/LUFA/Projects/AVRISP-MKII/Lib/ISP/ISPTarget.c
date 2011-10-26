@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -41,7 +41,7 @@
  *
  *  \hideinitializer
  */
-static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
+static const uint8_t SPIMaskFromSCKDuration[] PROGMEM =
 {
 #if (F_CPU == 8000000)
 	SPI_SPEED_FCPU_DIV_2,    // AVRStudio =   8MHz SPI, Actual =   4MHz SPI
@@ -68,7 +68,7 @@ static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
  *
  *  \hideinitializer
  */
-static uint16_t TimerCompareFromSCKDuration[] PROGMEM =
+static const uint16_t TimerCompareFromSCKDuration[] PROGMEM =
 {
 	TIMER_COMP(96386), TIMER_COMP(89888), TIMER_COMP(84211), TIMER_COMP(79208), TIMER_COMP(74767),
 	TIMER_COMP(70797), TIMER_COMP(67227), TIMER_COMP(64000), TIMER_COMP(61069), TIMER_COMP(58395),
@@ -108,15 +108,16 @@ static uint16_t TimerCompareFromSCKDuration[] PROGMEM =
 bool HardwareSPIMode = true;
 
 /** Software SPI data register for sending and receiving */
-volatile uint8_t SoftSPI_Data;
+static volatile uint8_t SoftSPI_Data;
 
 /** Number of bits left to transfer in the software SPI driver */
-volatile uint8_t SoftSPI_BitsRemaining;
+static volatile uint8_t SoftSPI_BitsRemaining;
 
 
 /** ISR to handle software SPI transmission and reception */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
+	/* Check if rising edge (output next bit) or falling edge (read in next bit) */
 	if (!(PINB & (1 << 1)))
 	{
 		if (SoftSPI_Data & (1 << 7))
@@ -139,7 +140,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	PINB |= (1 << 1);
 }
 
-/** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
+/** Initializes the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
  *  communication with the attached target.
  */
 void ISPTarget_EnableTargetISP(void)
@@ -160,7 +161,7 @@ void ISPTarget_EnableTargetISP(void)
 		DDRB  |= ((1 << 1) | (1 << 2));
 		PORTB |= ((1 << 0) | (1 << 3));
 
-		ISPTarget_ConfigureSoftwareISP(SCKDuration);
+		ISPTarget_ConfigureSoftwareSPI(SCKDuration);
 	}
 }
 
@@ -171,19 +172,21 @@ void ISPTarget_DisableTargetISP(void)
 {
 	if (HardwareSPIMode)
 	{
-		SPI_ShutDown();
+		SPI_Disable();
 	}
 	else
 	{
 		DDRB  &= ~((1 << 1) | (1 << 2));
 		PORTB &= ~((1 << 0) | (1 << 3));
 		
+		/* Must re-enable rescue clock once software ISP has exited, as the timer for the rescue clock is
+		 * re-purposed for software SPI */
 		ISPTarget_ConfigureRescueClock();
 	}
 }
 
-/** Configures the AVR to produce a .5MHz rescue clock out of the OCR1A pin of the AVR, so
- *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been misconfigured for
+/** Configures the AVR to produce a 4MHz rescue clock out of the OCR1A pin of the AVR, so
+ *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been mis-configured for
  *  an external clock rather than a crystal. When used, the ISP speed must be 125KHz for this
  *  functionality to work correctly.
  */
@@ -214,14 +217,14 @@ void ISPTarget_ConfigureRescueClock(void)
 	#endif
 }
 
-/** Configures the AVR's timer ready to produce software ISP for the slower ISP speeds that
+/** Configures the AVR's timer ready to produce software SPI for the slower ISP speeds that
  *  cannot be obtained when using the AVR's hardware SPI module.
  *
  *  \param[in] SCKDuration  Duration of the desired software ISP SCK clock
  */
-void ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration)
+void ISPTarget_ConfigureSoftwareSPI(const uint8_t SCKDuration)
 {
-	/* Configure Timer 1 for software ISP using the specified SCK duration */
+	/* Configure Timer 1 for software SPI using the specified SCK duration */
 	TIMSK1 = (1 << OCIE1A);
 	TCNT1  = 0;
 	OCR1A  = pgm_read_word(&TimerCompareFromSCKDuration[SCKDuration - sizeof(SPIMaskFromSCKDuration)]);
@@ -247,7 +250,7 @@ uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte)
 
 	TCNT1  = 0;
 	TCCR1B = ((1 << WGM12) | (1 << CS11));
-	while (SoftSPI_BitsRemaining && TimeoutTicksRemaining);
+	while (SoftSPI_BitsRemaining && !(TimeoutExpired));
 	TCCR1B = 0;
 
 	return SoftSPI_Data;
@@ -289,9 +292,9 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 		ISPTarget_SendByte(0x00);
 		ISPTarget_SendByte(0x00);
 	}
-	while ((ISPTarget_ReceiveByte() & 0x01) && TimeoutTicksRemaining);
+	while ((ISPTarget_ReceiveByte() & 0x01) && !(TimeoutExpired));
 
-	return TimeoutTicksRemaining ? STATUS_CMD_OK : STATUS_RDY_BSY_TOUT;
+	return (TimeoutExpired) ? STATUS_RDY_BSY_TOUT : STATUS_CMD_OK;
 }
 
 /** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the
@@ -341,9 +344,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
 				ISPTarget_SendByte(PollAddress >> 8);
 				ISPTarget_SendByte(PollAddress & 0xFF);
 			}
-			while ((ISPTarget_TransferByte(0x00) == PollValue) && TimeoutTicksRemaining);
+			while ((ISPTarget_TransferByte(0x00) == PollValue) && !(TimeoutExpired));
 
-			if (!(TimeoutTicksRemaining))
+			if (TimeoutExpired)
 			 ProgrammingStatus = STATUS_CMD_TOUT;
 
 			break;

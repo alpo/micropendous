@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-/  Low level disk interface module include file  R0.07   (C)ChaN, 2010
+/  Low level disk interface module include file
 /-----------------------------------------------------------------------*/
 
 #ifndef _DISKIO
@@ -28,7 +28,6 @@ typedef enum {
 /*---------------------------------------*/
 /* Prototypes for disk control functions */
 
-BOOL assign_drives (int argc, char *argv[]);
 DSTATUS disk_initialize (BYTE);
 DSTATUS disk_status (BYTE);
 DRESULT disk_read (BYTE, BYTE*, DWORD, BYTE);
@@ -43,9 +42,6 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 #define STA_NOINIT		0x01	/* Drive not initialized */
 #define STA_NODISK		0x02	/* No medium in the drive */
 #define STA_PROTECT		0x04	/* Write protected */
-
-
-/* Command code for disk_ioctrl() */
 
 /* Generic command */
 #define CTRL_SYNC			0	/* Mandatory for write functions */
@@ -65,7 +61,6 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 #define ATA_GET_REV			20
 #define ATA_GET_MODEL		21
 #define ATA_GET_SN			22
-
 
 #define _DISKIO
 #endif

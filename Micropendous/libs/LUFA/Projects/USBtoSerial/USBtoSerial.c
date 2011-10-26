@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -31,16 +31,22 @@
 /** \file
  *
  *  Main source file for the USBtoSerial project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #include "USBtoSerial.h"
 
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuff_t USBtoUSART_Buffer;
+static RingBuffer_t USBtoUSART_Buffer;
+
+/** Underlying data buffer for \ref USBtoUSART_Buffer, where the stored bytes are located. */
+static uint8_t      USBtoUSART_Buffer_Data[128];
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t USARTtoUSB_Buffer;
+static RingBuffer_t USARTtoUSB_Buffer;
+
+/** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
+static uint8_t      USARTtoUSB_Buffer_Data[128];
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -66,6 +72,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
@@ -73,8 +80,8 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&USBtoUSART_Buffer);
-	RingBuffer_InitBuffer(&USARTtoUSB_Buffer);
+	RingBuffer_InitBuffer(&USBtoUSART_Buffer, USBtoUSART_Buffer_Data, sizeof(USBtoUSART_Buffer_Data));
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer, USARTtoUSB_Buffer_Data, sizeof(USARTtoUSB_Buffer_Data));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -92,20 +99,30 @@ int main(void)
 		}
 		
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
-		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
-		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
+		uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
+		if ((TIFR0 & (1 << TOV0)) || (BufferCount > (uint8_t)(sizeof(USARTtoUSB_Buffer_Data) * .75)))
 		{
 			/* Clear flush timer expiry flag */
 			TIFR0 |= (1 << TOV0);
 
 			/* Read bytes from the USART receive buffer into the USB IN endpoint */
 			while (BufferCount--)
-			  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&USARTtoUSB_Buffer));
+			{
+				/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
+				if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
+				                        RingBuffer_Peek(&USARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
+				{
+					break;
+				}
+
+				/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
+				RingBuffer_Remove(&USARTtoUSB_Buffer);
+			}
 		}
 
 		/* Load the next byte from the USART transmit buffer into the USART */
 		if (!(RingBuffer_IsEmpty(&USBtoUSART_Buffer)))
-		  Serial_TxByte(RingBuffer_Remove(&USBtoUSART_Buffer));
+		  Serial_SendByte(RingBuffer_Remove(&USBtoUSART_Buffer));
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -59,7 +59,7 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
 
 	DecodeDHCPHeader(DHCPHeaderInStart);
 
-	/* Zero out the response DHCP packet, as much of it legacy and left at 0 */
+	/* Zero out the response DHCP packet, as much of it is legacy and left at 0 */
 	memset(DHCPHeaderOUT, 0, sizeof(DHCP_Header_t));
 
 	/* Fill out the response DHCP packet */

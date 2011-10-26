@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		HID_Host_Task();
+		ReadNextReport();
+		
 		USB_USBTask();
 	}
 }
@@ -66,9 +67,12 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -94,13 +98,42 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("HID Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
@@ -128,6 +161,9 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
  */
 void ReadNextReport(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select and unfreeze HID data IN pipe */
 	Pipe_SelectPipe(HID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -147,7 +183,7 @@ void ReadNextReport(void)
 		uint8_t ReportINData[Pipe_BytesInPipe()];
 
 		/* Read in HID report data */
-		Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData));
+		Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData), NULL);
 
 		/* Print report data through the serial port */
 		for (uint16_t CurrByte = 0; CurrByte < sizeof(ReportINData); CurrByte++)
@@ -175,6 +211,9 @@ void WriteNextReport(uint8_t* ReportOUTData,
                      const uint8_t ReportType,
                      uint16_t ReportLength)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select the HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 
@@ -195,10 +234,10 @@ void WriteNextReport(uint8_t* ReportOUTData,
 
 		/* If the report index is used, send it before the report data */
 		if (ReportIndex)
-		  Pipe_Write_Byte(ReportIndex);
+		  Pipe_Write_8(ReportIndex);
 
 		/* Write out HID report data */
-		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength, NULL);
 
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearOUT();
@@ -223,62 +262,6 @@ void WriteNextReport(uint8_t* ReportOUTData,
 
 		/* Send the request to the device */
 		USB_Host_SendControlRequest(ReportOUTData);
-	}
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and to send reports if desired.
- */
-void HID_Host_Task(void)
-{
-	uint8_t ErrorCode;
-
-	/* Switch to determine what user-application handled host state the host state machine is in */
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("HID Device Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			ReadNextReport();
-
-			break;
 	}
 }
 

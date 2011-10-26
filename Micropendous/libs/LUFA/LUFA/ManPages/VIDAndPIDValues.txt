@@ -301,7 +301,7 @@
  *     0x2066
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Multiple Report Keyboard/Mouse HID Demo
  *    </td>
  *   </tr>
  *
@@ -313,7 +313,7 @@
  *     0x2067
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     HID Class Bootloader
  *    </td>
  *   </tr>
  *
@@ -325,7 +325,7 @@
  *     0x2068
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Virtual Serial/Mass Storage Demo
  *    </td>
  *   </tr>
  *
@@ -337,7 +337,7 @@
  *     0x2069
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Webserver Project
  *    </td>
  *   </tr>
  *
@@ -349,7 +349,7 @@
  *     0x206A
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Media Control Project
  *    </td>
  *   </tr>
  *

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,7 @@
 #include "KeyboardHostWithParser.h"
 
 /** Processed HID report descriptor items structure, containing information on each HID report element */
-HID_ReportInfo_t HIDReportInfo;
+static HID_ReportInfo_t HIDReportInfo;
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -74,115 +74,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_ConfigurePipes(&Keyboard_HID_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Keyboard.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_SetReportProtocol(&Keyboard_HID_Interface) != 0)
-				{
-					puts_P(PSTR("Error Setting Report Protocol Mode or Not a Valid Keyboard.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Keyboard Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
-				{
-					uint8_t KeyboardReport[Keyboard_HID_Interface.State.LargestReportSize];
-					HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
-
-					for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
-					{
-						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
-
-						/* Update the report item value if it is contained within the current report */
-						if (!(USB_GetHIDReportItemInfo(KeyboardReport, ReportItem)))
-						  continue;
-
-						/* Determine what report item is being tested, process updated value as needed */
-						if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
-							(ReportItem->Attributes.BitSize         == 8)                   &&
-							(ReportItem->Attributes.Logical.Maximum > 1)                    &&
-							(ReportItem->ItemType                   == HID_REPORT_ITEM_In))
-						{
-							/* Key code is an unsigned char in length, cast to the appropriate type */
-							uint8_t KeyCode = (uint8_t)ReportItem->Value;
-
-							/* If scan-code is non-zero, a key is being pressed */
-							if (KeyCode)
-							{
-								/* Toggle status LED to indicate keypress */
-								LEDs_ToggleLEDs(LEDS_LED2);
-
-								char PressedKey = 0;
-
-								/* Convert scan-code to printable character if alphanumeric */
-								if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
-								{
-									PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
-								}
-								else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
-										 (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
-								{
-									PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
-								}
-								else if (KeyCode == HID_KEYBOARD_SC_SPACE)
-								{
-									PressedKey = ' ';
-								}
-								else if (KeyCode == HID_KEYBOARD_SC_ENTER)
-								{
-									PressedKey = '\n';
-								}
-
-								/* Print the pressed key character out through the serial port if valid */
-								if (PressedKey)
-								  putchar(PressedKey);
-							}
-
-							/* Once a scan-code is found, stop scanning through the report items */
-							break;
-						}
-					}
-				}
-
-				break;
-		}
+		KeyboardHost_Task();
 
 		HID_Host_USBTask(&Keyboard_HID_Interface);
 		USB_USBTask();
@@ -200,9 +92,85 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
+}
+
+/** Task to manage an enumerated USB keyboard once connected, to display key state
+ *  data as it is received.
+ */
+void KeyboardHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+	
+	if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
+	{
+		uint8_t KeyboardReport[Keyboard_HID_Interface.State.LargestReportSize];
+		HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
+
+		for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
+		{
+			HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
+
+			/* Update the report item value if it is contained within the current report */
+			if (!(USB_GetHIDReportItemInfo(KeyboardReport, ReportItem)))
+			  continue;
+
+			/* Determine what report item is being tested, process updated value as needed */
+			if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
+				(ReportItem->Attributes.BitSize         == 8)                   &&
+				(ReportItem->Attributes.Logical.Maximum > 1)                    &&
+				(ReportItem->ItemType                   == HID_REPORT_ITEM_In))
+			{
+				/* Key code is an unsigned char in length, cast to the appropriate type */
+				uint8_t KeyCode = (uint8_t)ReportItem->Value;
+
+				/* If scan-code is non-zero, a key is being pressed */
+				if (KeyCode)
+				{
+					/* Toggle status LED to indicate keypress */
+					LEDs_ToggleLEDs(LEDS_LED2);
+
+					char PressedKey = 0;
+
+					/* Convert scan-code to printable character if alphanumeric */
+					if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
+					{
+						PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
+					}
+					else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
+							 (KeyCode  < HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+					{
+						PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '1';
+					}
+					else if (KeyCode == HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS)
+					{
+						PressedKey = '0';
+					}
+					else if (KeyCode == HID_KEYBOARD_SC_SPACE)
+					{
+						PressedKey = ' ';
+					}
+					else if (KeyCode == HID_KEYBOARD_SC_ENTER)
+					{
+						PressedKey = '\n';
+					}
+
+					/* Print the pressed key character out through the serial port if valid */
+					if (PressedKey)
+					  putchar(PressedKey);
+				}
+
+				/* Once a scan-code is found, stop scanning through the report items */
+				break;
+			}
+		}
+	}
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -228,13 +196,50 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_ConfigurePipes(&Keyboard_HID_Interface,
+	                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Keyboard.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_SetReportProtocol(&Keyboard_HID_Interface) != 0)
+	{
+		puts_P(PSTR("Error Setting Report Protocol Mode or Not a Valid Keyboard.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Keyboard Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);

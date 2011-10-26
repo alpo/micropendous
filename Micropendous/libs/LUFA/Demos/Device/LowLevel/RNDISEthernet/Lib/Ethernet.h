@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -81,6 +81,13 @@
 		#define NO_PROCESS                       -1
 
 	/* Type Defines: */
+		/** Type define for an Ethernet frame buffer data and information structure. */
+		typedef struct
+		{
+			uint8_t  FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
+			uint16_t FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
+		} Ethernet_Frame_Info_t;
+
 		/** Type define for an Ethernet frame header. */
 		typedef struct
 		{

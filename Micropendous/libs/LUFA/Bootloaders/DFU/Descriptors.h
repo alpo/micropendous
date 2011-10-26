@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -117,12 +117,12 @@
 			#define PRODUCT_ID_CODE               0x2FF7
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x93
-			#define AVR_SIGNATURE_3               0x82
+			#define AVR_SIGNATURE_3               0x89
 		#elif defined(__AVR_AT90USB82__)
 			#define PRODUCT_ID_CODE               0x2FEE
 			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x93
-			#define AVR_SIGNATURE_3               0x89
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
 		#else
 			#error The selected AVR part is not currently supported by this bootloader.
 		#endif
@@ -137,21 +137,21 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t               Header; /**< Standard descriptor header structure */
+			USB_Descriptor_Header_t Header; /**< Standard descriptor header structure */
 
-			uint8_t                               Attributes; /**< DFU device attributes, a mask comprising of the
-			                                                   *  ATTR_* macros listed in this source file
-			                                                   */
-			uint16_t                              DetachTimeout; /**< Timeout in milliseconds between a USB_DETACH
-			                                                       *  command being issued and the device detaching
-			                                                       *  from the USB bus
-			                                                       */
-			uint16_t                              TransferSize; /**< Maximum number of bytes the DFU device can accept
-			                                                     *  from the host in a transaction
-			                                                     */
-			uint16_t                              DFUSpecification;	/**< BCD packed DFU specification number this DFU
-			                                                         *  device complies with
-			                                                         */
+			uint8_t                 Attributes; /**< DFU device attributes, a mask comprising of the
+			                                     *  ATTR_* macros listed in this source file
+			                                     */
+			uint16_t                DetachTimeout; /**< Timeout in milliseconds between a USB_DETACH
+			                                        *  command being issued and the device detaching
+			                                        *  from the USB bus
+			                                        */
+			uint16_t                TransferSize; /**< Maximum number of bytes the DFU device can accept
+			                                       *  from the host in a transaction
+			                                       */
+			uint16_t                DFUSpecification; /**< BCD packed DFU specification number this DFU
+			                                           *  device complies with
+			                                           */
 		} USB_Descriptor_DFU_Functional_t;
 
 		/** Type define for the device configuration descriptor structure. This must be defined in the
@@ -161,6 +161,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+			
+			// DFU Interface
 			USB_Descriptor_Interface_t            DFU_Interface;
 			USB_Descriptor_DFU_Functional_t       DFU_Functional;
 		} USB_Descriptor_Configuration_t;

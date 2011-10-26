@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -59,7 +59,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	};
 
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
+static uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -81,19 +81,19 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	};
 
 /** Non-volatile Logging Interval value in EEPROM, stored as a number of 500ms ticks */
-uint8_t EEMEM LoggingInterval500MS_EEPROM = DEFAULT_LOG_INTERVAL;
+static uint8_t EEMEM LoggingInterval500MS_EEPROM = DEFAULT_LOG_INTERVAL;
 
 /** SRAM Logging Interval value fetched from EEPROM, stored as a number of 500ms ticks */
-uint8_t LoggingInterval500MS_SRAM;
+static uint8_t LoggingInterval500MS_SRAM;
 
 /** Total number of 500ms logging ticks elapsed since the last log value was recorded */
-uint16_t CurrentLoggingTicks;
+static uint16_t CurrentLoggingTicks;
 
 /** FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
-FATFS DiskFATState;
+static FATFS DiskFATState;
 
 /** FAT Fs structure to hold a FAT file handle for the log data write destination. */
-FIL TempLogFile;
+static FIL TempLogFile;
 
 
 /** ISR to handle the 500ms ticks for sampling and data logging */
@@ -102,7 +102,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	uint8_t LEDMask = LEDs_GetLEDs();
 
 	/* Check to see if the logging interval has expired */
-	if (CurrentLoggingTicks++ < LoggingInterval500MS_SRAM)
+	if (++CurrentLoggingTicks < LoggingInterval500MS_SRAM)
 	  return;
 
 	/* Reset log tick counter to prepare for next logging interval */
@@ -113,17 +113,16 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
-		uint8_t Day,  Month,  Year;
-		uint8_t Hour, Minute, Second;
-
-		DS1307_GetDate(&Day,  &Month,  &Year);
-		DS1307_GetTime(&Hour, &Minute, &Second);
+		TimeDate_t CurrentTimeDate;
+		DS1307_GetTimeDate(&CurrentTimeDate);
 
 		char     LineBuffer[100];
 		uint16_t BytesWritten;
 
-		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%04d, %02d:%02d:%02d, %d Degrees\r\n",
-							   Day, Month, Year, Hour, Minute, Second, Temperature_GetTemperature());
+		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%02d, %02d:%02d:%02d, %d Degrees\r\n",
+		                       CurrentTimeDate.Day, CurrentTimeDate.Month, CurrentTimeDate.Year,
+		                       CurrentTimeDate.Hour, CurrentTimeDate.Minute, CurrentTimeDate.Second,
+		                       Temperature_GetTemperature());
 
 		f_write(&TempLogFile, LineBuffer, BytesWritten, &BytesWritten);
 		f_sync(&TempLogFile);
@@ -152,10 +151,6 @@ int main(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
-	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
-	volatile uint8_t Dummy = Temperature_GetTemperature();
-	(void)Dummy;
-
 	for (;;)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
@@ -170,9 +165,9 @@ void OpenLogFile(void)
 	char LogFileName[12];
 
 	/* Get the current date for the filename as "DDMMYY.csv" */
-	uint8_t Day, Month, Year;
-	DS1307_GetDate(&Day, &Month, &Year);
-	sprintf(LogFileName, "%02d%02d%02d.csv", Day, Month, Year);
+	TimeDate_t CurrentTimeDate;
+	DS1307_GetTimeDate(&CurrentTimeDate);
+	sprintf(LogFileName, "%02d%02d%02d.csv", CurrentTimeDate.Day, CurrentTimeDate.Month, CurrentTimeDate.Year);
 
 	/* Mount the storage device, open the file */
 	f_mount(0, &DiskFATState);
@@ -205,7 +200,7 @@ void SetupHardware(void)
 	Temperature_Init();
 	Dataflash_Init();
 	USB_Init();
-	TWI_Init();
+	TWI_Init(TWI_BIT_PRESCALE_4, TWI_BITLENGTH_FROM_FREQ(4, 50000));
 
 	/* 500ms logging interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 2) - 1);
@@ -239,8 +234,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
-	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 	ConfigSuccess &= HID_Device_ConfigureEndpoints(&Generic_HID_Interface);
+	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
@@ -286,8 +281,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
 
-	DS1307_GetDate(&ReportParams->Day,  &ReportParams->Month,  &ReportParams->Year);
-	DS1307_GetTime(&ReportParams->Hour, &ReportParams->Minute, &ReportParams->Second);
+	DS1307_GetTimeDate(&ReportParams->TimeDate);
 
 	ReportParams->LogInterval500MS = LoggingInterval500MS_SRAM;
 
@@ -300,7 +294,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
  *  \param[in] ReportID    Report ID of the received report from the host
  *  \param[in] ReportType  The type of report that the host has sent, either HID_REPORT_ITEM_Out or HID_REPORT_ITEM_Feature
- *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
+ *  \param[in] ReportData  Pointer to a buffer where the received report has been stored
  *  \param[in] ReportSize  Size in bytes of the received HID report
  */
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
@@ -310,9 +304,8 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const uint16_t ReportSize)
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
-
-	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
-	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
+	
+	DS1307_SetTimeDate(&ReportParams->TimeDate);
 
 	/* If the logging interval has changed from its current value, write it to EEPROM */
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -122,7 +122,7 @@ uint8_t RNDIS_SendKeepAlive(void)
 	return HOST_SENDCONTROL_Successful;
 }
 
-/** Initialises the attached RNDIS device's RNDIS interface.
+/** Initializes the attached RNDIS device's RNDIS interface.
  *
  *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
  *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored
@@ -294,14 +294,15 @@ uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 
 	RNDIS_Packet_Message_t DeviceMessage;
 
-	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t))) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t), NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
 
-	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)));
+	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
+	                    NULL);
 
 	Pipe_Freeze();
 

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,13 +38,13 @@
  */
 
 /** \ingroup Group_USBClassMIDI
- *  @defgroup Group_USBClassMIDIHost MIDI Class Host Mode Driver
+ *  \defgroup Group_USBClassMIDIHost MIDI Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/MIDI.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the MIDI USB Class driver.
  *
  *  @{
@@ -67,16 +67,12 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_MIDI_HOST_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief MIDI Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the MIDI class driver functions as the MIDIInterfaceInfo parameter. This
+			 *  and passed to each of the MIDI class driver functions as the \c MIDIInterfaceInfo parameter. This
 			 *  stores each MIDI interface's configuration and state information.
 			 */
 			typedef struct
@@ -114,6 +110,7 @@
 				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				MIDI_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
+				MIDI_ENUMERROR_PipeConfigurationFailed    = 3, /**< One or more pipes for the specified interface could not be configured correctly. */
 			};
 
 		/* Function Prototypes: */
@@ -122,10 +119,6 @@
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
-			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo       Pointer to a structure containing an MIDI Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -176,7 +169,7 @@
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed.
 			 *
-			 *  \return Boolean true if a MIDI event packet was received, false otherwise.
+			 *  \return Boolean \c true if a MIDI event packet was received, \c false otherwise.
 			 */
 			bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -185,8 +178,10 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MIDI_HOST_C)
-				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor)
+				                                                          ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor)
+				                                                             ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 

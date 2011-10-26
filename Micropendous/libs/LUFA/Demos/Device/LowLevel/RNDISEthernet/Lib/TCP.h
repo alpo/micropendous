@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -198,14 +198,14 @@
 			uint16_t               RemotePort; /**< Connection port number on the host */
 			IP_Address_t           RemoteAddress; /**< Connection protocol IP address of the host */
 			TCP_ConnectionInfo_t   Info; /**< Connection information, including application buffer */
-			uint8_t                State; /**< Current connection state, a value from the TCP_ConnectionStates_t enum */
+			uint8_t                State; /**< Current connection state, a value from the \ref TCP_ConnectionStates_t enum */
 		} TCP_ConnectionState_t;
 
 		/** Type define for a TCP port state. */
 		typedef struct
 		{
 			uint16_t               Port; /**< TCP port number on the device */
-			uint8_t                State; /**< Current port state, a value from the TCP_PortStates_t enum */
+			uint8_t                State; /**< Current port state, a value from the \ref TCP_PortStates_t enum */
 			void                   (*ApplicationHandler) (TCP_ConnectionState_t* ConnectionState,
 			                                              TCP_ConnectionBuffer_t* Buffer); /**< Port application handler */
 		} TCP_PortState_t;
@@ -219,8 +219,8 @@
 			uint32_t               SequenceNumber; /**< Data sequence number of the packet */
 			uint32_t               AcknowledgmentNumber; /**< Data acknowledgment number of the packet */
 
-			unsigned char          Reserved   : 4; /**< Reserved, must be all 0 */
-			unsigned char          DataOffset : 4; /**< Offset of the data from the start of the header, in 4 byte chunks */
+			unsigned               Reserved   : 4; /**< Reserved, must be all 0 */
+			unsigned               DataOffset : 4; /**< Offset of the data from the start of the header, in 4 byte chunks */
 			uint8_t                Flags; /**< TCP packet flags */
 			uint16_t               WindowSize; /**< Current data window size (bytes remaining in reception buffer) */
 

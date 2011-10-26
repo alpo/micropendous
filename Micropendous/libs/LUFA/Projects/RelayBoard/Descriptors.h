@@ -1,6 +1,6 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
@@ -8,7 +8,7 @@
 
 /*
   Copyright 2010  OBinou (obconseil [at] gmail [dot] com)
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -48,9 +48,11 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t    Config;
-			USB_Descriptor_Interface_t               RelayBoardInterface;
-		} RelayBoard_USB_Descriptor_Configuration_t;
+			USB_Descriptor_Configuration_Header_t Config;
+			
+			// Relay Board Interface
+			USB_Descriptor_Interface_t            RelayBoardInterface;
+		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

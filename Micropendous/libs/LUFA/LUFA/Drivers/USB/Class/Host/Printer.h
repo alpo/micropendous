@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,13 +38,13 @@
  */
 
 /** \ingroup Group_USBClassPrinter
- *  @defgroup Group_USBClassPrinterHost Printer Class Host Mode Driver
+ *  \defgroup Group_USBClassPrinterHost Printer Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/Printer.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Printer USB Class driver.
  *
  *  @{
@@ -67,16 +67,12 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_PRINTER_HOST_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief Printer Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the Printer class driver functions as the PRNTInterfaceInfo parameter. This
+			 *  and passed to each of the Printer class driver functions as the \c PRNTInterfaceInfo parameter. This
 			 *  stores each Printer interface's configuration and state information.
 			 */
 			typedef struct
@@ -109,31 +105,21 @@
 			} USB_ClassInfo_PRNT_Host_t;
 
 		/* Enums: */
+			/** Enum for the possible error codes returned by the \ref PRNT_Host_ConfigurePipes() function. */
 			enum PRNT_Host_EnumerationFailure_ErrorCodes_t
 			{
 				PRNT_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				PRNT_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				PRNT_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Printer interface was not found in the device's Configuration Descriptor. */
+				PRNT_ENUMERROR_PipeConfigurationFailed    = 3, /**< One or more pipes for the specified interface could not be configured correctly. */
 			};
 
 		/* Function Prototypes: */
-			/** General management task for a given Printer host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
-			 */
-			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-
 			/** Host interface configuration routine, to configure a given Printer host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Printer
 			 *  instance's state values and configures the pipes required to communicate with the interface if it is found within
 			 *  the device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
-			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo       Pointer to a structure containing a Printer Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -145,6 +131,14 @@
 			                                 uint16_t ConfigDescriptorSize,
 			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
+			/** General management task for a given Printer host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 */
+			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+
 			/** Configures the printer to enable Bidirectional mode, if it is not already in this mode. This should be called
 			 *  once the connected device's configuration has been set, to ensure the printer is ready to accept commands.
 			 *
@@ -155,7 +149,7 @@
 			uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Retrieves the status of the virtual Printer port's inbound status lines. The result can then be masked against the
-			 *  PRNT_PORTSTATUS_* macros to determine the printer port's status.
+			 *  \c PRNT_PORTSTATUS_* macros to determine the printer port's status.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
 			 *  \param[out]    PortStatus         Location where the retrieved port status should be stored.
@@ -185,6 +179,19 @@
 			 */
 			uint8_t PRNT_Host_Flush(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Sends the given null terminated string to the attached printer's input endpoint.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *  \param[in]     String             Pointer to a null terminated string to send.
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                             void* String) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+
 			/** Sends the given raw data stream to the attached printer's input endpoint. This should contain commands that the
 			 *  printer is able to understand - for example, PCL data. Not all printers accept all printer languages; see
 			 *  \ref PRNT_Host_GetDeviceID() for details on determining acceptable languages for an attached printer.
@@ -198,9 +205,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-			                             void* Buffer,
-			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                           void* Buffer,
+			                           const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
@@ -266,8 +273,10 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_HOST_C)
-				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor)
+				                                                 ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor)
+				                                                         ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,11 @@
 #include "AudioInput.h"
 
 /** Flag to indicate if the streaming audio alternative interface has been selected by the host. */
-bool StreamingAudioInterfaceSelected = false;
+static bool StreamingAudioInterfaceSelected = false;
+
+/** Current audio sampling frequency of the streaming audio endpoint. */
+static uint32_t CurrentAudioSampleFrequency = 48000;
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -86,7 +90,7 @@ void EVENT_USB_Device_Connect(void)
 
 	/* Sample reload timer initialization */
 	TIMSK0  = (1 << OCIE0A);
-	OCR0A   = ((F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1);
+	OCR0A   = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 }
@@ -142,6 +146,66 @@ void EVENT_USB_Device_ControlRequest(void)
 			}
 
 			break;
+		case AUDIO_REQ_GetStatus:
+			/* Get Status request can be directed at either the interface or endpoint, neither is currently used
+			 * according to the latest USB Audio 1.0 standard, but must be ACKed with no data when requested */
+			if ((USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE)) ||
+			    (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT)))
+			{
+				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
+			}
+
+			break;
+		case AUDIO_REQ_SetCurrent:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				/* Extract out the relevant request information to get the target Endpoint address and control being set */
+				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
+				
+				/* Only handle SET CURRENT requests to the audio endpoint's sample frequency property */
+				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				{
+					uint8_t SampleRate[3];
+				
+					Endpoint_ClearSETUP();
+					Endpoint_Read_Control_Stream_LE(SampleRate, sizeof(SampleRate));
+					Endpoint_ClearIN();
+					
+					/* Set the new sampling frequency to the value given by the host */
+					CurrentAudioSampleFrequency = (((uint32_t)SampleRate[2] << 16) | ((uint32_t)SampleRate[1] << 8) | (uint32_t)SampleRate[0]);
+
+					/* Adjust sample reload timer to the new frequency */
+					OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
+				}
+			}
+			
+			break;
+		case AUDIO_REQ_GetCurrent:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				/* Extract out the relevant request information to get the target Endpoint address and control being retrieved */
+				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
+				
+				/* Only handle GET CURRENT requests to the audio endpoint's sample frequency property */
+				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				{
+					uint8_t SampleRate[3];
+					
+					/* Convert the sampling rate value into the 24-bit format the host expects for the property */
+					SampleRate[2] = (CurrentAudioSampleFrequency >> 16);
+					SampleRate[1] = (CurrentAudioSampleFrequency >> 8);
+					SampleRate[0] = (CurrentAudioSampleFrequency &  0xFF);
+				
+					Endpoint_ClearSETUP();
+					Endpoint_Write_Control_Stream_LE(SampleRate, sizeof(SampleRate));
+					Endpoint_ClearOUT();					
+				}
+			}
+
+			break;
 	}
 }
 
@@ -179,7 +243,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		#endif
 
 		/* Write the sample to the buffer */
-		Endpoint_Write_Word_LE(AudioSample);
+		Endpoint_Write_16_LE(AudioSample);
 
 		/* Check to see if the bank is now full */
 		if (!(Endpoint_IsReadWriteAllowed()))

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		Mouse_HID_Task();
+		MouseHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -66,9 +67,12 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -94,13 +98,66 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* HID class request to set the mouse protocol to the Boot Protocol */
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = HID_REQ_SetProtocol,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = 0,
+		};
+
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	/* Send the request, display error and wait for device detach if request fails */
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Protocol).\r\n"
+								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Mouse Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
@@ -126,15 +183,18 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 /** Reads in and processes the next report from the attached device, displaying the report
  *  contents on the board LEDs and via the serial port.
  */
-void ReadNextReport(void)
+void MouseHost_Task(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	USB_MouseReport_Data_t MouseReport;
 	uint8_t                LEDMask = LEDS_NO_LEDS;
 
 	/* Select mouse data pipe */
 	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);
 
-	/* Unfreeze keyboard data pipe */
+	/* Unfreeze mouse data pipe */
 	Pipe_Unfreeze();
 
 	/* Check to see if a packet has been received */
@@ -153,7 +213,7 @@ void ReadNextReport(void)
 	if (Pipe_IsReadWriteAllowed())
 	{
 		/* Read in mouse report data */
-		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));
+		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport), NULL);
 
 		/* Alter status LEDs according to mouse X movement */
 		if (MouseReport.X > 0)
@@ -184,89 +244,5 @@ void ReadNextReport(void)
 
 	/* Refreeze mouse data pipe */
 	Pipe_Freeze();
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and display the results onto the board LEDs.
- */
-void Mouse_HID_Task(void)
-{
-	uint8_t ErrorCode;
-
-	/* Switch to determine what user-application handled host state the host state machine is in */
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* HID class request to set the mouse protocol to the Boot Protocol */
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-					.bRequest      = HID_REQ_SetProtocol,
-					.wValue        = 0,
-					.wIndex        = 0,
-					.wLength       = 0,
-				};
-
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			/* Send the request, display error and wait for device detach if request fails */
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Protocol).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Mouse Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* If a report has been received, read and process it */
-			ReadNextReport();
-
-			break;
-	}
 }
 

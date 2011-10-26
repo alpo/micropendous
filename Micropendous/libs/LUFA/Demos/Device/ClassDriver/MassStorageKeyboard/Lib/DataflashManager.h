@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -62,12 +62,6 @@
 
 		/** Total number of blocks of the virtual memory for reporting to the host as the device's total capacity. */
 		#define VIRTUAL_MEMORY_BLOCKS              (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
-
-		/** Total number of logical drives within the device - must be non-zero. */
-		#define TOTAL_LUNS                          1
-
-		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
-		#define LUN_MEDIA_BLOCKS                   (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
 
 	/* Function Prototypes: */
 		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,

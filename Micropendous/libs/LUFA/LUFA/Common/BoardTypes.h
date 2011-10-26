@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -29,29 +29,30 @@
 */
 
 /** \file
- *  \brief Supported board hardware defines.
+ *  \brief Supported pre-made board hardware defines.
  *
- *  This file contains constants which can be passed to the compiler (via setting the macro BOARD) in the
- *  user project makefile using the -D option to configure the library board-specific drivers.
+ *  \copydetails Group_BoardTypes
  *
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
  */
 
 /** \ingroup Group_Common
- *  @defgroup Group_BoardTypes Board Types
+ *  \defgroup Group_BoardTypes Board Types
+ *  \brief Supported pre-made board hardware defines.
  *
- *  Macros for indicating the chosen physical board hardware to the library. These macros should be used when
- *  defining the BOARD token to the chosen hardware via the -D switch in the project makefile.
+ *  Board macros for indicating the chosen physical board hardware to the library. These macros should be used when
+ *  defining the \c BOARD token to the chosen hardware via the \c -D switch in the project makefile. If a custom
+ *  board is used, the \ref BOARD_NONE or \ref BOARD_USER values should be selected.
  *
  *  @{
  */
 
-#ifndef __BOARDTYPES_H__
-#define __BOARDTYPES_H__
+#ifndef __LUFA_BOARDTYPES_H__
+#define __LUFA_BOARDTYPES_H__
 
 	/* Preprocessor Checks: */
-		#if !defined(__COMMON_H__)
+		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
 
@@ -73,8 +74,8 @@
 			#define BOARD_ATAVRUSBRF01  4
 
 			/** Selects the user-defined board drivers, which should be placed in the user project's folder
-			 *  under a directory named /Board/. Each board driver should be named identically to the LUFA
-			 *  master board driver (i.e., driver in the LUFA/Drivers/Board director) so that the library
+			 *  under a directory named \c /Board/. Each board driver should be named identically to the LUFA
+			 *  master board driver (i.e., driver in the \c LUFA/Drivers/Board directory) so that the library
 			 *  can correctly identify it.
 			 */
 			#define BOARD_USER          5
@@ -119,7 +120,7 @@
 			/** Selects the Arduino Uno specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_UNO           18
 
-			/** Selects the CUL V3 specific board drivers, including the Button and LEDs drivers. */
+			/** Selects the Busware CUL V3 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_CULV3         19
 
 			/** Selects the Blackcat USB JTAG specific board drivers, including the driver for the board LEDs. */
@@ -137,13 +138,24 @@
 			/** Selects the Microsin AVR-USB162 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_MICROSIN162   24
 
-			/** Selects the Micropendous specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_USBFOO   25
+			/** Selects the Kernel Concepts USBFOO specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_USBFOO        25
+			
+			/** Selects the Sparkfun ATMEGA8U2 specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_SPARKFUN8U2   26
 
-			/** Selects the Micropendous specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_MICROPENDOUS   26
+			/** Selects the Atmel EVK1101 specific board drivers, including the Button, Joystick and LED drivers. */
+			#define BOARD_EVK1101       27
+			
+			/** Selects the Busware TUL specific board drivers, including the Button and LED drivers. */
+			#define BOARD_TUL           28
 
+			/** Selects the Atmel EVK1100 specific board drivers, including the Button, Joystick and LED drivers. */
+			#define BOARD_EVK1100       29
 
+			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_EVK1104       30
+			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

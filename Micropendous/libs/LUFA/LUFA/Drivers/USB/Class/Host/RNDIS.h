@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,13 +38,13 @@
  */
 
 /** \ingroup Group_USBClassRNDIS
- *  @defgroup Group_USBClassRNDISHost RNDIS Class Host Mode Driver
+ *  \defgroup Group_USBClassRNDISHost RNDIS Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/RNDIS.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Microsoft RNDIS Ethernet
  *  USB Class driver.
  *
@@ -58,9 +58,6 @@
 		#include "../../USB.h"
 		#include "../Common/RNDIS.h"
 
-		#include <stdio.h>
-		#include <string.h>
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -71,16 +68,12 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_RNDIS_HOST_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief RNDIS Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the RNDIS class driver functions as the RNDISInterfaceInfo parameter. This
+			 *  and passed to each of the RNDIS class driver functions as the \c RNDISInterfaceInfo parameter. This
 			 *  stores each RNDIS interface's configuration and state information.
 			 */
 			typedef struct
@@ -128,11 +121,8 @@
 				RNDIS_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				RNDIS_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				RNDIS_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible RNDIS interface was not found in the device's Configuration Descriptor. */
+				RNDIS_ENUMERROR_PipeConfigurationFailed    = 3, /**< One or more pipes for the specified interface could not be configured correctly. */
 			};
-
-		/* Macros: */
-			/** Additional error code for RNDIS functions when a device returns a logical command failure. */
-			#define RNDIS_COMMAND_FAILED                  0xC0
 
 		/* Function Prototypes: */
 			/** Host interface configuration routine, to configure a given RNDIS host interface instance using the Configuration
@@ -140,10 +130,6 @@
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
-			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo      Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -160,18 +146,18 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_SendKeepAlive(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Initialises the attached RNDIS device's RNDIS interface. This should be called after the device's pipes have been
+			/** Initializes the attached RNDIS device's RNDIS interface. This should be called after the device's pipes have been
 			 *  configured via the call to \ref RNDIS_Host_ConfigurePipes().
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -182,8 +168,8 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be sourced from.
 			 *  \param[in]     Length              Length in bytes of the property data to sent to the device.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                                    const uint32_t Oid,
@@ -197,8 +183,8 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be written to.
 			 *  \param[in]     MaxLength           Length in bytes of the destination buffer size.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                                      const uint32_t Oid,
@@ -212,7 +198,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return Boolean true if a packet is waiting to be read in by the host, false otherwise.
+			 *  \return Boolean \c true if a packet is waiting to be read in by the host, \c false otherwise.
 			 */
 			bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -254,7 +240,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 */
-			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo)
 			{
 				(void)RNDISInterfaceInfo;
@@ -273,9 +259,12 @@
 				                                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
 				                                             ATTR_NON_NULL_PTR_ARG(2);
 
-				static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor)
+				                                                          ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor)
+				                                                       ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor)
+				                                                           ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 

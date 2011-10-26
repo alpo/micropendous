@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -72,7 +72,7 @@
 		void    ISPTarget_EnableTargetISP(void);
 		void    ISPTarget_DisableTargetISP(void);
 		void    ISPTarget_ConfigureRescueClock(void);
-		void    ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration);
+		void    ISPTarget_ConfigureSoftwareSPI(const uint8_t SCKDuration);
 		uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte);
 		void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);
 		uint8_t ISPTarget_WaitWhileTargetBusy(void);

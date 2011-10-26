@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
               
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this 
   software and its documentation for any purpose is hereby granted
@@ -90,16 +90,16 @@
 			
 			struct
 			{
-				unsigned char ListenOnly             : 1;
-				unsigned char TalkOnly               : 1;
-				unsigned char PulseIndicateSupported : 1;
-				unsigned char Reserved               : 5;
+				unsigned ListenOnly             : 1;
+				unsigned TalkOnly               : 1;
+				unsigned PulseIndicateSupported : 1;
+				unsigned Reserved               : 5;
 			} Interface;
 			
 			struct
 			{
-				unsigned char SupportsAbortINOnMatch : 1;
-				unsigned char Reserved               : 7;
+				unsigned SupportsAbortINOnMatch : 1;
+				unsigned Reserved               : 7;
 			} Device;
 			
 			uint8_t Reserved2[6];
@@ -108,19 +108,15 @@
 		
 		typedef struct
 		{
-			unsigned char LastMessageTransaction : 1;
-			unsigned char Reserved               : 7;
-
-			uint8_t Reserved2[3];
+			uint8_t LastMessageTransaction;
+			uint8_t TermChar;
+			uint8_t Reserved[2];
 		} TMC_DevOUTMessageHeader_t;
 
 		typedef struct
 		{
-			unsigned char TermCharEnabled        : 1;
-			unsigned char Reserved               : 7;
-
-			uint8_t TermChar;
-			uint8_t Reserved2[2];
+			uint8_t LastMessageTransaction;
+			uint8_t Reserved[3];
 		} TMC_DevINMessageHeader_t;
 
 		typedef struct
@@ -149,9 +145,6 @@
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
-
-		uint8_t StreamCallback_AbortINOnRequest(void);
-		uint8_t StreamCallback_AbortOUTOnRequest(void);
 
 #endif
 

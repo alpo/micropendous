@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassCDC
- *  @defgroup Group_USBClassCDCCommon  Common Class Definitions
+ *  \defgroup Group_USBClassCDCCommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  CDC Class.
  *
@@ -51,9 +51,7 @@
 #define _CDC_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
-
-		#include <string.h>
+		#include "../../Core/StdDescriptors.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -117,7 +115,7 @@
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
-		 *  easily by specifying the size of the payload. This allows sizeof() to work correctly.
+		 *  easily by specifying the size of the payload. This allows \c sizeof() to work correctly.
 		 *
 		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload.
 		 */
@@ -147,10 +145,10 @@
 			CDC_CSCP_ATCommandProtocol      = 0x01, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to the AT Command protocol of the CDC class.
 			                                         */
-			CDC_CSCP_NoSpecificProtocol     = 0x00, /**< Descriptor Class value indicating that the device or interface
+			CDC_CSCP_NoSpecificProtocol     = 0x00, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to no specific protocol of the CDC class.
 			                                         */
-			CDC_CSCP_VendorSpecificProtocol = 0xFF, /**< Descriptor Class value indicating that the device or interface
+			CDC_CSCP_VendorSpecificProtocol = 0xFF, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to a vendor-specific protocol of the CDC class.
 			                                         */
 			CDC_CSCP_CDCDataClass           = 0x0A, /**< Descriptor Class value indicating that the device or interface
@@ -189,7 +187,7 @@
 		enum CDC_DescriptorSubtypes_t
 		{
 			CDC_DSUBTYPE_CSInterface_Header           = 0x00, /**< CDC class-specific Header functional descriptor. */
-			CDC_DSUBTYPE_CSInterface_CallManagement   = 0x01, /**< CDC class-specific Call Managment functional descriptor. */
+			CDC_DSUBTYPE_CSInterface_CallManagement   = 0x01, /**< CDC class-specific Call Management functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_ACM              = 0x02, /**< CDC class-specific Abstract Control Model functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_DirectLine       = 0x03, /**< CDC class-specific Direct Line functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_TelephoneRinger  = 0x04, /**< CDC class-specific Telephone Ringer functional descriptor. */
@@ -233,6 +231,8 @@
 		 *  See the CDC class specification for more details.
 		 *
 		 *  \see \ref USB_CDC_StdDescriptor_FunctionalHeader_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -243,7 +243,7 @@
 			uint16_t                CDCSpecification; /**< Version number of the CDC specification implemented by the device,
 			                                           *   encoded in BCD format.
 			                                           */
-		} USB_CDC_Descriptor_FunctionalHeader_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalHeader_t;
 
 		/** \brief CDC class-specific Functional Header Descriptor (USB-IF naming conventions).
 		 *
@@ -253,6 +253,8 @@
 		 *
 		 *  \see \ref USB_CDC_Descriptor_FunctionalHeader_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -264,7 +266,7 @@
 			                              *   must be \ref CDC_DSUBTYPE_CSInterface_Header.
 			                              */
 			uint16_t bcdCDC; /**< Version number of the CDC specification implemented by the device, encoded in BCD format. */
-		} USB_CDC_StdDescriptor_FunctionalHeader_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalHeader_t;
 
 		/** \brief CDC class-specific Functional ACM Descriptor (LUFA naming conventions).
 		 *
@@ -272,6 +274,8 @@
 		 *  supports the CDC ACM subclass of the CDC specification. See the CDC class specification for more details.
 		 *
 		 *  \see \ref USB_CDC_StdDescriptor_FunctionalACM_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -280,10 +284,10 @@
 			                                  *   must be \ref CDC_DSUBTYPE_CSInterface_ACM.
 			                                  */
 			uint8_t                 Capabilities; /**< Capabilities of the ACM interface, given as a bit mask. For most devices,
-			                                       *   this should be set to a fixed value of 0x06 - for other capabiltiies, refer
+			                                       *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                                       *   to the CDC ACM specification.
 			                                       */
-		} USB_CDC_Descriptor_FunctionalACM_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalACM_t;
 
 		/** \brief CDC class-specific Functional ACM Descriptor (USB-IF naming conventions).
 		 *
@@ -292,6 +296,8 @@
 		 *
 		 *  \see \ref USB_CDC_Descriptor_FunctionalACM_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -303,10 +309,10 @@
 			                             *   must be \ref CDC_DSUBTYPE_CSInterface_ACM.
 			                             */
 			uint8_t bmCapabilities; /**< Capabilities of the ACM interface, given as a bit mask. For most devices,
-			                         *   this should be set to a fixed value of 0x06 - for other capabiltiies, refer
+			                         *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                         *   to the CDC ACM specification.
 			                         */
-		} USB_CDC_StdDescriptor_FunctionalACM_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalACM_t;
 
 		/** \brief CDC class-specific Functional Union Descriptor (LUFA naming conventions).
 		 *
@@ -314,6 +320,8 @@
 		 *  CDC control and data interfaces are related. See the CDC class specification for more details.
 		 *
 		 *  \see \ref USB_CDC_StdDescriptor_FunctionalUnion_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -323,7 +331,7 @@
 			                                  */
 			uint8_t                 MasterInterfaceNumber; /**< Interface number of the CDC Control interface. */
 			uint8_t                 SlaveInterfaceNumber; /**< Interface number of the CDC Data interface. */
-		} USB_CDC_Descriptor_FunctionalUnion_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalUnion_t;
 
 		/** \brief CDC class-specific Functional Union Descriptor (USB-IF naming conventions).
 		 *
@@ -332,6 +340,8 @@
 		 *
 		 *  \see \ref USB_CDC_Descriptor_FunctionalUnion_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -344,10 +354,14 @@
 			                             */
 			uint8_t bMasterInterface; /**< Interface number of the CDC Control interface. */
 			uint8_t bSlaveInterface0; /**< Interface number of the CDC Data interface. */
-		} USB_CDC_StdDescriptor_FunctionalUnion_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalUnion_t;
 		
-		/** Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual
+		/** \brief CDC Virtual Serial Port Line Encoding Settings Structure.
+		 *
+		 *  Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual
 		 *  serial port.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -359,7 +373,7 @@
 								  *   \ref CDC_LineEncodingParity_t enum.
 								  */
 			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
-		} CDC_LineEncoding_t;
+		} ATTR_PACKED CDC_LineEncoding_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

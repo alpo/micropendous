@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -35,9 +35,6 @@
  */
 
 #include "GenericHID.h"
-
-/** Static buffer to hold the last received report from the host, so that it can be echoed back in the next sent report */
-static uint8_t LastReceived[GENERIC_REPORT_SIZE];
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -139,7 +136,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 				/* Read the report data from the control endpoint */
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
-				Endpoint_ClearOUT();
+				Endpoint_ClearIN();
 
 				ProcessGenericHIDReport(GenericData);
 			}
@@ -148,20 +145,33 @@ void EVENT_USB_Device_ControlRequest(void)
 	}
 }
 
-/** Function to process the lest received report from the host.
+/** Function to process the last received report from the host.
  *
- *  \param[in] DataArray  Pointer to a buffer where the last report data is stored
+ *  \param[in] DataArray  Pointer to a buffer where the last received report has been stored
  */
 void ProcessGenericHIDReport(uint8_t* DataArray)
 {
 	/*
-		This is where you need to process the reports being sent from the host to the device.
-		DataArray is an array holding the last report from the host. This function is called
-		each time the host has sent a report to the device.
+		This is where you need to process reports sent from the host to the device. This
+		function is called each time the host has sent a new report. DataArray is an array
+		holding the report sent from the host.
 	*/
 
-	for (uint8_t i = 0; i < GENERIC_REPORT_SIZE; i++)
-	  LastReceived[i] = DataArray[i];
+	uint8_t NewLEDMask = LEDS_NO_LEDS;	
+
+	if (DataArray[0])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (DataArray[1])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (DataArray[2])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (DataArray[3])
+	  NewLEDMask |= LEDS_LED1;
+	  
+	LEDs_SetAllLEDs(NewLEDMask);
 }
 
 /** Function to create the next report to send back to the host at the next reporting interval.
@@ -176,8 +186,12 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 		an array to hold the report to the host.
 	*/
 
-	for (uint8_t i = 0; i < GENERIC_REPORT_SIZE; i++)
-	  DataArray[i] = LastReceived[i];
+	uint8_t CurrLEDMask = LEDs_GetLEDs();
+		
+	DataArray[0] = ((CurrLEDMask & LEDS_LED1) ? 1 : 0);
+	DataArray[1] = ((CurrLEDMask & LEDS_LED2) ? 1 : 0);
+	DataArray[2] = ((CurrLEDMask & LEDS_LED3) ? 1 : 0);
+	DataArray[3] = ((CurrLEDMask & LEDS_LED4) ? 1 : 0);
 }
 
 void HID_Task(void)
@@ -198,7 +212,7 @@ void HID_Task(void)
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
 
 			/* Read Generic Report Data */
-			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
+			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData), NULL);
 
 			/* Process Generic Report Data */
 			ProcessGenericHIDReport(GenericData);
@@ -220,7 +234,7 @@ void HID_Task(void)
 		CreateGenericHIDReport(GenericData);
 
 		/* Write Generic Report Data */
-		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
+		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

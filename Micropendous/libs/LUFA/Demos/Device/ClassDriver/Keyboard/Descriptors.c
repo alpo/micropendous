@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -43,40 +43,12 @@
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
  */
-USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
 {
-	0x05, 0x01,          /* Usage Page (Generic Desktop)                    */
-	0x09, 0x06,          /* Usage (Keyboard)                                */
-	0xa1, 0x01,          /* Collection (Application)                        */
-	0x75, 0x01,          /*   Report Size (1)                               */
-	0x95, 0x08,          /*   Report Count (8)                              */
-	0x05, 0x07,          /*   Usage Page (Key Codes)                        */
-	0x19, 0xe0,          /*   Usage Minimum (Keyboard LeftControl)          */
-	0x29, 0xe7,          /*   Usage Maximum (Keyboard Right GUI)            */
-	0x15, 0x00,          /*   Logical Minimum (0)                           */
-	0x25, 0x01,          /*   Logical Maximum (1)                           */
-	0x81, 0x02,          /*   Input (Data, Variable, Absolute)              */
-	0x95, 0x01,          /*   Report Count (1)                              */
-	0x75, 0x08,          /*   Report Size (8)                               */
-	0x81, 0x03,          /*   Input (Const, Variable, Absolute)             */
-	0x95, 0x05,          /*   Report Count (5)                              */
-	0x75, 0x01,          /*   Report Size (1)                               */
-	0x05, 0x08,          /*   Usage Page (LEDs)                             */
-	0x19, 0x01,          /*   Usage Minimum (Num Lock)                      */
-	0x29, 0x05,          /*   Usage Maximum (Kana)                          */
-	0x91, 0x02,          /*   Output (Data, Variable, Absolute)             */
-	0x95, 0x01,          /*   Report Count (1)                              */
-	0x75, 0x03,          /*   Report Size (3)                               */
-	0x91, 0x03,          /*   Output (Const, Variable, Absolute)            */
-	0x95, 0x06,          /*   Report Count (6)                              */
-	0x75, 0x08,          /*   Report Size (8)                               */
-	0x15, 0x00,          /*   Logical Minimum (0)                           */
-	0x25, 0x65,          /*   Logical Maximum (101)                         */
-	0x05, 0x07,          /*   Usage Page (Keyboard)                         */
-	0x19, 0x00,          /*   Usage Minimum (Reserved (no event indicated)) */
-	0x29, 0x65,          /*   Usage Maximum (Keyboard Application)          */
-	0x81, 0x00,          /*   Input (Data, Array, Absolute)                 */
-	0xc0                 /* End Collection                                  */
+	/* Use the HID class driver's standard Keyboard report.
+	 *   Max simultaneous keys: 6
+	 */
+	HID_DESCRIPTOR_KEYBOARD(6)
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
@@ -84,7 +56,7 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -111,7 +83,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -159,7 +131,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | KEYBOARD_EPNUM),
+			.EndpointAddress        = (ENDPOINT_DIR_IN | KEYBOARD_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = KEYBOARD_EPSIZE,
 			.PollingIntervalMS      = 0x01
@@ -170,7 +142,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -181,7 +153,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -192,7 +164,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
 

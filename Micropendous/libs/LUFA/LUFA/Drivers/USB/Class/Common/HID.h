@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassHID
- *  @defgroup Group_USBClassHIDCommon  Common Class Definitions
+ *  \defgroup Group_USBClassHIDCommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  HID Class.
  *
@@ -51,9 +51,13 @@
 #define _HID_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
+		#include "HIDParser.h"
 
-		#include <string.h>
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_HID_DRIVER)
@@ -103,7 +107,7 @@
 		#define HID_KEYBOARD_LED_KATANA                           (1 << 3)
 		//@}
 
-		/** \name Keyboard Standard Report Key Scancodes */
+		/** \name Keyboard Standard Report Key Scan-codes */
 		//@{	
 		#define HID_KEYBOARD_SC_ERROR_ROLLOVER                    0x01
 		#define HID_KEYBOARD_SC_POST_FAIL                         0x02
@@ -183,7 +187,7 @@
 		#define HID_KEYBOARD_SC_DELETE                            0x4C
 		#define HID_KEYBOARD_SC_END                               0x4D
 		#define HID_KEYBOARD_SC_PAGE_DOWN                         0x4E
-		#define HID_KEYBOARD_SC_RIGHT_ARROW                       0xEF
+		#define HID_KEYBOARD_SC_RIGHT_ARROW                       0x4F
 		#define HID_KEYBOARD_SC_LEFT_ARROW                        0x50
 		#define HID_KEYBOARD_SC_DOWN_ARROW                        0x51
 		#define HID_KEYBOARD_SC_UP_ARROW                          0x52
@@ -204,7 +208,8 @@
 		#define HID_KEYBOARD_SC_KEYPAD_9_AND_PAGE_UP              0x61
 		#define HID_KEYBOARD_SC_KEYPAD_0_AND_INSERT               0x62
 		#define HID_KEYBOARD_SC_KEYPAD_DOT_AND_DELETE             0x63
-		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64
+		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64		
+		#define HID_KEYBOARD_SC_POWER                             0x66
 		#define HID_KEYBOARD_SC_EQUAL_SIGN                        0x67
 		#define HID_KEYBOARD_SC_F13                               0x68
 		#define HID_KEYBOARD_SC_F14                               0x69
@@ -239,7 +244,8 @@
 		#define HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN                 0x86
 		#define HID_KEYBOARD_SC_INTERNATIONAL1                    0x87
 		#define HID_KEYBOARD_SC_INTERNATIONAL2                    0x88
-		#define HID_KEYBOARD_SC_INTERNATIONAL3                    0x8A
+		#define HID_KEYBOARD_SC_INTERNATIONAL3                    0x89
+		#define HID_KEYBOARD_SC_INTERNATIONAL4                    0x8A
 		#define HID_KEYBOARD_SC_INTERNATIONAL5                    0x8B
 		#define HID_KEYBOARD_SC_INTERNATIONAL6                    0x8C
 		#define HID_KEYBOARD_SC_INTERNATIONAL7                    0x8D
@@ -322,6 +328,196 @@
 		#define HID_KEYBOARD_SC_RIGHT_GUI                         0xE7
 		//@}
 
+		/** \name Common HID Device Report Descriptors */
+		//@{
+		/** \hideinitializer
+		 *  A list of HID report item array elements that describe a typical HID USB Joystick. The resulting report
+		 *  descriptor is structured according to the following layout:
+		 *
+		 *  \code
+		 *  struct
+		 *  {
+		 *      intB_t X; // Signed X axis value
+		 *      intB_t Y; // Signed Y axis value
+		 *      int8_t Z; // Signed Z axis value
+		 *      // Additional axis elements here
+		 *      uintA_t Buttons; // Pressed buttons bitmask
+		 *  } Joystick_Report;
+		 *  \endcode
+		 *
+		 *  Where \c uintA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
+		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
+		 *
+		 *  \param[in] NumAxis         Number of axis in the joystick (8-bit)
+		 *  \param[in] MinAxisVal      Minimum logical axis value (16-bit).
+		 *  \param[in] MaxAxisVal      Maximum logical axis value (16-bit).
+		 *  \param[in] MinPhysicalVal  Minimum physical axis value, for movement resolution calculations (16-bit).
+		 *  \param[in] MaxPhysicalVal  Maximum physical axis value, for movement resolution calculations (16-bit).
+		 *  \param[in] Buttons         Total number of buttons in the device (8-bit).
+		 */
+		#define HID_DESCRIPTOR_JOYSTICK(NumAxis, MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons) \
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x04),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE(8, 0x01),                      \
+				HID_RI_COLLECTION(8, 0x00),                 \
+					HID_RI_USAGE_MINIMUM(8, 0x30),          \
+					HID_RI_USAGE_MAXIMUM(8, (0x30 + (NumAxis - 1))), \
+					HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
+					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
+					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
+					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
+					HID_RI_REPORT_COUNT(8, NumAxis),        \
+					HID_RI_REPORT_SIZE(8, ((((MinAxisVal >= -0xFF) && (MaxAxisVal <= 0xFF)) ? 8 : 16))), \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_END_COLLECTION(0),                   \
+				HID_RI_USAGE_PAGE(8, 0x09),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x01),              \
+				HID_RI_USAGE_MAXIMUM(8, Buttons),           \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x01),            \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
+				HID_RI_REPORT_COUNT(8, Buttons),            \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_INPUT(8, HID_IOF_CONSTANT),          \
+			HID_RI_END_COLLECTION(0)
+
+		/** \hideinitializer
+		 *  A list of HID report item array elements that describe a typical HID USB keyboard. The resulting report descriptor
+		 *  is compatible with \ref USB_KeyboardReport_Data_t when \c MaxKeys is equal to 6. For other values, the report will
+		 *  be structured according to the following layout:
+		 *
+		 *  \code
+		 *  struct
+		 *  {
+		 *      uint8_t Modifier; // Keyboard modifier byte indicating pressed modifier keys (HID_KEYBOARD_MODIFER_* masks)
+		 *      uint8_t Reserved; // Reserved for OEM use, always set to 0.
+		 *      uint8_t KeyCode[MaxKeys]; // Length determined by the number of keys that can be reported
+		 *  } Keyboard_Report;
+		 *  \endcode
+		 *
+		 *  \param[in] MaxKeys  Number of simultaneous keys that can be reported at the one time (8-bit).
+		 */
+		#define HID_DESCRIPTOR_KEYBOARD(MaxKeys)            \
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x06),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE_PAGE(8, 0x07),                 \
+				HID_RI_USAGE_MINIMUM(8, 0xE0),              \
+				HID_RI_USAGE_MAXIMUM(8, 0xE7),              \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x01),            \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
+				HID_RI_REPORT_COUNT(8, 0x08),               \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_REPORT_SIZE(8, 0x08),                \
+				HID_RI_INPUT(8, HID_IOF_CONSTANT),          \
+				HID_RI_USAGE_PAGE(8, 0x08),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x01),              \
+				HID_RI_USAGE_MAXIMUM(8, 0x05),              \
+				HID_RI_REPORT_COUNT(8, 0x05),               \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
+				HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_REPORT_SIZE(8, 0x03),                \
+				HID_RI_OUTPUT(8, HID_IOF_CONSTANT),         \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x65),            \
+				HID_RI_USAGE_PAGE(8, 0x07),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x00),              \
+				HID_RI_USAGE_MAXIMUM(8, 0x65),              \
+				HID_RI_REPORT_COUNT(8, MaxKeys),            \
+				HID_RI_REPORT_SIZE(8, 0x08),                \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE), \
+			HID_RI_END_COLLECTION(0)
+
+		/** \hideinitializer
+		 *  A list of HID report item array elements that describe a typical HID USB mouse. The resulting report descriptor
+		 *  is compatible with \ref USB_MouseReport_Data_t if the \c MinAxisVal and \c MaxAxisVal values fit within a \c int8_t range
+		 *  and the number of Buttons is less than 8. For other values, the report is structured according to the following layout:
+		 *
+		 *  \code
+		 *  struct
+		 *  {
+		 *      uintA_t Buttons; // Pressed buttons bitmask
+		 *      intB_t X; // X axis value
+		 *      intB_t Y; // Y axis value
+		 *  } Mouse_Report;
+		 *  \endcode
+		 *
+		 *  Where \c intA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
+		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
+		 *
+		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value (16-bit).
+		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value (16-bit).
+		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations (16-bit).
+		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations (16-bit).
+		 *  \param[in] Buttons         Total number of buttons in the device (8-bit).
+		 *  \param[in] AbsoluteCoords  Boolean true to use absolute X/Y coordinates (e.g. touchscreen).
+		 */
+		#define HID_DESCRIPTOR_MOUSE(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons, AbsoluteCoords) \
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x02),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE(8, 0x01),                      \
+				HID_RI_COLLECTION(8, 0x00),                 \
+					HID_RI_USAGE_PAGE(8, 0x09),             \
+					HID_RI_USAGE_MINIMUM(8, 0x01),          \
+					HID_RI_USAGE_MAXIMUM(8, Buttons),       \
+					HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+					HID_RI_LOGICAL_MAXIMUM(8, 0x01),        \
+					HID_RI_REPORT_COUNT(8, Buttons),        \
+					HID_RI_REPORT_SIZE(8, 0x01),            \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+					HID_RI_REPORT_COUNT(8, 0x01),           \
+					HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
+					HID_RI_INPUT(8, HID_IOF_CONSTANT),      \
+					HID_RI_USAGE_PAGE(8, 0x01),             \
+					HID_RI_USAGE(8, 0x30),                  \
+					HID_RI_USAGE(8, 0x31),                  \
+					HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
+					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
+					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
+					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
+					HID_RI_REPORT_COUNT(8, 0x02),           \
+					HID_RI_REPORT_SIZE(8, ((((MinAxisVal >= -0xFF) && (MaxAxisVal <= 0xFF)) ? 8 : 16))), \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE)), \
+				HID_RI_END_COLLECTION(0),                   \
+			HID_RI_END_COLLECTION(0)
+
+		/** \hideinitializer
+		 *  A list of HID report item array elements that describe a typical Vendor Defined byte array HID report descriptor,
+		 *  used for transporting arbitrary data between the USB host and device via HID reports. The resulting report should be
+		 *  a uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
+		 *
+		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF.
+		 *  \param[in] CollectionUsage  Vendor Usage for the encompassing report IN and OUT collection, ranging from 0x00 to 0xFF.
+		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF.
+		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF.   
+		 *  \param[in] NumBytes         Length of the data IN and OUT reports.
+		 */
+		#define HID_DESCRIPTOR_VENDOR(VendorPageNum, CollectionUsage, DataINUsage, DataOUTUsage, NumBytes) \
+			HID_RI_USAGE_PAGE(16, (0xFF00 | VendorPageNum)), \
+			HID_RI_USAGE(8, CollectionUsage),           \
+			HID_RI_COLLECTION(8, 0x01),                 \
+				HID_RI_USAGE(8, DataINUsage),           \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+				HID_RI_LOGICAL_MAXIMUM(8, 0xFF),        \
+				HID_RI_REPORT_SIZE(8, 0x08),            \
+				HID_RI_REPORT_COUNT(8, NumBytes),       \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_USAGE(8, DataOUTUsage),          \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+				HID_RI_LOGICAL_MAXIMUM(8, 0xFF),        \
+				HID_RI_REPORT_SIZE(8, 0x08),            \
+				HID_RI_REPORT_COUNT(8, NumBytes),       \
+				HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
+			HID_RI_END_COLLECTION(0)
+		//@}
+		
 	/* Type Defines: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the HID
 		 *  device class.
@@ -380,6 +576,8 @@
 		 *  specification for details on the structure elements.
 		 *
 		 *  \see \ref USB_HID_StdDescriptor_HID_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -392,7 +590,7 @@
 
 			uint8_t                 HIDReportType; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
 			uint16_t                HIDReportLength; /**< Length of the associated HID report descriptor, in bytes. */
-		} USB_HID_Descriptor_HID_t;
+		} ATTR_PACKED USB_HID_Descriptor_HID_t;
 
 		/** \brief HID class-specific HID Descriptor (USB-IF naming conventions).
 		 *
@@ -401,6 +599,8 @@
 		 *
 		 *  \see \ref USB_HID_Descriptor_HID_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -416,7 +616,7 @@
 
 			uint8_t  bDescriptorType2; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
 			uint16_t wDescriptorLength; /**< Length of the associated HID report descriptor, in bytes. */
-		} USB_HID_StdDescriptor_HID_t;
+		} ATTR_PACKED USB_HID_StdDescriptor_HID_t;
 
 		/** \brief Standard HID Boot Protocol Mouse Report.
 		 *
@@ -427,7 +627,7 @@
 			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse. */
 			int8_t  X; /**< Current delta X movement of the mouse. */
 			int8_t  Y; /**< Current delta Y movement on the mouse. */
-		} USB_MouseReport_Data_t;
+		} ATTR_PACKED USB_MouseReport_Data_t;
 
 		/** \brief Standard HID Boot Protocol Keyboard Report.
 		 *
@@ -436,14 +636,19 @@
 		typedef struct
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (a combination of
-			                   *   HID_KEYBOARD_MODIFER_* masks).
+			                   *   \c HID_KEYBOARD_MODIFER_* masks).
 			                   */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0. */
 			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys. */
-		} USB_KeyboardReport_Data_t;
+		} ATTR_PACKED USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 
