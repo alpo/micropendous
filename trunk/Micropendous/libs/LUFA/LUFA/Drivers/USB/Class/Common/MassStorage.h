@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassMS
- *  @defgroup Group_USBClassMSCommon  Common Class Definitions
+ *  \defgroup Group_USBClassMSCommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Mass Storage Class.
  *
@@ -51,9 +51,7 @@
 #define _MS_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
-
-		#include <string.h>
+		#include "../../Core/StdDescriptors.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -134,7 +132,7 @@
 		/** SCSI Sense Code to indicate an error whilst accessing the medium. */
 		#define SCSI_SENSE_KEY_MEDIUM_ERROR                    0x03
 
-		/** SCSI Sense Code to indicate a hardware has occurred. */
+		/** SCSI Sense Code to indicate a hardware error has occurred. */
 		#define SCSI_SENSE_KEY_HARDWARE_ERROR                  0x04
 
 		/** SCSI Sense Code to indicate that an illegal request has been issued. */
@@ -258,29 +256,34 @@
 	/* Type Defines: */
 		/** \brief Mass Storage Class Command Block Wrapper.
 		 *
-		 *  Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
+		 *  Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
+		 */
 		typedef struct
 		{
-			uint32_t Signature; /**< Command block signature, must be CBW_SIGNATURE to indicate a valid Command Block. */
+			uint32_t Signature; /**< Command block signature, must be \ref MS_CBW_SIGNATURE to indicate a valid Command Block. */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferLength; /**< Length of the optional data portion of the issued command, in bytes. */
 			uint8_t  Flags; /**< Command block flags, indicating command data direction. */
 			uint8_t  LUN; /**< Logical Unit number this command is issued to. */
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array. */
 			uint8_t  SCSICommandData[16]; /**< Issued SCSI command in the Command Block. */
-		} MS_CommandBlockWrapper_t;
+		} ATTR_PACKED MS_CommandBlockWrapper_t;
 
 		/** \brief Mass Storage Class Command Status Wrapper.
 		 *
 		 *  Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
-			uint32_t Signature; /**< Status block signature, must be CSW_SIGNATURE to indicate a valid Command Status. */
+			uint32_t Signature; /**< Status block signature, must be \ref MS_CSW_SIGNATURE to indicate a valid Command Status. */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command. */
 			uint8_t  Status; /**< Status code of the issued command - a value from the \ref MS_CommandStatusCodes_t enum. */
-		} MS_CommandStatusWrapper_t;
+		} ATTR_PACKED MS_CommandStatusWrapper_t;
 
 		/** \brief Mass Storage Class SCSI Sense Structure
 		 *
@@ -291,24 +294,24 @@
 		 */
 		typedef struct
 		{
-			uint8_t       ResponseCode;
+			uint8_t  ResponseCode;
 
-			uint8_t       SegmentNumber;
+			uint8_t  SegmentNumber;
 
-			unsigned char SenseKey            : 4;
-			unsigned char Reserved            : 1;
-			unsigned char ILI                 : 1;
-			unsigned char EOM                 : 1;
-			unsigned char FileMark            : 1;
+			unsigned SenseKey            : 4;
+			unsigned Reserved            : 1;
+			unsigned ILI                 : 1;
+			unsigned EOM                 : 1;
+			unsigned FileMark            : 1;
 
-			uint8_t       Information[4];
-			uint8_t       AdditionalLength;
-			uint8_t       CmdSpecificInformation[4];
-			uint8_t       AdditionalSenseCode;
-			uint8_t       AdditionalSenseQualifier;
-			uint8_t       FieldReplaceableUnitCode;
-			uint8_t       SenseKeySpecific[3];
-		} SCSI_Request_Sense_Response_t;
+			uint8_t  Information[4];
+			uint8_t  AdditionalLength;
+			uint8_t  CmdSpecificInformation[4];
+			uint8_t  AdditionalSenseCode;
+			uint8_t  AdditionalSenseQualifier;
+			uint8_t  FieldReplaceableUnitCode;
+			uint8_t  SenseKeySpecific[3];
+		} ATTR_PACKED SCSI_Request_Sense_Response_t;
 
 		/** \brief Mass Storage Class SCSI Inquiry Structure.
 		 *
@@ -320,36 +323,36 @@
 		 */
 		typedef struct
 		{
-			unsigned char DeviceType          : 5;
-			unsigned char PeripheralQualifier : 3;
+			unsigned DeviceType          : 5;
+			unsigned PeripheralQualifier : 3;
 
-			unsigned char Reserved            : 7;
-			unsigned char Removable           : 1;
+			unsigned Reserved            : 7;
+			unsigned Removable           : 1;
 
-			uint8_t       Version;
+			uint8_t  Version;
 
-			unsigned char ResponseDataFormat  : 4;
-			unsigned char Reserved2           : 1;
-			unsigned char NormACA             : 1;
-			unsigned char TrmTsk              : 1;
-			unsigned char AERC                : 1;
+			unsigned ResponseDataFormat  : 4;
+			unsigned Reserved2           : 1;
+			unsigned NormACA             : 1;
+			unsigned TrmTsk              : 1;
+			unsigned AERC                : 1;
 
-			uint8_t       AdditionalLength;
-			uint8_t       Reserved3[2];
+			uint8_t  AdditionalLength;
+			uint8_t  Reserved3[2];
 
-			unsigned char SoftReset           : 1;
-			unsigned char CmdQue              : 1;
-			unsigned char Reserved4           : 1;
-			unsigned char Linked              : 1;
-			unsigned char Sync                : 1;
-			unsigned char WideBus16Bit        : 1;
-			unsigned char WideBus32Bit        : 1;
-			unsigned char RelAddr             : 1;
+			unsigned SoftReset           : 1;
+			unsigned CmdQue              : 1;
+			unsigned Reserved4           : 1;
+			unsigned Linked              : 1;
+			unsigned Sync                : 1;
+			unsigned WideBus16Bit        : 1;
+			unsigned WideBus32Bit        : 1;
+			unsigned RelAddr             : 1;
 
-			uint8_t       VendorID[8];
-			uint8_t       ProductID[16];
-			uint8_t       RevisionID[4];
-		} SCSI_Inquiry_Response_t;
+			uint8_t  VendorID[8];
+			uint8_t  ProductID[16];
+			uint8_t  RevisionID[4];
+		} ATTR_PACKED SCSI_Inquiry_Response_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

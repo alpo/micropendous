@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -44,7 +44,7 @@
 #define  INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C
 #include "BluetoothHCICommands.h"
 
-/** Temporary Bluetooth Device Address, for HCI responses which much include the destination address */
+/** Temporary Bluetooth Device Address, for HCI responses which must include the destination address */
 static uint8_t Bluetooth_TempDeviceAddress[6];
 
 /** Bluetooth HCI processing task. This task should be called repeatedly the main Bluetooth
@@ -65,13 +65,13 @@ void Bluetooth_HCITask(void)
 				BT_HCIEvent_Header_t HCIEventHeader;
 
 				/* Read in the event header to fetch the event code and payload length */
-				Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader));
+				Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader), NULL);
 
 				/* Create a temporary buffer for the event parameters */
 				uint8_t EventParams[HCIEventHeader.ParameterLength];
 
 				/* Read in the event parameters into the temporary buffer */
-				Pipe_Read_Stream_LE(&EventParams, HCIEventHeader.ParameterLength);
+				Pipe_Read_Stream_LE(&EventParams, HCIEventHeader.ParameterLength, NULL);
 				Pipe_ClearIN();
 
 				BT_HCI_DEBUG(1, "Event Received (0x%02X)", HCIEventHeader.EventCode);

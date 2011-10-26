@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -45,10 +45,10 @@
 static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress)
 {
 	/* Send the given 32-bit address to the target, LSB first */
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[2]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[3]);
+	XPROGTarget_SendByte(AbsoluteAddress &  0xFF);
+	XPROGTarget_SendByte(AbsoluteAddress >> 8);
+	XPROGTarget_SendByte(AbsoluteAddress >> 16);
+	XPROGTarget_SendByte(AbsoluteAddress >> 24);
 }
 
 /** Sends the given NVM register address to the target.
@@ -80,7 +80,7 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutTicksRemaining))
+		if (TimeoutExpired)
 		  return false;
 
 		/* Check the status register read response to see if the NVM bus is enabled */
@@ -109,7 +109,7 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutTicksRemaining))
+		if (TimeoutExpired)
 		  return false;
 
 		/* Check to see if the BUSY flag is still set */
@@ -204,7 +204,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
 	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
 
-	return (TimeoutTicksRemaining != 0);
+	return (TimeoutExpired == false);
 }
 
 /** Reads memory from the target's memory spaces.
@@ -236,10 +236,10 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 
 	/* Send a LD command with indirect access and post-increment to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-	while (ReadSize-- && TimeoutTicksRemaining)
+	while (ReadSize-- && !(TimeoutExpired))
 	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
 
-	return (TimeoutTicksRemaining != 0);
+	return (TimeoutExpired == false);
 }
 
 /** Writes byte addressed memory to the target's memory spaces.

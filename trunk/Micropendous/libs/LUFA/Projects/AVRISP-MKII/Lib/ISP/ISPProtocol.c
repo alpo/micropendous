@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -54,7 +54,7 @@ void ISPProtocol_EnterISPMode(void)
 		uint8_t EnterProgBytes[4];
 	} Enter_ISP_Params;
 
-	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -68,14 +68,14 @@ void ISPProtocol_EnterISPMode(void)
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);
 	ISPTarget_EnableTargetISP();
 
+	ISPTarget_ChangeTargetResetLine(true);
+	ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
-	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED) && TimeoutTicksRemaining)
+	while (Enter_ISP_Params.SynchLoops-- && !(TimeoutExpired))
 	{
 		uint8_t ResponseBytes[4];
-
-		ISPTarget_ChangeTargetResetLine(true);
-		ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
@@ -87,16 +87,19 @@ void ISPProtocol_EnterISPMode(void)
 		if (!(Enter_ISP_Params.PollIndex) || (ResponseBytes[Enter_ISP_Params.PollIndex - 1] == Enter_ISP_Params.PollValue))
 		{
 			ResponseStatus = STATUS_CMD_OK;
+			break;
 		}
 		else
 		{
 			ISPTarget_ChangeTargetResetLine(false);
 			ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+			ISPTarget_ChangeTargetResetLine(true);
+			ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 		}
 	}
 
-	Endpoint_Write_Byte(CMD_ENTER_PROGMODE_ISP);
-	Endpoint_Write_Byte(ResponseStatus);
+	Endpoint_Write_8(CMD_ENTER_PROGMODE_ISP);
+	Endpoint_Write_8(ResponseStatus);
 	Endpoint_ClearIN();
 }
 
@@ -109,7 +112,7 @@ void ISPProtocol_LeaveISPMode(void)
 		uint8_t PostDelayMS;
 	} Leave_ISP_Params;
 
-	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -121,8 +124,8 @@ void ISPProtocol_LeaveISPMode(void)
 	ISPTarget_DisableTargetISP();
 	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
 
-	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_LEAVE_PROGMODE_ISP);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -145,39 +148,47 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	} Write_Memory_Params;      // whole page and ACK the packet as fast as possible to prevent it from aborting
 
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
-	                                               sizeof(Write_Memory_Params.ProgData)), NO_STREAM_CALLBACK);
-
-
+	                                               sizeof(Write_Memory_Params.ProgData)), NULL);
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
-
+	
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
 	{
 		Endpoint_ClearOUT();
 		Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 		Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-		Endpoint_Write_Byte(V2Command);
-		Endpoint_Write_Byte(STATUS_CMD_FAILED);
+		Endpoint_Write_8(V2Command);
+		Endpoint_Write_8(STATUS_CMD_FAILED);
 		Endpoint_ClearIN();
 		return;
 	}
 
-	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite, NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite, NULL);
+
+	// The driver will terminate transfers that are a round multiple of the endpoint bank in size with a ZLP, need
+	// to catch this and discard it before continuing on with packet processing to prevent communication issues
+	if (((sizeof(uint8_t) + sizeof(Write_Memory_Params) - sizeof(Write_Memory_Params.ProgData)) +
+	    Write_Memory_Params.BytesToWrite) % AVRISP_DATA_EPSIZE == 0)
+	{
+		Endpoint_ClearOUT();
+		Endpoint_WaitUntilReady();
+	}
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t  ProgrammingStatus = STATUS_CMD_OK;
-	uint16_t PollAddress       = 0;
 	uint8_t  PollValue         = (V2Command == CMD_PROGRAM_FLASH_ISP) ? Write_Memory_Params.PollValue1 :
 	                                                                    Write_Memory_Params.PollValue2;
+	uint16_t PollAddress       = 0;
 	uint8_t* NextWriteByte     = Write_Memory_Params.ProgData;
+	uint16_t PageStartAddress  = (CurrentAddress & 0xFFFF);
 
-	/* Check the programming mode desired by the host, either Paged or Word memory writes */
-	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
+	for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
 	{
-		uint16_t StartAddress = (CurrentAddress & 0xFFFF);
+		uint8_t ByteToWrite     = *(NextWriteByte++);
+		uint8_t ProgrammingMode = Write_Memory_Params.ProgrammingMode;
 
 		/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
 		if (MustLoadExtendedAddress)
@@ -186,125 +197,84 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			MustLoadExtendedAddress = false;
 		}
 
-		/* Paged mode memory programming */
-		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+		ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+		ISPTarget_SendByte(CurrentAddress >> 8);
+		ISPTarget_SendByte(CurrentAddress & 0xFF);
+		ISPTarget_SendByte(ByteToWrite);
+
+		/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
+		 * or low byte at the current word address */
+		if (V2Command == CMD_PROGRAM_FLASH_ISP)
+		  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+
+		/* Check to see if we have a valid polling address */
+		if (!(PollAddress) && (ByteToWrite != PollValue))
 		{
-			bool    IsOddByte   = (CurrentByte & 0x01);
-			uint8_t ByteToWrite = *(NextWriteByte++);
+			if ((CurrentByte & 0x01) && (V2Command == CMD_PROGRAM_FLASH_ISP))
+			  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
+			else
+			  Write_Memory_Params.ProgrammingCommands[2] &= ~READ_WRITE_HIGH_BYTE_MASK;
 
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			ISPTarget_SendByte(CurrentAddress >> 8);
-			ISPTarget_SendByte(CurrentAddress & 0xFF);
-			ISPTarget_SendByte(ByteToWrite);
-
-			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
-			 * or low byte at the current word address */
-			if (V2Command == CMD_PROGRAM_FLASH_ISP)
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
-
-			/* Check to see the write completion method, to see if we have a valid polling address */
-			if (!(PollAddress) && (ByteToWrite != PollValue))
-			{
-				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
-
-				PollAddress = (CurrentAddress & 0xFFFF);
-			}
-
-			/* EEPROM increments the address on each byte, flash needs to increment on each word */
-			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			  CurrentAddress++;
+			PollAddress = (CurrentAddress & 0xFFFF);
 		}
 
-		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
-		if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
+		/* If in word programming mode, commit the byte to the target's memory */
+		if (!(ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK))
 		{
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
-			ISPTarget_SendByte(StartAddress >> 8);
-			ISPTarget_SendByte(StartAddress & 0xFF);
-			ISPTarget_SendByte(0x00);
+			/* If the current polling address is invalid, switch to timed delay write completion mode */
+			if (!(PollAddress) && !(ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
+			  ProgrammingMode = (ProgrammingMode & ~PROG_MODE_WORD_VALUE_MASK) | PROG_MODE_WORD_TIMEDELAY_MASK;
 
-			/* Check if polling is possible and enabled, if not switch to timed delay mode */
-			if (!(PollAddress) && (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK))
-			{
-				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_PAGED_VALUE_MASK;
-				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_PAGED_TIMEDELAY_MASK;
-			}
-
-			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
-
-			/* Check to see if the FLASH address has crossed the extended address boundary */
-			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
-			  MustLoadExtendedAddress = true;
-		}
-	}
-	else
-	{
-		/* Word/byte mode memory programming */
-		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
-		{
-			bool    IsOddByte   = (CurrentByte & 0x01);
-			uint8_t ByteToWrite = *(NextWriteByte++);
-
-			/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
-			if (MustLoadExtendedAddress)
-			{
-				ISPTarget_LoadExtendedAddress();
-				MustLoadExtendedAddress = false;
-			}
-
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			ISPTarget_SendByte(CurrentAddress >> 8);
-			ISPTarget_SendByte(CurrentAddress & 0xFF);
-			ISPTarget_SendByte(ByteToWrite);
-
-			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
-			 * or low byte at the current word address */
-			if (V2Command == CMD_PROGRAM_FLASH_ISP)
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
-
-			/* Save previous programming mode in case we modify it for the current word */
-			uint8_t PreviousProgrammingMode = Write_Memory_Params.ProgrammingMode;
-
-			if (ByteToWrite != PollValue)
-			{
-				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
-
-				PollAddress = (CurrentAddress & 0xFFFF);
-			}
-			else if (!(Write_Memory_Params.ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
-			{
-				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_WORD_VALUE_MASK;
-				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_WORD_TIMEDELAY_MASK;
-			}
-
-			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
-
-			/* Restore previous programming mode mask in case the current word needed to change it */
-			Write_Memory_Params.ProgrammingMode = PreviousProgrammingMode;
+			ProgrammingStatus = ISPTarget_WaitForProgComplete(ProgrammingMode, PollAddress, PollValue,
+			                                                  Write_Memory_Params.DelayMS,
+			                                                  Write_Memory_Params.ProgrammingCommands[2]);
 
 			/* Abort the programming loop early if the byte/word programming failed */
 			if (ProgrammingStatus != STATUS_CMD_OK)
 			  break;
 
-			/* EEPROM just increments the address each byte, flash needs to increment on each word and
-			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
-			 * address boundary has been crossed */
-			if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			{
-				CurrentAddress++;
+			/* Must reset the polling address afterwards, so it is not erroneously used for the next byte */
+			PollAddress = 0;
+		}
+		
+		/* EEPROM just increments the address each byte, flash needs to increment on each word and
+		 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
+		 * address boundary has been crossed during FLASH memory programming */
+		if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+		{
+			CurrentAddress++;
 
-				if ((V2Command != CMD_PROGRAM_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
-				  MustLoadExtendedAddress = true;
-			}
+			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
+			  MustLoadExtendedAddress = true;
 		}
 	}
+	
+	/* If the current page must be committed, send the PROGRAM PAGE command to the target */
+	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
+	{
+		ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
+		ISPTarget_SendByte(PageStartAddress >> 8);
+		ISPTarget_SendByte(PageStartAddress & 0xFF);
+		ISPTarget_SendByte(0x00);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(ProgrammingStatus);
+		/* Check if polling is enabled and possible, if not switch to timed delay mode */
+		if ((Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK) && !(PollAddress))
+		{
+			Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_PAGED_VALUE_MASK) |
+												   PROG_MODE_PAGED_TIMEDELAY_MASK;
+		}
+
+		ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+		                                                  Write_Memory_Params.DelayMS,
+		                                                  Write_Memory_Params.ProgrammingCommands[2]);
+
+		/* Check to see if the FLASH address has crossed the extended address boundary */
+		if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
+		  MustLoadExtendedAddress = true;
+	}	
+
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(ProgrammingStatus);
 	Endpoint_ClearIN();
 }
 
@@ -321,15 +291,15 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		uint8_t  ReadMemoryCommand;
 	} Read_Memory_Params;
 
-	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params), NULL);
 	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
-
+	
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	/* Read each byte from the device and write them to the packet for the host */
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
@@ -345,7 +315,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		ISPTarget_SendByte(Read_Memory_Params.ReadMemoryCommand);
 		ISPTarget_SendByte(CurrentAddress >> 8);
 		ISPTarget_SendByte(CurrentAddress & 0xFF);
-		Endpoint_Write_Byte(ISPTarget_ReceiveByte());
+		Endpoint_Write_8(ISPTarget_ReceiveByte());
 
 		/* Check if the endpoint bank is currently full, if so send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -371,7 +341,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		}
 	}
 
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();
@@ -395,7 +365,7 @@ void ISPProtocol_ChipErase(void)
 		uint8_t EraseCommandBytes[4];
 	} Erase_Chip_Params;
 
-	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -413,8 +383,8 @@ void ISPProtocol_ChipErase(void)
 	else
 	  ResponseStatus = ISPTarget_WaitWhileTargetBusy();
 
-	Endpoint_Write_Byte(CMD_CHIP_ERASE_ISP);
-	Endpoint_Write_Byte(ResponseStatus);
+	Endpoint_Write_8(CMD_CHIP_ERASE_ISP);
+	Endpoint_Write_8(ResponseStatus);
 	Endpoint_ClearIN();
 }
 
@@ -431,7 +401,7 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 		uint8_t ReadCommandBytes[4];
 	} Read_FuseLockSigOSCCAL_Params;
 
-	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -443,10 +413,10 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 	  ResponseBytes[RByte] = ISPTarget_TransferByte(Read_FuseLockSigOSCCAL_Params.ReadCommandBytes[RByte]);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte - 1]);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
+	Endpoint_Write_8(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte - 1]);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -462,7 +432,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 		uint8_t WriteCommandBytes[4];
 	} Write_FuseLockSig_Params;
 
-	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -472,9 +442,9 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 	for (uint8_t SByte = 0; SByte < sizeof(Write_FuseLockSig_Params.WriteCommandBytes); SByte++)
 	  ISPTarget_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -489,15 +459,15 @@ void ISPProtocol_SPIMulti(void)
 		uint8_t TxData[255];
 	} SPI_Multi_Params;
 
-	Endpoint_Read_Stream_LE(&SPI_Multi_Params, (sizeof(SPI_Multi_Params) - sizeof(SPI_Multi_Params.TxData)), NO_STREAM_CALLBACK);
-	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes, NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&SPI_Multi_Params, (sizeof(SPI_Multi_Params) - sizeof(SPI_Multi_Params.TxData)), NULL);
+	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes, NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(CMD_SPI_MULTI);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_SPI_MULTI);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	uint8_t CurrTxPos = 0;
 	uint8_t CurrRxPos = 0;
@@ -517,9 +487,9 @@ void ISPProtocol_SPIMulti(void)
 	while (CurrRxPos < SPI_Multi_Params.RxBytes)
 	{
 		if (CurrTxPos < SPI_Multi_Params.TxBytes)
-		  Endpoint_Write_Byte(ISPTarget_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
+		  Endpoint_Write_8(ISPTarget_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
 		else
-		  Endpoint_Write_Byte(ISPTarget_ReceiveByte());
+		  Endpoint_Write_8(ISPTarget_ReceiveByte());
 
 		/* Check to see if we have filled the endpoint bank and need to send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -531,7 +501,7 @@ void ISPProtocol_SPIMulti(void)
 		CurrRxPos++;
 	}
 
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();
@@ -551,8 +521,8 @@ void ISPProtocol_SPIMulti(void)
  */
 void ISPProtocol_DelayMS(uint8_t DelayMS)
 {
-	while (DelayMS-- && TimeoutTicksRemaining)
-	  _delay_ms(1);
+	while (DelayMS-- && !(TimeoutExpired))
+	  Delay_MS(1);
 }
 
 #endif

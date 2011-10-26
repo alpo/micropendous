@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -43,7 +43,7 @@
 		#include <stdio.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "BluetoothStack.h"
 
@@ -146,7 +146,7 @@
 		/** Configuration Request signaling command structure, for channel configuration requests. */
 		typedef struct
 		{
-			uint16_t DestinationChannel; /**< Destination channel address which is to be disconnected */
+			uint16_t DestinationChannel; /**< Destination channel address which is to be configured */
 			uint16_t Flags; /**< Configuration flags for the request, including command continuation */
 		} BT_Signal_ConfigurationReq_t;
 

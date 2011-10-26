@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -20,11 +20,20 @@ all:
 	$(MAKE) -C Benito clean
 	$(MAKE) -C Benito all
 
+	$(MAKE) -C HIDReportViewer clean
+	$(MAKE) -C HIDReportViewer all
+
 	$(MAKE) -C LEDNotifier clean
 	$(MAKE) -C LEDNotifier all
 
 	$(MAKE) -C Magstripe clean
 	$(MAKE) -C Magstripe all
+
+	$(MAKE) -C MediaController clean
+	$(MAKE) -C MediaController all
+
+	$(MAKE) -C MIDIToneGenerator clean
+	$(MAKE) -C MIDIToneGenerator all
 
 	$(MAKE) -C MissileLauncher clean
 	$(MAKE) -C MissileLauncher all
@@ -47,8 +56,11 @@ all:
 %:
 	$(MAKE) -C AVRISP-MKII $@
 	$(MAKE) -C Benito $@
+	$(MAKE) -C HIDReportViewer $@	
 	$(MAKE) -C LEDNotifier $@
 	$(MAKE) -C Magstripe $@
+	$(MAKE) -C MediaController $@
+	$(MAKE) -C MIDIToneGenerator $@	
 	$(MAKE) -C MissileLauncher $@
 	$(MAKE) -C RelayBoard $@
 	$(MAKE) -C TempDataLogger $@

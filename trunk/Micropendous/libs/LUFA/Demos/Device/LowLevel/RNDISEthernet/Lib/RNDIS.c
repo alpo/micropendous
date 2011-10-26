@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,12 +38,12 @@
 #include "RNDIS.h"
 
 /** Physical MAC address of the network adapter, which becomes the MAC address of the host for packets sent to the adapter. */
-static MAC_Address_t  PROGMEM AdapterMACAddress          = {ADAPTER_MAC_ADDRESS};
+static const MAC_Address_t PROGMEM AdapterMACAddress     = {ADAPTER_MAC_ADDRESS};
 
 /** Vendor description of the adapter. This is overridden by the INF file required to install the appropriate RNDIS drivers for
  *  the device, but may still be used by the OS in some circumstances.
  */
-static char           PROGMEM AdapterVendorDescription[] = "LUFA RNDIS Adapter";
+static const char PROGMEM AdapterVendorDescription[]     = "LUFA RNDIS Adapter";
 
 /** List of RNDIS OID commands supported by this adapter. */
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
@@ -89,7 +89,7 @@ RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISMessageBu
 /** Indicates if a RNDIS message response is ready to be sent back to the host. */
 bool                    ResponseReady               = false;
 
-/** Current RNDIS adapter state, a value from the RNDIS_States_t enum. */
+/** Current RNDIS adapter state, a value from the \c RNDIS_States_t enum. */
 uint8_t                 CurrRNDISState              = RNDIS_Uninitialized;
 
 /** Current Ethernet packet filter mask. This is non-zero when the adapter is initialized, or zero when disabled. */

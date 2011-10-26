@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -43,9 +43,9 @@ static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
 {
 	/* Send the given 16-bit address to the target, LSB first */
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 0);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
+	XPROGTarget_SendByte(AbsoluteAddress & 0xFF);
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 1);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
+	XPROGTarget_SendByte(AbsoluteAddress >> 8);
 }
 
 /** Sends a SIN command to the target with the specified I/O address, ready for the data byte to be written.
@@ -85,7 +85,7 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutTicksRemaining))
+		if (TimeoutExpired)
 		  return false;
 
 		/* Check the status register read response to see if the NVM bus is enabled */
@@ -110,7 +110,7 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutTicksRemaining))
+		if (TimeoutExpired)
 		  return false;
 
 		/* Check to see if the BUSY flag is still set */
@@ -176,14 +176,14 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
 	/* Send the address of the location to read from */
 	TINYNVM_SendPointerAddress(ReadAddress);
 
-	while (ReadSize-- && TimeoutTicksRemaining)
+	while (ReadSize-- && !(TimeoutExpired))
 	{
 		/* Read the byte of data from the target */
 		XPROGTarget_SendByte(TPI_CMD_SLD | TPI_POINTER_INDIRECT_PI);
 		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	}
 
-	return (TimeoutTicksRemaining != 0);
+	return (TimeoutExpired == false);
 }
 
 /** Writes word addressed memory to the target's memory spaces.
@@ -206,7 +206,7 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
 	if (WriteLength & 0x01)
 	  WriteBuffer[WriteLength++] = 0xFF;
 
-	/* Set the NVM control register to the WORD WRITE command for memory reading */
+	/* Set the NVM control register to the WORD WRITE command for memory writing */
 	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
 	XPROGTarget_SendByte(TINY_NVM_CMD_WORDWRITE);
 
@@ -227,7 +227,7 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
 		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
 		XPROGTarget_SendByte(*(WriteBuffer++));
 
-		/* Need to decrement the write length twice, since we read out a whole word */
+		/* Need to decrement the write length twice, since we wrote a whole two-byte word */
 		WriteLength -= 2;
 	}
 

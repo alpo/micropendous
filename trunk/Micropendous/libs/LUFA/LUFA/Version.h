@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -40,17 +40,13 @@
 #ifndef __LUFA_VERSION_H__
 #define __LUFA_VERSION_H__
 
-	/* There are some missing definitions from certain versions of avr-libc */
-	#include "MissingDefines.h"
-	#include "UsefulMicropendousDefines.h"
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates the version number of the library, as an integer. */
-			#define LUFA_VERSION_INTEGER     0x101122
+			#define LUFA_VERSION_INTEGER     0x111009
 
 			/** Indicates the version number of the library, as a string. */
-			#define LUFA_VERSION_STRING      "101122"
+			#define LUFA_VERSION_STRING      "111009"
 
 #endif
 

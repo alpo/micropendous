@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -46,7 +46,7 @@
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPNUM               1
 
-		/** Size in bytes of the Keyboard HID reporting IN and OUT endpoints. */
+		/** Size in bytes of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPSIZE              8
 
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
@@ -66,9 +66,13 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+
+			// Mass Storage Interface
 			USB_Descriptor_Interface_t            MS_Interface;
 			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
 			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;
+
+			// Generic HID Interface
 			USB_Descriptor_Interface_t            HID_KeyboardInterface;
 			USB_HID_Descriptor_HID_t              HID_KeyboardHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;

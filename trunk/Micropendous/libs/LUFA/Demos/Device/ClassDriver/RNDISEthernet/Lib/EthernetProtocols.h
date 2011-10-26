@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -36,6 +36,9 @@
 
 #ifndef _ETHERNET_PROTOCOLS_H_
 #define _ETHERNET_PROTOCOLS_H_
+
+	/* Includes: */
+		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 
 	/* Macros: */
 		#define ETHERTYPE_IPV4                   0x0800
@@ -72,10 +75,17 @@
 		#define PROTOCOL_SCTP                    132
 
 	/* Type Defines: */
+		/** Type define for an Ethernet frame buffer data and information structure. */
+		typedef struct
+		{
+			uint8_t  FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
+			uint16_t FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
+		} Ethernet_Frame_Info_t;
+
 		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct
 		{
-			uint8_t       Octets[4]; /**< Individual bytes of an IP address */
+			uint8_t  Octets[4]; /**< Individual bytes of an IP address */
 		} IP_Address_t;
 
 #endif

@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -35,6 +35,9 @@ all:
 	$(MAKE) -C KeyboardMouse clean
 	$(MAKE) -C KeyboardMouse all
 
+	$(MAKE) -C KeyboardMouseMultiReport clean
+	$(MAKE) -C KeyboardMouseMultiReport all
+
 	$(MAKE) -C MassStorage clean
 	$(MAKE) -C MassStorage all
 
@@ -56,6 +59,9 @@ all:
 	$(MAKE) -C VirtualSerialMouse clean
 	$(MAKE) -C VirtualSerialMouse all
 
+	$(MAKE) -C VirtualSerialMassStorage clean
+	$(MAKE) -C VirtualSerialMassStorage all
+
 %:
 	$(MAKE) -C AudioInput $@
 	$(MAKE) -C AudioOutput $@
@@ -64,6 +70,7 @@ all:
 	$(MAKE) -C Joystick $@
 	$(MAKE) -C Keyboard $@
 	$(MAKE) -C KeyboardMouse $@
+	$(MAKE) -C KeyboardMouseMultiReport $@
 	$(MAKE) -C MassStorage $@
 	$(MAKE) -C MassStorageKeyboard $@
 	$(MAKE) -C MIDI $@
@@ -71,4 +78,5 @@ all:
 	$(MAKE) -C RNDISEthernet $@
 	$(MAKE) -C VirtualSerial $@
 	$(MAKE) -C VirtualSerialMouse $@
+	$(MAKE) -C VirtualSerialMassStorage $@
 

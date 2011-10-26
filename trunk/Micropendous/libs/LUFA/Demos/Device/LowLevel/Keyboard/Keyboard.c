@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -40,18 +40,18 @@
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
  */
-bool UsingReportProtocol = true;
+static bool UsingReportProtocol = true;
 
 /** Current Idle period. This is set by the host via a Set Idle HID class request to silence the device's reports
  *  for either the entire idle duration, or until the report status changes (e.g. the user presses a key).
  */
-uint16_t IdleCount = 500;
+static uint16_t IdleCount = 500;
 
 /** Current Idle period remaining. When the IdleCount value is set, this tracks the remaining number of idle
  *  milliseconds. This is separate to the IdleCount timer and is incremented and compared as the host may request
  *  the current idle period via a Get Idle HID class request, thus its value must be preserved.
  */
-uint16_t IdleMSRemaining = 0;
+static uint16_t IdleMSRemaining = 0;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -122,7 +122,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
 	                                            KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	/* Turn on Start-of-Frame events for tracking HID report period exiry */
+	/* Turn on Start-of-Frame events for tracking HID report period expiry */
 	USB_Device_EnableSOFEvents();
 
 	/* Indicate endpoint configuration success or failure */
@@ -167,7 +167,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
+				uint8_t LEDStatus = Endpoint_Read_8();
 
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
@@ -183,7 +183,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the current protocol flag to the host */
-				Endpoint_Write_Byte(UsingReportProtocol);
+				Endpoint_Write_8(UsingReportProtocol);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -218,7 +218,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the current idle duration to the host, must be divided by 4 before sent to host */
-				Endpoint_Write_Byte(IdleCount >> 2);
+				Endpoint_Write_8(IdleCount >> 2);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -324,7 +324,7 @@ void SendNextReport(void)
 		PrevKeyboardReportData = KeyboardReportData;
 
 		/* Write Keyboard Report Data */
-		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
+		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -344,7 +344,7 @@ void ReceiveNextReport(void)
 		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Read in the LED report from the host */
-			uint8_t LEDReport = Endpoint_Read_Byte();
+			uint8_t LEDReport = Endpoint_Read_8();
 
 			/* Process the read LED report from the host */
 			ProcessLEDReport(LEDReport);

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -43,24 +43,16 @@
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
  */
-USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 {
-	0x06, 0x9c, 0xff,     /* Usage Page (Vendor Defined)                     */
-	0x09, 0x01,           /* Usage (Vendor Defined)                          */
-	0xa1, 0x01,           /* Collection (Vendor Defined)                     */
-	0x09, 0x02,           /*   Usage (Vendor Defined)                        */
-	0x75, 0x08,           /*   Report Size (8)                               */
-	0x95, GENERIC_REPORT_SIZE, /*   Report Count (GENERIC_REPORT_SIZE)       */
-	0x15, 0x80,           /*   Logical Minimum (-128)                        */
-	0x25, 0x7F,           /*   Logical Maximum (127)                         */
-	0x81, 0x02,           /*   Input (Data, Variable, Absolute)              */
-	0x09, 0x03,           /*   Usage (Vendor Defined)                        */
-	0x75, 0x08,           /*   Report Size (8)                               */
-	0x95, GENERIC_REPORT_SIZE, /*   Report Count (GENERIC_REPORT_SIZE)       */
-	0x15, 0x00,           /*   Logical Minimum (0)                           */
-	0x25, 0xff,           /*   Logical Maximum (255)                         */
-	0x91, 0x02,           /*   Output (Data, Variable, Absolute)             */
-	0xc0                  /* End Collection                                  */
+	/* Use the HID class driver's standard Vendor HID report.
+	 *  Vendor Usage Page: 0
+	 *  Vendor Collection Usage: 1
+	 *  Vendor Report IN Usage: 2
+	 *  Vendor Report OUT Usage: 3
+	 *  Vendor Report Size: GENERIC_REPORT_SIZE
+	 */
+	HID_DESCRIPTOR_VENDOR(0x00, 0x01, 0x02, 0x03, GENERIC_REPORT_SIZE)
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
@@ -68,7 +60,7 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -95,7 +87,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -143,7 +135,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | GENERIC_IN_EPNUM),
+			.EndpointAddress        = (ENDPOINT_DIR_IN | GENERIC_IN_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = GENERIC_EPSIZE,
 			.PollingIntervalMS      = 0x01
@@ -154,7 +146,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -165,7 +157,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -176,7 +168,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(21), .Type = DTYPE_String},
 

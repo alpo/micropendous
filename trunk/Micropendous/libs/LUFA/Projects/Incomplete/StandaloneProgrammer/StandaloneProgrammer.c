@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the Standalone Programmer project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #define  INCLUDE_FROM_STANDALONEPROG_C
@@ -42,6 +42,7 @@ FILE DiskStream = FDEV_SETUP_STREAM(NULL, Disk_getchar, _FDEV_SETUP_READ);
 
 /** Petite FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
+
 
 /** Stream character fetching routine for the FAT driver so that characters from the currently open file can be
  *  read in sequence when applied to a stdio stream.
@@ -152,7 +153,10 @@ void SetupHardware(void)
 	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
 	Dataflash_Init();
 	Buttons_Init();
-	SerialStream_Init(9600, true);
+	Serial_Init(9600, true);
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 
 	#if defined(USB_CAN_BE_DEVICE)
 	/* Clear Dataflash sector protections, if enabled */

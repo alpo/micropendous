@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -38,10 +38,10 @@
 #include "KeyboardMouse.h"
 
 /** Global structure to hold the current keyboard interface HID report, for transmission to the host */
-USB_KeyboardReport_Data_t KeyboardReportData;
+static USB_KeyboardReport_Data_t KeyboardReportData;
 
 /** Global structure to hold the current mouse interface HID report, for transmission to the host */
-USB_MouseReport_Data_t    MouseReportData;
+static USB_MouseReport_Data_t MouseReportData;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -168,7 +168,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
+				uint8_t LEDStatus = Endpoint_Read_8();
 
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
@@ -242,7 +242,7 @@ void Keyboard_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Write Keyboard Report Data */
-		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
+		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -258,7 +258,7 @@ void Keyboard_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Read in and process the LED report from the host */
-		Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
+		Keyboard_ProcessLEDReport(Endpoint_Read_8());
 
 		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
 		Endpoint_ClearOUT();
@@ -290,7 +290,7 @@ void Mouse_HID_Task(void)
 		  MouseReportData.X = -1;
 
 		if (JoyStatus_LCL & JOY_PRESS)
-		  MouseReportData.Button  = (1 << 0);
+		  MouseReportData.Button |= (1 << 0);
 	}
 
 	/* Select the Mouse Report Endpoint */
@@ -300,7 +300,7 @@ void Mouse_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Write Mouse Report Data */
-		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
+		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

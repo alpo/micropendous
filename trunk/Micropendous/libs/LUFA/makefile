@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -14,7 +14,6 @@
 # "make clean_doxygen" to remove generated Doxygen documentation from everything.
 
 all:
-
 %:
 	@echo Executing \"make $@\" on all LUFA library elements.
 	@echo

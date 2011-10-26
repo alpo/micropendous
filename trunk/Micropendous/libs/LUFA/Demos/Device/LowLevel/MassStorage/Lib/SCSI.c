@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -41,7 +41,7 @@
 /** Structure to hold the SCSI response data to a SCSI INQUIRY command. This gives information about the device's
  *  features and capabilities.
  */
-SCSI_Inquiry_Response_t InquiryData =
+static const SCSI_Inquiry_Response_t InquiryData =
 	{
 		.DeviceType          = DEVICE_TYPE_BLOCK,
 		.PeripheralQualifier = 0,
@@ -73,7 +73,7 @@ SCSI_Inquiry_Response_t InquiryData =
 /** Structure to hold the sense data for the last issued SCSI command, which is returned to the host after a SCSI REQUEST SENSE
  *  command is issued. This gives information on exactly why the last command failed to complete.
  */
-SCSI_Request_Sense_Response_t SenseData =
+static SCSI_Request_Sense_Response_t SenseData =
 	{
 		.ResponseCode        = 0x70,
 		.AdditionalLength    = 0x0A,
@@ -111,6 +111,9 @@ bool SCSI_DecodeSCSICommand(void)
 		case SCSI_CMD_READ_10:
 			CommandSuccess = SCSI_Command_ReadWrite_10(DATA_READ);
 			break;
+		case SCSI_CMD_MODE_SENSE_6:
+			CommandSuccess = SCSI_Command_ModeSense_6();
+			break;
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:
@@ -147,8 +150,7 @@ bool SCSI_DecodeSCSICommand(void)
 static bool SCSI_Command_Inquiry(void)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[3]);
-	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
-	                                                                       sizeof(InquiryData);
+	uint16_t BytesTransferred  = MIN(AllocationLength, sizeof(InquiryData));
 
 	/* Only the standard INQUIRY data is supported, check if any optional INQUIRY bits set */
 	if ((CommandBlock.SCSICommandData[1] & ((1 << 0) | (1 << 1))) ||
@@ -163,12 +165,10 @@ static bool SCSI_Command_Inquiry(void)
 	}
 
 	/* Write the INQUIRY data to the endpoint */
-	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
-
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
+	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, NULL);
 
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -187,15 +187,13 @@ static bool SCSI_Command_Inquiry(void)
 static bool SCSI_Command_Request_Sense(void)
 {
 	uint8_t  AllocationLength = CommandBlock.SCSICommandData[4];
-	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
+	uint8_t  BytesTransferred = MIN(AllocationLength, sizeof(SenseData));
 
 	/* Send the SENSE data - this indicates to the host the status of the last command */
-	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
-
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
+	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NULL);
 
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -214,10 +212,10 @@ static bool SCSI_Command_Request_Sense(void)
 static bool SCSI_Command_Read_Capacity_10(void)
 {
 	/* Send the total number of logical blocks in the current LUN */
-	Endpoint_Write_DWord_BE(LUN_MEDIA_BLOCKS - 1);
+	Endpoint_Write_32_BE(LUN_MEDIA_BLOCKS - 1);
 
 	/* Send the logical block size of the device (must be 512 bytes) */
-	Endpoint_Write_DWord_BE(VIRTUAL_MEMORY_BLOCK_SIZE);
+	Endpoint_Write_32_BE(VIRTUAL_MEMORY_BLOCK_SIZE);
 
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
@@ -278,9 +276,23 @@ static bool SCSI_Command_Send_Diagnostic(void)
  */
 static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 {
-	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
-	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+	uint32_t BlockAddress;
+	uint16_t TotalBlocks;
 
+	/* Check if the disk is write protected or not */
+	if ((IsDataRead == DATA_WRITE) && DISK_READ_ONLY)
+	{
+		/* Block address is invalid, update SENSE key and return command fail */
+		SCSI_SET_SENSE(SCSI_SENSE_KEY_DATA_PROTECT,
+		               SCSI_ASENSE_WRITE_PROTECTED,
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+
+		return false;		
+	}
+
+	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
 	{
@@ -309,3 +321,22 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 	return true;
 }
 
+/** Command processing for an issued SCSI MODE SENSE (6) command. This command returns various informational pages about
+ *  the SCSI device, as well as the device's Write Protect status.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
+ */
+static bool SCSI_Command_ModeSense_6(void)
+{
+	/* Send an empty header response with the Write Protect flag status */
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(DISK_READ_ONLY ? 0x80 : 0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_ClearIN();
+
+	/* Update the bytes transferred counter and succeed the command */
+	CommandBlock.DataTransferLength -= 4;
+
+	return true;
+}

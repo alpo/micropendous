@@ -1,6 +1,6 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
@@ -8,7 +8,7 @@
 
 /*
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -87,7 +87,7 @@
 
 		/** Retrieves a bit from the next location inside a given bit buffer.
 		 *
-		 *  \param[in,out] Buffer  Bit buffer to store a bit into
+		 *  \param[in,out] Buffer  Bit buffer to retrieve a bit from
 		 *
 		 *  \return Next bit from the buffer
 		 */

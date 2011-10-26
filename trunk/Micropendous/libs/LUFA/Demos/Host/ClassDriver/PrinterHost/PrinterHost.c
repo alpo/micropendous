@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -52,6 +52,7 @@ USB_ClassInfo_PRNT_Host_t Printer_PRNT_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -66,88 +67,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (PRNT_Host_ConfigurePipes(&Printer_PRNT_Interface,
-				                             ConfigDescriptorSize, ConfigDescriptorData) != PRNT_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Printer Class Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (PRNT_Host_SetBidirectionalMode(&Printer_PRNT_Interface) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Bidirectional Mode.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Printer Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-
-				puts_P(PSTR("Retrieving Device ID...\r\n"));
-
-				char DeviceIDString[300];
-				if (PRNT_Host_GetDeviceID(&Printer_PRNT_Interface, DeviceIDString,
-				                          sizeof(DeviceIDString)) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Getting Device ID.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("Device ID: %s.\r\n"), DeviceIDString);
-
-				char     TestPageData[] = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
-				uint16_t TestPageLength = strlen(TestPageData);
-
-				printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
-
-				if (PRNT_Host_SendString(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
-				{
-					puts_P(PSTR("Error Sending Page Data.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Test Page Sent.\r\n"));
-
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-		}
+		PrinterHost_Task();
 
 		PRNT_Host_USBTask(&Printer_PRNT_Interface);
 		USB_USBTask();
@@ -165,9 +85,55 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
+}
+
+/** Task to manage an enumerated USB printer once connected, to display device
+ *  information and print a test PCL page.
+ */
+void PrinterHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+	puts_P(PSTR("Retrieving Device ID...\r\n"));
+
+	char DeviceIDString[300];
+	if (PRNT_Host_GetDeviceID(&Printer_PRNT_Interface, DeviceIDString,
+	                          sizeof(DeviceIDString)) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Getting Device ID.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Device ID: %s.\r\n"), DeviceIDString);
+
+	char     TestPageData[] = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
+	uint16_t TestPageLength = strlen(TestPageData);
+
+	printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
+
+	if (PRNT_Host_SendData(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
+	{
+		puts_P(PSTR("Error Sending Page Data.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Test Page Sent.\r\n"));
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	USB_Host_SetDeviceConfiguration(0);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -193,13 +159,50 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (PRNT_Host_ConfigurePipes(&Printer_PRNT_Interface,
+	                             ConfigDescriptorSize, ConfigDescriptorData) != PRNT_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Printer Class Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (PRNT_Host_SetBidirectionalMode(&Printer_PRNT_Interface) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Bidirectional Mode.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Printer Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);

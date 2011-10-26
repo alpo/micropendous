@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -39,22 +39,22 @@
 /** HTTP server response header, for transmission before the page contents. This indicates to the host that a page exists at the
  *  given location, and gives extra connection information.
  */
-char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
-                               "Server: LUFA RNDIS\r\n"
-                               "Content-type: text/html\r\n"
-                               "Connection: close\r\n\r\n";
+const char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
+                                     "Server: LUFA RNDIS\r\n"
+                                     "Content-type: text/html\r\n"
+                                     "Connection: close\r\n\r\n";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
  */
-char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
-                               "Server: LUFA RNDIS\r\n"
-                               "Connection: close\r\n\r\n";
+const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
+                                     "Server: LUFA RNDIS\r\n"
+                                     "Connection: close\r\n\r\n";
 
 /** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
  *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
  */
-char PROGMEM HTTPPage[]   =
+const char PROGMEM HTTPPage[]   =
 		"<html>"
 		"	<head>"
 		"		<title>"
@@ -74,7 +74,7 @@ char PROGMEM HTTPPage[]   =
 		"</html>";
 
 
-/** Initialises the Webserver application, opening the appropriate HTTP port in the TCP handler and registering the application
+/** Initializes the Webserver application, opening the appropriate HTTP port in the TCP handler and registering the application
  *  callback routine for packets sent to the HTTP protocol port.
  */
 void Webserver_Init(void)
@@ -181,7 +181,7 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 		uint16_t Length;
 
 		/* Determine the length of the loaded block */
-		Length = ((RemLength > HTTP_REPLY_BLOCK_SIZE) ? HTTP_REPLY_BLOCK_SIZE : RemLength);
+		Length = MIN(RemLength, HTTP_REPLY_BLOCK_SIZE);
 
 		/* Copy the next buffer sized block of the page to the packet buffer */
 		strncpy_P(BufferDataStr, &HTTPPage[PageBlock * HTTP_REPLY_BLOCK_SIZE], Length);

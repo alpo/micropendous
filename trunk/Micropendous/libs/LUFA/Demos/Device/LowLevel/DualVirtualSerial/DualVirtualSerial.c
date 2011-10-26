@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
-                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                     .ParityType  = CDC_PARITY_None,
-                                     .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
+                                            .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                            .ParityType  = CDC_PARITY_None,
+                                            .DataBits    = 8                            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -57,10 +57,10 @@ CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
-                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                     .ParityType  = CDC_PARITY_None,
-                                     .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
+                                            .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                            .ParityType  = CDC_PARITY_None,
+                                            .DataBits    = 8                            };
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -227,7 +227,7 @@ void CDC1_Task(void)
 		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
-		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
+		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -269,7 +269,7 @@ void CDC2_Task(void)
 		uint16_t DataLength = Endpoint_BytesInEndpoint();
 
 		/* Read in the incoming packet into the buffer */
-		Endpoint_Read_Stream_LE(&Buffer, DataLength);
+		Endpoint_Read_Stream_LE(&Buffer, DataLength, NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearOUT();
@@ -278,7 +278,7 @@ void CDC2_Task(void)
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
 
 		/* Write the received data to the endpoint */
-		Endpoint_Write_Stream_LE(&Buffer, DataLength);
+		Endpoint_Write_Stream_LE(&Buffer, DataLength, NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

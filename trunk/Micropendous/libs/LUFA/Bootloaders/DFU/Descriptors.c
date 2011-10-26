@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -42,7 +42,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t DeviceDescriptor =
+const USB_Descriptor_Device_t DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -69,21 +69,21 @@ USB_Descriptor_Device_t DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 {
 	.Config =
 		{
-			.Header                   = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
+			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize   = sizeof(USB_Descriptor_Configuration_t),
-			.TotalInterfaces          = 1,
+			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+			.TotalInterfaces        = 1,
 
-			.ConfigurationNumber      = 1,
-			.ConfigurationStrIndex    = NO_DESCRIPTOR,
+			.ConfigurationNumber    = 1,
+			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 
-			.ConfigAttributes         = USB_CONFIG_ATTR_BUSPOWERED,
+			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
 
-			.MaxPowerConsumption      = USB_CONFIG_POWER_MA(100)
+			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 
 	.DFU_Interface =
@@ -109,7 +109,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.Attributes             = (ATTR_CAN_UPLOAD | ATTR_CAN_DOWNLOAD),
 
 			.DetachTimeout          = 0x0000,
-			.TransferSize           = 0x0c00,
+			.TransferSize           = 0x0C00,
 
 			.DFUSpecification       = VERSION_BCD(01.01)
 		}
@@ -119,7 +119,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t LanguageString =
+const USB_Descriptor_String_t LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -130,7 +130,7 @@ USB_Descriptor_String_t LanguageString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t ProductString =
+const USB_Descriptor_String_t ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
 
@@ -159,11 +159,11 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			Address = &DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
-		case DTYPE_Configuration:
+		case DTYPE_Configuration: 
 			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
-		case DTYPE_String:
+		case DTYPE_String: 
 			if (!(DescriptorNumber))
 			{
 				Address = &LanguageString;
@@ -174,10 +174,10 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 				Address = &ProductString;
 				Size    = ProductString.Header.Size;
 			}
-
+			
 			break;
 	}
-
+	
 	*DescriptorAddress = Address;
 	return Size;
 }

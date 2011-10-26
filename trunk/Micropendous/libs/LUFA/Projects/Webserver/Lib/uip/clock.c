@@ -1,9 +1,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <avr/sfr_defs.h>
+
+#include <LUFA/Common/Common.h>
 
 #include "clock.h"
 
@@ -11,7 +10,7 @@
 volatile clock_time_t clock_datetime = 0;
 
 //Overflow interrupt
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	clock_datetime += 1;
 }
@@ -29,10 +28,9 @@ clock_time_t clock_time()
 {
 	clock_time_t time;
 
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
-	{
-		time = clock_datetime;
-	}
+	GlobalInterruptDisable();
+	time = clock_datetime;
+	GlobalInterruptEnable();
 
 	return time;
 }

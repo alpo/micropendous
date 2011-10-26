@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -62,7 +62,7 @@ void XPROGProtocol_SetMode(void)
 		uint8_t Protocol;
 	} SetMode_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&SetMode_XPROG_Params, sizeof(SetMode_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&SetMode_XPROG_Params, sizeof(SetMode_XPROG_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -70,8 +70,8 @@ void XPROGProtocol_SetMode(void)
 
 	XPROG_SelectedProtocol = SetMode_XPROG_Params.Protocol;
 
-	Endpoint_Write_Byte(CMD_XPROG_SETMODE);
-	Endpoint_Write_Byte((SetMode_XPROG_Params.Protocol != XPRG_PROTOCOL_JTAG) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
+	Endpoint_Write_8(CMD_XPROG_SETMODE);
+	Endpoint_Write_8((SetMode_XPROG_Params.Protocol != XPRG_PROTOCOL_JTAG) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
 	Endpoint_ClearIN();
 }
 
@@ -80,7 +80,7 @@ void XPROGProtocol_SetMode(void)
  */
 void XPROGProtocol_Command(void)
 {
-	uint8_t XPROGCommand = Endpoint_Read_Byte();
+	uint8_t XPROGCommand = Endpoint_Read_8();
 
 	switch (XPROGCommand)
 	{
@@ -122,9 +122,9 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	else if (XPROG_SelectedProtocol == XPRG_PROTOCOL_TPI)
 	  NVMBusEnabled = TINYNVM_EnableTPI();
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
-	Endpoint_Write_Byte(NVMBusEnabled ? XPRG_ERR_OK : XPRG_ERR_FAILED);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_ENTER_PROGMODE);
+	Endpoint_Write_8(NVMBusEnabled ? XPRG_ERR_OK : XPRG_ERR_FAILED);
 	Endpoint_ClearIN();
 }
 
@@ -143,12 +143,14 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	  TINYNVM_DisableTPI();
 
 	#if defined(XCK_RESCUE_CLOCK_ENABLE) && defined(ENABLE_ISP_PROTOCOL)
+	/* If the XCK rescue clock option is enabled, we need to restart it once the 
+	 * XPROG mode has been exited, since the XPROG protocol stops it after use. */
 	ISPTarget_ConfigureRescueClock();
 	#endif
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_LEAVE_PROGMODE);
-	Endpoint_Write_Byte(XPRG_ERR_OK);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_LEAVE_PROGMODE);
+	Endpoint_Write_8(XPRG_ERR_OK);
 	Endpoint_ClearIN();
 }
 
@@ -163,7 +165,7 @@ static void XPROGProtocol_Erase(void)
 		uint32_t Address;
 	} Erase_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params), NULL);
 	Erase_XPROG_Params.Address = SwapEndian_32(Erase_XPROG_Params.Address);
 
 	Endpoint_ClearOUT();
@@ -222,9 +224,9 @@ static void XPROGProtocol_Erase(void)
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_ERASE);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_ERASE);
+	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
 
@@ -243,11 +245,20 @@ static void XPROGProtocol_WriteMemory(void)
 	} WriteMemory_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params, (sizeof(WriteMemory_XPROG_Params) -
-	                                                    sizeof(WriteMemory_XPROG_Params).ProgData), NO_STREAM_CALLBACK);
+	                                                    sizeof(WriteMemory_XPROG_Params).ProgData), NULL);
 	WriteMemory_XPROG_Params.Address = SwapEndian_32(WriteMemory_XPROG_Params.Address);
 	WriteMemory_XPROG_Params.Length  = SwapEndian_16(WriteMemory_XPROG_Params.Length);
-	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NULL);
 
+	// The driver will terminate transfers that are a round multiple of the endpoint bank in size with a ZLP, need
+	// to catch this and discard it before continuing on with packet processing to prevent communication issues
+	if (((sizeof(uint8_t) + sizeof(WriteMemory_XPROG_Params) - sizeof(WriteMemory_XPROG_Params.ProgData)) +
+	    WriteMemory_XPROG_Params.Length) % AVRISP_DATA_EPSIZE == 0)
+	{
+		Endpoint_ClearOUT();
+		Endpoint_WaitUntilReady();
+	}
+	
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -306,9 +317,9 @@ static void XPROGProtocol_WriteMemory(void)
 		}
 	}
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_WRITE_MEM);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_WRITE_MEM);
+	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
 
@@ -326,7 +337,7 @@ static void XPROGProtocol_ReadMemory(void)
 		uint16_t Length;
 	} ReadMemory_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&ReadMemory_XPROG_Params, sizeof(ReadMemory_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&ReadMemory_XPROG_Params, sizeof(ReadMemory_XPROG_Params), NULL);
 	ReadMemory_XPROG_Params.Address = SwapEndian_32(ReadMemory_XPROG_Params.Address);
 	ReadMemory_XPROG_Params.Length  = SwapEndian_16(ReadMemory_XPROG_Params.Length);
 
@@ -349,12 +360,12 @@ static void XPROGProtocol_ReadMemory(void)
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_READ_MEM);
+	Endpoint_Write_8(ReturnStatus);
 
 	if (ReturnStatus == XPRG_ERR_OK)
-	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length, NO_STREAM_CALLBACK);
+	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length, NULL);
 
 	Endpoint_ClearIN();
 }
@@ -371,7 +382,7 @@ static void XPROGProtocol_ReadCRC(void)
 		uint8_t CRCType;
 	} ReadCRC_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -407,14 +418,14 @@ static void XPROGProtocol_ReadCRC(void)
 		ReturnStatus = XPRG_ERR_FAILED;
 	}
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_CRC);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_CRC);
+	Endpoint_Write_8(ReturnStatus);
 
 	if (ReturnStatus == XPRG_ERR_OK)
 	{
-		Endpoint_Write_Byte(MemoryCRC >> 16);
-		Endpoint_Write_Word_LE(MemoryCRC & 0xFFFF);
+		Endpoint_Write_8(MemoryCRC >> 16);
+		Endpoint_Write_16_LE(MemoryCRC & 0xFFFF);
 	}
 
 	Endpoint_ClearIN();
@@ -427,22 +438,22 @@ static void XPROGProtocol_SetParam(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
 
-	uint8_t XPROGParam = Endpoint_Read_Byte();
+	uint8_t XPROGParam = Endpoint_Read_8();
 
 	/* Determine which parameter is being set, store the new parameter value */
 	switch (XPROGParam)
 	{
 		case XPRG_PARAM_NVMBASE:
-			XPROG_Param_NVMBase = Endpoint_Read_DWord_BE();
+			XPROG_Param_NVMBase = Endpoint_Read_32_BE();
 			break;
 		case XPRG_PARAM_EEPPAGESIZE:
-			XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
+			XPROG_Param_EEPageSize = Endpoint_Read_16_BE();
 			break;
 		case XPRG_PARAM_NVMCMD_REG:
-			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_Byte();
+			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_8();
 			break;
 		case XPRG_PARAM_NVMCSR_REG:
-			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_Byte();
+			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_8();
 			break;
 		default:
 			ReturnStatus = XPRG_ERR_FAILED;
@@ -453,9 +464,9 @@ static void XPROGProtocol_SetParam(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_SET_PARAM);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_8(CMD_XPROG);
+	Endpoint_Write_8(XPRG_CMD_SET_PARAM);
+	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
 

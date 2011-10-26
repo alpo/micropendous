@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -65,7 +65,7 @@ const uint8_t CRC8_Table[256] PROGMEM =
 RFCOMM_Channel_t RFCOMM_Channels[RFCOMM_MAX_OPEN_CHANNELS];
 
 
-/** Initialises the RFCOMM service, ready for new connections from a SDP client. */
+/** Initializes the RFCOMM service, ready for new connections from a SDP client. */
 void RFCOMM_Initialize(void)
 {
 	/* Reset the RFCOMM channel structures, to invalidate any configured RFCOMM channels */

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -40,8 +40,12 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "Webserver.h"
+		#include "Lib/uIPManagement.h"
 		#include "Descriptors.h"
 		#include "Lib/SCSI.h"
+
+	/* External Variables: */
+		extern USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface_Device;
 
 	/* Function Prototypes: */
 		void USBDeviceMode_USBTask(void);

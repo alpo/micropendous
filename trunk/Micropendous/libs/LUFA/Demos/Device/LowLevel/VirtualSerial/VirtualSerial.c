@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -44,10 +44,11 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
-                                    .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                    .ParityType  = CDC_PARITY_None,
-                                    .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                           .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                           .ParityType  = CDC_PARITY_None,
+                                           .DataBits    = 8                            };
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -203,7 +204,7 @@ void CDC_Task(void)
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
-		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
+		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), NULL);
 
 		/* Remember if the packet to send completely fills the endpoint */
 		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);

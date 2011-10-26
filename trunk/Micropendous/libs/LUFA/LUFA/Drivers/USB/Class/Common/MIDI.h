@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassMIDI
- *  @defgroup Group_USBClassMIDICommon  Common Class Definitions
+ *  \defgroup Group_USBClassMIDICommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  MIDI Class.
  *
@@ -54,10 +54,8 @@
 		#define __INCLUDE_FROM_AUDIO_DRIVER
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
 		#include "Audio.h"
-
-		#include <string.h>
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -105,6 +103,8 @@
 		 *  See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_AudioInterface_AS_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -115,7 +115,7 @@
 			                                             *   specification version.
 			                                             */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
-		} USB_MIDI_Descriptor_AudioInterface_AS_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_AudioInterface_AS_t;
 
 		/** \brief MIDI class-specific Streaming Interface Descriptor (USB-IF naming conventions).
 		 *
@@ -125,6 +125,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_AudioInterface_AS_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -137,7 +139,7 @@
 
 			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version. */
 			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
-		} USB_MIDI_StdDescriptor_AudioInterface_AS_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_AudioInterface_AS_t;
 
 		/** \brief MIDI class-specific Input Jack Descriptor (LUFA naming conventions).
 		 *
@@ -145,17 +147,19 @@
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_InputJack_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
 			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                 JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t                 JackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t                 JackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_Descriptor_InputJack_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_InputJack_t;
 
 		/** \brief MIDI class-specific Input Jack Descriptor (USB-IF naming conventions).
 		 *
@@ -164,6 +168,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_InputJack_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -174,11 +180,11 @@
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_StdDescriptor_InputJack_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_InputJack_t;
 
 		/** \brief MIDI class-specific Output Jack Descriptor (LUFA naming conventions).
 		 *
@@ -186,13 +192,15 @@
 		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_OutputJack_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
 			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
 			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t                   JackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t                   NumberOfPins; /**< Number of output channels within the jack, either physical or logical. */
@@ -200,7 +208,7 @@
 			uint8_t                   SourcePinID[1]; /**< Pin number in the input jack of each output pin's source data. */
 
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_Descriptor_OutputJack_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_OutputJack_t;
 
 		/** \brief MIDI class-specific Output Jack Descriptor (USB-IF naming conventions).
 		 *
@@ -209,6 +217,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_OutputJack_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -219,7 +229,7 @@
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t  bNrInputPins; /**< Number of output channels within the jack, either physical or logical. */
@@ -227,7 +237,7 @@
 			uint8_t  baSourcePin[1]; /**< Pin number in the input jack of each output pin's source data. */
 
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_StdDescriptor_OutputJack_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_OutputJack_t;
 
 		/** \brief Audio class-specific Jack Endpoint Descriptor (LUFA naming conventions).
 		 *
@@ -236,6 +246,8 @@
 		 *  class-specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_Jack_Endpoint_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -244,7 +256,7 @@
 
 			uint8_t                   TotalEmbeddedJacks; /**< Total number of jacks inside this endpoint. */
 			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint. */
-		} USB_MIDI_Descriptor_Jack_Endpoint_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_Jack_Endpoint_t;
 
 		/** \brief Audio class-specific Jack Endpoint Descriptor (USB-IF naming conventions).
 		 *
@@ -254,6 +266,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_Jack_Endpoint_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -266,21 +280,23 @@
 
 			uint8_t  bNumEmbMIDIJack; /**< Total number of jacks inside this endpoint. */
 			uint8_t  bAssocJackID[1]; /**< IDs of each jack inside the endpoint. */
-		} USB_MIDI_StdDescriptor_Jack_Endpoint_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_Jack_Endpoint_t;
 
 		/** \brief MIDI Class Driver Event Packet.
 		 *
 		 *  Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
-			unsigned char Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet. */
-			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface. */
+			unsigned Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet. */
+			unsigned CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface. */
 
-			uint8_t Data1; /**< First byte of data in the MIDI event. */
-			uint8_t Data2; /**< Second byte of data in the MIDI event. */
-			uint8_t Data3; /**< Third byte of data in the MIDI event. */
-		} MIDI_EventPacket_t;
+			uint8_t  Data1; /**< First byte of data in the MIDI event. */
+			uint8_t  Data2; /**< Second byte of data in the MIDI event. */
+			uint8_t  Data3; /**< Third byte of data in the MIDI event. */
+		} ATTR_PACKED MIDI_EventPacket_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

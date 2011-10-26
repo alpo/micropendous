@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -44,11 +44,13 @@
 		#include <avr/eeprom.h>
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
+		#include <util/delay.h>
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 
 	/* Macros: */
 		/** Configuration define. Define this token to true to case the bootloader to reject all memory commands
@@ -102,25 +104,25 @@
 		#define DFU_FILLER_BYTES_SIZE    26
 
 		/** DFU class command request to detach from the host. */
-		#define REQ_DFU_DETATCH          0x00
+		#define DFU_REQ_DETATCH          0x00
 
 		/** DFU class command request to send data from the host to the bootloader. */
-		#define REQ_DFU_DNLOAD           0x01
+		#define DFU_REQ_DNLOAD           0x01
 
 		/** DFU class command request to send data from the bootloader to the host. */
-		#define REQ_DFU_UPLOAD           0x02
+		#define DFU_REQ_UPLOAD           0x02
 
 		/** DFU class command request to get the current DFU status and state from the bootloader. */
-		#define REQ_DFU_GETSTATUS        0x03
+		#define DFU_REQ_GETSTATUS        0x03
 
 		/** DFU class command request to reset the current DFU status and state variables to their defaults. */
-		#define REQ_DFU_CLRSTATUS        0x04
+		#define DFU_REQ_CLRSTATUS        0x04
 
 		/** DFU class command request to get the current DFU state of the bootloader. */
-		#define REQ_DFU_GETSTATE         0x05
+		#define DFU_REQ_GETSTATE         0x05
 
 		/** DFU class command request to abort the current multi-request transfer and return to the dfuIDLE state. */
-		#define REQ_DFU_ABORT            0x06
+		#define DFU_REQ_ABORT            0x06
 
 		/** DFU command to begin programming the device's memory. */
 		#define COMMAND_PROG_START       0x01

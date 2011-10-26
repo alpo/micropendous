@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -67,6 +67,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t    Config;
+			
+			// Atmel AVRISP-MKII Interface
 			USB_Descriptor_Interface_t               AVRISP_Interface;
 			USB_Descriptor_Endpoint_t                AVRISP_DataInEndpoint;
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;

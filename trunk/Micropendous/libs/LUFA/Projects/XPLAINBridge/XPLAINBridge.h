@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -41,16 +41,17 @@
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
+		#include <util/delay.h>
 
 		#include "AVRISPDescriptors.h"
 		#include "USARTDescriptors.h"
 
-		#include "Lib/LightweightRingBuff.h"
 		#include "Lib/SoftUART.h"
 		#include "Lib/V2Protocol.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Misc/RingBuffer.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
@@ -76,9 +77,9 @@
 		#define MODE_PDI_PROGRAMMER      true
 
 	/* External Variables: */
-		extern bool       CurrentFirmwareMode;
-		extern RingBuff_t UARTtoUSB_Buffer;
-		extern RingBuff_t USBtoUART_Buffer;
+		extern bool         CurrentFirmwareMode;
+		extern RingBuffer_t UARTtoUSB_Buffer;
+		extern RingBuffer_t USBtoUART_Buffer;
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

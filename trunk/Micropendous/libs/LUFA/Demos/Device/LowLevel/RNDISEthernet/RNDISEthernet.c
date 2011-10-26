@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -71,8 +71,11 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	USB_Init();
+	
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);	
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -182,7 +185,7 @@ void RNDIS_Task(void)
 			};
 
 		/* Indicate that a message response is ready for the host */
-		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
+		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -201,10 +204,10 @@ void RNDIS_Task(void)
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
-		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
+		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameLength))
 		{
 			/* Read in the packet message header */
-			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
+			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 			/* Stall the request if the data is too large */
 			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
@@ -214,23 +217,20 @@ void RNDIS_Task(void)
 			}
 
 			/* Read in the Ethernet frame into the buffer */
-			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength);
+			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength, NULL);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearOUT();
 
 			/* Store the size of the Ethernet frame */
 			FrameIN.FrameLength = RNDISPacketHeader.DataLength;
-
-			/* Indicate Ethernet IN buffer full */
-			FrameIN.FrameInBuffer = true;
 		}
 
 		/* Select the data IN endpoint */
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
-		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
+		if (Endpoint_IsINReady() && FrameOUT.FrameLength)
 		{
 			/* Clear the packet header with all 0s so that the relevant fields can be filled */
 			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
@@ -242,16 +242,16 @@ void RNDIS_Task(void)
 			RNDISPacketHeader.DataLength    = FrameOUT.FrameLength;
 
 			/* Send the packet header to the host */
-			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
+			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 			/* Send the Ethernet frame data to the host */
-			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);
+			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength, NULL);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearIN();
 
 			/* Indicate Ethernet OUT buffer no longer full */
-			FrameOUT.FrameInBuffer = false;
+			FrameOUT.FrameLength = 0;
 		}
 	}
 }
@@ -270,7 +270,7 @@ void Ethernet_Task(void)
 	  return;
 
 	/* Check if a frame has been written to the IN frame buffer */
-	if (FrameIN.FrameInBuffer)
+	if (FrameIN.FrameLength)
 	{
 		/* Indicate packet processing started */
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);

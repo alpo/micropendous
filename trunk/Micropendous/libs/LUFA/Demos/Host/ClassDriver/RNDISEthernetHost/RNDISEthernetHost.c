@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,7 @@
 #include "RNDISEthernetHost.h"
 
 /** Buffer to hold incoming and outgoing Ethernet packets. */
-uint8_t PacketBuffer[1024];
+static int8_t PacketBuffer[1024];
 
 /** LUFA RNDIS Class driver interface configuration and state information. This structure is
  *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
@@ -60,6 +60,7 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -74,93 +75,21 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface,
-				                              ConfigDescriptorSize, ConfigDescriptorData) != RNDIS_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid RNDIS Class Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Initializing Device.\r\n"));
-
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), Ethernet_RNDIS_Interface.State.DeviceMaxPacketSize);
-
-				uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
-				if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
-				                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Packet Filter.\r\n"));
-
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				uint32_t VendorID;
-				if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_VENDOR_ID,
-				                                  &VendorID, sizeof(VendorID)) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Getting Vendor ID.\r\n"));
-
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
-
-				puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				PrintIncomingPackets();
-
-				break;
-		}
+		RNDISHost_Task();
 
 		RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface);
 		USB_USBTask();
 	}
 }
 
-/** Prints incoming packets from the attached RNDIS device to the serial port. */
-void PrintIncomingPackets(void)
+/** Task to manage an enumerated USB RNDIS device once connected, to display device
+ *  received data packets.
+ */
+void RNDISHost_Task(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	if (RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface))
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
@@ -190,9 +119,12 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -218,13 +150,77 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface,
+	                              ConfigDescriptorSize, ConfigDescriptorData) != RNDIS_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid RNDIS Class Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Initializing Device.\r\n"));
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), Ethernet_RNDIS_Interface.State.DeviceMaxPacketSize);
+
+	uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
+	if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
+	                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Packet Filter.\r\n"));
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	uint32_t VendorID;
+	if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_VENDOR_ID,
+	                                  &VendorID, sizeof(VendorID)) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Getting Vendor ID.\r\n"));
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
+
+	puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);

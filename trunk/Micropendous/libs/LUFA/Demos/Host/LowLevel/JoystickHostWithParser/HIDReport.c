@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -40,7 +40,7 @@ HID_ReportInfo_t HIDReportInfo;
 /** Function to read in the HID report descriptor from the attached device, and process it into easy-to-read
  *  structures via the HID parser routines in the LUFA library.
  *
- *  \return  A value from the MouseHostWithParser_GetHIDReportDataCodes_t enum
+ *  \return  A value from the \ref JoystickHostWithParser_GetHIDReportDataCodes_t enum
  */
 uint8_t GetHIDReportData(void)
 {

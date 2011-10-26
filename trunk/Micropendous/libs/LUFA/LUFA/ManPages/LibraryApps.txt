@@ -38,12 +38,14 @@
  *        - <b>Joystick</b> - USB Joystick demo, using the library USB HID Class driver framework
  *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
  *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the library USB HID Class driver framework
+ *        - <b>KeyboardMouseMultiReport</b> - Multi HID report Keyboard/Mouse demo, using the library USB HID Class driver framework
  *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the library USB Mass Storage Class driver framework
  *        - <b>MassStorageKeyboard</b> - Mass Storage and Keyboard demo, using the library USB Mass Storage/HID Class driver frameworks
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework
  *        - <b>VirtualSerial</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>VirtualSerialMassStorage</b> - Virtual Serial Port and Mass Storage demo, using the library USB CDC and Mass Storage Class driver frameworks
  *        - <b>VirtualSerialMouse</b> - Virtual Serial Port and Mouse demo, using the library USB CDC and HID Class driver frameworks
  *      - <b>LowLevel</b>
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the low level LUFA APIs to implement the USB Audio class
@@ -64,6 +66,8 @@
  *                                      Measurement class
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
+ *        - <b>AudioInputHost</b> - Audio Input host demo, using the library USB Audio Class driver framework
+ *        - <b>AudioOutputHost</b> - Audio Output host demo, using the library USB Audio Class driver framework
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the library USB HID Class driver framework
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the library USB HID Class driver framework
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the library USB HID Class
@@ -75,9 +79,11 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
  *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
  *      - <b>LowLevel</b>
+ *        - <b>AudioInputHost</b> - Audio Input host demo, using the low level LUFA APIs to implement the USB Audio class
+ *        - <b>AudioOutputHost</b> - Audio Output host demo, using the low level LUFA APIs to implement the USB Audio class
+ *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the low level LUFA APIs to implement
  *                                          the USB HID class
- *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the low level LUFA APIs to
  *                                          implement the USB HID class
@@ -95,13 +101,17 @@
  *      - <b>ClassDriver</b>
  *        - <b>MouseHostDevice</b> - Dual role Mouse Host and Mouse Device demo, using the library USB CDC Class driver framework
  *  - <b>Bootloaders</b>
- *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
  *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
+ *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
+ *    - <b>HID</b> - HID Class USB bootloader, compatible with a modified PJRC TeensyHID protocol loader application software
  *  - <b>Projects</b>
  *    - <b>AVRISP-MKII</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
+ *    - <b>HIDReportViewer</b> - HID Device Report Viewer project
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
+ *    - <b>MediaController</b> - Media Playback Controller project
+ *    - <b>MIDIToneGenerator</b> - MIDI Note Tone Generator project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
  *    - <b>RelayBoard</b> - Relay board controller, controllable via the "sismpctl" Linux application
  *    - <b>TempDataLogger</b> - Temperature Datalogging project, using the FatFS library

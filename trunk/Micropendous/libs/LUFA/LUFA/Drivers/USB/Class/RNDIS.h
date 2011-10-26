@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,14 +38,14 @@
  */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassRNDIS RNDIS (Networking) Class Driver
+ *  \defgroup Group_USBClassRNDIS RNDIS (Networking) Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/RNDIS.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/RNDIS.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  RNDIS Class Driver module. This module contains an internal implementation of the Microsoft USB RNDIS Networking
  *  Class, for both Device and Host USB modes. User applications can use this class driver instead of implementing the
  *  RNDIS class manually via the low-level LUFA APIs.
@@ -64,7 +64,7 @@
 		#define __INCLUDE_FROM_RNDIS_DRIVER
 
 	/* Includes: */
-		#include "../HighLevel/USBMode.h"
+		#include "../Core/USBMode.h"
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/RNDIS.h"

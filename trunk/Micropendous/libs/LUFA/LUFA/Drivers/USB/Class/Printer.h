@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,13 +38,13 @@
  */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassPrinter Printer Class Driver
+ *  \defgroup Group_USBClassPrinter Printer Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/Printer.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Printer Class Driver module. This module contains an internal implementation of the USB Printer Class, for the base
  *  USB Printer transport layer for USB Host mode only. Note that printers are free to implement whatever printer language
  *  they choose on top of this (e.g. Postscript), and so this driver exposes low level data transport functions only rather
@@ -65,7 +65,7 @@
 		#define __INCLUDE_FROM_PRINTER_DRIVER
 
 	/* Includes: */
-		#include "../HighLevel/USBMode.h"
+		#include "../Core/USBMode.h"
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/Printer.h"

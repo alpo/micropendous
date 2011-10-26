@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -146,7 +146,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
-				Endpoint_Write_Byte(TOTAL_LUNS - 1);
+				Endpoint_Write_8(TOTAL_LUNS - 1);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -199,8 +199,8 @@ void MassStorage_Task(void)
 	if (IsMassStoreReset)
 	{
 		/* Reset the data endpoint banks */
-		Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
-		Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
+		Endpoint_ResetEndpoint(MASS_STORAGE_OUT_EPNUM);
+		Endpoint_ResetEndpoint(MASS_STORAGE_IN_EPNUM);
 
 		Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
 		Endpoint_ClearStall();
@@ -221,6 +221,8 @@ void MassStorage_Task(void)
  */
 static bool ReadInCommandBlock(void)
 {
+	uint16_t BytesTransferred;
+
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
 
@@ -229,12 +231,14 @@ static bool ReadInCommandBlock(void)
 	  return false;
 
 	/* Read in command block header */
-	Endpoint_Read_Stream_LE(&CommandBlock, (sizeof(CommandBlock) - sizeof(CommandBlock.SCSICommandData)),
-	                        StreamCallback_AbortOnMassStoreReset);
-
-	/* Check if the current command is being aborted by the host */
-	if (IsMassStoreReset)
-	  return false;
+	BytesTransferred = 0;
+	while (Endpoint_Read_Stream_LE(&CommandBlock, (sizeof(CommandBlock) - sizeof(CommandBlock.SCSICommandData)),
+	                               &BytesTransferred) == ENDPOINT_RWSTREAM_IncompleteTransfer)
+	{
+		/* Check if the current command is being aborted by the host */
+		if (IsMassStoreReset)
+		  return false;
+	}
 
 	/* Verify the command block - abort if invalid */
 	if ((CommandBlock.Signature         != MS_CBW_SIGNATURE) ||
@@ -252,13 +256,14 @@ static bool ReadInCommandBlock(void)
 	}
 
 	/* Read in command block command data */
-	Endpoint_Read_Stream_LE(&CommandBlock.SCSICommandData,
-	                        CommandBlock.SCSICommandLength,
-	                        StreamCallback_AbortOnMassStoreReset);
-
-	/* Check if the current command is being aborted by the host */
-	if (IsMassStoreReset)
-	  return false;
+	BytesTransferred = 0;
+	while (Endpoint_Read_Stream_LE(&CommandBlock.SCSICommandData, CommandBlock.SCSICommandLength,
+	                               &BytesTransferred) == ENDPOINT_RWSTREAM_IncompleteTransfer)
+	{
+		/* Check if the current command is being aborted by the host */
+		if (IsMassStoreReset)
+		  return false;
+	}
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearOUT();
@@ -271,6 +276,8 @@ static bool ReadInCommandBlock(void)
  */
 static void ReturnCommandStatus(void)
 {
+	uint16_t BytesTransferred;
+
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
 
@@ -294,27 +301,15 @@ static void ReturnCommandStatus(void)
 	}
 
 	/* Write the CSW to the endpoint */
-	Endpoint_Write_Stream_LE(&CommandStatus, sizeof(CommandStatus),
-	                          StreamCallback_AbortOnMassStoreReset);
-
-	/* Check if the current command is being aborted by the host */
-	if (IsMassStoreReset)
-	  return;
-
+	BytesTransferred = 0;
+	while (Endpoint_Write_Stream_LE(&CommandStatus, sizeof(CommandStatus),
+	                                &BytesTransferred) == ENDPOINT_RWSTREAM_IncompleteTransfer)
+	{
+		/* Check if the current command is being aborted by the host */
+		if (IsMassStoreReset)
+		  return;
+	}
+	
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
 }
-
-/** Stream callback function for the Endpoint stream read and write functions. This callback will abort the current stream transfer
- *  if a Mass Storage Reset request has been issued to the control endpoint.
- */
-uint8_t StreamCallback_AbortOnMassStoreReset(void)
-{
-	/* Abort if a Mass Storage reset command was received */
-	if (IsMassStoreReset)
-	  return STREAMCALLBACK_Abort;
-
-	/* Continue with the current stream operation */
-	return STREAMCALLBACK_Continue;
-}
-

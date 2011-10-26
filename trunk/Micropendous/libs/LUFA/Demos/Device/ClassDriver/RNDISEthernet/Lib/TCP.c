@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -55,7 +55,8 @@ TCP_ConnectionState_t  ConnectionStateTable[MAX_TCP_CONNECTIONS];
  *  level. If an application produces a response, this task constructs the appropriate Ethernet frame and places it into the Ethernet OUT
  *  buffer for later transmission.
  */
-void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+		         Ethernet_Frame_Info_t* const FrameOUT)
 {
 	/* Run each application in sequence, to process incoming and generate outgoing packets */
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
@@ -73,11 +74,8 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 		}
 	}
 
-	/* Get pointer to the output frame info struct for convenience */
-	Ethernet_Frame_Info_t* FrameOUT = &RNDISInterfaceInfo->State.FrameOUT;
-
 	/* Bail out early if there is already a frame waiting to be sent in the Ethernet OUT buffer */
-	if (FrameOUT->FrameInBuffer)
+	if (FrameOUT->FrameLength)
 	  return;
 
 	/* Send response packets from each application as the TCP packet buffers are filled by the applications */
@@ -147,7 +145,6 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
 			FrameOUT->FrameLength           = PacketSize;
-			FrameOUT->FrameInBuffer         = true;
 
 			ConnectionStateTable[CSTableEntry].Info.Buffer.Ready = false;
 
@@ -156,7 +153,7 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 	}
 }
 
-/** Initialises the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
+/** Initializes the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
  *  processed.
  */
 void TCP_Init(void)
@@ -173,7 +170,7 @@ void TCP_Init(void)
 /** Sets the state and callback handler of the given port, specified in big endian to the given state.
  *
  *  \param[in] Port     Port whose state and callback function to set, specified in big endian
- *  \param[in] State    New state of the port, a value from the TCP_PortStates_t enum
+ *  \param[in] State    New state of the port, a value from the \ref TCP_PortStates_t enum
  *  \param[in] Handler  Application callback handler for the port
  *
  *  \return Boolean true if the port state was set, false otherwise (no more space in the port state table)
@@ -185,7 +182,7 @@ bool TCP_SetPortState(const uint16_t Port,
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	/* Check to see if the port entry is already in the port state table */
-	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+	for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 	{
 		/* Find existing entry for the port in the table, update it if found */
 		if (PortStateTable[PTableEntry].Port == Port)
@@ -199,7 +196,7 @@ bool TCP_SetPortState(const uint16_t Port,
 	/* Check if trying to open the port -- if so we need to find an unused (closed) entry and replace it */
 	if (State == TCP_Port_Open)
 	{
-		for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+		for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 		{
 			/* Find a closed port entry in the table, change it to the given port and state */
 			if (PortStateTable[PTableEntry].State == TCP_Port_Closed)
@@ -225,13 +222,13 @@ bool TCP_SetPortState(const uint16_t Port,
  *
  *  \param[in] Port  TCP port whose state is to be retrieved, given in big-endian
  *
- *  \return A value from the TCP_PortStates_t enum
+ *  \return A value from the \ref TCP_PortStates_t enum
  */
 uint8_t TCP_GetPortState(const uint16_t Port)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
-	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+	for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 	{
 		/* Find existing entry for the port in the table, return the port status if found */
 		if (PortStateTable[PTableEntry].Port == Port)
@@ -248,7 +245,7 @@ uint8_t TCP_GetPortState(const uint16_t Port)
  *  \param[in] Port           TCP port of the connection on the device, specified in big endian
  *  \param[in] RemoteAddress  Remote protocol IP address of the connected device
  *  \param[in] RemotePort     TCP port of the remote device in the connection, specified in big endian
- *  \param[in] State          TCP connection state, a value from the TCP_ConnectionStates_t enum
+ *  \param[in] State          TCP connection state, a value from the \ref TCP_ConnectionStates_t enum
  *
  *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
  */
@@ -293,7 +290,7 @@ bool TCP_SetConnectionState(const uint16_t Port,
  *  \param[in] RemoteAddress  Remote protocol IP address of the connected host
  *  \param[in] RemotePort     Remote TCP port of the connected host, specified in big endian
  *
- *  \return A value from the TCP_ConnectionStates_t enum
+ *  \return A value from the \ref TCP_ConnectionStates_t enum
  */
 uint8_t TCP_GetConnectionState(const uint16_t Port,
                                const IP_Address_t RemoteAddress,

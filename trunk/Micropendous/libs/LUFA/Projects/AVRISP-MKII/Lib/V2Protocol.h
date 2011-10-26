@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -39,6 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
+		#include <avr/wdt.h>
 	
 		#include <LUFA/Drivers/USB/USB.h>
 
@@ -60,24 +61,28 @@
 		#if defined(USB_SERIES_4_AVR) && ((VTARGET_ADC_CHANNEL == 2) || (VTARGET_ADC_CHANNEL == 3))
 			#error The U4 AVR chips do not contain ADC channels 2 or 3. Please change VTARGET_ADC_CHANNEL or define NO_VTARGET_DETECT in the makefile.
 		#endif
-
-	/* Macros: */
-		#if !defined(__DOXYGEN__)
-			#define _GETADCMUXMASK2(x, y)       x ## y
-			#define _GETADCMUXMASK(x, y)        _GETADCMUXMASK2(x, y)
+		
+		#if defined(VTARGET_USE_INTERNAL_REF)
+			#undef  VTARGET_REF_VOLTS
+			#define VTARGET_REF_VOLTS 2.56
+			
+			#define VTARGET_REF_MASK ADC_REFERENCE_INT2560MV
+		#else
+			#define VTARGET_REF_MASK ADC_REFERENCE_AVCC
 		#endif
 
+	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing. */
 		#define PROGRAMMER_ID              "AVRISP_MK2"
 
 		/** Timeout period for each issued command from the host before it is aborted (in 10ms ticks). */
 		#define COMMAND_TIMEOUT_TICKS      100
 
-		/** Command timeout counter register, GPIOR for speed. */
-		#define TimeoutTicksRemaining      GPIOR1
+		/** Command timeout expiration flag, GPIOR for speed. */
+		#define TimeoutExpired             GPIOR1
 
 		/** MUX mask for the VTARGET ADC channel number. */
-		#define VTARGET_ADC_CHANNEL_MASK   _GETADCMUXMASK(ADC_CHANNEL, VTARGET_ADC_CHANNEL)
+		#define VTARGET_ADC_CHANNEL_MASK   ADC_GET_CHANNEL_MASK(VTARGET_ADC_CHANNEL)
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;

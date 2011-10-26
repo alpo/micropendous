@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the LEDNotfier project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #include "LEDNotifier.h"
@@ -72,6 +72,11 @@ static volatile uint8_t SoftPWM_Channel2_Duty;
 /** Duty cycle for the third software PWM channel */
 static volatile uint8_t SoftPWM_Channel3_Duty;
 
+/** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
+ *  used like any regular character stream in the C APIs
+ */
+static FILE USBSerialStream;
+
 
 /** Interrupt handler for managing the software PWM channels for the LEDs */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
@@ -92,11 +97,6 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 	LEDs_SetAllLEDs(LEDMask);
 }
-
-/** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
- *  used like any regular character stream in the C APIs
- */
-static FILE USBSerialStream;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

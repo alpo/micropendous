@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
               
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Peter Lawrence (majbthrd [at] gmail [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this 
@@ -66,10 +66,12 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_Endpoint_t             DataOutEndpoint;
-			USB_Descriptor_Endpoint_t             DataInEndpoint;
-			USB_Descriptor_Endpoint_t             NotificationEndpoint;
+			
+			// Test and Measurement Interface
+			USB_Descriptor_Interface_t            TM_Interface;
+			USB_Descriptor_Endpoint_t             TM_DataOutEndpoint;
+			USB_Descriptor_Endpoint_t             TM_DataInEndpoint;
+			USB_Descriptor_Endpoint_t             TM_NotificationEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */

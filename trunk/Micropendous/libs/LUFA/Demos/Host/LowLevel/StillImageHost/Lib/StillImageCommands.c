@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -55,7 +55,7 @@ void SImage_SendBlockHeader(void)
 	Pipe_Unfreeze();
 
 	/* Write the PIMA block to the data OUT pipe */
-	Pipe_Write_Stream_LE(&PIMA_SendBlock, PIMA_COMMAND_SIZE(0));
+	Pipe_Write_Stream_LE(&PIMA_SendBlock, PIMA_COMMAND_SIZE(0), NULL);
 
 	/* If the block type is a command, send its parameters (if any) */
 	if (PIMA_SendBlock.Type == PIMA_CONTAINER_CommandBlock)
@@ -67,7 +67,7 @@ void SImage_SendBlockHeader(void)
 		if (ParamBytes)
 		{
 			/* Write the PIMA parameters to the data OUT pipe */
-			Pipe_Write_Stream_LE(&PIMA_SendBlock.Params, ParamBytes);
+			Pipe_Write_Stream_LE(&PIMA_SendBlock.Params, ParamBytes, NULL);
 		}
 
 		/* Send the PIMA command block to the attached device */
@@ -91,7 +91,7 @@ uint8_t SImage_ReceiveEventHeader(void)
 	Pipe_Unfreeze();
 
 	/* Read in the event data into the global structure */
-	ErrorCode = Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock));
+	ErrorCode = Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock), NULL);
 
 	/* Clear the pipe after read complete to prepare for next event */
 	Pipe_ClearIN();
@@ -140,7 +140,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			USB_Host_ClearPipeStall(SIMAGE_DATA_OUT_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			/* Return error code and break out of the loop */
 			return PIPE_RWSTREAM_PipeStalled;
@@ -154,7 +154,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			USB_Host_ClearPipeStall(SIMAGE_DATA_IN_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			/* Return error code */
 			return PIPE_RWSTREAM_PipeStalled;
@@ -166,7 +166,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 	}
 
 	/* Load in the response from the attached device */
-	Pipe_Read_Stream_LE(&PIMA_ReceivedBlock, PIMA_COMMAND_SIZE(0));
+	Pipe_Read_Stream_LE(&PIMA_ReceivedBlock, PIMA_COMMAND_SIZE(0), NULL);
 
 	/* Check if the returned block type is a response block */
 	if (PIMA_ReceivedBlock.Type == PIMA_CONTAINER_ResponseBlock)
@@ -178,7 +178,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 		if (ParamBytes)
 		{
 			/* Read the PIMA parameters from the data IN pipe */
-			Pipe_Read_Stream_LE(&PIMA_ReceivedBlock.Params, ParamBytes);
+			Pipe_Read_Stream_LE(&PIMA_ReceivedBlock.Params, ParamBytes, NULL);
 		}
 
 		/* Clear pipe bank after use */
@@ -208,7 +208,7 @@ uint8_t SImage_SendData(void* const Buffer,
 	Pipe_Unfreeze();
 
 	/* Write the data contents to the pipe */
-	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes);
+	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes, NULL);
 
 	/* Send the last packet to the attached device */
 	Pipe_ClearOUT();
@@ -219,7 +219,7 @@ uint8_t SImage_SendData(void* const Buffer,
 	return ErrorCode;
 }
 
-/** Function to receive the given data to the device, after a response block has been received.
+/** Function to receive the given data from the device, after a response block has been received.
  *
  *  \param[out] Buffer  Destination data buffer to put read bytes from the device
  *  \param[in] Bytes    Number of bytes to receive
@@ -236,7 +236,7 @@ uint8_t SImage_ReadData(void* const Buffer,
 	Pipe_Unfreeze();
 
 	/* Read in the data into the buffer */
-	ErrorCode = Pipe_Read_Stream_LE(Buffer, Bytes);
+	ErrorCode = Pipe_Read_Stream_LE(Buffer, Bytes, NULL);
 
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();

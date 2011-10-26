@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -30,7 +30,7 @@
 
 #include "Descriptors.h"
 
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	Header:                 {Size: sizeof(USB_Descriptor_Device_t), Type: DTYPE_Device},
 
@@ -52,7 +52,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	NumberOfConfigurations: 1
 };
 
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -89,7 +89,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 
-			EndpointAddress:        (ENDPOINT_DESCRIPTOR_DIR_IN | SIDESHOW_IN_EPNUM),
+			EndpointAddress:        (ENDPOINT_DIR_IN | SIDESHOW_IN_EPNUM),
 			Attributes:             EP_TYPE_BULK,
 			EndpointSize:           SIDESHOW_IO_EPSIZE,
 			PollingIntervalMS:      0x00
@@ -99,42 +99,42 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 
-			EndpointAddress:        (ENDPOINT_DESCRIPTOR_DIR_OUT | SIDESHOW_OUT_EPNUM),
+			EndpointAddress:        (ENDPOINT_DIR_OUT | SIDESHOW_OUT_EPNUM),
 			Attributes:             EP_TYPE_BULK,
 			EndpointSize:           SIDESHOW_IO_EPSIZE,
 			PollingIntervalMS:      0x00
 		}
 };
 
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	Header:                 {Size: USB_STRING_LEN(1), Type: DTYPE_String},
 
 	UnicodeString:          {LANGUAGE_ID_ENG}
 };
 
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	Header:                 {Size: USB_STRING_LEN(11), Type: DTYPE_String},
 
 	UnicodeString:          L"Dean Camera"
 };
 
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	Header:                 {Size: USB_STRING_LEN(22), Type: DTYPE_String},
 
 	UnicodeString:          L"LUFA Sideshow Demo"
 };
 
-USB_Descriptor_String_t PROGMEM SerialNumberString =
+const USB_Descriptor_String_t PROGMEM SerialNumberString =
 {
 	Header:                 {Size: USB_STRING_LEN(12), Type: DTYPE_String},
 
 	UnicodeString:          L"000000000000"
 };
 
-USB_OSDescriptor_t PROGMEM OSDescriptorString =
+const USB_OSDescriptor_t PROGMEM OSDescriptorString =
 {
 	Header:                 {Size: sizeof(USB_OSDescriptor_t), Type: DTYPE_String},
 
@@ -142,7 +142,7 @@ USB_OSDescriptor_t PROGMEM OSDescriptorString =
 	VendorCode:             REQ_GetOSFeatureDescriptor
 };
 
-USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
+const USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
 {
 	TotalLength:            sizeof(USB_OSCompatibleIDDescriptor_t),
 	Version:                0x0100,

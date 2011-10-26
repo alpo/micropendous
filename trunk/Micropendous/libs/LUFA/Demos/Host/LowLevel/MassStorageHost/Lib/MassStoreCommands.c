@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -68,20 +68,23 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	/* Each transmission should have a unique tag value, increment before use */
-	SCSICommandBlock->Tag = ++MassStore_Tag;
-
 	/* Wrap Tag value when invalid - MS class defines tag values of 0 and 0xFFFFFFFF to be invalid */
-	if (MassStore_Tag == 0xFFFFFFFF)
+	if (++MassStore_Tag == 0xFFFFFFFF)
 	  MassStore_Tag = 1;
+
+	/* Each transmission should have a unique tag value, increment before use */
+	SCSICommandBlock->Tag = MassStore_Tag;
 
 	/* Select the OUT data pipe for CBW transmission */
 	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 
 	/* Write the CBW command to the OUT pipe */
-	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t))) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
+	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t), NULL)) !=
+	                                      PIPE_RWSTREAM_NoError)
+	{
+		return ErrorCode;
+	}
 
 	/* Send the data in the OUT pipe to the attached device */
 	Pipe_ClearOUT();
@@ -92,7 +95,7 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 	/* Freeze pipe after use */
 	Pipe_Freeze();
 
-	/* Send data if any */
+	/* Send data if any has been given */
 	if ((BufferPtr != NULL) &&
 	    ((ErrorCode = MassStore_SendReceiveData(SCSICommandBlock, BufferPtr)) != PIPE_READYWAIT_NoError))
 	{
@@ -142,7 +145,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			USB_Host_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -155,7 +158,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			USB_Host_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -200,7 +203,7 @@ static uint8_t MassStore_SendReceiveData(MS_CommandBlockWrapper_t* const SCSICom
 		Pipe_Unfreeze();
 
 		/* Read in the block data from the pipe */
-		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		/* Acknowledge the packet */
@@ -213,7 +216,7 @@ static uint8_t MassStore_SendReceiveData(MS_CommandBlockWrapper_t* const SCSICom
 		Pipe_Unfreeze();
 
 		/* Write the block data to the pipe */
-		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		/* Acknowledge the packet */
@@ -251,9 +254,12 @@ static uint8_t MassStore_GetReturnedStatus(MS_CommandStatusWrapper_t* const SCSI
 	Pipe_Unfreeze();
 
 	/* Load in the CSW from the attached device */
-	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t))) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
+	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t), NULL)) !=
+	                                     PIPE_RWSTREAM_NoError)
+	{
+		return ErrorCode;
+	}
+	
 	/* Clear the data ready for next reception */
 	Pipe_ClearIN();
 
@@ -268,12 +274,15 @@ static uint8_t MassStore_GetReturnedStatus(MS_CommandStatusWrapper_t* const SCSI
 }
 
 /** Issues a Mass Storage class specific request to reset the attached device's Mass Storage interface,
- *  readying the device for the next CBW.
+ *  readying the device for the next CBW. The Data endpoints are cleared of any STALL condition once this
+ *  command completes sucessfuly.
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
 uint8_t MassStore_MassStorageReset(void)
 {
+	uint8_t ErrorCode;
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
@@ -285,8 +294,23 @@ uint8_t MassStore_MassStorageReset(void)
 
 	/* Select the control pipe for the request transfer */
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	/* Select first data pipe to clear STALL condition if one exists */
+	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
+	
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
 
-	return USB_Host_SendControlRequest(NULL);
+	/* Select second data pipe to clear STALL condition if one exists */
+	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
+
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	return HOST_SENDCONTROL_Successful;
 }
 
 /** Issues a Mass Storage class specific request to determine the index of the highest numbered Logical

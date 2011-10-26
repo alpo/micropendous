@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -38,9 +38,9 @@
  */
 
 /** \ingroup Group_USBClassSI
- *  @defgroup Group_USBClassSICommon  Common Class Definitions
+ *  \defgroup Group_USBClassSICommon  Common Class Definitions
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Still Image Class.
  *
@@ -51,9 +51,7 @@
 #define _SI_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
-
-		#include <string.h>
+		#include "../../Core/StdDescriptors.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -77,7 +75,7 @@
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
-		 *  \param[in] Params  Number of parameters which are to be sent in the Param field of the container.
+		 *  \param[in] Params  Number of parameters which are to be sent in the \c Param field of the container.
 		 */
 		#define PIMA_COMMAND_SIZE(Params)     ((sizeof(PIMA_Container_t) - 12) + ((Params) * sizeof(uint32_t)))
 
@@ -140,6 +138,8 @@
 		 *
 		 *  Type define for a PIMA container, use to send commands and receive responses to and from an
 		 *  attached Still Image device.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -148,7 +148,7 @@
 			uint16_t Code; /**< Command, event or response code of the container. */
 			uint32_t TransactionID; /**< Unique container ID to link blocks together. */
 			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only). */
-		} PIMA_Container_t;
+		} ATTR_PACKED PIMA_Container_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

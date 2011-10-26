@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -72,24 +72,17 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
-		/** Filename for the log data when written to the dataflash FAT filesystem. */
-		#define LOG_FILENAME             "TEMPLOG.txt"
-
 		/** Default log interval when the EEPROM is blank, in 500ms ticks. */
-		#define DEFAULT_LOG_INTERVAL     20
+		#define DEFAULT_LOG_INTERVAL     10
+
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY           false
 
 	/* Type Defines: */
 		typedef struct
 		{
-			uint8_t Day;
-			uint8_t Month;
-			uint8_t Year;
-
-			uint8_t Hour;
-			uint8_t Minute;
-			uint8_t Second;
-
-			uint8_t LogInterval500MS;
+			TimeDate_t TimeDate;
+			uint8_t    LogInterval500MS;
 		} Device_Report_t;
 
 	/* Function Prototypes: */

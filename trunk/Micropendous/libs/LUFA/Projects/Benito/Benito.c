@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -37,7 +37,10 @@
 #include "Benito.h"
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t Tx_Buffer;
+static RingBuffer_t USARTtoUSB_Buffer;
+
+/** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
+static uint8_t      USARTtoUSB_Buffer_Data[128];
 
 /** Pulse generation counters to keep track of the number of milliseconds remaining for each pulse type */
 volatile struct
@@ -47,9 +50,6 @@ volatile struct
 	uint8_t RxLEDPulse; /**< Milliseconds remaining for data Rx LED pulse */
 	uint8_t PingPongLEDPulse; /**< Milliseconds remaining for enumeration Tx/Rx ping-pong LED pulse */
 } PulseMSRemaining;
-
-/** Previous state of the virtual DTR control line from the host */
-bool PreviousDTRState = false;
 
 /** Milliseconds remaining until the receive buffer is flushed to the USB host */
 uint8_t FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
@@ -85,17 +85,16 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&Tx_Buffer);
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer, USARTtoUSB_Buffer_Data, sizeof(USARTtoUSB_Buffer_Data));
 
 	sei();
 
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
-		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-		if (!(ReceivedByte < 0) && (UCSR1A & (1 << UDRE1)))
+		if ((UCSR1A & (1 << UDRE1)) && CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 		{
-			UDR1 = ReceivedByte;
+			UDR1 = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 			LEDs_TurnOnLEDs(LEDMASK_TX);
 			PulseMSRemaining.TxLEDPulse = TX_RX_LED_PULSE_MS;
@@ -104,6 +103,9 @@ int main(void)
 		/* Check if the millisecond timer has elapsed */
 		if (TIFR0 & (1 << OCF0A))
 		{
+			/* Clear flush timer expiry flag */
+			TIFR0 |= (1 << TOV0);
+
 			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
 			if (PulseMSRemaining.ResetPulse && !(--PulseMSRemaining.ResetPulse))
 			{
@@ -127,24 +129,32 @@ int main(void)
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
 			/* Check if the receive buffer flush period has expired */
-			RingBuff_Count_t BufferCount = RingBuffer_GetCount(&Tx_Buffer);
+			uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 			if (!(--FlushPeriodRemaining) || (BufferCount > 200))
 			{
-				/* Echo bytes from the target to the host via the virtual serial port */
+				FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+
+				/* Start RX LED indicator pulse */
 				if (BufferCount)
 				{
-					while (BufferCount--)
-					  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&Tx_Buffer));
-
 					LEDs_TurnOnLEDs(LEDMASK_RX);
 					PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
 				}
 
-				FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+				/* Echo bytes from the target to the host via the virtual serial port */
+				while (BufferCount--)
+				{
+					/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
+					if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
+											RingBuffer_Peek(&USARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
+					{
+						break;
+					}
+					
+					/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
+					RingBuffer_Remove(&USARTtoUSB_Buffer);
+				}
 			}
-
-			/* Clear the millisecond timer CTC flag (cleared by writing logic one to the register) */
-			TIFR0 |= (1 << OCF0A);
 		}
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
@@ -264,7 +274,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  RingBuffer_Insert(&Tx_Buffer, ReceivedByte);
+	  RingBuffer_Insert(&USARTtoUSB_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Host-to-Device Line Encoding Changed event.
@@ -273,7 +283,8 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	bool CurrentDTRState = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
+	static bool PreviousDTRState = false;
+	bool        CurrentDTRState  = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
 
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (!(PreviousDTRState) && CurrentDTRState)

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
+     Copyright (C) Dean Camera, 2011.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -51,9 +51,6 @@
 		 */
 		#define AUDIO_STREAM_EPSIZE          ENDPOINT_MAX_SIZE(AUDIO_STREAM_EPNUM)
 
-		/** Sample frequency of the data being transmitted through the streaming endpoint. */
-		#define AUDIO_SAMPLE_FREQUENCY       48000
-
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -62,14 +59,19 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t     Config;
+
+			// Audio Control Interface
 			USB_Descriptor_Interface_t                Audio_ControlInterface;
 			USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
 			USB_Audio_Descriptor_InputTerminal_t      Audio_InputTerminal;
 			USB_Audio_Descriptor_OutputTerminal_t     Audio_OutputTerminal;
+
+			// Audio Streaming Interface
 			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt0;
 			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt1;
 			USB_Audio_Descriptor_Interface_AS_t       Audio_StreamInterface_SPC;
 			USB_Audio_Descriptor_Format_t             Audio_AudioFormat;
+			USB_Audio_SampleFreq_t                    Audio_AudioFormatSampleRates[5];
 			USB_Audio_Descriptor_StreamEndpoint_Std_t Audio_StreamEndpoint;
 			USB_Audio_Descriptor_StreamEndpoint_Spc_t Audio_StreamEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
