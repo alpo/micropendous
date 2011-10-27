@@ -9,6 +9,8 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
+  Updated for compatibility with USBTest by Opendous Inc. 2011-10-26
+
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -35,6 +37,15 @@
  */
 
 #include "AndroidAccessoryHost.h"
+
+
+
+#include "AndroidAccessoryHostGlobalVariables.h"
+uint8_t volatile ADK_IN_EP_Address = 0;
+uint8_t volatile ADK_OUT_EP_Address = 0;
+uint8_t Sent_EP_Addresses = 0;
+
+
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
@@ -77,12 +88,22 @@ void SetupHardware(void)
 /** Task to set the configuration of the attached device after it has been enumerated. */
 void AndroidHost_Task(void)
 {
+	uint16_t i = 0;
+
 	if (USB_HostState != HOST_STATE_Configured)
 	  return;	
 
 	/* Select the data IN pipe */
 	Pipe_SelectPipe(ANDROID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
+
+	if (!Sent_EP_Addresses) {
+		puts_P(PSTR(ESC_FG_YELLOW "Forcing Addresses 0x85 and 0x07 as parsed addresses are wrong:\r\n" ESC_FG_WHITE));
+		printf_P(PSTR(ESC_FG_YELLOW "Parsed EP IN Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)ADK_IN_EP_Address);
+		printf_P(PSTR(ESC_FG_YELLOW "Parsed EP OUT Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)ADK_OUT_EP_Address);
+		printf_P(PSTR(ESC_FG_YELLOW "Bound EP IN Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)Pipe_GetBoundEndpointAddress());
+		Sent_EP_Addresses = 1;
+	}
 
 	/* Check to see if a packet has been received */
 	if (Pipe_IsINReceived())
@@ -93,22 +114,13 @@ void AndroidHost_Task(void)
 		/* Check if data is in the pipe */
 		if (Pipe_IsReadWriteAllowed())
 		{
-			uint8_t NextReceivedByte = Pipe_BytesInPipe();
-			uint8_t LEDMask          = LEDS_NO_LEDS;
+			printf_P(PSTR(ESC_FG_YELLOW "\r\nBytes in Pipe = %d\r\n" ESC_FG_WHITE), (uint16_t)Pipe_BytesInPipe());
 
-			if (NextReceivedByte & 0x01)
-			  LEDMask |= LEDS_LED1;
+			for (i = 0; i < ((uint16_t)Pipe_BytesInPipe()); i++) {
+				printf_P(PSTR(ESC_FG_YELLOW "Received: 0x%02X\r\n" ESC_FG_WHITE), Pipe_Read_8());
+			}
 
-			if (NextReceivedByte & 0x02)
-			  LEDMask |= LEDS_LED2;
-
-			if (NextReceivedByte & 0x04)
-			  LEDMask |= LEDS_LED3;
-
-			if (NextReceivedByte & 0x08)
-			  LEDMask |= LEDS_LED4;
-
-			LEDs_SetAllLEDs(LEDMask);
+			LEDs_SetAllLEDs(LEDS_NO_LEDS);
 		}
 		else
 		{
@@ -192,12 +204,20 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		}
 	
 		/* Send the device strings and start the Android Accessory Mode */
-		Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
+/*		Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
 		Android_SendString(ANDROID_STRING_Model,        "LUFA Android Demo");
 		Android_SendString(ANDROID_STRING_Description,  "LUFA Android Demo");
 		Android_SendString(ANDROID_STRING_Version,      "1.0");
 		Android_SendString(ANDROID_STRING_URI,          "http://www.lufa-lib.org");
 		Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
+*/
+		Android_SendString(ANDROID_STRING_Manufacturer, "Opendous Inc.");
+		Android_SendString(ANDROID_STRING_Model,        "Micropendous");
+		Android_SendString(ANDROID_STRING_Description,  "Dean Camera's LUFA Android Demo");
+		Android_SendString(ANDROID_STRING_Version,      "1.0");
+		Android_SendString(ANDROID_STRING_URI,          "http://www.Micropendous.org/ADK");
+		Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
+
 
 		Android_StartAccessoryMode();	
 		return;

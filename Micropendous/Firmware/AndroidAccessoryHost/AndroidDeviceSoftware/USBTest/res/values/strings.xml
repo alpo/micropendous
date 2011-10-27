@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, USBTest!</string>
+    <string name="app_name">USBTest</string>
+    <string name="str_send">Send</string>
+    <string name="str_desc">Send Number to Computer</string>
+</resources>
