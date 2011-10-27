@@ -59,32 +59,40 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name
+# MCU name - uncomment _ONE_ of the following
+#MCU = at90usb647
 MCU = at90usb1287
 
 
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-
-# Target board (see library "Board Types" documentation, NONE for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called
-# "Board" inside the application directory.
-BOARD = USBKEY
-
-
 # Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-F_CPU = 8000000
+#     Typical values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
+F_CPU = 16000000
+
+
+# Target board:
+#  - USER for custom board drivers in LUFA/LUFA/Drivers/Board/Board/*
+#  - NONE for projects not requiring LUFA board drivers such as boards
+#      with no LEDs and just an HWB button such as: Micropendous1,
+#      Micropendous2, Micropendous3, or Micropendous4, Micropendous-32U2
+#  - MICROPENDOUS_REV1 for the Micropendous Arduino-like board with
+#      CY7C1019D external SRAM IC or its DIP variant:
+#      http://www.Micropendous.org/Micropendous-OTG
+#      http://www.Micropendous.org/Micropendous-DIP
+#  - MICROPENDOUS_REV2 for the Micropendous Arduino-like board with
+#      IS61C1024AL external SRAM IC:
+#      http://www.Micropendous.org/Micropendous
+# Typical values are:
+#         BOARD = NONE
+#         BOARD = USER
+#         BOARD = MICROPENDOUS_REV1
+#         BOARD = MICROPENDOUS_REV2
+BOARD = NONE
 
 
 # Input clock frequency.
@@ -116,7 +124,7 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../../..
+LUFA_PATH = ../../libs/LUFA
 
 
 # LUFA library compile-time options and predefined tokens
