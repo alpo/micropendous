@@ -1,14 +1,10 @@
-/*
-             LUFA Library
-     Copyright (C) Dean Camera, 2011.
+/*  General Purpose MCU Development Demo
 
-  dean [at] fourwalledcubicle [dot] com
-           www.lufa-lib.org
-*/
+  Copyright 2010 Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-/*
-  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-	  
+  Altered for General Purpose MCU Development Demo
+  By Opendous Inc.  2010-03-10  www.Micropendous.org
+
   Permission to use, copy, modify, distribute, and sell this 
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in 
@@ -28,34 +24,27 @@
   this software.
 */
 
-/** \file
- *
- *  Header file for TeensyHID.c.
- */
- 
-#ifndef _TEENSYHID_H_
-#define _TEENSYHID_H_
+#ifndef _GENERAL_MCUDEV_H_
+#define _GENERAL_MCUDEV_H_
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/wdt.h>
-		#include <avr/boot.h>
-		#include <avr/power.h>
-		#include <avr/interrupt.h>
-		#include <stdbool.h>
+	#include <stdlib.h>
+	#include <avr/io.h>
+	#include <avr/wdt.h>
+	#include <avr/power.h>
+	#include <util/delay.h>
 
-		#include "Descriptors.h"
+	/* Macros: */
 
-		#include <LUFA/Drivers/USB/USB.h>
-		
-	/* Macros: */		
-		/** Bootloader special address to start the user application */
-		#define COMMAND_STARTAPPLICATION   0xFFFF
-		
+	/* Type Defines: */
+
+	/* Global Variables: */
+
+	/* Task Definitions: */
+
+	/* Event Handlers: */
+
 	/* Function Prototypes: */
-		void SetupHardware(void);
+	void SetupHardware(void);
 
-		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
-		
 #endif
