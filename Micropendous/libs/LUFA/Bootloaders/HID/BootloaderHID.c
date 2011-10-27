@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
-              
+     Copyright (C) Dean Camera, 2011.
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this 
   software and its documentation for any purpose is hereby granted
@@ -30,16 +30,16 @@
 
 /** \file
  *
- *  Main source file for the TeensyHID bootloader. This file contains the complete bootloader logic.
+ *  Main source file for the HID class bootloader. This file contains the complete bootloader logic.
  */
  
-#include "TeensyHID.h"
+#include "BootloaderHID.h"
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
  *  started via a forced watchdog reset.
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously 
  *  runs the bootloader processing routine until instructed to soft-exit.
@@ -49,6 +49,9 @@ int main(void)
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
 	
+	/* Enable global interrupts so that the USB stack can function */
+	sei();
+
 	while (RunBootloader)
 	  USB_USBTask();
 	
@@ -68,9 +71,6 @@ void SetupHardware(void)
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
-
 	/* Relocate the interrupt vector table to the bootloader section */
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
@@ -85,31 +85,46 @@ void SetupHardware(void)
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Setup HID Report Endpoint */
-	Endpoint_ConfigureEndpoint(HID_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, HID_EPSIZE,
+	Endpoint_ConfigureEndpoint(HID_IN_EPNUM, EP_TYPE_INTERRUPT,
+		                       ENDPOINT_DIR_IN, HID_IN_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
 }
 
-/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the HID commands, which are
- *  all issued via the control endpoint), so that they can be handled appropriately for the application.
+/** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
+ *  the device from the USB host before passing along unhandled control requests to the library for processing
+ *  internally.
  */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_ControlRequest(void)
 {
-	/* Handle HID Class specific requests */
+	/* Ignore any requests that aren't directed to the HID interface */
+	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
+	    (REQTYPE_CLASS | REQREC_INTERFACE))
+	{
+		return;
+	}
+
+	/* Process HID specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			Endpoint_ClearSETUP();
 			
 			/* Wait until the command has been sent by the host */
 			while (!(Endpoint_IsOUTReceived()));
 		
 			/* Read in the write destination address */
-			uint16_t PageAddress = Endpoint_Read_Word_LE();
+			#if (FLASHEND > 0xFFFF)
+			uint32_t PageAddress = ((uint32_t)Endpoint_Read_16_LE() << 8);
+			#else
+			uint16_t PageAddress = Endpoint_Read_16_LE();
+			#endif
 			
 			/* Check if the command is a program page command, or a start application command */
-			if (PageAddress == TEENSY_STARTAPPLICATION)
+			#if (FLASHEND > 0xFFFF)
+			if ((uint16_t)(PageAddress >> 8) == COMMAND_STARTAPPLICATION)
+			#else
+			if (PageAddress == COMMAND_STARTAPPLICATION)
+			#endif
 			{
 				RunBootloader = false;
 			}
@@ -120,7 +135,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				boot_spm_busy_wait();
 				
 				/* Write each of the FLASH page's bytes in sequence */
-				for (uint8_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)
+				for (uint8_t PageWord = 0; PageWord < (SPM_PAGESIZE / 2); PageWord++)				
 				{
 					/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 					if (!(Endpoint_BytesInEndpoint()))
@@ -130,7 +145,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					}
 
 					/* Write the next data word to the FLASH page */
-					boot_page_fill(PageAddress + PageByte, Endpoint_Read_Word_LE());
+					boot_page_fill(PageAddress + ((uint16_t)PageWord << 1), Endpoint_Read_16_LE());
 				}
 
 				/* Write the filled FLASH page to memory */
@@ -144,7 +159,6 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			Endpoint_ClearOUT();
 
 			Endpoint_ClearStatusStage();
-			
 			break;
 	}
 }

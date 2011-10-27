@@ -32,6 +32,18 @@
 # make program = Download the hex file to the device, using avrdude.
 #                Please customize the avrdude settings below first!
 #
+# make dfu = Download the hex file to the device, using dfu-programmer (must
+#            have dfu-programmer installed).
+#
+# make flip = Download the hex file to the device, using Atmel FLIP (must
+#             have Atmel FLIP installed).
+#
+# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
+#               (must have dfu-programmer installed).
+#
+# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
+#                (must have Atmel FLIP installed).
+#
 # make doxygen = Generate DoxyGen documentation for the project (must have
 #                DoxyGen installed)
 #
@@ -47,36 +59,31 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name
-MCU = at90usb1287
-
-
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-
-# Target board (see library "Board Types" documentation, NONE for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called
-# "Board" inside the application directory.
-BOARD = USBKEY
+# MCU name - uncomment _ONE_ of the following
+#MCU = at90usb82
+#MCU = at90usb162
+#MCU = atmega16u2
+#MCU = atmega32u2
+#MCU = atmega32u4
+#MCU = at90usb646
+MCU = at90usb647
+#MCU = at90usb1286
+#MCU = at90usb1287
 
 
 # Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-F_CPU = 8000000
+#     Typical values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
+F_CPU = 16000000
 
 
 # Input clock frequency.
-#     This will define a symbol, F_USB, in all source code files equal to the
+#     This will define a symbol, F_CLOCK, in all source code files equal to the
 #     input clock frequency (before any prescaling is performed) in Hz. This value may
 #     differ from F_CPU if prescaling is used on the latter, and is required as the
 #     raw input clock is fed directly to the PLL sections of the AVR for high speed
@@ -86,17 +93,26 @@ F_CPU = 8000000
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+F_CLOCK = $(F_CPU)
 
 
-# Starting byte address of the bootloader, as a byte address - computed via the formula
-#   BOOT_START = ((FLASH_SIZE_KB - BOOT_SECTION_SIZE_KB) * 1024)
-#
-# Note that the bootloader size and start address given in AVRStudio is in words and not
-# bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
-FLASH_SIZE_KB        = 128
-BOOT_SECTION_SIZE_KB = 4
-BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
+#---------------- External Memory Options ----------------
+EXTMEMOPTS = 
+
+#   64 KB of external SRAM, starting after internal RAM used for variables (.data/.bss) and heap (malloc())
+#   for the ATmega128 and AT90USB647 with their 4KB of SRAM, external addresses start at 0x1100
+#   0xFFFF(65535) - 0x1100(4352) = 0xEEFF(61183) --> 61KB of available external SRAM
+#EXTMEMOPTS += -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+
+#   for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
+#   0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
+#   SAFEST OPTION:
+#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
+
+# Can really only be certain that the AT90USB1287-based Micropendous boards have external SRAM
+ifeq ($(BOARD), MICROPENDOUS)
+	EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
+endif
 
 
 # Output format. (can be srec, ihex, binary)
@@ -104,7 +120,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = BootloaderHID
+TARGET = MicropendousKeyboardTester
 
 
 # Object files directory
@@ -113,32 +129,13 @@ TARGET = BootloaderHID
 OBJDIR = .
 
 
-# Path to the LUFA library
-LUFA_PATH = ../..
-
-
-# LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
-LUFA_OPTS += -D ORDERED_EP_CONFIG
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
-LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_RAM_DESCRIPTORS
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-LUFA_OPTS += -D NO_INTERNAL_SERIAL
-LUFA_OPTS += -D NO_DEVICE_SELF_POWER
-LUFA_OPTS += -D NO_DEVICE_REMOTE_WAKEUP
-LUFA_OPTS += -D NO_SOF_EVENTS
-
-
-# Create the LUFA source path variables by including the LUFA root makefile
-include $(LUFA_PATH)/LUFA/makefile
+# Path to the LUFA library as well as other available libraries
+# Make sure to add these to the EXTRAINCDIRS variable below
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  $(LUFA_SRC_USB)                                             \
+SRC = $(TARGET).c
+
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -172,7 +169,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS = 
 
 
 # Compiler flag to set the C Standard level.
@@ -185,25 +182,21 @@ CSTANDARD = -std=c99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL
-CDEFS += -DF_USB=$(F_USB)UL
-CDEFS += -DBOARD=BOARD_$(BOARD) -DARCH=ARCH_$(ARCH)
-CDEFS += -DBOOT_START_ADDR=$(BOOT_START)UL
+CDEFS += -DF_CLOCK=$(F_CLOCK)UL
+#CDEFS += -DBOARD=BOARD_$(BOARD)
 CDEFS += $(LUFA_OPTS)
 
 
 # Place -D or -U options here for ASM sources
 ADEFS  = -DF_CPU=$(F_CPU)
-ADEFS += -DF_USB=$(F_USB)UL
+ADEFS += -DF_CLOCK=$(F_CLOCK)UL
 ADEFS += -DBOARD=BOARD_$(BOARD)
-ADEFS += -DBOOT_START_ADDR=$(BOOT_START)UL
 ADEFS += $(LUFA_OPTS)
-
 
 # Place -D or -U options here for C++ sources
 CPPDEFS  = -DF_CPU=$(F_CPU)UL
-CPPDEFS += -DF_USB=$(F_USB)UL
+CPPDEFS += -DF_CLOCK=$(F_CLOCK)UL
 CPPDEFS += -DBOARD=BOARD_$(BOARD)
-CPPDEFS += -DBOOT_START_ADDR=$(BOOT_START)UL
 CPPDEFS += $(LUFA_OPTS)
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
@@ -314,26 +307,11 @@ EXTRALIBDIRS =
 
 
 
-#---------------- External Memory Options ----------------
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# used for variables (.data/.bss) and heap (malloc()).
-#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# only used for heap (malloc()).
-#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
-
-EXTMEMOPTS =
-
-
-
 #---------------- Linker Options ----------------
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--section-start=.text=$(BOOT_START)
 LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
@@ -526,6 +504,27 @@ gccversion :
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
+flip: $(TARGET).hex
+	batchisp -hardware usb -device $(MCU) -operation erase f
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+
+dfu: $(TARGET).hex
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
+	dfu-programmer $(MCU) reset
+
+flip-ee: $(TARGET).hex $(TARGET).eep
+	$(COPY) $(TARGET).eep $(TARGET)eep.hex
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(REMOVE) $(TARGET)eep.hex
+
+dfu-ee: $(TARGET).hex $(TARGET).eep
+	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
+	dfu-programmer $(MCU) reset
+
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set
@@ -668,6 +667,7 @@ clean_list :
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).hex
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -681,21 +681,12 @@ clean_list :
 	$(REMOVEDIR) .dep
 
 doxygen:
-	@echo Generating Project Documentation \($(TARGET)\)...
+	@echo Generating Project Documentation...
 	@doxygen Doxygen.conf
 	@echo Documentation Generation Complete.
 
 clean_doxygen:
 	rm -rf Documentation
-
-checksource:
-	@for f in $(SRC) $(CPPSRC) $(ASRC); do \
-		if [ -f $$f ]; then \
-			echo "Found Source File: $$f" ; \
-		else \
-			echo "Source File Not Found: $$f" ; \
-		fi; done 
-
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
@@ -708,5 +699,6 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff doxygen clean          \
-clean_list clean_doxygen program debug gdb-config checksource
+clean_list clean_doxygen program dfu flip flip-ee dfu-ee      \
+debug gdb-config
 

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2010.
-              
+     Copyright (C) Dean Camera, 2011.
+
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 	  
   Permission to use, copy, modify, distribute, and sell this 
   software and its documentation for any purpose is hereby granted
@@ -43,18 +43,18 @@
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
  */
-USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
+const USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 {
-	0x06, 0x9c, 0xff,     /* Usage Page (Vendor Defined)                     */
-	0x09, 0x1B,           /* Usage (Vendor Defined)                          */
-	0xa1, 0x01,           /* Collection (Vendor Defined)                     */
-	0x0a, 0x19, 0x00,     /*   Usage (Vendor Defined)                        */
-	0x75, 0x08,           /*   Report Size (8)                               */
-	0x95, 0x82,           /*   Report Count (130)                            */
-	0x15, 0x00,           /*   Logical Minimum (0)                           */
-	0x25, 0xff,           /*   Logical Maximum (255)                         */
-	0x91, 0x02,           /*   Output (Data, Variable, Absolute)             */
-	0xc0                  /* End Collection                                  */
+	HID_RI_USAGE_PAGE(16, 0xFFDC), /* Vendor Page 0xDC */
+	HID_RI_USAGE(8, 0xFB), /* Vendor Usage 0xFB */
+	HID_RI_COLLECTION(8, 0x01), /* Vendor Usage 1 */
+	    HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
+	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	    HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
+	    HID_RI_REPORT_SIZE(8, 0x08),
+	    HID_RI_REPORT_COUNT(16, (sizeof(uint16_t) + SPM_PAGESIZE)),		
+	    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	HID_RI_END_COLLECTION(0),
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
@@ -62,25 +62,25 @@ USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t DeviceDescriptor =
+const USB_Descriptor_Device_t DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
-		
+
 	.USBSpecification       = VERSION_BCD(01.10),
-	.Class                  = 0x00,
-	.SubClass               = 0x00,
-	.Protocol               = 0x00,
-				
+	.Class                  = USB_CSCP_NoDeviceClass,
+	.SubClass               = USB_CSCP_NoDeviceSubclass,
+	.Protocol               = USB_CSCP_NoDeviceProtocol,
+
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
-		
-	.VendorID               = 0x16C0,
-	.ProductID              = 0x0478,
-	.ReleaseNumber          = 0x0120,
-		
+
+	.VendorID               = 0x03EB,
+	.ProductID              = 0x2067,
+	.ReleaseNumber          = VERSION_BCD(00.01),
+
 	.ManufacturerStrIndex   = NO_DESCRIPTOR,
 	.ProductStrIndex        = NO_DESCRIPTOR,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
-		
+
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -89,7 +89,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 {
 	.Config = 
 		{
@@ -106,7 +106,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.HID_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -115,32 +115,32 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			
 			.TotalEndpoints         = 1,
 				
-			.Class                  = 0x03,
-			.SubClass               = 0x00,
-			.Protocol               = 0x00,
+			.Class                  = HID_CSCP_HIDClass,
+			.SubClass               = HID_CSCP_NonBootSubclass,
+			.Protocol               = HID_CSCP_NonBootProtocol,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.HIDDescriptor = 
+	.HID_VendorHID = 
 		{  
-			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
-			.TotalHIDDescriptors    = 1,
-			.HIDReportType          = DTYPE_Report,
+			.TotalReportDescriptors = 1,
+			.HIDReportType          = HID_DTYPE_Report,
 			.HIDReportLength        = sizeof(HIDReport)
 		},
 		
-	.HIDEndpoint = 
+	.HID_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | HID_EPNUM),
+			.EndpointAddress        = (ENDPOINT_DIR_IN | HID_IN_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-			.EndpointSize           = HID_EPSIZE,
-			.PollingIntervalMS      = 0x40
+			.EndpointSize           = HID_IN_EPSIZE,
+			.PollingIntervalMS      = 0x01
 		},
 };
 
@@ -150,33 +150,37 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  */
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    const void** const DescriptorAddress)
 {
-	const uint8_t DescriptorType = (wValue >> 8);
+	const uint8_t DescriptorType   = (wValue >> 8);
 
-	void*    Address = NULL;
-	uint16_t Size    = NO_DESCRIPTOR;
-
-	switch (DescriptorType)
-	{
-		case DTYPE_Device:
-			Address = (void*)&DeviceDescriptor;
-			Size    = sizeof(USB_Descriptor_Device_t);
-			break;
-		case DTYPE_Configuration:
-			Address = (void*)&ConfigurationDescriptor;
-			Size    = sizeof(USB_Descriptor_Configuration_t);
-			break;
-		case DTYPE_HID:
-			Address = (void*)&ConfigurationDescriptor.HIDDescriptor;
-			Size    = sizeof(USB_Descriptor_HID_t);
-			break;
-		case DTYPE_Report:
-			Address = (void*)&HIDReport;
-			Size    = sizeof(HIDReport);
-			break;
-	}
+	const void* Address = NULL;
+	uint16_t    Size    = NO_DESCRIPTOR;
 	
+	/* If/Else If chain compiles slightly smaller than a switch case */
+	if (DescriptorType == DTYPE_Device)
+	{
+		Address = &DeviceDescriptor;
+		Size    = sizeof(USB_Descriptor_Device_t);	
+	}
+	else if (DescriptorType == DTYPE_Configuration)
+	{
+		Address = &ConfigurationDescriptor;
+		Size    = sizeof(USB_Descriptor_Configuration_t);	
+	}
+	else if (DescriptorType == HID_DTYPE_HID)
+	{
+		Address = &ConfigurationDescriptor.HID_VendorHID;
+		Size    = sizeof(USB_HID_Descriptor_HID_t);
+	}
+	else
+	{
+		Address = &HIDReport;
+		Size    = sizeof(HIDReport);
+	}
+
 	*DescriptorAddress = Address;
 	return Size;
 }

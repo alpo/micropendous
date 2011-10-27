@@ -4,14 +4,16 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Teensy HID Class USB AVR Bootloader
+/** \mainpage HID Class USB AVR Bootloader
  *
  *  \section SSec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - AT90USB162 (Teensy 1.0)
- *  - ATMEGA32U4 (Teensy 2.0)
+ *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  - Series 6 USB AVRs (AT90USBxxx6)
+ *  - Series 4 USB AVRs (ATMEGAxxU4)
+ *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
  *  \section SSec_Info USB Information:
  *
@@ -44,15 +46,33 @@
  *
  *  \section SSec_Description Project Description: 
  *
- * This bootloader enumerates to the host as a HID Class device, allowing for Teensy compatible programming
- * software to load firmware onto the AVR, such as the official software at <a>http://www.pjrc.com/teensy/</a>.
+ *  This bootloader enumerates to the host as a HID Class device, allowing for device FLASH programming through
+ *  the supplied command line software, which is a modified version of Paul's TeensyHID Command Line loader code
+ *  from PJRC (used with permission). This bootloader is deliberatley non-compatible with the properietary PJRC
+ *  HalfKay bootloader GUI; only the command line interface software accompanying this bootloader will work with it.
  *  
- * Out of the box this bootloader builds for the ATMEGA32U4, and will fit into 4KB of bootloader space. For other
- * devices, the makefile will need to be updated to reflect the altered MCU model and bootloader start address. When
- * calculating the bootloader start address, use (TARGET_FLASH_SIZE_BYTES - 4096).
+ *  Out of the box this bootloader builds for the USB1287, and will fit into 2KB of bootloader space for the
+ *  Series 2 USB AVRs (ATMEGAxxU2, AT90USBxx2) or 4KB of bootloader space for all other models. If you wish to
+ *  enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU values in the
+ *  accompanying makefile.
  *
- * This spoofs (with permission) the official Teensy bootloader's VID and PID, so that the software remains
- * compatible with no changes.
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader uses the HID class driver inbuilt into all modern operating systems, thus no additional drivers
+ *  need to be supplied for correct operation.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  Due to licensing issues, the supplied bootloader is compatible with the HalfKay bootloader protocol designed
+ *  by PJRC, but is non-compatible with the cross-platform loader GUI. A modified version of the open source
+ *  cross-platform TeensyLoader application is supplied, which can be compiled under most operating systems. The
+ *  command-line loader application should remain compatible with genuine Teensy boards in addition to boards using
+ *  this custom bootloader.
+ *
+ *  Once compiled, programs can be loaded into the AVR's FLASH memory through the following example command:
+ *  \code
+ *  hid_bootloader_cli -mmcu=at90usb1287 Mouse.hex
+ *  \endcode
  *
  *  \section SSec_Options Project Options
  *
