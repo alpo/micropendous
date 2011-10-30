@@ -78,8 +78,10 @@ F_CPU = 16000000
 # Target board:
 #  - USER for custom board drivers in LUFA/LUFA/Drivers/Board/Board/*
 #  - NONE for projects not requiring LUFA board drivers such as boards
-#      with no LEDs and just an HWB button such as: Micropendous1,
-#      Micropendous2, Micropendous3, or Micropendous4, Micropendous-32U2
+#      with no LEDs and just an HWB button such as: Micropendous1, Micropendous2,
+#      Micropendous-32U2, or Micropendous3 or Micropendous4 without external SRAM
+#  - MICROPENDOUS_A for the Micropendous-A, Micropendous3, or Micropendous4 with external SRAM
+#      http://www.Micropendous.org/Micropendous-A
 #  - MICROPENDOUS_REV1 for the Micropendous Arduino-like board with
 #      CY7C1019D external SRAM IC or its DIP variant:
 #      http://www.Micropendous.org/Micropendous-OTG
@@ -90,9 +92,10 @@ F_CPU = 16000000
 # Typical values are:
 #         BOARD = NONE
 #         BOARD = USER
+#         BOARD = MICROPENDOUS_A
 #         BOARD = MICROPENDOUS_REV1
 #         BOARD = MICROPENDOUS_REV2
-BOARD = NONE
+BOARD = MICROPENDOUS_REV2
 
 
 # Input clock frequency.
@@ -138,11 +141,11 @@ include $(LUFA_PATH)/LUFA/makefile
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  DeviceDescriptor.c                                          \
-	  ConfigDescriptor.c                                          \
-	  Lib/AndroidAccessoryCommands.c                              \
-	  $(LUFA_SRC_USB)                                             \
+SRC = $(TARGET).c \
+	  DeviceDescriptor.c \
+	  ConfigDescriptor.c \
+	  Lib/AndroidAccessoryCommands.c \
+	  $(LUFA_SRC_USB) \
 	  $(LUFA_SRC_SERIAL)
 
 

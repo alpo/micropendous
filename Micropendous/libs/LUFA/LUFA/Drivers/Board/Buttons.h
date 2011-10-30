@@ -131,6 +131,20 @@
 			#include "UC3/EVK1100/Buttons.h"
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/Buttons.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_OLD)
+			#include "AVR8/MICROPENDOUS_OLD/Buttons.h"
+			#include "AVR8/MICROPENDOUS_OLD/External_SRAM.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_A)
+			#include "AVR8/MICROPENDOUS_A/Buttons.h"
+			#include "AVR8/MICROPENDOUS_A/External_SRAM.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
+			#include "AVR8/MICROPENDOUS_REV1/Buttons.h"
+			#include "AVR8/MICROPENDOUS_REV1/External_SRAM.h"
+			#include "AVR8/MICROPENDOUS_REV1/USB_Switch.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
+			#include "AVR8/MICROPENDOUS_REV2/Buttons.h"
+			#include "AVR8/MICROPENDOUS_REV2/External_SRAM.h"
+			#include "AVR8/MICROPENDOUS_REV2/USB_Switch.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif
