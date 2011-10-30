@@ -11,6 +11,7 @@
 //	
 //	The tweakier code is to keep the bootloader below 2k (no interrupt table, for example)
 
+/* // do not tweak code 
 extern "C"
 void entrypoint(void) __attribute__ ((naked)) __attribute__ ((section (".vectors")));
 void entrypoint(void)
@@ -25,6 +26,8 @@ void entrypoint(void)
 		"rjmp	main"			// Stack is all set up, start the main code
 		::);
 }
+*/
+
 
 u8 _flashbuf[128];
 u8 _inSync;
@@ -34,7 +37,19 @@ extern volatile u16 _timeout;
 
 void Program(u8 ep, u16 page, u8 count)
 {
-	u8 write = page < 30*1024;		// Don't write over firmware please
+	// Don't write over firmware please
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__))
+		u8 write = page < 12*1024; // 4kbyte default bootloader size
+	#elif (defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U6__))
+		u8 write = page < 28*1024; // 4kbyte default bootloader size
+	#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__))
+		u8 write = page < 56*1024; // 8kbyte default bootloader size
+	#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
+		u8 write = page < 120*1024; // 8kbyte default bootloader size
+	#else
+		#error Selected device not supported by this bootloader
+	#endif
+
 	if (write)
 		boot_page_erase(page);
 
@@ -106,22 +121,23 @@ const u8 _consts[] =
 
 
 void USBInit(void);
-int main(void) __attribute__ ((naked));
 
 //	STK500v1 main loop, very similar to optiboot in protocol and implementation
 int main()
 {
+	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
+
 	TXLED0;
 	RXLED0;
-	LED0;
+	LED1;
 	BOARD_INIT();
 	USBInit();
 
 	_inSync = STK_INSYNC;
 	_ok = STK_OK;
 
-	if (pgm_read_word(0) != -1)
+	if (((int16_t)pgm_read_word(0)) != ((int16_t)(-1)))
 		_ejected = 1;
 
 	for(;;)
@@ -227,6 +243,7 @@ void LEDPulse()
 
 void Reboot()
 {
+/*
 	TXLED0;		// switch off the RX and TX LEDs before starting the user sketch
 	RXLED0;
 	UDCON = 1;		// Detatch USB
@@ -236,4 +253,5 @@ void Reboot()
 		"clr r31\n"
 		"ijmp\n"
 	::);
+*/
 }
