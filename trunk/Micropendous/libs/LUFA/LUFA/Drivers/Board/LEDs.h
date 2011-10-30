@@ -107,7 +107,7 @@
 	/* Includes: */
 		#include "../../Common/Common.h"
 
-		#if (BOARD == BOARD_NONE)
+		#if ((BOARD == BOARD_NONE) || (BOARD == BOARD_MICROPENDOUS_OLD) || (BOARD == BOARD_MICROPENDOUS_A))
 			static inline void LEDs_Init(void) {};
 			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
 			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
@@ -171,6 +171,10 @@
 			#include "UC3/EVK1100/LEDs.h"
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/LEDs.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
+			#include "AVR8/MICROPENDOUS_REV1/LEDs.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
+			#include "AVR8/MICROPENDOUS_REV2/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
@@ -214,6 +218,7 @@
 		static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask);
 
 		/** Turns off all LEDs not specified in the given LED mask, and turns on all the LEDs in the given LED
+
 		 *  mask.
 		 *
 		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file).

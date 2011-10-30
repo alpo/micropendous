@@ -5,7 +5,7 @@
 ## General Flags
 PROJECT = DiskLoader
 TARGET = DiskLoader.elf
-CC = avr-gcc -E
+CC = avr-gcc
 
 # Select MCU name and bootloader start address - uncomment _ONE_ of the following pairs
 #
