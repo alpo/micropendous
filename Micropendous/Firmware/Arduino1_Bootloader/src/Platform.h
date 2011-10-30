@@ -15,6 +15,7 @@ typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned long u32;
 
+#define NOP() do { __asm__ __volatile__ ("nop"); } while (0)
 
 #define CPU_PRESCALE(n)	(CLKPR = 0x80, CLKPR = (n))
 #define DISABLE_JTAG()  MCUCR = (1 << JTD) | (1 << IVCE) | (0 << PUD); MCUCR = (1 << JTD) | (0 << IVSEL) | (0 << IVCE) | (0 << PUD);
@@ -24,14 +25,16 @@ typedef unsigned long u32;
 #define USB_VID 0x2341	// arduino LLC vid
 #define USB_PID ARDUINO_MODEL_PID	// passed in by Makefile - 0x0034 for Leonardo, 0x0035 for MIcro
 
-#define OEM_NAME		'l','e','o','n','a','r','d','o'					// 8 chars
-#define BOARD_INIT()	DDRC |= (1<<7); DDRB |= (1<<0); DDRD |= (1<<5); CPU_PRESCALE(0); DISABLE_JTAG();
-#define LED0			PORTC &= ~(1<<7)
-#define LED1			PORTC |= (1<<7)
-#define TXLED0			PORTD |= (1<<5)
-#define TXLED1			PORTD &= ~(1<<5)
-#define RXLED0			PORTB |= (1<<0)
-#define RXLED1			PORTB &= ~(1<<0)
+// the following have been changed for compatibility with the Micropendous
+#define SELECT_USB_B		PORTE |= (1 << PE7); DDRE |= (1 << PE7);
+#define DISABLE_VOLTAGE_TXRX	PORTE &= ~(1 << PE3); DDRE |= (1 << PE3);
+#define BOARD_INIT()	DDRB |= (1<<1); DDRB |= (1<<0); CPU_PRESCALE(0); DISABLE_JTAG(); DISABLE_VOLTAGE_TXRX; SELECT_USB_B; 
+#define LED0			PORTB &= ~(1<<1)
+#define LED1			PORTB |= (1<<1)
+#define TXLED0			NOP()
+#define TXLED1			NOP()
+#define RXLED0			NOP()
+#define RXLED1			NOP()
 
 #define TRANSFER_PGM		0x80
 #define TRANSFER_RELEASE	0x40

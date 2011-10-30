@@ -192,14 +192,47 @@ void USBInit(void)
 	_timeout = 0;
 	_usbConfiguration = 0;
 	_ejected = 0;
-	
-	UHWCON = 0x01;						// power internal reg (don't need this?)
+
+	// power on internal regulator
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		UHWCON |=  (1 << UIMOD); // TODO: need this for U2 devices?
+	#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+		UHWCON = 0x01;
+	#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
+		UHWCON |=  (1 << UIMOD);
+	#else
+		#error Selected device not supported by this bootloader
+	#endif
+
+
 	USBCON = (1<<USBE)|(1<<FRZCLK);		// clock frozen, usb enabled
-	PLLCSR = 0x12;						// Need 16 MHz xtal
-	while (!(PLLCSR & (1<<PLOCK)))		// wait for lock pll
+
+
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		PLLCSR = ((1 << PLLE) | (1 << PINDIV)); // enable PLL with a 16MHz XTAL
+	#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+		PLLCSR = ((1 << PLLE) | (1 << PINDIV)); // enable PLL with a 16MHz XTAL
+	#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
+		PLLCSR = ((1 << PLLE) | (1 << PLLP2) | (1 << PLLP1)); // enable PLL with a 16MHz XTAL
+	#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
+		PLLCSR = ((1 << PLLE) | (1 << PLLP2) | (1 << PLLP0)); // enable PLL with a 16MHz XTAL
+	#else
+		#error Selected device not supported by this bootloader
+	#endif
+
+
+	while (!(PLLCSR & (1<<PLOCK)))		// wait for PLL to lock
 		;
-	USBCON = ((1<<USBE)|(1<<OTGPADE));	// start USB clock
-	UDCON = 0;							// enable attach resistor
+
+	// start USB
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		USBCON = (1<<USBE);		
+	#else
+		USBCON = ((1<<USBE)|(1<<OTGPADE));
+	#endif
+
+	// enable attach resistor by disabline detach
+	UDCON = (0 << DETACH);
 }
 
 u8 USBGetConfiguration(void)
