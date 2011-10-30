@@ -193,19 +193,22 @@ void USBInit(void)
 	_usbConfiguration = 0;
 	_ejected = 0;
 
+	// TODO: correctly check for other boards
+	DDRE |= (1 << PE7); PORTE &= ~(1 << PE7); // enable the USB signal switch to the USB-B connector
+
 	// power on internal regulator
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
-		UHWCON |=  (1 << UIMOD); // TODO: need this for U2 devices?
+		REGCR = (0 << REGDIS); // there is no UHWCON on the U2 USB AVR devices
 	#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-		UHWCON = 0x01;
+		UHWCON = (1 << UVREGE);
 	#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
-		UHWCON |=  (1 << UIMOD);
+		UHWCON = ((1 << UIMOD) | (1 << UVREGE));
 	#else
 		#error Selected device not supported by this bootloader
 	#endif
 
 
-	USBCON = (1<<USBE)|(1<<FRZCLK);		// clock frozen, usb enabled
+	USBCON = ((1<<USBE) | (1<<FRZCLK));  // clock frozen, usb enabled
 
 
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
@@ -221,17 +224,17 @@ void USBInit(void)
 	#endif
 
 
-	while (!(PLLCSR & (1<<PLOCK)))		// wait for PLL to lock
+	while (!(PLLCSR & (1 << PLOCK)))	// wait for PLL to lock
 		;
 
 	// start USB
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
-		USBCON = (1<<USBE);		
+		USBCON = ((1 << USBE) | (0 << FRZCLK));
 	#else
-		USBCON = ((1<<USBE)|(1<<OTGPADE));
+		USBCON = ((1 << USBE) | (1 << OTGPADE) | (0 << FRZCLK));
 	#endif
 
-	// enable attach resistor by disabline detach
+	// enable attach resistor by disabling USB line detach
 	UDCON = (0 << DETACH);
 }
 
@@ -306,7 +309,13 @@ static void InitEndpoints()
 		UECFG0X = pgm_read_byte(_initEndpoints+i);
 		UECFG1X = EP_DOUBLE_64;
 	}
-	UERST = 0x7E;	// And reset them
+
+	// Reset all endpoints except EP0
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
+		UERST = ((1<<EPRST6) | (1<<EPRST5) | (1<<EPRST4) | (1<<EPRST3) | (1<<EPRST2) | (1<<EPRST1));
+	#else // all other USB AVRs
+		UERST = ((1<<EPRST4) | (1<<EPRST3) | (1<<EPRST2) | (1<<EPRST1));
+	#endif
 	UERST = 0;
 }
 

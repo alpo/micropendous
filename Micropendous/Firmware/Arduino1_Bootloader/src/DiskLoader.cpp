@@ -243,7 +243,7 @@ void LEDPulse()
 
 void Reboot()
 {
-/*
+
 	TXLED0;		// switch off the RX and TX LEDs before starting the user sketch
 	RXLED0;
 	UDCON = 1;		// Detatch USB
@@ -253,5 +253,5 @@ void Reboot()
 		"clr r31\n"
 		"ijmp\n"
 	::);
-*/
+
 }
