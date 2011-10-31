@@ -1,6 +1,6 @@
-
-
-/* Copyright (c) 2010, Peter Barrett  
+/* Copyright (c) 2010, Peter Barrett
+**
+** Additional porting to the AT90USB1287 by Opendous Inc. 2011-10-31
 **  
 ** Permission to use, copy, modify, and/or distribute this software for  
 ** any purpose with or without fee is hereby granted, provided that the  
