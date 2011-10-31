@@ -137,8 +137,15 @@ int main()
 	_inSync = STK_INSYNC;
 	_ok = STK_OK;
 
+
+	#if (FLASHEND > 0xFFFF)
+	if (((int16_t)pgm_read_word_far(0)) != ((int16_t)(-1)))
+		_ejected = 1;
+	#else
 	if (((int16_t)pgm_read_word(0)) != ((int16_t)(-1)))
 		_ejected = 1;
+	#endif
+
 
 	for(;;)
 	{
@@ -153,8 +160,14 @@ int main()
 			const u8* rs = _readSize;
 			for(;;)
 			{
+				#if (FLASHEND > 0xFFFF)
+				u8 c = pgm_read_byte_far(rs++);
+				len = pgm_read_byte_far(rs++);
+				#else
 				u8 c = pgm_read_byte(rs++);
 				len = pgm_read_byte(rs++);
+				#endif
+
 				if (c == cmd || c == 0)
 					break;
 			}

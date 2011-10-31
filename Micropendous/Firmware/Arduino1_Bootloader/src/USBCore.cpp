@@ -120,6 +120,7 @@ static inline void Send8(u8 d)
 static inline void SetEP(u8 ep)
 {
 	UENUM = ep;
+	UECONX |= (1 << EPEN); // TODO: is this needed?
 }
 
 static inline u8 FifoByteCount()
@@ -181,7 +182,7 @@ static inline u8 FrameNumber()
 static void InitEP(u8 index, u8 type, u8 size)
 {
 	UENUM = index;
-	UECONX = 1;
+	UECONX |= (1 << EPEN);
 	UECFG0X = type;
 	UECFG1X = size;
 }
@@ -192,6 +193,8 @@ void USBInit(void)
 	_timeout = 0;
 	_usbConfiguration = 0;
 	_ejected = 0;
+
+	UDCON = (1 << DETACH);
 
 	// TODO: correctly check for other boards
 	DDRE |= (1 << PE7); PORTE &= ~(1 << PE7); // enable the USB signal switch to the USB-B connector
@@ -208,7 +211,7 @@ void USBInit(void)
 	#endif
 
 
-	USBCON = ((1<<USBE) | (1<<FRZCLK));  // clock frozen, usb enabled
+	USBCON = ((1<<USBE) | (1<<FRZCLK));  // usb enabled, clock frozen
 
 
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
@@ -273,7 +276,12 @@ void Transfer(u8 ep, const u8* data, int len)
 		while (!ReadWriteAllowed())
 			;	// TODO Check for STALL etc
 
+		#if (FLASHEND > 0xFFFF)
+		u8 d = (ep & TRANSFER_PGM) ? pgm_read_byte_far(data) : data[0];
+		#else
 		u8 d = (ep & TRANSFER_PGM) ? pgm_read_byte(data) : data[0];
+		#endif
+
 		data++;
 		if (zero)
 			d = 0;
@@ -305,8 +313,14 @@ static void InitEndpoints()
 	for (u8 i = 1; i < sizeof(_initEndpoints); i++)
 	{
 		UENUM = i;
-		UECONX = 1;
+		UECONX |= (1 << EPEN);
+
+		#if (FLASHEND > 0xFFFF)
+		UECFG0X = pgm_read_byte_far(_initEndpoints+i);
+		#else
 		UECFG0X = pgm_read_byte(_initEndpoints+i);
+		#endif
+
 		UECFG1X = EP_DOUBLE_64;
 	}
 
@@ -426,7 +440,11 @@ bool SendDescriptor()
 		return false;
 
 	if (desc_length == 0)
+		#if (FLASHEND > 0xFFFF)
+		desc_length = pgm_read_byte_far(desc_addr);
+		#else
 		desc_length = pgm_read_byte(desc_addr);
+		#endif
 	if ((u8)setup.wLength < desc_length)		// bit of a cheat limiting to 255 bytes TODO (saved 8 bytes)
 		desc_length = (u8)setup.wLength;
 
@@ -438,7 +456,11 @@ bool SendDescriptor()
 	{
 		if (!WaitForINOrOUT())
 			return false;
+		#if (FLASHEND > 0xFFFF)
+		Send8(pgm_read_byte_far(&desc_addr[n++]));
+		#else
 		Send8(pgm_read_byte(&desc_addr[n++]));
+		#endif
 		u8 clr = n & 0x3F;
 		if (!clr)
 			ClearIN();	// Fifo is full, release this packet
