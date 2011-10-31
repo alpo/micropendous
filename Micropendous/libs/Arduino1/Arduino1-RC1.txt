@@ -1,0 +1,1 @@
+This directory contains the core firmware of Arduino1-RC1 related to the USB AVRs.
