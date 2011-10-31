@@ -35,13 +35,13 @@ You can either program your target AVR using [http://savannah.nongnu.org/project
 Start a *Command Prompt* under _Windows_ or a *Terminal* under _Linux_.  Change to the directory with the firmware you will upload to the target AVR.  You may need to run the following with `sudo` under _Linux_.  Run the following command:
 
 {{{
-avrdude -vv -F -P usb -c avrispmkII -p m32
+avrdude -vv -P usb -c avrispmkII -p m32
 }}}
 
 which will check the connection to an ATmega32 IC.  To program a file called "FIRMWARE.hex", run the following command:
 
 {{{
-avrdude -vv -F -P usb -c avrispmkII -p m32 -U flash:w:FIRMWARE.hex
+avrdude -vv -P usb -c avrispmkII -p m32 -U flash:w:FIRMWARE.hex
 }}}
 
 Remember to change `m32` to your target AVR's name.
