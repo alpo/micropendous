@@ -18,7 +18,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
 
 The following assumes you have prepared your computer for compiling USB AVR code according to the [QuickStart] instructions.
 
-Now download the [http://code.google.com/p/micropendous/downloads/detail?name=Arduino1_Bootloader_for_AT90USB1287-2011-10-31.zip Arduino1 Diskloader] firmware and program your Micropendous board.
+Now download the [http://code.google.com/p/micropendous/downloads Arduino1 AT90USB1287 Diskloader] firmware and program your Micropendous board.
 
 Under Linux you may need to run the `make program` command as root.
 
