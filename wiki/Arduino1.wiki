@@ -1,6 +1,6 @@
 #summary Using Micropendous boards with Arduino1
 
-*Current Status*: _2011-11-01_ : The Arduino1 Diskloader Bootloader is being ported [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/Arduino1_Bootloader/ ported] to the AT90USB1287.
+*Current Status*: _2011-11-01_ : The Arduino1 Diskloader Bootloader is being  [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/Arduino1_Bootloader/ ported] to the AT90USB1287.
 
 == Programming the Arduino1 Bootloader into a Micropendous Board ==
 
