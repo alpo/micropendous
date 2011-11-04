@@ -67,7 +67,7 @@ F_CPU = 16000000
 
 == Power Supply Design ==
 
-The power supply follows _Figure 21-3_ of the [http://www.atmel.com/dyn/resources/prod_documents/doc7593.pdf Datasheet] by default and _Figure 21-4_ with the `VBUS=VCC` `JP1` trace cut and the board powered externally through the `VCC` pin.
+The power supply follows _Figure 21-3_ of the [http://www.atmel.com/dyn/resources/prod_documents/doc7593.pdf Datasheet] by default and _Figure 21-4_ with the `VBUS=VCC` `JP1` trace cut and the board powered externally through the `VCC` pin.  When USB Hosting 5V must also be supplied to the VBUS pin.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_Power_Schematic.jpg
 
