@@ -71,9 +71,11 @@ The power supply follows _Figure 21-3_ of the [http://www.atmel.com/dyn/resource
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_Power_Schematic.jpg
 
-== Powering the board externally ==
+== Powering the board I/O externally ==
 
-A Micropendous-A board can be externally powered through its VCC pin (regardless whether it is connected to a USB Host).  Simply remove the VCC=VBUS trace jumper on the underside of the board to disconnect VBUS from VCC then power the board with an external regulated 3.1V to 5V power supply through the VCC pin.
+A Micropendous-A board can have its I/O externally powered through its VCC pin (regardless whether it is connected to a USB Host) after removing the VCC=VBUS trace jumper on the underside of the board.  This disconnects VBUS from VCC to allow powering the board with an external regulated 3.1V to 5V power supply through the VCC pin.
+
+To allow USB communication 5V power must still be available on the VBUS pin.  Either by connecting the board to a host or connecting a regulated 5V power supply to the VBUS pin.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_ExternalPower.jpg
 
