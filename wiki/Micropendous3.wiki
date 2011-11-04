@@ -68,7 +68,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
 
 == Hosting USB Devices ==
 
-If a Micropendous3 board is populated with the [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB647 AT90USB647] or [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] then it is able to host USB devices with the aid of a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=AE1474-ND USB plug adapter].  The board will need to be powered externally with a regulated 5V power supply.
+If a Micropendous3 board is populated with the [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB647 AT90USB647] or [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] then it is able to host USB devices with the aid of a [http://search.digikey.com/us/en/products/A-USB-4-R/AE1474-ND USB A-A plug adapter].  The board will need to be powered externally with a regulated 5V power supply.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_BluetoothHosting.jpg
 
