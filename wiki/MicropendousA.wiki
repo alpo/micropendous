@@ -77,15 +77,21 @@ A Micropendous-A board can be externally powered through its VCC pin (regardless
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_ExternalPower.jpg
 
+== Modifying the board for 3.3V IO ==
+
+Use a [http://en.wikipedia.org/wiki/Rotary_tool rotary tool] with an [http://www.dremel.com/en-us/Accessories/Pages/ProductDetail.aspx?pid=107 engraving cutter] to remove the PCB trace linking VBUS to VCC on the underside of the board.  Then solder a [http://search.digikey.com/us/en/products/XC6222B331MR-G/893-1143-1-ND XC6222 SOT-235] or similar 3.3V voltage regulator into the unpopulated footprint.
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_3.3V_Conversion.jpg
+
+If you decide to go back to 5V operation you will need to [http://search.digikey.com/us/en/products/SMD1NL/SMD1NL-ND desolder] the 3.3V regulator and install a [http://search.digikey.com/us/en/products/951102-8622-AR/3M9321-ND 2-pin 2mm header] and [http://search.digikey.com/us/en/products/SPN02SYBN-RC/S3404-ND 2mm jumper].
+
 == Hosting USB Devices ==
 
 The board needs to be powered externally with a regulated 5V power supply through the VBUS pin to allow USB Hosting:
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_BluetoothHosting.jpg
 
-== Modifying the board for 3.3V IO ==
-
-Details and pictures coming soon.
+A [http://search.digikey.com/us/en/products/A-USB-4-R/AE1474-ND USB A-A Adapter] is needed if your Micropendous-A has a USB-A Plug connector.
 
 == Removing your Micropendous-A from a Breadboard ==
 
