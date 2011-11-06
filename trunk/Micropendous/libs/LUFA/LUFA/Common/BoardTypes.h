@@ -168,6 +168,9 @@
 			/** Selects the Opendous Micropendous Rev1 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
 			#define BOARD_MICROPENDOUS_REV2	34
 
+			/** Selects the Opendous Micropendous Rev1 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
+			#define BOARD_MICROPENDOUS_32U2	35
+
 
 
 			#if !defined(__DOXYGEN__)
