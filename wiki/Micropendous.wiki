@@ -24,7 +24,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * up to 128 kbytes of [http://www.Micropendous.org/SRAM external SRAM]
   * microSD connector in SPI Mode
   * USB powered or DC powered
-  * DC Power Jack, 2.1mm ID, 5.5V to 16V Input
+  * DC Power Jack, 2.1mm ID, Center-Positive, 5.5V to 16V Input (6V optimal)
   * 16MHz crystal
   * 25 available General Purpose IO Pins in an [http://www.Arduino.cc Arduino] configuration
   * [http://www.Opennect.org Opennect-MCU] connector for small and cheap expansion modules
