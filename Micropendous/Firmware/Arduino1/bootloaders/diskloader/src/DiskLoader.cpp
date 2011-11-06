@@ -1,4 +1,20 @@
-
+/* Copyright (c) 2010, Peter Barrett
+**
+** Additional porting to the AT90USB1287 by Opendous Inc. 2011-10-31
+**  
+** Permission to use, copy, modify, and/or distribute this software for  
+** any purpose with or without fee is hereby granted, provided that the  
+** above copyright notice and this permission notice appear in all copies.  
+** 
+** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL  
+** WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED  
+** WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR  
+** BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES  
+** OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,  
+** WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,  
+** ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS  
+** SOFTWARE.  
+*/
 
 #include "Platform.h"
 
@@ -11,6 +27,7 @@
 //	
 //	The tweakier code is to keep the bootloader below 2k (no interrupt table, for example)
 
+/* // do not tweak code 
 extern "C"
 void entrypoint(void) __attribute__ ((naked)) __attribute__ ((section (".vectors")));
 void entrypoint(void)
@@ -25,6 +42,8 @@ void entrypoint(void)
 		"rjmp	main"			// Stack is all set up, start the main code
 		::);
 }
+*/
+
 
 u8 _flashbuf[128];
 u8 _inSync;
@@ -34,7 +53,19 @@ extern volatile u16 _timeout;
 
 void Program(u8 ep, u16 page, u8 count)
 {
-	u8 write = page < 30*1024;		// Don't write over firmware please
+	// Don't write over firmware please
+	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__))
+		u8 write = page < 12*1024; // 4kbyte default bootloader size
+	#elif (defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U6__))
+		u8 write = page < 28*1024; // 4kbyte default bootloader size
+	#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__))
+		u8 write = page < 56*1024; // 8kbyte default bootloader size
+	#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
+		u8 write = page < 120*1024; // 8kbyte default bootloader size
+	#else
+		#error Selected device not supported by this bootloader
+	#endif
+
 	if (write)
 		boot_page_erase(page);
 
@@ -106,23 +137,31 @@ const u8 _consts[] =
 
 
 void USBInit(void);
-int main(void) __attribute__ ((naked));
 
 //	STK500v1 main loop, very similar to optiboot in protocol and implementation
 int main()
 {
+	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
+
 	TXLED0;
 	RXLED0;
-	LED0;
+	LED1;
 	BOARD_INIT();
 	USBInit();
 
 	_inSync = STK_INSYNC;
 	_ok = STK_OK;
 
-	if (pgm_read_word(0) != -1)
+
+	#if (FLASHEND > 0xFFFF)
+	if (((int16_t)pgm_read_word_far(0)) != ((int16_t)(-1)))
 		_ejected = 1;
+	#else
+	if (((int16_t)pgm_read_word(0)) != ((int16_t)(-1)))
+		_ejected = 1;
+	#endif
+
 
 	for(;;)
 	{
@@ -137,8 +176,14 @@ int main()
 			const u8* rs = _readSize;
 			for(;;)
 			{
+				#if (FLASHEND > 0xFFFF)
+				u8 c = pgm_read_byte_far(rs++);
+				len = pgm_read_byte_far(rs++);
+				#else
 				u8 c = pgm_read_byte(rs++);
 				len = pgm_read_byte(rs++);
+				#endif
+
 				if (c == cmd || c == 0)
 					break;
 			}
@@ -149,7 +194,8 @@ int main()
 			//	Send a response
 			u8 send = 0;
 			const u8* pgm = _consts+7;			// 0
-			if (STK_GET_PARAMETER == cmd)
+
+			if (STK_GET_PARAMETER == cmd) // 'A'
 			{
 				u8 i = packet[0] - 0x80;
 				if (i > 2)
@@ -158,7 +204,7 @@ int main()
 				send = 1;
 			}
 
-			else if (STK_UNIVERSAL == cmd)
+			else if (STK_UNIVERSAL == cmd) // 'V'
 			{
 				if (packet[0] == 0x30)
 					pgm = _consts + packet[2];	// read signature
@@ -166,24 +212,24 @@ int main()
 			}
 			
 			//	Read signature bytes
-			else if (STK_READ_SIGN == cmd)
+			else if (STK_READ_SIGN == cmd) // 'u'
 			{
 				pgm = _consts;
 				send = 3;
 			}
 
-			else if (STK_LOAD_ADDRESS == cmd)
+			else if (STK_LOAD_ADDRESS == cmd) // 'U'
 			{
-				address = *((u16*)packet);		// word addresses
+				address = *((u16*)packet); 		// word addresses
 				address += address;
 			}
 
-			else if (STK_PROG_PAGE == cmd)
+			else if (STK_PROG_PAGE == cmd) // 'd'
 			{
 				Program(CDC_RX,address,packet[1]);
 			}
 
-			else if (STK_READ_PAGE == cmd)
+			else if (STK_READ_PAGE == cmd) // 't'
 			{
 				send = packet[1];
 				pgm = (const u8*)address;
@@ -199,7 +245,7 @@ int main()
 			if (send)
 				Transfer(CDC_TX|TRANSFER_PGM,pgm,send);	// All from pgm memory
 
-			//	Send ok
+			// Send ok
 			Transfer(CDC_TX|TRANSFER_RELEASE,&_ok,1);
 
 			if (cmd == 'Q')
@@ -227,6 +273,7 @@ void LEDPulse()
 
 void Reboot()
 {
+
 	TXLED0;		// switch off the RX and TX LEDs before starting the user sketch
 	RXLED0;
 	UDCON = 1;		// Detatch USB
@@ -236,4 +283,5 @@ void Reboot()
 		"clr r31\n"
 		"ijmp\n"
 	::);
+
 }
