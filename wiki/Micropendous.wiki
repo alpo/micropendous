@@ -1,6 +1,6 @@
 #summary USB AVR Development Board for the AT90USB1287 with Arduino Footprint
 
-The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `[/Micropendous/Design/Micropendous]` directory.
+The [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files for this board can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `[http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous/ /Micropendous/Design/Micropendous]` directory.
 
 The current Micropendous Distribution has not been updated for this board revision.  However, it should work with all the [http://code.google.com/p/lufa-lib/downloads/list LUFA] demos simply by changing `F_CPU=16000000` in the `makefiles`.
 
