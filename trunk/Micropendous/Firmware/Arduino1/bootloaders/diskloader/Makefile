@@ -7,9 +7,48 @@ PROJECT = DiskLoader
 TARGET = DiskLoader.elf
 CC = avr-gcc
 
-# BOARD2
-MCU = atmega32u4
-AVR_FREQ   = 16000000L
+# Select MCU name and bootloader start address - uncomment _ONE_ of the following pairs
+#
+# Starting byte address of the bootloader, as a byte address - computed via the formula
+#   BOOT_START = ((TOTAL_FLASH_BYTES - BOOTLOADER_SECTION_SIZE_BYTES) * 1024)
+#
+# Note that the bootloader size and start address given in AVRStudio is in words and not
+# bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
+# MCU name and Bootloader Start address - uncomment one of the following pairs
+
+#MCU = at90usb162
+#BOOT_START = 0x3000
+
+#MCU = atmega32u2
+#BOOT_START = 0x7000
+
+#MCU = atmega32u4
+#BOOT_START = 0x7000
+
+#MCU = at90usb646
+#BOOT_START = 0xF000
+
+#MCU = at90usb647
+#BOOT_START = 0xF000
+
+#MCU = at90usb1286
+#BOOT_START = 0x1E000
+
+MCU = at90usb1287
+BOOT_START = 0x1E000
+
+
+
+# Processor frequency.
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
+#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+#     automatically to create a 32-bit value in your source code.
+#     Typical values are:
+#         F_CPU =  8000000L
+#         F_CPU = 16000000L
+AVR_FREQ = 16000000L
+
 
 # Specify the Arduino model using the assigned PID.  This is used by Descriptors.c
 #   to set PID and product descriptor string
@@ -20,13 +59,14 @@ ARDUINO_MODEL_PID = 0x0034
 
 # Change if your programmer is different
 AVRDUDE_PROGRAMMER = avrispmkII
-AVRDUDE_PORT = usb	   
+AVRDUDE_PORT = usb
 
 # program name should not be changed...
 PROGRAM    = DiskLoader
 
 AVRDUDE = avrdude
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -p $(MCU)
+#AVRDUDE_FLAGS = -vvv -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -p $(MCU) -B 5 -u
+AVRDUDE_FLAGS = -vvv -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -p $(MCU)
 
 ## Options common to compile, link and assembly rules
 COMMON = -mmcu=$(MCU)
@@ -40,8 +80,9 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS += -Wl,-gc-sections,-Map=DiskLoader.map,--section-start=.text=0x7800,--relax
-LDFLAGS += -nodefaultlibs -nostartfiles
+LDFLAGS += -Wl,-gc-sections,-Map=DiskLoader.map,--section-start=.text=$(BOOT_START),--relax
+#Note: do not use custom start functions for compatibility across USB AVR lineup
+#LDFLAGS += -nodefaultlibs -nostartfiles
 
 
 ## Intel Hex file production flags
@@ -75,11 +116,12 @@ $(BUILD_DIR):
 	@mkdir -p $@
 
 clean:
-	@rm -rf build/
-	@rm -f *.hex
-	@rm -f *.elf
-	@rm -f *.lss
-	@rm -f *.map
+	rm -rf build/
+	rm -f DiskLoader.hex
+	rm -f DiskLoader.elf.hex
+	rm -f *.elf
+	rm -f *.lss
+	rm -f *.map
 
 define make-goal
 $1/%.o: %.cpp
@@ -92,14 +134,15 @@ $(TARGET): $(OBJ)
 	$(CC) $(LDFLAGS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) $^ -o $@
 
 %.hex: $(TARGET)
-	avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
-	
+	avr-objcopy -O ihex -R .eeprom -R .fuse -R .lock $< $@
+
 %.lss: $(TARGET)
 	avr-objdump -h -S $< > $@
 
 size: $(TARGET)
 	@echo
+	avr-size --mcu=$(MCU) --format=avr $(TARGET)
 #	@avr-size -C --mcu=${MCU} ${TARGET}.elf
 
 program: $(TARGET).hex
-	$(AVRDUDE) $(AVRDUDE_FLAGS) -B 5 -u -U flash:w:$(TARGET).hex
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:w:$(TARGET).hex
