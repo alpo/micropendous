@@ -175,6 +175,8 @@
 			#include "AVR8/MICROPENDOUS_REV1/LEDs.h"
 		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
 			#include "AVR8/MICROPENDOUS_REV2/LEDs.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_32U2)
+			#include "AVR8/MICROPENDOUS_32U2/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

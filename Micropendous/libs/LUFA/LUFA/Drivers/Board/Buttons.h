@@ -145,6 +145,8 @@
 			#include "AVR8/MICROPENDOUS_REV2/Buttons.h"
 			#include "AVR8/MICROPENDOUS_REV2/External_SRAM.h"
 			#include "AVR8/MICROPENDOUS_REV2/USB_Switch.h"
+		#elif (BOARD == BOARD_MICROPENDOUS_32U2)
+			#include "AVR8/MICROPENDOUS_32U2/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

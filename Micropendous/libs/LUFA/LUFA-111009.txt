@@ -1,4 +1,4 @@
-This directory contains the 2010-11-22 LUFA distribution
+This directory contains the 2011-10-09 LUFA distribution
 with the following modifications:
 
 
@@ -7,21 +7,64 @@ Files Added:
 * Defines missing from certain versions of avr-gcc
   ./LUFA/MissingDefines.h
 
-* Defines related to Micropendous and Micropendous-DIP boards (SRAM, TXB0108, USB switch)
-  ./LUFA/UsefulMicropendousDefines.h
-
-* General purpose includes for boards with no LEDs and just an HWB button
-  ./LUFA/Drivers/Board/Board/..
-
-* Includes for Micropendous boards
-  ./LUFA/Drivers/Board/Micropendous/..
+* Defines related to various Micropendous boards
+  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_A/...
+  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_OLD/...
+  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_REV1/...
+  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_REV2/...
 
 
 
 Files Changed:
 
+* Include MissingDefines.h with all source
+  ./LUFA/Version.h
+
+* Allow Micropendous-related board defines to be included:
   ./LUFA/Drivers/Board/Buttons.h
   ./LUFA/Drivers/Board/LEDs.h
-  ./LUFA/Drivers/Board/Joystick.h
   ./LUFA/Common/BoardTypes.h
-  ./LUFA/Drivers/USB/LowLevel/Host.c
+
+
+
+LUFA SVN Updates Included Following LUFA-111009 Release:
+
+* r1963 Added INVERTED_ISP_MISO compile time option to AVRISP-MKII
+    ./Projects/AVRISP-MKII/AVRISP-MKII.txt
+    ./Projects/AVRISP-MKII/Lib/ISP/ISPTarget.h
+    ./Projects/AVRISP-MKII/makefile
+
+* r1953 Fixed CDC class drivers not saving and sending all 16-bits
+  of the control line states.
+    ./LUFA/Drivers/USB/Class/Device/CDC.h
+    ./LUFA/Drivers/USB/Class/Host/CDC.h
+
+* r1949 Fixed AVRISP-MKII Clone compile warning on AVR8 U4
+    ./Projects/AVRISP-MKII/Lib/V2Protocol.h
+
+* r1948 Fixed ring buffer size limited to 255 elements (now 65535)
+    ./LUFA/Drivers/Misc/RingBuffer.h
+
+* r1947 Reliability patches for AVRISP-MKII's PDI/TPI protocols
+    ./Projects/AVRISP-MKII/Lib/XPROG/XMEGANVM.c
+    ./Projects/AVRISP-MKII/Lib/XPROG/XPROGTarget.c
+
+* r1944 Fixed U4 PLL Management to meet 3.3V specification
+    ./LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.c
+
+* r1943 Added User Application APIs to the CDC and DFU class bootloaders
+    ./LUFA/Bootloaders/CDC/BootloaderAPI.c
+    ./LUFA/Bootloaders/CDC/BootloaderAPI.h
+    ./LUFA/Bootloaders/CDC/BootloaderAPITable.S
+    ./LUFA/Bootloaders/CDC/BootloaderCDC.c
+    ./LUFA/Bootloaders/CDC/BootloaderCDC.h
+    ./LUFA/Bootloaders/CDC/BootloaderCDC.txt
+    ./LUFA/Bootloaders/CDC/makefile
+    ./LUFA/Bootloaders/DFU/BootloaderAPI.c
+    ./LUFA/Bootloaders/DFU/BootloaderAPI.h
+    ./LUFA/Bootloaders/DFU/BootloaderAPITable.S
+    ./LUFA/Bootloaders/DFU/BootloaderDFU.c
+    ./LUFA/Bootloaders/DFU/BootloaderDFU.h
+    ./LUFA/Bootloaders/DFU/BootloaderDFU.txt
+    ./LUFA/Bootloaders/DFU/makefile
+

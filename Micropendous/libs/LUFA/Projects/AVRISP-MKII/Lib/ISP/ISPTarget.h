@@ -56,7 +56,7 @@
 		#endif
 
 	/* Macros: */
-		/** Low level device command to issue an extended FLASH address, for devices with other 128KB of FLASH. */
+		/** Low level device command to issue an extended FLASH address, for devices with over 128KB of FLASH. */
 		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
 
 		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver. */
@@ -104,10 +104,17 @@
 		 */
 		static inline uint8_t ISPTarget_ReceiveByte(void)
 		{
+			#if !defined(INVERTED_ISP_MISO)
 			if (HardwareSPIMode)
 			  return SPI_ReceiveByte();
 			else
 			  return ISPTarget_TransferSoftSPIByte(0x00);
+			#else
+			if (HardwareSPIMode)
+			  return ~SPI_ReceiveByte();
+			else
+			  return ~ISPTarget_TransferSoftSPIByte(0x00);			
+			#endif
 		}
 
 		/** Sends and receives a byte of ISP data to and from the attached target, using the
@@ -119,10 +126,17 @@
 		 */
 		static inline uint8_t ISPTarget_TransferByte(const uint8_t Byte)
 		{
+			#if !defined(INVERTED_ISP_MISO)
 			if (HardwareSPIMode)
 			  return SPI_TransferByte(Byte);
 			else
 			  return ISPTarget_TransferSoftSPIByte(Byte);
+			#else
+			if (HardwareSPIMode)
+			  return ~SPI_TransferByte(Byte);
+			else
+			  return ~ISPTarget_TransferSoftSPIByte(Byte);		
+			#endif
 		}
 
 #endif

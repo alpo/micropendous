@@ -194,7 +194,8 @@ int main()
 			//	Send a response
 			u8 send = 0;
 			const u8* pgm = _consts+7;			// 0
-			if (STK_GET_PARAMETER == cmd)
+
+			if (STK_GET_PARAMETER == cmd) // 'A'
 			{
 				u8 i = packet[0] - 0x80;
 				if (i > 2)
@@ -203,7 +204,7 @@ int main()
 				send = 1;
 			}
 
-			else if (STK_UNIVERSAL == cmd)
+			else if (STK_UNIVERSAL == cmd) // 'V'
 			{
 				if (packet[0] == 0x30)
 					pgm = _consts + packet[2];	// read signature
@@ -211,24 +212,24 @@ int main()
 			}
 			
 			//	Read signature bytes
-			else if (STK_READ_SIGN == cmd)
+			else if (STK_READ_SIGN == cmd) // 'u'
 			{
 				pgm = _consts;
 				send = 3;
 			}
 
-			else if (STK_LOAD_ADDRESS == cmd)
+			else if (STK_LOAD_ADDRESS == cmd) // 'U'
 			{
-				address = *((u16*)packet);		// word addresses
+				address = *((u16*)packet); 		// word addresses
 				address += address;
 			}
 
-			else if (STK_PROG_PAGE == cmd)
+			else if (STK_PROG_PAGE == cmd) // 'd'
 			{
 				Program(CDC_RX,address,packet[1]);
 			}
 
-			else if (STK_READ_PAGE == cmd)
+			else if (STK_READ_PAGE == cmd) // 't'
 			{
 				send = packet[1];
 				pgm = (const u8*)address;
@@ -244,7 +245,7 @@ int main()
 			if (send)
 				Transfer(CDC_TX|TRANSFER_PGM,pgm,send);	// All from pgm memory
 
-			//	Send ok
+			// Send ok
 			Transfer(CDC_TX|TRANSFER_RELEASE,&_ok,1);
 
 			if (cmd == 'Q')

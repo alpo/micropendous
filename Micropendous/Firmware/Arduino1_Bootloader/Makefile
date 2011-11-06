@@ -117,7 +117,8 @@ $(BUILD_DIR):
 
 clean:
 	rm -rf build/
-	rm -f *.hex
+	rm -f DiskLoader.hex
+	rm -f DiskLoader.elf.hex
 	rm -f *.elf
 	rm -f *.lss
 	rm -f *.map

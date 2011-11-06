@@ -197,7 +197,9 @@ void USBInit(void)
 	UDCON = (1 << DETACH);
 
 	// TODO: correctly check for other boards
+	#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__))
 	DDRE |= (1 << PE7); PORTE &= ~(1 << PE7); // enable the USB signal switch to the USB-B connector
+	#endif
 
 	// power on internal regulator
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
@@ -326,9 +328,9 @@ static void InitEndpoints()
 
 	// Reset all endpoints except EP0
 	#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__))
-		UERST = ((1<<EPRST6) | (1<<EPRST5) | (1<<EPRST4) | (1<<EPRST3) | (1<<EPRST2) | (1<<EPRST1));
-	#else // all other USB AVRs
 		UERST = ((1<<EPRST4) | (1<<EPRST3) | (1<<EPRST2) | (1<<EPRST1));
+	#else // all other USB AVRs
+		UERST = ((1<<EPRST6) | (1<<EPRST5) | (1<<EPRST4) | (1<<EPRST3) | (1<<EPRST2) | (1<<EPRST1));
 	#endif
 	UERST = 0;
 }
