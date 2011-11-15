@@ -86,8 +86,12 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
-	LEDs_Init();
+	Board_Init(); // initialize LEDs and Buttons and any other peripherals
+	DISABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+	SELECT_USB_A;
 	USB_Init();
+	SELECT_USB_A; // The Hosted USB FLASH Drive is connected via the USB-A connector
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
 	Serial_CreateStream(NULL);

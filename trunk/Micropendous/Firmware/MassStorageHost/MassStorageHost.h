@@ -48,7 +48,7 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/BoardSupport.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
