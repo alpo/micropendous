@@ -59,42 +59,36 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name - uncomment _ONE_ of the following
-#MCU = at90usb82
-#MCU = at90usb162
-#MCU = atmega16u2
-#MCU = atmega32u2
-#MCU = atmega32u4
-#MCU = at90usb646
-#MCU = at90usb647
-#MCU = at90usb1286
+# MCU name
 MCU = at90usb1287
 
 
+# Target architecture (see library "Board Types" documentation).
+ARCH = AVR8
+
+
+# Target board (see library "Board Types" documentation, NONE for projects not requiring
+# LUFA board drivers). If USER is selected, put custom board drivers in a directory called
+# "Board" inside the application directory.
+BOARD = USBKEY
+
+
 # Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency. You can then use this symbol in your source code to 
+#     This will define a symbol, F_CPU, in all source code files equal to the
+#     processor frequency in Hz. You can then use this symbol in your source code to
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#     Typical values are:
-#         F_CPU =  8000000
-#         F_CPU = 16000000
-F_CPU = 16000000
-
-
-# Target board: NONE for projects not requiring LUFA board drivers.
-# USER for boards with no LEDs and just an HWB button such as
-# Micropendous1, Micropendous2, Micropendous3, or Micropendous4
-# MICROPENDOUS for the Micropendous and Micropendous-DIP
-#     Typical values are:
-#         BOARD = NONE
-#         BOARD = USER
-#         BOARD = MICROPENDOUS
-BOARD = MICROPENDOUS
+#
+#     This will be an integer division of F_USB below, as it is sourced by
+#     F_USB after it has run through any CPU prescalers. Note that this value
+#     does not *change* the processor frequency - it should merely be updated to
+#     reflect the processor speed set externally so that the code can use accurate
+#     software delays.
+F_CPU = 8000000
 
 
 # Input clock frequency.
-#     This will define a symbol, F_CLOCK, in all source code files equal to the
+#     This will define a symbol, F_USB, in all source code files equal to the
 #     input clock frequency (before any prescaling is performed) in Hz. This value may
 #     differ from F_CPU if prescaling is used on the latter, and is required as the
 #     raw input clock is fed directly to the PLL sections of the AVR for high speed
@@ -104,26 +98,7 @@ BOARD = MICROPENDOUS
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = $(F_CPU)
-
-
-#---------------- External Memory Options ----------------
-EXTMEMOPTS = 
-
-#   64 KB of external SRAM, starting after internal RAM used for variables (.data/.bss) and heap (malloc())
-#   for the ATmega128 and AT90USB647 with their 4KB of SRAM, external addresses start at 0x1100
-#   0xFFFF(65535) - 0x1100(4352) = 0xEEFF(61183) --> 61KB of available external SRAM
-#EXTMEMOPTS += -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
-
-#   for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
-#   0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
-#   SAFEST OPTION:
-#EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
-
-# Can really only be certain that the AT90USB1287-based Micropendous boards have external SRAM
-ifeq ($(BOARD), MICROPENDOUS)
-	EXTMEMOPTS += -Wl,-Tdata=0x802100,--defsym=__heap_end=0x80ffff
-endif
+F_USB = $(F_CPU)
 
 
 # Output format. (can be srec, ihex, binary)
@@ -140,14 +115,14 @@ TARGET = USBtoSerial
 OBJDIR = .
 
 
-# Path to the LUFA library as well as other available libraries
-# Make sure to add these to the EXTRAINCDIRS variable below
-LUFA_PATH = ../../libs/LUFA
-AVRLIB_PATH = ../../libs/avrlib
+# Path to the LUFA library
+LUFA_PATH = ../..
 
 
 # LUFA library compile-time options and predefined tokens
 LUFA_OPTS  = -D USB_DEVICE_ONLY
+LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
+LUFA_OPTS += -D ORDERED_EP_CONFIG
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
@@ -160,9 +135,9 @@ include $(LUFA_PATH)/LUFA/makefile
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c \
-	  Descriptors.c \
-	  $(LUFA_SRC_USB) \
+SRC = $(TARGET).c                                                 \
+	  Descriptors.c                                               \
+	  $(LUFA_SRC_USB)                                             \
 	  $(LUFA_SRC_USBCLASS)
 
 
@@ -197,7 +172,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/  $(AVRLIB_PATH)/
+EXTRAINCDIRS = $(LUFA_PATH)/
 
 
 # Compiler flag to set the C Standard level.
@@ -210,20 +185,20 @@ CSTANDARD = -std=c99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL
-CDEFS += -DF_CLOCK=$(F_CLOCK)UL
-CDEFS += -DBOARD=BOARD_$(BOARD)
+CDEFS += -DF_USB=$(F_USB)UL
+CDEFS += -DBOARD=BOARD_$(BOARD) -DARCH=ARCH_$(ARCH)
 CDEFS += $(LUFA_OPTS)
 
 
 # Place -D or -U options here for ASM sources
 ADEFS  = -DF_CPU=$(F_CPU)
-ADEFS += -DF_CLOCK=$(F_CLOCK)UL
+ADEFS += -DF_USB=$(F_USB)UL
 ADEFS += -DBOARD=BOARD_$(BOARD)
 ADEFS += $(LUFA_OPTS)
 
 # Place -D or -U options here for C++ sources
 CPPDEFS  = -DF_CPU=$(F_CPU)UL
-CPPDEFS += -DF_CLOCK=$(F_CLOCK)UL
+CPPDEFS += -DF_USB=$(F_USB)UL
 CPPDEFS += -DBOARD=BOARD_$(BOARD)
 CPPDEFS += $(LUFA_OPTS)
 #CPPDEFS += -D__STDC_LIMIT_MACROS
@@ -332,6 +307,20 @@ MATH_LIB = -lm
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
+
+
+
+#---------------- External Memory Options ----------------
+
+# 64 KB of external RAM, starting after internal RAM (ATmega128!),
+# used for variables (.data/.bss) and heap (malloc()).
+#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+
+# 64 KB of external RAM, starting after internal RAM (ATmega128!),
+# only used for heap (malloc()).
+#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
+
+EXTMEMOPTS =
 
 
 
@@ -695,7 +684,6 @@ clean_list :
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).hex
 	$(REMOVE) $(TARGET).eep
-	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -709,12 +697,21 @@ clean_list :
 	$(REMOVEDIR) .dep
 
 doxygen:
-	@echo Generating Project Documentation...
+	@echo Generating Project Documentation \($(TARGET)\)...
 	@doxygen Doxygen.conf
 	@echo Documentation Generation Complete.
 
 clean_doxygen:
 	rm -rf Documentation
+
+checksource:
+	@for f in $(SRC) $(CPPSRC) $(ASRC); do \
+		if [ -f $$f ]; then \
+			echo "Found Source File: $$f" ; \
+		else \
+			echo "Source File Not Found: $$f" ; \
+		fi; done 
+
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
@@ -728,5 +725,4 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff doxygen clean          \
 clean_list clean_doxygen program dfu flip flip-ee dfu-ee      \
-debug gdb-config
-
+debug gdb-config checksource
