@@ -1,13 +1,8 @@
 /*
-             LUFA Library
-     Copyright (C) Dean Camera, 2011.
-
-  dean [at] fourwalledcubicle [dot] com
-           www.lufa-lib.org
-*/
-
-/*
-  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011-11-11 By Opendous Inc.
+  For use with the Micropendous Rev1 boards
+  www.Micropendous.org/Micropendous-REV1
+  www.Micropendous.org/Micropendous-DIP
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -29,162 +24,47 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the Atmel USBKEY.
- *  \copydetails Group_Dataflash_USBKEY
+ *  \brief Board specific external SRAM driver header for the Micropendous Rev1 board (www.Micropendous.org/Micropendous-REV1).
+ *  \copydetails Group_Buttons_MICROPENDOUS_REV1
  *
- *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
- *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
+ *  \note This file should not be included directly. It is automatically included by the buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
-/** \ingroup Group_Dataflash
- *  \defgroup Group_Dataflash_USBKEY USBKEY
- *  \brief Board specific Dataflash driver header for the Atmel USBKEY.
+/** \ingroup Group_Buttons
+ *  \defgroup Group_Buttons_MICROPENDOUS_REV1 MICROPENDOUS_REV1
+ *  \brief Board specific external SRAM driver header for the Micropendous Rev1 board.
  *
- *  Board specific Dataflash driver header for the Atmel USBKEY board.
+ *  Board specific external SRAM driver header for the Micropendous Rev1 board (www.Micropendous.org/Micropendous-REV1).
  *
  *  @{
  */
 
-#ifndef __DATAFLASH_USBKEY_H__
-#define __DATAFLASH_USBKEY_H__
+#ifndef __EXTERNAL_SRAM_MICROPENDOUS_REV2_H__
+#define __EXTERNAL_SRAM_MICROPENDOUS_REV2_H__
 
 	/* Includes: */
-		#include "../../../../Common/Common.h"
-		#include "../../../Misc/AT45DB642D.h"
+	#include "../../../../Common/Common.h"
 
-	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/Dataflash.h instead.
-		#endif
-
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                ((1 << 1) | (1 << 0))
-			#define DATAFLASH_CHIPCS_DDR                 DDRE
-			#define DATAFLASH_CHIPCS_PORT                PORTE
+	/* Enable C linkage for C++ Compilers: */
+	#if defined(__cplusplus)
+		extern "C" {
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
-			#define DATAFLASH_TOTALCHIPS                 2
+	// On Micropendous Rev2 boards nCE is PE4 and Address Bit 17 is PE5.  PE0,1,2 are also control signals.
+	#define PORTE_EXT_SRAM_SETUP	DDRE = ((1 << PE0) | (1 << PE1) | (1 << PE2) | (1 << PE4) | (1 << PE5)); PORTE = ((1 << PE0) | (1 << PE1) | (1 << PE2) | (1 << PE4));
+	#define ENABLE_EXT_SRAM		DDRE |= (1 << PE4); PORTE &= ~(1 << PE4);
+	#define DISABLE_EXT_SRAM	DDRE |= (1 << PE4); PORTE |= (1 << PE4);
+	#define SELECT_EXT_SRAM_BANK0	DDRE |= (1 << PE5); PORTE &= ~(1 << PE5);
+	#define SELECT_EXT_SRAM_BANK1	DDRE |= (1 << PE5); PORTE |= (1 << PE5);
+	#define CURRENT_SRAM_BANK	((PINE >> 5) & (0x01))
 
-			/** Mask for no dataflash chip selected. */
-			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
+	/* Disable C linkage for C++ Compilers: */
+	#if defined(__cplusplus)
+		}
+	#endif
 
-			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      (1 << 1)
-
-			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      (1 << 0)
-
-			/** Internal main memory page size for the board's dataflash ICs. */
-			#define DATAFLASH_PAGE_SIZE                  1024
-
-			/** Total number of pages inside each of the board's dataflash ICs. */
-			#define DATAFLASH_PAGES                      8192
-
-		/* Inline Functions: */
-			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
-			 *  The microcontroller's SPI driver MUST be initialized before any of the dataflash commands are used.
-			 */
-			static inline void Dataflash_Init(void)
-			{
-				DATAFLASH_CHIPCS_DDR  |= DATAFLASH_CHIPCS_MASK;
-				DATAFLASH_CHIPCS_PORT |= DATAFLASH_CHIPCS_MASK;
-			}
-
-			/** Determines the currently selected dataflash chip.
-			 *
-			 *  \return Mask of the currently selected Dataflash chip, either \ref DATAFLASH_NO_CHIP if no chip is selected
-			 *  or a DATAFLASH_CHIPn mask (where n is the chip number).
-			 */
-			static inline uint8_t Dataflash_GetSelectedChip(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t Dataflash_GetSelectedChip(void)
-			{
-				return (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK);
-			}
-
-			/** Selects the given dataflash chip.
-			 *
-			 *  \param[in]  ChipMask  Mask of the Dataflash IC to select, in the form of DATAFLASH_CHIPn mask (where n is
-			 *              the chip number).
-			 */
-			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
-			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
-			{
-				DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT & ~DATAFLASH_CHIPCS_MASK) | ChipMask);
-			}
-
-			/** Deselects the current dataflash chip, so that no dataflash is selected. */
-			static inline void Dataflash_DeselectChip(void) ATTR_ALWAYS_INLINE;
-			static inline void Dataflash_DeselectChip(void)
-			{
-				Dataflash_SelectChip(DATAFLASH_NO_CHIP);
-			}
-
-			/** Selects a dataflash IC from the given page number, which should range from 0 to
-			 *  ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1). For boards containing only one
-			 *  dataflash IC, this will select DATAFLASH_CHIP1. If the given page number is outside
-			 *  the total number of pages contained in the boards dataflash ICs, all dataflash ICs
-			 *  are deselected.
-			 *
-			 *  \param[in] PageAddress  Address of the page to manipulate, ranging from
-			 *                          0 to ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
-			 */
-			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
-			{
-				Dataflash_DeselectChip();
-
-				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
-				  return;
-
-				if (PageAddress & 0x01)
-				  Dataflash_SelectChip(DATAFLASH_CHIP2);
-				else
-				  Dataflash_SelectChip(DATAFLASH_CHIP1);
-			}
-
-			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
-			 *  a new command.
-			 */
-			static inline void Dataflash_ToggleSelectedChipCS(void)
-			{
-				uint8_t SelectedChipMask = Dataflash_GetSelectedChip();
-
-				Dataflash_DeselectChip();
-				Dataflash_SelectChip(SelectedChipMask);
-			}
-
-			/** Spin-loops while the currently selected dataflash is busy executing a command, such as a main
-			 *  memory page program or main memory to buffer transfer.
-			 */
-			static inline void Dataflash_WaitWhileBusy(void)
-			{
-				Dataflash_ToggleSelectedChipCS();
-				Dataflash_SendByte(DF_CMD_GETSTATUS);
-				while (!(Dataflash_ReceiveByte() & DF_STATUS_READY));
-				Dataflash_ToggleSelectedChipCS();
-			}
-
-			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
-			 *  dataflash commands which require a complete 24-bit address.
-			 *
-			 *  \param[in] PageAddress  Page address within the selected dataflash IC
-			 *  \param[in] BufferByte   Address within the dataflash's buffer
-			 */
-			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
-			                                              const uint16_t BufferByte)
-			{
-				PageAddress >>= 1;
-
-				Dataflash_SendByte(PageAddress >> 5);
-				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
-				Dataflash_SendByte(BufferByte);
-			}
-
-#endif
+#endif // __EXTERNAL_SRAM_MICROPENDOUS_REV2_H__
 
 /** @} */
-

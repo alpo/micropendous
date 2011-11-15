@@ -70,6 +70,7 @@
 		#include "Architectures.h"
 		#include "Attributes.h"
 		#include "BoardTypes.h"
+		#include "MissingDefines.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

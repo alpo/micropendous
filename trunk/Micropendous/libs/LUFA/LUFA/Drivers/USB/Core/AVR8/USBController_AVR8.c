@@ -256,7 +256,7 @@ static void USB_Init_Host(void)
 
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
-	
+
 	USB_Attach();
 }
 #endif
