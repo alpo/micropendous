@@ -156,20 +156,19 @@
 			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_EVK1104		30
 
-			/** Selects the initial revision Micropendous3 or Micropendous4 specific board drivers for the HWB Button and external SRAM. */
-			#define BOARD_MICROPENDOUS_OLD	31
+			/** Selects the Opendous Micropendous-32U2 specific board drivers for the HWB Button and LED. */
+			#define BOARD_MICROPENDOUS_32U2	31
 
-			/** Selects the Opendous Micropendous-A specific board drivers for the HWB Button and external SRAM. */
+			/** Selects the Opendous Micropendous-A/3/4 specific board drivers for the HWB Button and external SRAM. */
 			#define BOARD_MICROPENDOUS_A	32
 
 			/** Selects the Opendous Micropendous Rev1 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
 			#define BOARD_MICROPENDOUS_REV1	33
 
-			/** Selects the Opendous Micropendous Rev1 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
+			/** Selects the Opendous Micropendous Rev2 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
 			#define BOARD_MICROPENDOUS_REV2	34
 
-			/** Selects the Opendous Micropendous Rev1 Arduino-like specific board drivers for the HWB Button, USB Connector Switch, external SRAM, and LED. */
-			#define BOARD_MICROPENDOUS_32U2	35
+
 
 
 

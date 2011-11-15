@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = atmega32u4
+MCU = at90usb1287
 
 
 # Target architecture (see library "Board Types" documentation).
@@ -106,7 +106,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = VirtualSerial
+TARGET = MassStorageHost
 
 
 # Object files directory
@@ -120,11 +120,9 @@ LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
-LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS  = -D USB_HOST_ONLY
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS += -D USB_STREAM_TIMEOUT_MS=5000
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
@@ -133,9 +131,9 @@ include $(LUFA_PATH)/LUFA/makefile
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
 	  $(LUFA_SRC_USB)                                             \
-	  $(LUFA_SRC_USBCLASS)
+	  $(LUFA_SRC_USBCLASS)                                        \
+	  $(LUFA_SRC_SERIAL)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

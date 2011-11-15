@@ -2,14 +2,15 @@ This directory contains the 2011-10-09 LUFA distribution
 with the following modifications:
 
 
+
 Files Added:
 
 * Defines missing from certain versions of avr-gcc
-  ./LUFA/MissingDefines.h
+  ./MissingDefines.h
 
 * Defines related to various Micropendous boards
   ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_A/...
-  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_OLD/...
+  ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_32U2/...
   ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_REV1/...
   ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_REV2/...
 
@@ -18,16 +19,29 @@ Files Added:
 Files Changed:
 
 * Include MissingDefines.h with all source
-  ./LUFA/Version.h
+  ./Version.h
 
 * Allow Micropendous-related board defines to be included:
   ./LUFA/Drivers/Board/Buttons.h
   ./LUFA/Drivers/Board/LEDs.h
   ./LUFA/Common/BoardTypes.h
 
+* Included NO_AUTO_VBUS_MANAGEMENT option code from Dean Camera
+  ./LUFA/Drivers/USB/Core/AVR8/Host_AVR8.c
+  ./LUFA/Drivers/USB/Core/AVR8/Host_AVR8.h
+
 
 
 LUFA SVN Updates Included Following LUFA-111009 Release:
+
+* r1974 Update incomplete StandaloneProgrammer project to latest LUFA
+    ./Projects/Incomplete/StandaloneProgrammer/DiskHost.c
+    ./Projects/Incomplete/StandaloneProgrammer/StandaloneProgrammer.c
+
+* r1971 Fixed race condition in class drivers
+    ./LUFA/Drivers/USB/Class/Device/CDC.c
+    ./LUFA/Drivers/USB/Class/Device/HID.c
+    ./LUFA/Drivers/USB/Class/Device/MassStorage.c
 
 * r1963 Added INVERTED_ISP_MISO compile time option to AVRISP-MKII
     ./Projects/AVRISP-MKII/AVRISP-MKII.txt
@@ -53,18 +67,17 @@ LUFA SVN Updates Included Following LUFA-111009 Release:
     ./LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.c
 
 * r1943 Added User Application APIs to the CDC and DFU class bootloaders
-    ./LUFA/Bootloaders/CDC/BootloaderAPI.c
-    ./LUFA/Bootloaders/CDC/BootloaderAPI.h
-    ./LUFA/Bootloaders/CDC/BootloaderAPITable.S
-    ./LUFA/Bootloaders/CDC/BootloaderCDC.c
-    ./LUFA/Bootloaders/CDC/BootloaderCDC.h
-    ./LUFA/Bootloaders/CDC/BootloaderCDC.txt
-    ./LUFA/Bootloaders/CDC/makefile
-    ./LUFA/Bootloaders/DFU/BootloaderAPI.c
-    ./LUFA/Bootloaders/DFU/BootloaderAPI.h
-    ./LUFA/Bootloaders/DFU/BootloaderAPITable.S
-    ./LUFA/Bootloaders/DFU/BootloaderDFU.c
-    ./LUFA/Bootloaders/DFU/BootloaderDFU.h
-    ./LUFA/Bootloaders/DFU/BootloaderDFU.txt
-    ./LUFA/Bootloaders/DFU/makefile
-
+    ./Bootloaders/CDC/BootloaderAPI.c
+    ./Bootloaders/CDC/BootloaderAPI.h
+    ./Bootloaders/CDC/BootloaderAPITable.S
+    ./Bootloaders/CDC/BootloaderCDC.c
+    ./Bootloaders/CDC/BootloaderCDC.h
+    ./Bootloaders/CDC/BootloaderCDC.txt
+    ./Bootloaders/CDC/makefile
+    ./Bootloaders/DFU/BootloaderAPI.c
+    ./Bootloaders/DFU/BootloaderAPI.h
+    ./Bootloaders/DFU/BootloaderAPITable.S
+    ./Bootloaders/DFU/BootloaderDFU.c
+    ./Bootloaders/DFU/BootloaderDFU.h
+    ./Bootloaders/DFU/BootloaderDFU.txt
+    ./Bootloaders/DFU/makefile

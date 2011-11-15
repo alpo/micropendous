@@ -107,7 +107,7 @@
 	/* Includes: */
 		#include "../../Common/Common.h"
 
-		#if ((BOARD == BOARD_NONE) || (BOARD == BOARD_MICROPENDOUS_OLD) || (BOARD == BOARD_MICROPENDOUS_A))
+		#if ((BOARD == BOARD_NONE) || (BOARD == BOARD_MICROPENDOUS_A))
 			static inline void LEDs_Init(void) {};
 			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
 			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
@@ -177,26 +177,43 @@
 			#include "AVR8/MICROPENDOUS_REV2/LEDs.h"
 		#elif (BOARD == BOARD_MICROPENDOUS_32U2)
 			#include "AVR8/MICROPENDOUS_32U2/LEDs.h"
-		#else
+		#elif (BOARD == BOARD_USER)
 			#include "Board/LEDs.h"
+		#else
+			// this allows BoardSupport.h to include empty LED drivers
+			static inline void LEDs_Init(void) {};
+			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_SetAllLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_ChangeLEDs(const uint_reg_t LEDMask, const uint_reg_t ActiveMask) {};
+			static inline void LEDs_ToggleLEDs(const uint_reg_t LEDMask) {};
+			static inline uint_reg_t LEDs_GetLEDs(void) { return 0; }
 		#endif
 
 	/* Preprocessor Checks: */
 		#if !defined(__DOXYGEN__)
 			#if !defined(LEDS_LED1)
-				#define LEDS_LED1      0
+				#define LEDS_LED1	0
 			#endif
 
 			#if !defined(LEDS_LED2)
-				#define LEDS_LED2      0
+				#define LEDS_LED2	0
 			#endif
 
 			#if !defined(LEDS_LED3)
-				#define LEDS_LED3      0
+				#define LEDS_LED3	0
 			#endif
 
 			#if !defined(LEDS_LED4)
-				#define LEDS_LED4      0
+				#define LEDS_LED4	0
+			#endif
+
+			#if !defined(LEDS_ALL_LEDS)
+				#define LEDS_LED4	0
+			#endif
+
+			#if !defined(LEDS_LED4)
+				#define LEDS_NO_LEDS	0
 			#endif
 		#endif
 

@@ -1,13 +1,6 @@
 /*
-             LUFA Library
-     Copyright (C) Dean Camera, 2011.
-
-  dean [at] fourwalledcubicle [dot] com
-           www.lufa-lib.org
-*/
-
-/*
-  Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2011-11-08 By Opendous Inc.
+  For use with the Micropendous Rev2 board (www.Micropendous.org/Micropendous)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -29,88 +22,49 @@
 */
 
 /** \file
- *  \brief Board specific joystick driver header for the Atmel USBKEY.
- *  \copydetails Group_Joystick_USBKEY
+ *  \brief Board specific USB Power+Signal switch driver header for the
+ *        Micropendous Rev2 board (www.Micropendous.org/Micropendous).
+ *  \copydetails Group_Buttons_MICROPENDOUS_REV2
  *
- *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
- *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
+ *  \note This file should not be included directly. It is automatically included by the buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
-/** \ingroup Group_Joystick
- *  \defgroup Group_Joystick_USBKEY USBKEY
- *  \brief Board specific joystick driver header for the Atmel USBKEY.
+/** \ingroup Group_Buttons
+ *  \defgroup Group_Buttons_MICROPENDOUS_REV2 MICROPENDOUS_REV2
+ *  \brief Board specific USB Power+Signal switch driver header for the Micropendous Rev2 board.
  *
- *  Board specific joystick driver header for the Atmel USBKEY.
+ *  Board specific USB Power+Signal switch driver header for the
+ *        Micropendous Rev2 board (www.Micropendous.org/Micropendous).
  *
  *  @{
  */
 
-#ifndef __JOYSTICK_USBKEY_H__
-#define __JOYSTICK_USBKEY_H__
+#ifndef __USB_SWITCH_MICROPENDOUS_REV2_H__
+#define __USB_SWITCH_MICROPENDOUS_REV2_H__
 
 	/* Includes: */
-		#include "../../../../Common/Common.h"
+	#include "../../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
-		#if defined(__cplusplus)
-			extern "C" {
-		#endif
-
-	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_JOYSTICK_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/Joystick.h instead.
-		#endif
-
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define JOY_BMASK                 ((1 << 5) | (1 << 6) | (1 << 7))
-			#define JOY_EMASK                 ((1 << 4) | (1 << 5))
-			
-			#define JOY_PORTE_MASK_SHIFT      1
+	#if defined(__cplusplus)
+		extern "C" {
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** Mask for the joystick being pushed in the left direction. */
-			#define JOY_LEFT                  (1 << 6)
+	// On Micropendous Rev2 boards the USB Power+Signal switches
+	// are controlled by PE7 and are Active-High
+	#define SELECT_USB_A		DDRE |= (1 << PE7); PORTE |= (1 << PE7);
+	#define SELECT_USB_B		DDRE |= (1 << PE7); PORTE &= ~(1 << PE7);
 
-			/** Mask for the joystick being pushed in the right direction. */
-			#define JOY_RIGHT                ((1 << 4) >> JOY_PORTE_MASK_SHIFT)
-
-			/** Mask for the joystick being pushed in the upward direction. */
-			#define JOY_UP                    (1 << 7)
-
-			/** Mask for the joystick being pushed in the downward direction. */
-			#define JOY_DOWN                 ((1 << 5) >> JOY_PORTE_MASK_SHIFT)
-
-			/** Mask for the joystick being pushed inward. */
-			#define JOY_PRESS                 (1 << 5)
-
-		/* Inline Functions: */
-		#if !defined(__DOXYGEN__)
-			static inline void Joystick_Init(void)
-			{
-				DDRB  &= ~(JOY_BMASK);
-				DDRE  &= ~(JOY_EMASK);
-
-				PORTB |= JOY_BMASK;
-				PORTE |= JOY_EMASK;
-			}
-
-			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t Joystick_GetStatus(void)
-			{
-				return (((uint8_t)~PINB & JOY_BMASK) | (((uint8_t)~PINE & JOY_EMASK) >> JOY_PORTE_MASK_SHIFT));
-			}
-		#endif
+	#define OVERCURRENT_FLAG_ENABLE		DDRE &= ~(1 << PE6); PORTE &= ~(1 << PE6);
+	#define OVERCURRENT_FLAG_STATUS		~((PINE >> 6) & (0x01))
 
 	/* Disable C linkage for C++ Compilers: */
-		#if defined(__cplusplus)
-			}
-		#endif
+	#if defined(__cplusplus)
+		}
+	#endif
 
-#endif
+#endif // __USB_SWITCH_MICROPENDOUS_REV2_H__
 
 /** @} */
-

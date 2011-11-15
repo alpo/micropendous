@@ -9,6 +9,12 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
+  Modified for the Micropendous Rev1 boards by Opendous Inc. 2011-11-11
+  www.Micropendous.org/Micropendous-REV1
+  www.Micropendous.org/Micropendous-DIP
+
+  Note there is only 1 user button on the Micropendous boards: PE2 - HWB
+
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -29,24 +35,24 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Atmel USBKEY.
- *  \copydetails Group_Buttons_USBKEY
+ *  \brief Board specific Buttons driver header for the Micropendous Rev2 board (www.Micropendous.org/Micropendous).
+ *  \copydetails Group_Buttons_MICROPENDOUS_REV2
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
 /** \ingroup Group_Buttons
- *  \defgroup Group_Buttons_USBKEY USBKEY
- *  \brief Board specific Buttons driver header for the Atmel USBKEY.
+ *  \defgroup Group_Buttons_MICROPENDOUS_REV2 MICROPENDOUS_REV2
+ *  \brief Board specific Buttons driver header for the Micropendous Rev2.
  *
- *  Board specific Buttons driver header for the Atmel USBKEY.
+ *  Board specific Buttons driver header for the Micropendous Rev2 (www.Micropendous.org/Micropendous).
  *
  *  @{
  */
 
-#ifndef __BUTTONS_USBKEY_H__
-#define __BUTTONS_USBKEY_H__
+#ifndef __BUTTONS_MICROPENDOUS_H__
+#define __BUTTONS_MICROPENDOUS_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -86,7 +92,6 @@
 			}
 		#endif
 
-#endif
+#endif // __BUTTONS_MICROPENDOUS_H__
 
 /** @} */
-
