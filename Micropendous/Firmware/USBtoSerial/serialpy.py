@@ -5,12 +5,13 @@
 #    Released to the Public Domain
 import serial			 # PySerial for accessing the serial port on multiple platforms
 import sys                # command-line argument handling
+import time                # command-line argument handling
 
 # function which sends then reads data from the given serial port
 # comport should be a string
 def SerialSendReceive(comport):
     # open the given serial port for communication
-    ser = serial.Serial(comport)
+    ser = serial.Serial(port=comport, baudrate=9600)         # open serial port for communication
     ser.setTimeout(2000)
     ser.setWriteTimeout(2000)
 

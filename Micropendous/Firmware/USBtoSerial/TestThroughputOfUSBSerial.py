@@ -1,7 +1,7 @@
 #    Purpose: Test the throughput of a Micropendous board loaded with Virtual Serial Port loopback firmware
 #        Visit www.Micropendous.org/Serial for more info.
 #    Created: 2008-09-30 by Opendous Inc.
-#    Last Edit: 2009-10-03 by Opendous Inc.
+#    Last Edit: 2011-11-14 by Opendous Inc.
 #    Released under the MIT License
 import serial             # for accessing the serial port on multiple platforms
 import time, sys
@@ -13,9 +13,14 @@ import time, sys
 # transfersToComplete    is an integer - the number of transfers to test with
 def SerialThroughputTest(comport, transferSize, transfersToComplete):
 
-    ser = serial.Serial(comport)         # open serial port for communication
+    ser = serial.Serial(port=comport, baudrate=115200, rtscts=1)         # open serial port for communication with RTS/CTS flow control
 
     print ser             # dump all info regarding serial port being used
+
+    if (ser.rtscts):
+        print "Using RTS-CTS Flow Control"
+
+    print "RI =", ser.getRI(), " DCD =", ser.getCD(),  " DSR =", ser.getDSR(), " CTS =", ser.getCTS()
 
     ScriptStartTime = time.time()
 
@@ -40,8 +45,31 @@ def SerialThroughputTest(comport, transferSize, transfersToComplete):
     ScriptEndTime = time.time()
     print "\nIt took", (ScriptEndTime - ScriptStartTime), "seconds to transfer", \
         (transfersToComplete * transferSize), "bytes for a throughput of", \
-        (((transfersToComplete * transferSize) / (ScriptEndTime - ScriptStartTime)) / 1000), "kbytes/second"
+        (((transfersToComplete * transferSize) / (ScriptEndTime - ScriptStartTime)) / 1000), "kbytes/second\n"
     # be careful using readline as it will block until a newline character is received
+
+    print "RI =", ser.getRI(), " DCD =", ser.getCD(),  " DSR =", ser.getDSR(), " CTS =", ser.getCTS()
+
+    ser.setRTS(level=0)
+    ser.setDTR(level=0)
+    time.sleep(1)
+
+    print "\nSetting DTR=1, RTS=1 and waiting 1s"
+    ser.setRTS(level=1)
+    ser.setDTR(level=1)
+    time.sleep(1)
+    print "Setting DTR=0, RTS=1 and waiting 1s"
+    ser.setRTS(level=1)
+    ser.setDTR(level=0)
+    time.sleep(1)
+    print "Setting DTR=1, RTS=0 and waiting 1s"
+    ser.setRTS(level=0)
+    ser.setDTR(level=1)
+    time.sleep(1)
+    print "Setting DTR=0, RTS=0 and waiting 1s"
+    ser.setRTS(level=0)
+    ser.setDTR(level=0)
+    time.sleep(1)
 
     ser.close()             # release/close the serial port
 
