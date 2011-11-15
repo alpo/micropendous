@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBtoSerial` directory.
 
-*Purpose:* Communicate with other electronic devices over the [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART] interface.
+*Purpose:* Communicate with other electronic devices over the [http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter UART] interface.  The LUFA version of [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ USBtoSerial] uses 3-pin UART (TXD, RXD, GND) while the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBtoSerial/ Micropendous version] implements full flow control.  [http://code.google.com/p/micropendous/source/diff?spec=svn759&r=759&format=side&path=/trunk/Micropendous/Firmware/USBtoSerial/USBtoSerial.c Compare the differences.]
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBtoSerial  View] or [http://www.Micropendous.org/Distribution Download]
 
@@ -14,19 +14,25 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and load USBtoSerial firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load !USBtoSerial firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 Connections to other devices are as follows:
 
 || *Micropendous* || *UART* ||
-|| PD2 _(RXD1)_   || RX ||
-|| PD3 _(TXD1)_   || TX ||
+|| PD2 _(RXD1)_   || RXD ||
+|| PD3 _(TXD1)_   || TXD ||
+|| PD1 _(RTS)_   || RTS ||
+|| PD4 _(CTS)_   || CTS ||
+|| PD0 _(DTR)_   || DTR ||
+|| PD5 _(DSR)_   || DSR ||
+|| PD6 _(DCD)_   || DCD ||
 || GND            || GND ||
 
 == Testing ==
 
-Create a loopback by connecting PD2 _(RXD1)_ and PD3 _(TXD1)_ (the picture below is incorrect but you get the idea).
+Create a [http://en.wikipedia.org/wiki/Null_modem Null Modem] loopback by connecting PD2_(RXD1)_=PD3 _(TXD1)_, PD1_(RTS)_=PD4_(CTS)_, and 
+PD0_(DTR)_=PD5_(DSR)_=PD6_(DCD)_.  For the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ LUFA] 3-pin UART you only need to connect PD2_(RXD1)_=PD3 _(TXD1)_.
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/SerialLoopback_D0D1_Micropendous4.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBtoSerial/USBtoSerial_NullModem_with_Loopback.jpg
 
 Follow the instructions in [Serial] to connect to the device using a serial terminal and any characters you type will be looped back but only while the loopback wire is in place.
