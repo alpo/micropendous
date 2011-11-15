@@ -41,11 +41,12 @@
 		#include <avr/wdt.h>
 		#include <avr/interrupt.h>
 		#include <avr/power.h>
+		#include <util/delay.h>
 
 		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/BoardSupport.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Misc/RingBuffer.h>
 		#include <LUFA/Drivers/USB/USB.h>
@@ -65,6 +66,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void LineStates_ErrorFlags(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
