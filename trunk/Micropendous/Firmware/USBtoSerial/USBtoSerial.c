@@ -12,7 +12,7 @@
   Modified for flow control capability by Opendous Inc. 2011-11-14
   www.Micropendous.org/USBtoSerial
 
-  http://www.beyondlogic.org/serial  is a useful introduction to serial/RS-232
+  http://www.beyondlogic.org/serial/serial.htm  is a useful introduction to serial/RS-232
   
   Careful consideration was taken to make sure that all signals
   would work with both the Micropendous and Arduino Leonardo boards.
