@@ -48,5 +48,5 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-OT
 {{{
 MCU = at90usb1287
 F_CPU = 16000000
-BOARD = MICROPENDOUS
+BOARD = MICROPENDOUS_REV1
 }}}
