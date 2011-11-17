@@ -49,5 +49,9 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
 {{{
 MCU = at90usb1287
 F_CPU = 16000000
-BOARD = MICROPENDOUS
+BOARD = MICROPENDOUS_REV2
 }}}
+
+== Power_Rails ==
+
+The 5V regulator is a [http://www.micrel.com/page.do?page=/product-info/products/mic39100.shtml MIC39100] capable of generating 1A at 5V from a 6V wall-wart such as the [http://search.digikey.com/us/en/products/KTPS24-06035MP/62-1114-ND Volgen KTPS24-06035MP] or [http://search.digikey.com/us/en/products/EMSA060300-P5P-SZ/T1089-P5P-ND CUI EMSA060300-P5P-SZ].  The USB-B connector bulk is used for heat dissipation as well as a significantly sized GND fill underneath the IC.  Refer to the [http://www.micrel.com/_PDF/mic39100.pdf datasheet] to derate output current at higher input voltages or higher operation temperatures.
