@@ -68,7 +68,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/M
 
 == Modifying the board for 3.3V IO ==
 
-Use a [http://en.wikipedia.org/wiki/Rotary_tool rotary tool] with an [http://www.dremel.com/en-us/Accessories/Pages/ProductDetail.aspx?pid=107 engraving cutter] to remove the PCB trace linking VBUS to VCC on the underside of the board.  Then solder a [http://search.digikey.com/us/en/products/XC6222B331MR-G/893-1143-1-ND XC6222 SOT-235] or similar 3.3V voltage regulator into the unpopulated footprint.  For a list of compatible regulators refer to the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_BillOfMaterials.txt Bill of Materials].
+Use a [http://en.wikipedia.org/wiki/Rotary_tool rotary tool] with an [http://www.dremel.com/en-us/Accessories/Pages/ProductDetail.aspx?pid=107 engraving cutter] to remove the PCB trace jumper (*JP1*) linking VBUS to VCC on the underside of the board.  Then solder a [http://search.digikey.com/us/en/products/XC6222B331MR-G/893-1143-1-ND XC6222 SOT-235] or similar 3.3V voltage regulator into the unpopulated footprint.  For a list of compatible regulators refer to the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_BillOfMaterials.txt Bill of Materials].
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_3.3V_Conversion.jpg
 
