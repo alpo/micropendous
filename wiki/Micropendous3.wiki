@@ -2,7 +2,9 @@
 
 Micropendous3 is an Open Hardware Development Board for Atmel's 64-pin USB AVR Microcontrollers such as the [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB646 AT90USB646], [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB647 AT90USB647], [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1286 AT90USB1286], or [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287].
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous3/ directory].
+The Micropendous3 is pin and function-compatible with the [Micropendous-A MicropendousA] which is an improved version.
+
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous3` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous3/ directory].
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3.jpg
 
