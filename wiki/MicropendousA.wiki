@@ -72,7 +72,7 @@ Use a [http://en.wikipedia.org/wiki/Rotary_tool rotary tool] with an [http://www
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_3.3V_Conversion.jpg
 
-The board can now be powered over USB or the VBUS pin (5V) and the I/O voltage will be 3.3V.  Up to 200mA is available at 3.3V from the VCC pin.
+The board can now be powered over USB or the VBUS pin (5V) and the I/O voltage will be 3.3V.  Up to about 200mA is available at 3.3V from the VCC pin.  Refer to Pg.22 of the [ http://www.torex.co.jp/english/products/pro02/pdf021/61-XC6222.pdf XC6222 Datasheet] for temperature derating curves.  The regulator is mounted on approximately 800sq.mm of 1oz copper.
 
 If you decide to go back to 5V operation you will need to [http://search.digikey.com/us/en/products/SMD1NL/SMD1NL-ND desolder] the 3.3V regulator and install a [http://search.digikey.com/us/en/products/951102-8622-AR/3M9321-ND 2-pin 2mm header] and [http://search.digikey.com/us/en/products/SPN02SYBN-RC/S3404-ND 2mm jumper].
 
