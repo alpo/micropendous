@@ -18,26 +18,19 @@ Compile and load USBtoSerial firmware onto your USB AVR by following the [Progra
 
 Connections to other devices are as follows:
 
-|| *Micropendous* || *UART* ||
-|| *0* - PD2 _(RXD1)_   || RXD ||
-|| *1* - PD3 _(TXD1)_   || TXD ||
+|| *Micropendous*      || *UART* ||
+|| *0* - PD2 _(RXD1)_  || RXD ||
+|| *1* - PD3 _(TXD1)_  || TXD ||
 || *2* - PD4 _(CTS)_   || CTS ||
 || *4* - PD1 _(RTS)_   || RTS ||
 || *3* - PD5 _(DSR)_   || DSR ||
 || *5* - PD0 _(DTR)_   || DTR ||
 || *6* - PD6 _(DCD)_   || DCD ||
-|| GND            || GND ||
-       0 - RXD (IN)    - PD2           - PD2
-        1 - TXD (OUT)   - PD3           - PD3
-        2 - nCTS (IN)   - PD4(ICP1)     - PD1
-        3 - nDSR (IN)   - PD5           - PD0
-        4 - nRTS (OUT)  - PD1           - PD4
-        5 - nDTR (OUT)  - PD0           - PC6
-        6 - nDCD (IN)   - PD6           - PD7
+|| GND                 || GND ||
+
 == Testing ==
 
-Create a [http://en.wikipedia.org/wiki/Null_modem Null Modem] loopback by connecting *0*PD2_(RXD1)_=*1*PD3 _(TXD1)_, *2*PD4_(CTS)_=*4*PD1_(RTS)_, and 
-*3*PD5_(DSR)_=*5*PD0_(DTR)_=*6*PD6_(DCD)_.  For the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ LUFA] 3-pin UART you only need to connect PD2_(RXD1)_=PD3 _(TXD1)_.
+Create a [http://en.wikipedia.org/wiki/Null_modem Null Modem] loopback by connecting *0*/PD2_(RXD1)_=*1*/PD3 _(TXD1)_, *2*/PD4_(CTS)_=*4*/PD1_(RTS)_, and *3*/PD5_(DSR)_=*5*/PD0_(DTR)_=*6*/PD6_(DCD)_.  For the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ LUFA] 3-pin UART you only need to connect *0*/PD2_(RXD1)_=*1*/PD3 _(TXD1)_.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBtoSerial/USBtoSerial_NullModem_with_Loopback.jpg
 
