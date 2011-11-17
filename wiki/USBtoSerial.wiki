@@ -14,7 +14,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and load !USBtoSerial firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load ~USBtoSerial firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 Connections to other devices are as follows:
 
