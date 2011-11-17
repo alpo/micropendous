@@ -1,12 +1,12 @@
 #summary Open Hardware Development Board for Atmel's AT90USB1287 USB AVR
 
-*This Wiki page is in the process of being updated.*
-
 Micropendous-A is an Open Hardware Development Board for Atmel's 64-pin [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] USB AVR Microcontroller.
 
 It is available for purchase from [http://www.Micropendous.com www.Micropendous.com]
 
-The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in ~~the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via~~ [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-A` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous-A/ directory].
+The Micropendous-A is pin and function-compatible with the [Micropendous3].
+
+The relevant [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCAD] design files can be found in [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Design/Micropendous-A` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Design/Micropendous-A/ directory].
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/Micropendous-A_USB_Plug_Connector_Picture-Top-Small.jpg
 
