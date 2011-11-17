@@ -19,8 +19,8 @@ Compile and load MassStorageHost firmware onto your USB AVR by following the [Pr
 Plug in a 2 gigabyte or smaller USB Flash drive (the demo won't work with larger flash drives).  To view debug messages, connect a USBtoSerial [http://code.google.com/p/micropendous/wiki/USBtoSerial USBtoSerial] device as follows:
 
 || *Micropendous*     || *UART Terminal* ||
-|| *0* / PD2 _(RX)_   || TXD ||
-|| *1* / PD3 _(TX)_   || RXD ||
+|| *0* / PD2 _(RX)_   || TXD (PD3 on [http://code.google.com/p/micropendous/wiki/MicropendousA Micropendous-A]) ||
+|| *1* / PD3 _(TX)_   || RXD (PD2 on [http://code.google.com/p/micropendous/wiki/MicropendousA Micropendous-A]) ||
 || GND                || GND ||
 
 If using the Micropendous version of [USBtoSerial] with flow control you will also need to add Null Modem connections (yellow and green wires below): PD1(RTS)=PD4(CTS), and PD0(DTR)=PD5(DSR)=PD6(DCD).
