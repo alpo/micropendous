@@ -24,8 +24,8 @@ Plug in a 2 gigabyte or smaller USB Flash drive (the demo won't work with larger
 || GND            || GND ||
 
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_Rev1_with_UART_Debug.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_with_UART_Debug.jpg
 
 With a serial terminal you will see the following debug messages.
 
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_with_UART_Debug.jpg
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-PuTTY_Debug_Session.jpg
