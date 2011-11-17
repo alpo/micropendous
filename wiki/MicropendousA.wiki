@@ -50,20 +50,7 @@ MCU = at90usb1287
 BOARD  = USER
 F_CPU = 16000000
 }}}
- * you can enable pins PF4,5,6,7 by disabling JTAG via software. Place the following code near the top of your `main()`:
-{{{
-    /* disable JTAG to allow corresponding pins to be used */
-    #if ((defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
-            defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
-            defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
-            defined(__AVR_ATmega32U6__)))
-        // note the JTD bit must be written twice within 4 clock cycles to disable JTAG
-        // you must also set the IVSEL bit at the same time, which requires IVCE to be set first
-        // port pull-up resistors are enabled - PUD(Pull Up Disable) = 0
-        MCUCR = (1 << JTD) | (1 << IVCE) | (0 << PUD);
-        MCUCR = (1 << JTD) | (0 << IVSEL) | (0 << IVCE) | (0 << PUD);
-    #endif
-}}}
+ * you can enable pins PF4,5,6,7 by disabling JTAG via software. Place `JTAG_DISABLE();` near the top of your `main()` function.
 
 == Power Supply Design ==
 
@@ -93,7 +80,7 @@ The board needs to be powered externally with a regulated 5V power supply throug
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous3/Micropendous3_BluetoothHosting.jpg
 
-A [http://search.digikey.com/us/en/products/A-USB-4-R/AE1474-ND USB A-A Adapter] is needed if your Micropendous-A has a USB-A Plug connector.
+An USB A-A Adapter [http://search.digikey.com/us/en/products/A-USB-4-R/AE1474-ND such as this] is needed if your Micropendous-A has a USB-A Plug connector.
 
 == Removing your Micropendous-A from a Breadboard ==
 
