@@ -30,7 +30,7 @@ Connections to other devices are as follows:
 
 == Testing ==
 
-Create a [http://en.wikipedia.org/wiki/Null_modem Null Modem] loopback by connecting *0*/PD2_(RXD1)_=*1*/PD3 _(TXD1)_, *2*/PD4_(CTS)_=*4*/PD1_(RTS)_, and *3*/PD5_(DSR)_=*5*/PD0_(DTR)_=*6*/PD6_(DCD)_.  For the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ LUFA] 3-pin UART you only need to connect *0*/PD2_(RXD1)_=*1*/PD3 _(TXD1)_.
+Create a [http://en.wikipedia.org/wiki/Null_modem Null Modem] loopback by connecting *0*/PD2_(RXD1)_=*1*/PD3_(TXD1)_, *2*/PD4_(CTS)_=*4*/PD1_(RTS)_, and *3*/PD5_(DSR)_=*5*/PD0_(DTR)_=*6*/PD6_(DCD)_.  For the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/USBtoSerial/ LUFA] 3-pin UART you only need to connect *0*/PD2_(RXD1)_=*1*/PD3 _(TXD1)_.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBtoSerial/USBtoSerial_NullModem_with_Loopback.jpg
 
