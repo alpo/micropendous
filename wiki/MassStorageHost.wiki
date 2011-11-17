@@ -26,6 +26,6 @@ Plug in a 2 gigabyte or smaller USB Flash drive (the demo won't work with larger
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_with_UART_Debug.jpg
 
-With a serial terminal you will see the following debug messages.
+With a Serial Terminal connected (9600 baud) you will see the following debug messages.  Refer to the [http://code.google.com/p/micropendous/wiki/Serial Serial] instructions for more information on setting up a Serial Terminal.
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-PuTTY_Debug_Session.jpg
