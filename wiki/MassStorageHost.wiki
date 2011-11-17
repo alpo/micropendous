@@ -23,9 +23,7 @@ Plug in a 2 gigabyte or smaller USB Flash drive (the demo won't work with larger
 || *1* / PD3 _(TX)_   || RXD ||
 || GND                || GND ||
 
-If using the Micropendous version of [USBtoSerial] with flow control you will also need to add Null Modem connections (yellow and green wires below): (*4*)/PD1(RTS)=(*2*)/PD4(CTS), and (*5*)/PD0(DTR)=(*3*)/PD5(DSR)=(*6*)/PD6(DCD).
-
-http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/USBtoSerial/USBtoSerial_NullModem_with_Loopback.jpg
+If using the Micropendous version of [USBtoSerial] with flow control you will also need to add Null Modem connections (yellow and green wires below): PD1(RTS)=PD4(CTS), and PD0(DTR)=PD5(DSR)=PD6(DCD).
 
 http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_with_UART_Debug.jpg
 
