@@ -25,7 +25,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/
   * optional [http://www.Micropendous.org/SRAM 128kbytes External SRAM]
   * USB or externally powered and can be [http://code.google.com/p/micropendous/wiki/MicropendousA#Modifying_the_board_for_3.3V_IO modified for 3.3V IO]
   * 16MHz crystal
-  * 48 General Purpose IO Pins operating at 5V (up to 47 with External SRAM)
+  * 48 General Purpose IO Pins operating at 5V (up to 47 with [http://www.Micropendous.org/SRAM External SRAM])
   * RESET and HWB buttons to enable firmware loading over USB (no external programmer required)
   * HWB can be used as a user button
   * USB-A Plug or Receptacle
