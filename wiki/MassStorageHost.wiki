@@ -1,0 +1,31 @@
+#summary Mass Storage USB Device Host
+
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBtoSerial` directory.
+
+*Purpose:* Host [http://en.wikipedia.org/wiki/USB_flash_drive USB Flash drives].  This demo is slightly modified from the LUFA version.  Only minor alterations were needed to the [http://code.google.com/p/micropendous/source/diff?spec=svn758&r=758&format=side&path=/trunk/Micropendous/Firmware/MassStorageHost/makefile makefile], [http://code.google.com/p/micropendous/source/diff?spec=svn758&r=758&format=side&path=/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost.c MassStorageHost.c], and [http://code.google.com/p/micropendous/source/diff?spec=svn758&r=758&format=side&path=/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost.h MassStorageHost.h] for compatibility with Micropendous boards.
+
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/MassStorageHost/  View] or [http://www.Micropendous.org/Distribution Download]
+
+*Targets*: AT90USB1287 or AT90USB647 based hardware with hosting capability.
+
+*USB Mode:* Host-mode
+
+*Status*: _Working_
+
+== Usage ==
+
+Compile and load MassStorageHost firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
+Plug in a 2 gigabyte or smaller USB Flash drive (the demo won't work with larger flash drives).  To view debug messages, connect a USBtoSerial [http://code.google.com/p/micropendous/wiki/USBtoSerial USBtoSerial] device as follows:
+
+|| *Micropendous* || *UART Terminal* ||
+|| PD2 _(RX)_   || TXD ||
+|| PD3 _(TX)_   || RXD ||
+|| GND            || GND ||
+
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_Rev1_with_UART_Debug.jpg
+
+With a serial terminal you will see the following debug messages.
+
+http://micropendous.googlecode.com/svn/trunk/Micropendous/Firmware/MassStorageHost/MassStorageHost-Micropendous_with_UART_Debug.jpg
