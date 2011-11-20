@@ -1,6 +1,6 @@
 #summary LUFA Android Accessory Host
 
-*Current Status*: LUFA to Nexus-S communication works.
+*Current Status*: Nexus-S to LUFA communication works.
 
 The following shows a [Micropendous] programmed with [http://www.LUFA-lib.org LUFA]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/ AndroidAccessoryHost] firmware communicating with a [http://www.google.com/phone/detail/nexus-s Nexus-S] phone running [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/USBTest/ USBTest] software while debug messages are sent to a PC through a [MicropendousA] running [USBtoSerial] firmware.  Note the [Micropendous] board needs to be powered with a high power (6V 1A+) wall adapter to meet the charging requirements of the connected Android device.  The pictured adapter is a [http://search.digikey.com/us/en/products/KTPS24-06035MP/62-1114-ND Volgen KTPS24-06035MP] and works well.  The [Micropendous] board was designed with the [http://search.digikey.com/us/en/products/EMSA060300-P5P-SZ/T1089-P5P-ND CUI EMSA060300-P5P-SZ] in mind but other 6V 1A+ 2.1mm center-positive DC power supplies should work as well.  Although the [Micropendous] can accept DC power from 5.5V to 12V, voltages above 7V will cause overheating 
 
