@@ -89,7 +89,6 @@ void SetupHardware(void)
 	Board_Init(); // initialize LEDs and Buttons and any other peripherals
 	DISABLE_VOLTAGE_TXRX;
 	DISABLE_EXT_SRAM;
-	SELECT_USB_A;
 	USB_Init();
 	SELECT_USB_A; // The Hosted USB FLASH Drive is connected via the USB-A connector
 

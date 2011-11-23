@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb1287
+MCU = atmega32u4
 
 
 # Target architecture (see library "Board Types" documentation).
@@ -70,7 +70,7 @@ ARCH = AVR8
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called
 # "Board" inside the application directory.
-BOARD = NONE
+BOARD = USBKEY
 
 
 # Processor frequency.
@@ -84,7 +84,7 @@ BOARD = NONE
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 16000000
+F_CPU = 8000000
 
 
 # Input clock frequency.
@@ -106,7 +106,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = AVRISP-MKII
+TARGET = VirtualSerial
 
 
 # Object files directory
@@ -116,35 +116,15 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../..
+LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options and predefined tokens
 LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
-LUFA_OPTS += -D ORDERED_EP_CONFIG
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=16
+LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-LUFA_OPTS += -D NO_INTERNAL_SERIAL
-LUFA_OPTS += -D NO_DEVICE_REMOTE_WAKEUP
-LUFA_OPTS += -D NO_DEVICE_SELF_POWER
-
-LUFA_OPTS += -D AUX_LINE_PORT=PORTB
-LUFA_OPTS += -D AUX_LINE_PIN=PINB
-LUFA_OPTS += -D AUX_LINE_DDR=DDRB
-LUFA_OPTS += -D AUX_LINE_MASK="(1 << 4)"
-LUFA_OPTS += -D ENABLE_ISP_PROTOCOL
-LUFA_OPTS += -D ENABLE_XPROG_PROTOCOL
-LUFA_OPTS += -D VTARGET_ADC_CHANNEL=2
-LUFA_OPTS += -D VTARGET_REF_VOLTS=5
-LUFA_OPTS += -D VTARGET_SCALE_FACTOR=1
-#LUFA_OPTS += -D VTARGET_USE_INTERNAL_REF
-#LUFA_OPTS += -D NO_VTARGET_DETECT
-#LUFA_OPTS += -D LIBUSB_DRIVER_COMPAT
-#LUFA_OPTS += -D XCK_RESCUE_CLOCK_ENABLE
-#LUFA_OPTS += -D INVERTED_ISP_MISO
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
@@ -154,15 +134,8 @@ include $(LUFA_PATH)/LUFA/makefile
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
-	  Lib/V2Protocol.c                                            \
-	  Lib/V2ProtocolParams.c                                      \
-	  Lib/ISP/ISPProtocol.c                                       \
-	  Lib/ISP/ISPTarget.c                                         \
-	  Lib/XPROG/XPROGProtocol.c                                   \
-	  Lib/XPROG/XPROGTarget.c                                     \
-	  Lib/XPROG/XMEGANVM.c                                        \
-	  Lib/XPROG/TINYNVM.c                                         \
-	  $(LUFA_SRC_USB)
+	  $(LUFA_SRC_USB)                                             \
+	  $(LUFA_SRC_USBCLASS)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -247,7 +220,6 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
-CFLAGS += -fno-split-wide-types
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 #CFLAGS += -mshort-calls
