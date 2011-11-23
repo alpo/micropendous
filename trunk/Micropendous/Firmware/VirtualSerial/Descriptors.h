@@ -55,6 +55,7 @@
 		#define CDC_NOTIFICATION_EPSIZE        8
 
 		/** Size in bytes of the CDC data IN and OUT endpoints. */
+		// 32 is maximum size compatible with all USB AVRs
 		#define CDC_TXRX_EPSIZE                16
 
 	/* Type Defines: */

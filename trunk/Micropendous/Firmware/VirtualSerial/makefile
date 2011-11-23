@@ -30,61 +30,96 @@
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
 # make program = Download the hex file to the device, using avrdude.
-#                Please customize the avrdude settings below first!
+#        Assumes the target is connected through an AVR ISP mkII programmer
+#
+# make cdc = Download the hex file to the device, using avrdude.
+#        Assumes the target device is running the LUFA CDC Bootloader
+#        Make sure to set the CDC_BOOTLOADER_PORT variable
 #
 # make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
+#        have dfu-programmer installed).
 #
 # make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
+#        have Atmel FLIP installed).
 #
 # make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
+#        (must have dfu-programmer installed).
 #
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
+#        (must have Atmel FLIP installed).
 #
 # make doxygen = Generate DoxyGen documentation for the project (must have
-#                DoxyGen installed)
+#        DoxyGen installed)
 #
 # make debug = Start either simulavr or avarice as specified for debugging,
-#              with avr-gdb or avr-insight as the front end for debugging.
+#        with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
 #
 # make filename.i = Create a preprocessed source file for use in submitting
-#                   bug reports to the GCC project.
+#        bug reports to the GCC project.
 #
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
 
-# MCU name
-MCU = atmega32u4
+# MCU name - uncomment _ONE_ of the following
+#MCU = at90usb82
+#MCU = at90usb162
+#MCU = atmega16u2
+#MCU = atmega32u2
+#MCU = atmega32u4
+#MCU = at90usb646
+#MCU = at90usb647
+#MCU = at90usb1286
+MCU = at90usb1287
 
 
 # Target architecture (see library "Board Types" documentation).
 ARCH = AVR8
 
 
-# Target board (see library "Board Types" documentation, NONE for projects not requiring
-# LUFA board drivers). If USER is selected, put custom board drivers in a directory called
-# "Board" inside the application directory.
-BOARD = USBKEY
+# Target board:
+#  - USER for custom board drivers in LUFA/LUFA/Drivers/Board/Board/*
+#  - NONE for projects not requiring LUFA board drivers such as boards
+#      with no LEDs and just an HWB button such as: Micropendous1, Micropendous2,
+#      Micropendous3 or Micropendous4 without external SRAM
+#  - MICROPENDOUS_32U2 for Micropendous-32U2 which has 1 user LED on PD6
+#      http://www.Micropendous.org/Micropendous-32U2
+#  - MICROPENDOUS_A for Micropendous-A, Micropendous3, or Micropendous3 boards with external SRAM
+#      where PE6 is the external SRAM Chip Enable Pin and PE7 is Address Bit 17/Bank Selector Pin
+#      http://www.Micropendous.org/Micropendous-A
+#  - MICROPENDOUS_REV1 for the Micropendous Arduino-like board with the
+#      CY7C1019D external SRAM IC or its DIP variant:
+#      http://www.Micropendous.org/Micropendous-REV1
+#      http://www.Micropendous.org/Micropendous-DIP
+#  - MICROPENDOUS_REV2 for the Micropendous Arduino-like board with the
+#      IS61C1024AL external SRAM IC:
+#      http://www.Micropendous.org/Micropendous
+# Typical values are:
+#         BOARD = NONE
+#         BOARD = USER
+#         BOARD = MICROPENDOUS_A
+#         BOARD = MICROPENDOUS_32U2
+#         BOARD = MICROPENDOUS_REV1
+#         BOARD = MICROPENDOUS_REV2
+BOARD = MICROPENDOUS_REV2
+
+
+# Enable External SRAM: Defining to YES will enable external SRAM use
+# via the linker.  For more info visit www.Micropendous.org/SRAM
+ENABLE_EXTERNAL_SRAM = NO
 
 
 # Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     crystal frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-F_CPU = 8000000
+#     USB AVR possible values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
+F_CPU = 16000000
 
 
 # Input clock frequency.
@@ -99,6 +134,13 @@ F_CPU = 8000000
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
+
+
+# When using the LUFA CDC AVR109-compatible bootloader, you need to set this
+# to the port under which your device enumerated.  Under Windows it will be
+# something like COM5 (Start->Control Panel->System->Hardware->Device Manager->Ports (COM and LPT))
+# Under Linux it will be something like /dev/ttyACM0 which you can find with dmesg
+CDC_BOOTLOADER_PORT = COM5
 
 
 # Output format. (can be srec, ihex, binary)
@@ -116,15 +158,24 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../../..
+LUFA_PATH = ../../libs/LUFA
+AVRLIB_PATH = ../../libs/avrlib
+ARDUINO_PATH = ../../libs/Arduino1
 
 
 # LUFA library compile-time options and predefined tokens
 LUFA_OPTS  = -D USB_DEVICE_ONLY
+LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
+LUFA_OPTS += -D ORDERED_EP_CONFIG
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS += -D INTERRUPT_CONTROL_ENDPOINT
+# All Micropendous boards except Rev.2 require manual VBUS management to select USB connector appropriately or have control of PE7
+ifneq ($(BOARD),MICROPENDOUS_REV2)
+	LUFA_OPTS += -D NO_AUTO_VBUS_MANAGEMENT
+endif
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
@@ -132,9 +183,9 @@ include $(LUFA_PATH)/LUFA/makefile
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  $(LUFA_SRC_USB)                                             \
+SRC = $(TARGET).c \
+	  Descriptors.c \
+	  $(LUFA_SRC_USB) \
 	  $(LUFA_SRC_USBCLASS)
 
 
@@ -150,6 +201,28 @@ CPPSRC =
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
 ASRC =
+
+
+#---------------- External Memory Options ----------------
+EXTMEMOPTS = 
+
+#   for the AT90USB1287 with its 8KB of SRAM, external addresses start at 0x20FF
+#   0xFFFF(65535) - 0x2100(8448) = 0xDEFF(57087) --> 58KB of available external SRAM
+#   SAFEST OPTION:
+#EXTMEMOPTS +=-Wl,--defsym=__stack=0x802000,--section-start,.data=0x802100,--defsym=__heap_start=0x80DFFF,--defsym=__heap_end=0x80FFFF
+
+ifeq ($(ENABLE_EXTERNAL_SRAM), YES)
+	# The following will leave the stack in internal memory, place .data+.bss in external memory, and
+	# leave the final (0x80FFFF-0x80DFFF)=0x2000= 8192 bytes for the heap (which malloc() will use)
+	# Alter __heap_start to leave more space for the heap
+	EXTMEMOPTS +=-Wl,--defsym=__stack=0x8020FC,--section-start,.data=0x802100,--defsym=__heap_start=0x80DFFF,--defsym=__heap_end=0x80FFFF
+
+	# the following would place .data+.bss and the stack in internal SRAM and only the heap in external SRAM using an AT90USB1287:
+	#EXTMEMOPTS +=-Wl,--defsym=__stack=0x8020FC,--section-start,.data=0x800100,--defsym=__heap_start=0x802100,--defsym=__heap_end=0x80FFFF
+
+	# the following would place .data+.bss such that it overlaps internal and external SRAM with the first 1024 bytes in internal SRAM:
+	#EXTMEMOPTS +=-Wl,--defsym=__stack=0x801C00,--section-start,.data=0x801D00,--defsym=__heap_start=0x80DFFF,--defsym=__heap_end=0x80FFFF
+endif
 
 
 # Optimization level, can be [0, 1, 2, 3, s].
@@ -169,7 +242,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS  = $(LUFA_PATH)/ $(AVRLIB_PATH)/ $(ARDUINO_PATH)/
 
 
 # Compiler flag to set the C Standard level.
@@ -307,20 +380,6 @@ EXTRALIBDIRS =
 
 
 
-#---------------- External Memory Options ----------------
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# used for variables (.data/.bss) and heap (malloc()).
-#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# only used for heap (malloc()).
-#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
-
-EXTMEMOPTS =
-
-
-
 #---------------- Linker Options ----------------
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
@@ -341,7 +400,7 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = jtagmkII
+AVRDUDE_PROGRAMMER = avrispmkII
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = usb
@@ -362,7 +421,7 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 # Increase verbosity level.  Please use this when submitting bug
 # reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude>
 # to submit bug reports.
-#AVRDUDE_VERBOSE = -v -v
+AVRDUDE_VERBOSE = -v -v
 
 AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
@@ -517,6 +576,9 @@ gccversion :
 # Program the device.
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+
+cdc: $(TARGET).hex
+	$(AVRDUDE) $(AVRDUDE_VERBOSE) -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
