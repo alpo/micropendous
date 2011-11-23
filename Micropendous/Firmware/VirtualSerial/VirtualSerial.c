@@ -9,6 +9,9 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
+  Updated for Loopback by Opendous Inc. 2011-11-22
+  www.Micropendous.org/VirtualSerial
+
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -35,6 +38,9 @@
  */
 
 #include "VirtualSerial.h"
+
+// Global buffer for use with STDIO functions
+volatile char buffer[CDC_TXRX_EPSIZE];
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -81,15 +87,17 @@ int main(void)
 
 	for (;;)
 	{
-		CheckJoystickMovement();
+		MainTask();
 
-		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
-		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+		// Must throw away unused bytes from the host, or it will lock up while waiting for the device
+		// TODO: this causes loopback to fail
+		//CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
 }
+
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
@@ -98,51 +106,20 @@ void SetupHardware(void)
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
+	// TODO: disabling JTAG allows PF4, PF5, PF6, and PF7 to be used as GPIO pins
+	JTAG_DISABLE();
+
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	Joystick_Init();
-	LEDs_Init();
+	Board_Init();
+	DISABLE_VOLTAGE_TXRX;
+	DISABLE_EXT_SRAM;
+	SELECT_USB_B;
 	USB_Init();
 }
 
-#define BUTTONS_BUTTON1      (1 << 2)
-
-/** Checks for changes in the position of the board joystick, sending strings to the host upon each change. */
-void CheckJoystickMovement(void)
-{
-	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
-	char*       ReportString  = NULL;
-	static bool ActionSent    = false;
-
-	if (JoyStatus_LCL & JOY_UP)
-	  ReportString = "Joystick Up\r\n";
-	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportString = "Joystick Down\r\n";
-	else if (JoyStatus_LCL & JOY_LEFT)
-	  ReportString = "Joystick Left\r\n";
-	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportString = "Joystick Right\r\n";
-	else if (JoyStatus_LCL & JOY_PRESS)
-	  ReportString = "Joystick Pressed\r\n";
-	else
-	  ActionSent = false;
-
-	if (((PINE & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1))
-	{
-		DDRE  &= ~BUTTONS_BUTTON1;
-		PORTE |=  BUTTONS_BUTTON1;
-		
-		ActionSent = true;
-		ReportString = "Joystick Pressed\r\n";
-		/* Write the string to the virtual COM port via the created character stream */
-		fputs(ReportString, &USBSerialStream);
-
-		/* Alternatively, without the stream: */
-		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
-	}
-}
 
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
@@ -172,3 +149,24 @@ void EVENT_USB_Device_ControlRequest(void)
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
 
+
+
+void MainTask(void)
+{
+	int count = 0;
+
+	// If the host has sent data then echo it back
+	// Throughput is maximized if the full EP buffer is read and sent each time
+	// Throughput approaches CDC_TXRX_EPSIZE kbytes/second and depends on transfer size from host 
+	if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
+		fwrite(&buffer, 1, count, &USBSerialStream);
+	}
+
+
+	// If HWB Button is pressed then send formatted strings
+	if (Buttons_GetStatus()) {
+		fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n")); // send a constant string stored in FLASH
+		fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND); // send a string that is dynamic and stored in SRAM
+	}
+
+}
