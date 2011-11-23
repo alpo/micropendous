@@ -98,10 +98,8 @@ void AndroidHost_Task(void)
 	Pipe_Unfreeze();
 
 	if (!Sent_EP_Addresses) {
-		puts_P(PSTR(ESC_FG_YELLOW "Forcing Addresses 0x85 and 0x07 as parsed addresses are wrong:\r\n" ESC_FG_WHITE));
-		printf_P(PSTR(ESC_FG_YELLOW "Parsed EP IN Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)ADK_IN_EP_Address);
+		printf_P(PSTR(ESC_FG_YELLOW "\r\nParsed EP IN Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)ADK_IN_EP_Address);
 		printf_P(PSTR(ESC_FG_YELLOW "Parsed EP OUT Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)ADK_OUT_EP_Address);
-		printf_P(PSTR(ESC_FG_YELLOW "Bound EP IN Address = 0x%02X\r\n" ESC_FG_WHITE), (uint8_t)Pipe_GetBoundEndpointAddress());
 		Sent_EP_Addresses = 1;
 	}
 

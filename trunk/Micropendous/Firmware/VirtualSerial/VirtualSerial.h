@@ -30,28 +30,26 @@
 
 /** \file
  *
- *  Header file for AndroidAccessoryHost.c.
+ *  Header file for VirtualSerial.c.
  */
 
-#ifndef _ANDROID_ACCESSORY_HOST_H_
-#define _ANDROID_ACCESSORY_HOST_H_
+#ifndef _VIRTUALSERIAL_H_
+#define _VIRTUALSERIAL_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
-		#include <avr/pgmspace.h>
+		#include <avr/power.h>
 		#include <avr/interrupt.h>
+		#include <string.h>
 		#include <stdio.h>
 
-		#include "DeviceDescriptor.h"
-		#include "ConfigDescriptor.h"
-		#include "Lib/AndroidAccessoryCommands.h" 
+		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -66,20 +64,14 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
-		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
-		#define LEDMASK_USB_BUSY          LEDS_LED2
-
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void AndroidHost_Task(void);
+		void CheckJoystickMovement(void);
 
-	/* Event Handlers: */
-		void EVENT_USB_Host_DeviceAttached(void);
-		void EVENT_USB_Host_DeviceUnattached(void);
-		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
-		                                            const uint8_t SubErrorCode);
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_ControlRequest(void);
 
 #endif
 
