@@ -49,18 +49,18 @@
  *
  *  Usage Example:
  *  \code
- *		#include <LUFA/Platform/XMEGA/ClockManagement.h>
- *
- *		void main(void)
- *		{
- *			// Start the internal 32MHz RC oscillator and switch the CPU core to run from it
- *			XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
- *			XMEGACLK_SetCPUClockSource(CLOCK_SRC_INT_RC32MHZ, F_CPU);
- *
- *			// Start the external oscillator and multiply up the frequency
- *			XMEGACLK_StartExternalOscillator(EXOSC_FREQ_9MHZ_MAX, EXOSC_START_1KCLK);
- *			XMEGACLK_StartPLL(CLOCK_SRC_XOSC, 8000000, F_USB);
- *		}
+ *   	#include <LUFA/Platform/XMEGA/ClockManagement.h>
+ *   	
+ *   	void main(void)
+ *   	{
+ *   		// Start the PLL to multiply the 2MHz RC oscillator to 32MHz and switch the CPU core to run from it
+ *   		XMEGACLK_StartPLL(CLOCK_SRC_INT_RC2MHZ, 2000000, 32000000);
+ *   		XMEGACLK_SetCPUClockSource(CLOCK_SRC_PLL, F_CPU);
+ *   	
+ *   		// Start the 32MHz internal RC oscillator and start the DFLL to increase it to 48MHz using the USB SOF as a reference
+ *   		XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
+ *   		XMEGACLK_StartDFLL(CLOCK_SRC_INT_RC32MHZ, DFLL_REF_INT_USBSOF, 48000000);
+ *   	}
  *  \endcode
  *
  *  @{
@@ -263,31 +263,29 @@
 			                                      const uint8_t Reference,
 			                                      const uint32_t Frequency)
 			{
-				uint16_t DFLLCompare = (Frequency / 1024);
-				uint16_t DFFLCal     = 0;
-
-				if (Reference == DFLL_REF_INT_USBSOF)
-				{
-					NVM.CMD = NVM_CMD_READ_CALIB_ROW_gc;
-					DFFLCal = ((0x00 << 8) | pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC)));
-				}
+				uint16_t DFLLCompare = (Frequency / 1000);
 				
 				switch (Source)
 				{
 					case CLOCK_SRC_INT_RC2MHZ:
-						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
-						DFLLRC2M.COMP1  = (DFLLCompare >> 8);
-						DFLLRC2M.COMP2  = (DFLLCompare & 0xFF);
-						DFLLRC2M.CALA   = (DFFLCal >> 8);
-						DFLLRC2M.CALB   = (DFFLCal & 0xFF);
+						OSC.DFLLCTRL   |= (Reference << OSC_RC2MCREF_bp);
+						DFLLRC2M.COMP1  = (DFLLCompare & 0xFF);
+						DFLLRC2M.COMP2  = (DFLLCompare >> 8);
 						DFLLRC2M.CTRL   = DFLL_ENABLE_bm;
 						break;
 					case CLOCK_SRC_INT_RC32MHZ:
 						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
-						DFLLRC32M.COMP1 = (DFLLCompare >> 8);
-						DFLLRC32M.COMP2 = (DFLLCompare & 0xFF);
-						DFLLRC32M.CALA  = (DFFLCal >> 8);
-						DFLLRC32M.CALB  = (DFFLCal & 0xFF);
+						DFLLRC32M.COMP1 = (DFLLCompare & 0xFF);
+						DFLLRC32M.COMP2 = (DFLLCompare >> 8);
+
+						if (Reference == DFLL_REF_INT_USBSOF)
+						{
+							NVM.CMD        = NVM_CMD_READ_CALIB_ROW_gc;
+							DFLLRC32M.CALA = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSCA));
+							DFLLRC32M.CALB = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC));
+							NVM.CMD        = 0;
+						}
+
 						DFLLRC32M.CTRL  = DFLL_ENABLE_bm;
 						break;
 					default:
@@ -361,7 +359,7 @@
 				GlobalInterruptDisable();
 
 				CCP      = CCP_IOREG_gc;
-				CLK.CTRL = ClockSourceMask;
+				CLK_CTRL = ClockSourceMask;
 				
 				SetGlobalInterruptMask(CurrentGlobalInt);
 				

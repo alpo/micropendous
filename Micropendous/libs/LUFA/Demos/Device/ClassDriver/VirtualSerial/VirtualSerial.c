@@ -107,8 +107,6 @@ void SetupHardware(void)
 	USB_Init();
 }
 
-#define BUTTONS_BUTTON1      (1 << 2)
-
 /** Checks for changes in the position of the board joystick, sending strings to the host upon each change. */
 void CheckJoystickMovement(void)
 {
@@ -129,13 +127,10 @@ void CheckJoystickMovement(void)
 	else
 	  ActionSent = false;
 
-	if (((PINE & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1))
+	if ((ReportString != NULL) && (ActionSent == false))
 	{
-		DDRE  &= ~BUTTONS_BUTTON1;
-		PORTE |=  BUTTONS_BUTTON1;
-		
 		ActionSent = true;
-		ReportString = "Joystick Pressed\r\n";
+
 		/* Write the string to the virtual COM port via the created character stream */
 		fputs(ReportString, &USBSerialStream);
 

@@ -6,7 +6,7 @@ with the following modifications:
 Files Added:
 
 * Defines missing from certain versions of avr-gcc
-  ./MissingDefines.h
+  ./LUFA/Common/MissingDefines.h
 
 * Defines related to various Micropendous boards
   ./LUFA/Drivers/Board/AVR8/MICROPENDOUS_A/...
@@ -19,7 +19,7 @@ Files Added:
 Files Changed:
 
 * Include MissingDefines.h with all source
-  ./Version.h
+  ./LUFA/Common/Common.h
 
 * Allow Micropendous-related board defines to be included:
   ./LUFA/Drivers/Board/Buttons.h

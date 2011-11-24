@@ -77,23 +77,8 @@ void USB_Host_ProcessNextHostState(void)
 				USB_Host_VBUS_Manual_Off();
 
 				USB_OTGPAD_On();
-
-				#if defined(NO_AUTO_VBUS_MANAGEMENT)
-					#if (ARCH == ARCH_AVR8)
-						// won't work without first calling the auto functions
-						USB_Host_VBUS_Auto_Enable();
-						USB_Host_VBUS_Auto_On();
-					#endif
-					USB_Host_VBUS_Manual_Enable();
-					USB_Host_VBUS_Manual_Off();
-				#else
-					USB_Host_VBUS_Auto_Enable();
-					USB_Host_VBUS_Auto_On();
-				#endif
-
-				#if defined(INVERTED_VBUS_ENABLE_LINE)
-					USB_Host_VBUS_Manual_On();
-				#endif
+				USB_Host_VBUS_Auto_Enable();
+				USB_Host_VBUS_Auto_On();
 
 				USB_HostState = HOST_STATE_Powered_WaitForConnect;
 			}
@@ -200,11 +185,7 @@ void USB_Host_ProcessNextHostState(void)
 	{
 		EVENT_USB_Host_DeviceEnumerationFailed(ErrorCode, SubErrorCode);
 
-		#if !defined(NO_AUTO_VBUS_MANAGEMENT)
 		USB_Host_VBUS_Auto_Off();
-		#else
-		USB_Host_VBUS_Manual_Off();
-		#endif
 
 		EVENT_USB_Host_DeviceUnattached();
 

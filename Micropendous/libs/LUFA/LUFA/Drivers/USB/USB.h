@@ -87,9 +87,14 @@
  *
  *  <table>
  *  <tr>
- *   <th width="100px">USB Class</th>
+ *   <th width="200px">USB Class</th>
  *   <th width="90px">Device Mode</th>
  *   <th width="90px">Host Mode</th>
+ *  </tr>
+ *  <tr>
+ *   <td>Android Open Accessory</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>Audio</td>
@@ -388,14 +393,15 @@
 			#include "Core/OTG.h"
 		#endif
 		
-		#include "Class/Audio.h"
-		#include "Class/CDC.h"
-		#include "Class/HID.h"
-		#include "Class/MassStorage.h"
-		#include "Class/MIDI.h"
-		#include "Class/Printer.h"
-		#include "Class/RNDIS.h"
-		#include "Class/StillImage.h"
+		#include "Class/AndroidAccessoryClass.h"
+		#include "Class/AudioClass.h"
+		#include "Class/CDCClass.h"
+		#include "Class/HIDClass.h"
+		#include "Class/MassStorageClass.h"
+		#include "Class/MIDIClass.h"
+		#include "Class/PrinterClass.h"
+		#include "Class/RNDISClass.h"
+		#include "Class/StillImageClass.h"
 
 #endif
 
