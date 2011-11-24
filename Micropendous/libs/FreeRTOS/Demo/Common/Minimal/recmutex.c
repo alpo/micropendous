@@ -1,41 +1,41 @@
 /*
-    FreeRTOS V6.1.0 - Copyright (C) 2010 Real Time Engineers Ltd.
+    FreeRTOS V7.0.2 - Copyright (C) 2011 Real Time Engineers Ltd.
+	
 
     ***************************************************************************
-    *                                                                         *
-    * If you are:                                                             *
-    *                                                                         *
-    *    + New to FreeRTOS,                                                   *
-    *    + Wanting to learn FreeRTOS or multitasking in general quickly       *
-    *    + Looking for basic training,                                        *
-    *    + Wanting to improve your FreeRTOS skills and productivity           *
-    *                                                                         *
-    * then take a look at the FreeRTOS books - available as PDF or paperback  *
-    *                                                                         *
-    *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
-    *                  http://www.FreeRTOS.org/Documentation                  *
-    *                                                                         *
-    * A pdf reference manual is also available.  Both are usually delivered   *
-    * to your inbox within 20 minutes to two hours when purchased between 8am *
-    * and 8pm GMT (although please allow up to 24 hours in case of            *
-    * exceptional circumstances).  Thank you for your support!                *
-    *                                                                         *
+     *                                                                       *
+     *    FreeRTOS tutorial books are available in pdf and paperback.        *
+     *    Complete, revised, and edited pdf reference manuals are also       *
+     *    available.                                                         *
+     *                                                                       *
+     *    Purchasing FreeRTOS documentation will not only help you, by       *
+     *    ensuring you get running as quickly as possible and with an        *
+     *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+     *    the FreeRTOS project to continue with its mission of providing     *
+     *    professional grade, cross platform, de facto standard solutions    *
+     *    for microcontrollers - completely free of charge!                  *
+     *                                                                       *
+     *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+     *                                                                       *
+     *    Thank you for using FreeRTOS, and thank you for your support!      *
+     *                                                                       *
     ***************************************************************************
+
 
     This file is part of the FreeRTOS distribution.
 
     FreeRTOS is free software; you can redistribute it and/or modify it under
     the terms of the GNU General Public License (version 2) as published by the
     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
-    ***NOTE*** The exception to the GPL is included to allow you to distribute
-    a combined work that includes FreeRTOS without being obliged to provide the
-    source code for proprietary components outside of the FreeRTOS kernel.
-    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-    more details. You should have received a copy of the GNU General Public 
-    License and the FreeRTOS license exception along with FreeRTOS; if not it 
-    can be viewed here: http://www.freertos.org/a00114.html and also obtained 
+    >>>NOTE<<< The modification to the GPL is included to allow you to
+    distribute a combined work that includes FreeRTOS without being obliged to
+    provide the source code for proprietary components outside of the FreeRTOS
+    kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public
+    License and the FreeRTOS license exception along with FreeRTOS; if not it
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained
     by writing to Richard Barry, contact details for whom are available on the
     FreeRTOS WEB site.
 
@@ -118,7 +118,7 @@ static xSemaphoreHandle xMutex;
 
 /* Variables used to detect and latch errors. */
 static volatile portBASE_TYPE xErrorOccurred = pdFALSE, xControllingIsSuspended = pdFALSE, xBlockingIsSuspended = pdFALSE;
-static volatile unsigned portBASE_TYPE uxControllingCycles = 0, uxBlockingCycles, uxPollingCycles = 0;
+static volatile unsigned portBASE_TYPE uxControllingCycles = 0, uxBlockingCycles = 0, uxPollingCycles = 0;
 
 /* Handles of the two higher priority tasks, required so they can be resumed 
 (unsuspended). */
@@ -160,7 +160,9 @@ unsigned portBASE_TYPE ux;
 	for( ;; )
 	{
 		/* Should not be able to 'give' the mutex, as we have not yet 'taken'
-		it. */
+		it.   The first time through, the mutex will not have been used yet,
+		subsequent times through, at this point the mutex will be held by the
+		polling task. */
 		if( xSemaphoreGiveRecursive( xMutex ) == pdPASS )
 		{
 			xErrorOccurred = pdTRUE;
@@ -169,17 +171,24 @@ unsigned portBASE_TYPE ux;
 		for( ux = 0; ux < recmuMAX_COUNT; ux++ )
 		{
 			/* We should now be able to take the mutex as many times as
-			we like.  A one tick delay is used so the polling task will
-			inherit our priority on all but the first cycle of this task. 
-			If we did not block attempting to receive the mutex then no
-			priority inheritance would occur. */
+			we like.
+			
+			The first time through the mutex will be immediately available, on
+			subsequent times through the mutex will be held by the polling task
+			at this point and this Take will cause the polling task to inherit
+			the priority of this task.  In this case the block time must be
+			long enough to ensure the polling task will execute again before the
+			block time expires.  If the block time does expire then the error
+			flag will be set here. */
 			if( xSemaphoreTakeRecursive( xMutex, recmuTWO_TICK_DELAY ) != pdPASS )
 			{
 				xErrorOccurred = pdTRUE;
 			}
 
 			/* Ensure the other task attempting to access the mutex (and the
-			other demo tasks) are able to execute. */
+			other demo tasks) are able to execute to ensure they either block
+			(where a block time is specified) or return an error (where no 
+			block time is specified) as the mutex is held by this task. */
 			vTaskDelay( recmuSHORT_DELAY );
 		}
 
@@ -191,7 +200,10 @@ unsigned portBASE_TYPE ux;
 			vTaskDelay( recmuSHORT_DELAY );
 
 			/* We should now be able to give the mutex as many times as we
-			took it. */
+			took it.  When the mutex is available again the Blocking task
+			should be unblocked but not run because it has a lower priority
+			than this task.  The polling task should also not run at this point
+			as it too has a lower priority than this task. */
 			if( xSemaphoreGiveRecursive( xMutex ) != pdPASS )
 			{
 				xErrorOccurred = pdTRUE;
@@ -224,9 +236,11 @@ static void prvRecursiveMutexBlockingTask( void *pvParameters )
 
 	for( ;; )
 	{
-		/* Attempt to obtain the mutex.  We should block until the 
-		controlling task has given up the mutex, and not actually execute
-		past this call until the controlling task is suspended. */
+		/* This task will run while the controlling task is blocked, and the
+		controlling task will block only once it has the mutex - therefore
+		this call should block until the controlling task has given up the 
+		mutex, and not actually execute	past this call until the controlling 
+		task is suspended. */
 		if( xSemaphoreTakeRecursive( xMutex, portMAX_DELAY ) == pdPASS )
 		{
 			if( xControllingIsSuspended != pdTRUE )
@@ -277,27 +291,39 @@ static void prvRecursiveMutexPollingTask( void *pvParameters )
 	for( ;; )
 	{
 		/* Keep attempting to obtain the mutex.  We should only obtain it when
-		the blocking task has suspended itself. */
+		the blocking task has suspended itself, which in turn should only
+		happen when the controlling task is also suspended. */
 		if( xSemaphoreTakeRecursive( xMutex, recmuNO_DELAY ) == pdPASS )
 		{
 			/* Is the blocking task suspended? */
-			if( xBlockingIsSuspended != pdTRUE )
+			if( ( xBlockingIsSuspended != pdTRUE ) || ( xControllingIsSuspended != pdTRUE ) )
 			{
 				xErrorOccurred = pdTRUE;
 			}
 			else
 			{
-				/* Keep count of the number of cycles this task has performed so 
-				a stall can be detected. */
+				/* Keep count of the number of cycles this task has performed 
+				so a stall can be detected. */
 				uxPollingCycles++;
 
 				/* We can resume the other tasks here even though they have a
 				higher priority than the polling task.  When they execute they
 				will attempt to obtain the mutex but fail because the polling
 				task is still the mutex holder.  The polling task (this task)
-				will then inherit the higher priority. */				
+				will then inherit the higher priority.  The Blocking task will
+				block indefinitely when it attempts to obtain the mutex, the
+				Controlling task will only block for a fixed period and an
+				error will be latched if the polling task has not returned the
+				mutex by the time this fixed period has expired. */
 				vTaskResume( xBlockingTaskHandle );
                 vTaskResume( xControllingTaskHandle );
+			
+				/* The other two tasks should now have executed and no longer
+				be suspended. */
+				if( ( xBlockingIsSuspended == pdTRUE ) || ( xControllingIsSuspended == pdTRUE ) )
+				{
+					xErrorOccurred = pdTRUE;
+				}				
 			
 				/* Release the mutex, disinheriting the higher priority again. */
 				if( xSemaphoreGiveRecursive( xMutex ) != pdPASS )
