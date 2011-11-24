@@ -47,8 +47,48 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name
+# Select MCU name and bootloader start address - uncomment _ONE_ of the following pairs
+#
+# Starting byte address of the bootloader, as a byte address - computed via the formula
+#   BOOT_START = ((TOTAL_FLASH_BYTES - BOOTLOADER_SECTION_SIZE_BYTES) * 1024)
+#
+# The Boot API Table is meant to go at the very end (last 32 bytes) of FLASH memory
+# for code compatibility among all the USB AVRs.  For more information refer to the
+# following FAQ; "14. Can the application use code built into the bootloader?"
+#   http://blog.schicks.net/wp-content/uploads/2009/09/bootloader_faq.pdf
+#
+#   BOOT_API_TABLESTART = ((TOTAL_FLASH_BYTES * 1024) - 32)
+#
+# Note that the bootloader size and start address given in AVRStudio is in words and not
+# bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
+
+#MCU = at90usb162
+#BOOT_START = 0x3000
+#BOOT_API_TABLESTART = 0x3FE0
+
+#MCU = atmega32u2
+#BOOT_START = 0x3000
+#BOOT_API_TABLESTART = 0x7FE0
+
+#MCU = atmega32u4
+#BOOT_START = 0x7000
+#BOOT_API_TABLESTART = 0x7FE0
+
+#MCU = at90usb646
+#BOOT_START = 0xF000
+#BOOT_API_TABLESTART = 0xFFE0
+
+#MCU = at90usb647
+#BOOT_START = 0xF000
+#BOOT_API_TABLESTART = 0xFFE0
+
+#MCU = at90usb1286
+#BOOT_START = 0x1E000
+#BOOT_API_TABLESTART = 0x1FFE0
+
 MCU = at90usb1287
+BOOT_START = 0x1E000
+BOOT_API_TABLESTART = 0x1FFE0
 
 
 # Target architecture (see library "Board Types" documentation).
@@ -58,7 +98,7 @@ ARCH = AVR8
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called
 # "Board" inside the application directory.
-BOARD = USBKEY
+BOARD = NONE
 
 
 # Processor frequency.
@@ -72,7 +112,7 @@ BOARD = USBKEY
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 8000000
+F_CPU = 16000000
 
 
 # Input clock frequency.
@@ -87,17 +127,6 @@ F_CPU = 8000000
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
-
-
-# Starting byte address of the bootloader, as a byte address - computed via the formula
-#   BOOT_START = ((FLASH_SIZE_KB - BOOT_SECTION_SIZE_KB) * 1024)
-#
-# Note that the bootloader size and start address given in AVRStudio is in words and not
-# bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
-FLASH_SIZE_KB        = 128
-BOOT_SECTION_SIZE_KB = 4
-BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
-BOOT_API_TABLESTART  = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 32)" | bc)
 
 
 # Output format. (can be srec, ihex, binary)
@@ -356,7 +385,7 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = jtagmkII
+AVRDUDE_PROGRAMMER = avrispmkII
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = usb
@@ -377,7 +406,7 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 # Increase verbosity level.  Please use this when submitting bug
 # reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude>
 # to submit bug reports.
-#AVRDUDE_VERBOSE = -v -v
+AVRDUDE_VERBOSE = -v -v
 
 AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
