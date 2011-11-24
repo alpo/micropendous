@@ -191,9 +191,9 @@ const USB_Descriptor_String_t LanguageString =
  */
 const USB_Descriptor_String_t ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
 
-	.UnicodeString          = L"AVR CDC Bootloader"
+	.UnicodeString          = L"AVR CDC API Bootloader"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see LUFA library "USB Descriptors"
