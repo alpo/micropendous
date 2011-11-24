@@ -84,7 +84,7 @@ BOARD = USBKEY
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 16000000
+F_CPU = 8000000
 
 
 # Input clock frequency.
@@ -519,7 +519,6 @@ program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 flip: $(TARGET).hex
-
 	batchisp -hardware usb -device $(MCU) -operation erase f
 	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
@@ -539,12 +538,6 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 dfu-ee: $(TARGET).hex $(TARGET).eep
 	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
 	dfu-programmer $(MCU) reset
-
-cdc-lin: $(TARGET).hex
-	avrdude -c AVR109 -p at90usb1287 -P /dev/ttyACM0 -U flash:w:$(TARGET).hex
-
-cdc-win: $(TARGET).hex
-	avrdude -c AVR109 -p at90usb1287 -P COM5 -U flash:w:$(TARGET).hex
 
 
 # Generate avr-gdb config/init file which does the following:

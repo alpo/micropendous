@@ -40,7 +40,7 @@ volatile uint8_t USB_CurrentMode = USB_MODE_None;
 volatile uint8_t USB_Options;
 #endif
 
-USB_EP_TABLE_t USB_EndpointTable ATTR_ALIGNED(4);
+USB_EndpointTable_t USB_EndpointTable ATTR_ALIGNED(4);
 
 void USB_Init(
                #if defined(USB_CAN_BE_BOTH)
@@ -69,10 +69,11 @@ void USB_Init(
 
 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
-	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
+	NVM.CMD  = 0;
 	
 	USB.EPPTR = (intptr_t)&USB_EndpointTable;
+	USB.CTRLA = (USB_STFRNUM_bm | USB_MAXEP_gm);
 
 	if ((USB_Options & USB_OPT_BUSEVENT_PRIHIGH) == USB_OPT_BUSEVENT_PRIHIGH)
 	  USB.INTCTRLA = (3 << USB_INTLVL_gp);
@@ -100,10 +101,15 @@ void USB_Disable(void)
 void USB_ResetInterface(void)
 {
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
-	  CLK.USBCTRL = ((((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp) | CLK_USBSRC_PLL_gc | CLK_USBSEN_bm);
+	  CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
 	else
-	  CLK.USBCTRL = ((((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp) | CLK_USBSRC_PLL_gc | CLK_USBSEN_bm);
+	  CLK.USBCTRL = (((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp);
 	
+	if (USB_Options & USB_OPT_PLLCLKSRC)
+	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc | CLK_USBSEN_bm);
+	else
+	  CLK.USBCTRL |= (CLK_USBSRC_RC32M_gc | CLK_USBSEN_bm);
+
 	USB_Device_SetDeviceAddress(0);
 	
 	USB_INT_DisableAllInterrupts();

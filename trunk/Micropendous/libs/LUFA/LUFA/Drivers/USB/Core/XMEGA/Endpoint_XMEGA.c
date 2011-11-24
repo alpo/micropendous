@@ -39,8 +39,30 @@
 uint8_t USB_Device_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-volatile uint8_t   Endpoint_SelectedEndpoint;
-volatile USB_EP_t* Endpoint_SelectedEndpointHandle;
+Endpoint_FIFOPair_t           USB_Endpoint_FIFOs[ENDPOINT_DETAILS_MAXEP];
+
+volatile uint8_t              USB_Endpoint_SelectedEndpoint;
+volatile USB_EP_t*            USB_Endpoint_SelectedHandle;
+volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
+
+bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
+                                    const uint8_t Direction,
+                                    const uint8_t Config,
+                                    const uint8_t Size)
+{
+	Endpoint_SelectEndpoint(Number | Direction);
+	
+	USB_Endpoint_SelectedHandle->CTRL    = 0;
+	USB_Endpoint_SelectedHandle->STATUS  = (Direction == ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
+	USB_Endpoint_SelectedHandle->CTRL    = Config;
+	USB_Endpoint_SelectedHandle->CNT     = 0;
+	USB_Endpoint_SelectedHandle->DATAPTR = (intptr_t)&USB_Endpoint_SelectedFIFO->Data[0];
+	
+	USB_Endpoint_SelectedFIFO->Length    = (Direction == ENDPOINT_DIR_IN) ? Size : 0;
+	USB_Endpoint_SelectedFIFO->Position  = 0;
+
+	return true;
+}
 
 void Endpoint_ClearEndpoints(void)
 {
@@ -50,13 +72,26 @@ void Endpoint_ClearEndpoints(void)
 
 void Endpoint_ClearStatusStage(void)
 {
-	while (!(Endpoint_IsOUTReceived()))
+	if (USB_ControlRequest.bmRequestType & REQDIR_DEVICETOHOST)
 	{
-		if (USB_DeviceState == DEVICE_STATE_Unattached)
-		  return;
-	}
+		while (!(Endpoint_IsOUTReceived()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 
-	Endpoint_ClearOUT();
+		Endpoint_ClearOUT();
+	}
+	else
+	{
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
+
+		Endpoint_ClearIN();
+	}
 }
 
 #if !defined(CONTROL_ONLY_DEVICE)
@@ -72,8 +107,16 @@ uint8_t Endpoint_WaitUntilReady(void)
 
 	for (;;)
 	{
-		if (Endpoint_IsOUTReceived())
-		  return ENDPOINT_READYWAIT_NoError;
+		if (Endpoint_GetEndpointDirection() == ENDPOINT_DIR_IN)
+		{
+			if (Endpoint_IsINReady())
+			  return ENDPOINT_READYWAIT_NoError;
+		}
+		else
+		{
+			if (Endpoint_IsOUTReceived())
+			  return ENDPOINT_READYWAIT_NoError;
+		}
 		
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 

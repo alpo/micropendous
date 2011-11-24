@@ -92,9 +92,7 @@
 		#include "../../Common/Common.h"
 
 		#if (BOARD == BOARD_NONE)
-			#define BUTTONS_BUTTON1      (0 << 0)
-			static inline void Buttons_Init(void) {};
-			static inline uint8_t Buttons_GetStatus(void) {return 0;};
+			#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/Buttons.h"
 		#elif (BOARD == BOARD_STK525)
@@ -133,21 +131,10 @@
 			#include "UC3/EVK1100/Buttons.h"
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/Buttons.h"
-		#elif (BOARD == BOARD_MICROPENDOUS_A)
-			#include "AVR8/MICROPENDOUS_A/Buttons.h"
-		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
-			#include "AVR8/MICROPENDOUS_REV1/Buttons.h"
-		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
-			#include "AVR8/MICROPENDOUS_REV2/Buttons.h"
-		#elif (BOARD == BOARD_MICROPENDOUS_32U2)
-			#include "AVR8/MICROPENDOUS_32U2/Buttons.h"
-		#elif (BOARD == BOARD_USER)
-			#include "Board/Buttons.h"
+		#elif (BOARD == BOARD_A3BU_XPLAINED)
+			#include "XMEGA/A3BU_XPLAINED/Buttons.h"
 		#else
-			// this allows BoardSupport.h to include empty LED drivers
-			#define BUTTONS_BUTTON1      (0 << 0)
-			static inline void Buttons_Init(void) {};
-			static inline uint8_t Buttons_GetStatus(void) {return 0;};
+			#include "Board/Buttons.h"
 		#endif
 
 	/* Pseudo-Functions for Doxygen: */

@@ -100,9 +100,7 @@
 		#include "../../Common/Common.h"
 
 		#if (BOARD == BOARD_NONE)
-			#warning The currently selected BOARD has no Joystick so the included Joystick driver does nothing.
-				static inline void Joystick_Init(void) { __asm__ volatile ("NOP" ::); };
-				static inline uint_reg_t Joystick_GetStatus(void) { return 0; };
+			#error The Board Joystick driver cannot be used if the makefile BOARD option is not set.
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/Joystick.h"
 		#elif (BOARD == BOARD_STK525)

@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the Atmel XPLAIN.
+ *  \brief Board specific Dataflash driver header for the original Atmel XPLAIN.
  *  \copydetails Group_Dataflash_XPLAIN
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
@@ -38,7 +38,9 @@
 
 /** \ingroup Group_Dataflash
  *  \defgroup Group_Dataflash_XPLAIN XPLAIN
- *  \brief Board specific Dataflash driver header for the Atmel XPLAIN.
+ *  \brief Board specific Dataflash driver header for the original Atmel XPLAIN.
+ *
+ *  \note For the first revision XPLAIN board, compile with <code>BOARD = BOARD_XPLAIN_REV1</code>.
  *
  *  Board specific Dataflash driver header for the Atmel XPLAIN.
  *
@@ -96,6 +98,38 @@
 			{
 				DATAFLASH_CHIPCS_DDR  |= DATAFLASH_CHIPCS_MASK;
 				DATAFLASH_CHIPCS_PORT |= DATAFLASH_CHIPCS_MASK;
+			}
+
+			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
+			 *
+			 *  \param[in] Byte of data to send to the dataflash
+			 *
+			 *  \return Last response byte from the dataflash
+			 */
+			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
+			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
+			{
+				return SPI_TransferByte(Byte);
+			}
+
+			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
+			 *
+			 *  \param[in] Byte of data to send to the dataflash
+			 */
+			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
+			static inline void Dataflash_SendByte(const uint8_t Byte)
+			{
+				SPI_SendByte(Byte);
+			}
+
+			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
+			 *
+			 *  \return Last response byte from the dataflash
+			 */
+			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Dataflash_ReceiveByte(void)
+			{
+				return SPI_ReceiveByte();
 			}
 
 			/** Determines the currently selected dataflash chip.

@@ -68,8 +68,7 @@ void USB_Init(
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
 		#if defined(USB_SERIES_4_AVR)
-		//PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
-		PLLFRQ = (1 << PDIV2); // LUFA SVN r1944 update
+		PLLFRQ = (1 << PDIV2);
 		#endif
 	}
 
@@ -256,7 +255,7 @@ static void USB_Init_Host(void)
 
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
-
+	
 	USB_Attach();
 }
 #endif
