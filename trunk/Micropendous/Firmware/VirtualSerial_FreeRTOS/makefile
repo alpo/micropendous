@@ -64,10 +64,8 @@
 
 
 # MCU name - uncomment _ONE_ of the following
-#MCU = at90usb82
-#MCU = at90usb162
-#MCU = atmega16u2
-#MCU = atmega32u2
+# NOTE that the current VirtualSerial_FreeRTOS demo requires 2.5kb+ SRAM as FreeRTOSConfig.h
+# sets configMINIMAL_STACK_SIZE=256 and configTOTAL_HEAP_SIZE=2048
 #MCU = atmega32u4
 #MCU = at90usb646
 #MCU = at90usb647
@@ -159,8 +157,10 @@ OBJDIR = .
 
 # Path to the LUFA library
 LUFA_PATH = ../../libs/LUFA
-AVRLIB_PATH = ../../libs/avrlib
-ARDUINO_PATH = ../../libs/Arduino1
+FREERTOS_PATH = ../../libs/FreeRTOS
+FREERTOS_DEMO_DIR = $(FREERTOS_PATH)/Demo/Common/Minimal
+FREERTOS_SOURCE_DIR = $(FREERTOS_PATH)/Source
+FREERTOS_PORT_DIR = $(FREERTOS_PATH)/Source/portable/GCC/AT90USB_ATmegaXXUY
 
 
 # LUFA library compile-time options and predefined tokens
@@ -186,7 +186,12 @@ include $(LUFA_PATH)/LUFA/makefile
 SRC = $(TARGET).c \
 	  Descriptors.c \
 	  $(LUFA_SRC_USB) \
-	  $(LUFA_SRC_USBCLASS)
+	  $(LUFA_SRC_USBCLASS) \
+	  $(FREERTOS_SOURCE_DIR)/tasks.c \
+	  $(FREERTOS_SOURCE_DIR)/queue.c \
+	  $(FREERTOS_SOURCE_DIR)/list.c \
+	  $(FREERTOS_SOURCE_DIR)/portable/MemMang/heap_1.c \
+	  $(FREERTOS_PORT_DIR)/port.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -242,7 +247,9 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS  = $(LUFA_PATH)/ $(AVRLIB_PATH)/ $(ARDUINO_PATH)/
+EXTRAINCDIRS  = $(LUFA_PATH)/
+EXTRAINCDIRS += $(FREERTOS_SOURCE_DIR)/include/ $(FREERTOS_PORT_DIR)/ 
+EXTRAINCDIRS += $(FREERTOS_PATH)/Demo/Common/include/
 
 
 # Compiler flag to set the C Standard level.
