@@ -30,26 +30,24 @@
 
 /** \file
  *
- *  Header file for AndroidAccessoryHost.c.
+ *  Header file for VirtualSerial.c.
  */
 
-#ifndef _ANDROIDACCESSORY_HOST_H_
-#define _ANDROIDACCESSORY_HOST_H_
+#ifndef _VIRTUALSERIAL_H_
+#define _VIRTUALSERIAL_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
-		#include <avr/pgmspace.h>
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
-		#include <util/delay.h>
-		#include <stdio.h>
-		#include <stdbool.h>
 		#include <string.h>
+		#include <stdio.h>
+
+		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/Peripheral/Serial.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/BoardSupport.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
@@ -68,14 +66,12 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void AOAHost_Task(void);
+		void MainTask(void);
 
-		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_Host_DeviceAttached(void);
-		void EVENT_USB_Host_DeviceUnattached(void);
-		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
-		                                            const uint8_t SubErrorCode);
-		void EVENT_USB_Host_DeviceEnumerationComplete(void);
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_ControlRequest(void);
 
 #endif
 
