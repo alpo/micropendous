@@ -51,6 +51,19 @@
 		#include <LUFA/Drivers/Board/BoardSupport.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
+		// FreeRTOS include files
+		#include "FreeRTOS.h"
+		#include "task.h"
+		#include "croutine.h"
+		#include "FreeRTOSConfig.h"
+
+		// FreeRTOS Task Settings
+		// USB-CDC/VirtualSerial Task must run at higher priority than the MainTask loop
+		#define MAIN_TASK_PRIORITY		( configMAX_PRIORITIES - 3 )
+		#define ViSe_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )	// highest priority
+
+		#define taskDelayPeriod			3
+
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -66,7 +79,10 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void MainTask(void);
+		void MainTaskLoop(void);
+		void vApplicationIdleHook(void);
+		static void VirtualSerialTask(void *pvParameters);
+		static void MainTask(void *pvParameters);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);

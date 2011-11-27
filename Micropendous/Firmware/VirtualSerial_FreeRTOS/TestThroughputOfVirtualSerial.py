@@ -23,10 +23,11 @@ def SerialThroughputTest(comport, transferSize, transfersToComplete):
     i = 0
     s = ''
     while (i < (transferSize - 1)):
-        s = s + 'A'
+        # U is 0x55 = 0b01010101
+        s = s + 'U'
         i = i + 1
-    # want last letter to be X
-    s = s + 'X'
+    # want last letter to be ? = 0x3F = 0b00111111
+    s = s + '?'
 
     # complete a series of transfers
     i = 0

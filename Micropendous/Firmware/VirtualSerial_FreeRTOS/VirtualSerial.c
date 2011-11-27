@@ -9,8 +9,8 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Updated for Loopback by Opendous Inc. 2011-11-22
-  www.Micropendous.org/VirtualSerial
+  Updated for FreeRTOS by Opendous Inc. 2011-11-25
+  www.Micropendous.org/VirtualSerial_FreeRTOS
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -83,19 +83,18 @@ int main(void)
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
 
-	for (;;)
-	{
-		MainTask();
+	// Create Tasks for FreeRTOS
+	// The VirtualSerial/USB-CDC task is highest priority to ensure USB functions run in time
+	// TODO/NOTE: AVRlibc stdio functions are not thread-safe
+	xTaskCreate(MainTask, (signed portCHAR *) "MainTask", configMINIMAL_STACK_SIZE, NULL, MAIN_TASK_PRIORITY, NULL );
+	xTaskCreate(VirtualSerialTask, (signed portCHAR *) "ViSeTask", configMINIMAL_STACK_SIZE, NULL, (ViSe_TASK_PRIORITY | portPRIVILEGE_BIT), NULL );
 
-		// Must throw away unused bytes from the host, or it will lock up while waiting for the device
-		// TODO: this causes loopback to fail
-		//CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+	// Start the scheduler
+	vTaskStartScheduler();
 
-		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
-		USB_USBTask();
-	}
+	// Should never get here!
+	return 0;
 }
 
 
@@ -118,6 +117,13 @@ void SetupHardware(void)
 	DISABLE_EXT_SRAM;
 	SELECT_USB_B;
 	USB_Init();
+}
+
+
+// CoRoutines are not enabled, but FreeRTOS complains during compile
+void vApplicationIdleHook(void)
+{
+	//vCoRoutineSchedule();
 }
 
 
@@ -150,23 +156,69 @@ void EVENT_USB_Device_ControlRequest(void)
 }
 
 
+static void VirtualSerialTask(void *pvParameters)
+{
 
-void MainTask(void)
+	for (;;)
+	{
+		// Must throw away unused bytes from the host, or it will lock up while waiting for the device
+		// TODO: this causes loopback to fail
+		//CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+		// want CDC and USB functions to run without interruption but
+		// with interrupts enabled so ENTER/EXIT_CRITICAL won't work
+		vTaskSuspendAll();
+
+			CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+			USB_USBTask();
+
+		xTaskResumeAll();
+
+		vTaskDelay((portTickType) taskDelayPeriod );
+	}
+
+}
+
+
+
+static void MainTask(void *pvParameters)
+{
+	for(;;) {
+		MainTaskLoop();
+		portYIELD();
+	}
+}
+
+
+
+void MainTaskLoop(void)
 {
 	int count = 0;
 
 	// If the host has sent data then echo it back
 	// Throughput is maximized if the full EP buffer is read and sent each time
 	// Throughput approaches CDC_TXRX_EPSIZE kbytes/second and depends on transfer size from host 
-	if ((count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream)) > 0) {
-		fwrite(&buffer, 1, count, &USBSerialStream);
-	}
+	// NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+	vTaskSuspendAll();
+		count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream);
+	xTaskResumeAll();
+
+	//TODO: you can process the received buffer data here
+
+	vTaskSuspendAll();
+		if (count > 0) {
+			fwrite(&buffer, 1, count, &USBSerialStream);
+		}
+	xTaskResumeAll();
 
 
 	// If HWB Button is pressed then send formatted strings
 	if (Buttons_GetStatus()) {
-		fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n")); // send a constant string stored in FLASH
-		fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND); // send a string that is dynamic and stored in SRAM
+		// NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+		vTaskSuspendAll();
+			fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n")); // send a constant string stored in FLASH
+			fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND); // send a string that is dynamic and stored in SRAM
+		xTaskResumeAll();
 	}
 
 }
