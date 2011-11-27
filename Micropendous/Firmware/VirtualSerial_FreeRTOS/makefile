@@ -64,39 +64,43 @@
 
 
 # MCU name - uncomment _ONE_ of the following
+#MCU = at90usb82
+#MCU = at90usb162
+#MCU = atmega16u2
+#MCU = atmega32u2
+#MCU = atmega32u4
+#MCU = at90usb646
 #MCU = at90usb647
+#MCU = at90usb1286
 MCU = at90usb1287
 
 
-# Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency. You can then use this symbol in your source code to 
-#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
-#     automatically to create a 32-bit value in your source code.
-#     Typical values are:
-#         F_CPU =  8000000
-#         F_CPU = 16000000
-F_CPU = 16000000
+# Target architecture (see library "Board Types" documentation).
+ARCH = AVR8
 
 
 # Target board:
 #  - USER for custom board drivers in LUFA/LUFA/Drivers/Board/Board/*
 #  - NONE for projects not requiring LUFA board drivers such as boards
 #      with no LEDs and just an HWB button such as: Micropendous1, Micropendous2,
-#      Micropendous-32U2, or Micropendous3 or Micropendous4 without external SRAM
-#  - MICROPENDOUS_A for the Micropendous-A, Micropendous3, or Micropendous4 with external SRAM
+#      Micropendous3 or Micropendous4 without external SRAM
+#  - MICROPENDOUS_32U2 for Micropendous-32U2 which has 1 user LED on PD6
+#      http://www.Micropendous.org/Micropendous-32U2
+#  - MICROPENDOUS_A for Micropendous-A, Micropendous3, or Micropendous3 boards with external SRAM
+#      where PE6 is the external SRAM Chip Enable Pin and PE7 is Address Bit 17/Bank Selector Pin
 #      http://www.Micropendous.org/Micropendous-A
-#  - MICROPENDOUS_REV1 for the Micropendous Arduino-like board with
+#  - MICROPENDOUS_REV1 for the Micropendous Arduino-like board with the
 #      CY7C1019D external SRAM IC or its DIP variant:
-#      http://www.Micropendous.org/Micropendous-OTG
+#      http://www.Micropendous.org/Micropendous-REV1
 #      http://www.Micropendous.org/Micropendous-DIP
-#  - MICROPENDOUS_REV2 for the Micropendous Arduino-like board with
+#  - MICROPENDOUS_REV2 for the Micropendous Arduino-like board with the
 #      IS61C1024AL external SRAM IC:
 #      http://www.Micropendous.org/Micropendous
 # Typical values are:
 #         BOARD = NONE
 #         BOARD = USER
 #         BOARD = MICROPENDOUS_A
+#         BOARD = MICROPENDOUS_32U2
 #         BOARD = MICROPENDOUS_REV1
 #         BOARD = MICROPENDOUS_REV2
 BOARD = MICROPENDOUS_REV2
@@ -105,6 +109,17 @@ BOARD = MICROPENDOUS_REV2
 # Enable External SRAM: Defining to YES will enable external SRAM use
 # via the linker.  For more info visit www.Micropendous.org/SRAM
 ENABLE_EXTERNAL_SRAM = NO
+
+
+# Processor frequency.
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     crystal frequency. You can then use this symbol in your source code to 
+#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+#     automatically to create a 32-bit value in your source code.
+#     USB AVR possible values are:
+#         F_CPU =  8000000
+#         F_CPU = 16000000
+F_CPU = 16000000
 
 
 # Input clock frequency.
@@ -133,7 +148,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = AndroidAccessoryHost
+TARGET = VirtualSerial
 
 
 # Object files directory
@@ -149,9 +164,14 @@ ARDUINO_PATH = ../../libs/Arduino1
 
 
 # LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_HOST_ONLY
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-LUFA_OPTS += -D HOST_DEVICE_SETTLE_DELAY_MS=0
+LUFA_OPTS  = -D USB_DEVICE_ONLY
+LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
+LUFA_OPTS += -D ORDERED_EP_CONFIG
+LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
+LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
+LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS += -D INTERRUPT_CONTROL_ENDPOINT
 # All Micropendous boards except Rev.2 require manual VBUS management to select USB connector appropriately or have control of PE7
 ifneq ($(BOARD),MICROPENDOUS_REV2)
 	LUFA_OPTS += -D NO_AUTO_VBUS_MANAGEMENT
@@ -164,15 +184,23 @@ include $(LUFA_PATH)/LUFA/makefile
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c \
+	  Descriptors.c \
 	  $(LUFA_SRC_USB) \
-	  $(LUFA_SRC_USBCLASS) \
-	  $(LUFA_SRC_SERIAL)
-
+	  $(LUFA_SRC_USBCLASS)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =
 
+
+# List Assembler source files here.
+#     Make them always end in a capital .S.  Files ending in a lowercase .s
+#     will not be considered source files but generated files (assembler
+#     output from the compiler), and will be deleted upon "make clean"!
+#     Even though the DOS/Win* filesystem matches both .s and .S the same,
+#     it will preserve the spelling of the filenames, and gcc itself does
+#     care about how the name is spelled on its command-line.
+ASRC =
 
 
 #---------------- External Memory Options ----------------
@@ -195,17 +223,6 @@ ifeq ($(ENABLE_EXTERNAL_SRAM), YES)
 	# the following would place .data+.bss such that it overlaps internal and external SRAM with the first 1024 bytes in internal SRAM:
 	#EXTMEMOPTS +=-Wl,--defsym=__stack=0x801C00,--section-start,.data=0x801D00,--defsym=__heap_start=0x80DFFF,--defsym=__heap_end=0x80FFFF
 endif
-
-
-
-# List Assembler source files here.
-#     Make them always end in a capital .S.  Files ending in a lowercase .s
-#     will not be considered source files but generated files (assembler
-#     output from the compiler), and will be deleted upon "make clean"!
-#     Even though the DOS/Win* filesystem matches both .s and .S the same,
-#     it will preserve the spelling of the filenames, and gcc itself does
-#     care about how the name is spelled on its command-line.
-ASRC =
 
 
 # Optimization level, can be [0, 1, 2, 3, s].
@@ -566,7 +583,6 @@ cdc: $(TARGET).hex
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
 	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
-
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 dfu: $(TARGET).hex
