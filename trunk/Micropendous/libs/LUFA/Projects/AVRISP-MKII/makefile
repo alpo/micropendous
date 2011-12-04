@@ -59,8 +59,15 @@
 #----------------------------------------------------------------------------
 
 
-# MCU name
+# MCU name - uncomment _ONE_ of the following
 MCU = at90usb162
+#MCU = atmega16u2
+#MCU = atmega32u2
+#MCU = atmega32u4
+#MCU = at90usb646
+#MCU = at90usb647
+#MCU = at90usb1286
+#MCU = at90usb1287
 
 
 # Target architecture (see library "Board Types" documentation).
@@ -99,6 +106,13 @@ F_CPU = 16000000
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
+
+
+# When using the LUFA CDC AVR109-compatible bootloader, you need to set this
+# to the port under which your device enumerated.  Under Windows it will be
+# something like COM5 (Start->Control Panel->System->Hardware->Device Manager->Ports (COM and LPT))
+# Under Linux it will be something like /dev/ttyACM0 which you can find with dmesg
+CDC_BOOTLOADER_PORT = COM5
 
 
 # Output format. (can be srec, ihex, binary)
@@ -369,13 +383,13 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = jtagmkII
+AVRDUDE_PROGRAMMER = avrispmkII
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
 AVRDUDE_PORT = usb
 
-AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
-#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+AVRDUDE_WRITE_FLASH  = -U  flash:w:$(TARGET).hex
+AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
 
 # Uncomment the following if you want avrdude's erase cycle counter.
@@ -390,7 +404,7 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 # Increase verbosity level.  Please use this when submitting bug
 # reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude>
 # to submit bug reports.
-#AVRDUDE_VERBOSE = -v -v
+AVRDUDE_VERBOSE = -v -v
 
 AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
@@ -545,6 +559,9 @@ gccversion :
 # Program the device.
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+
+cdc: $(TARGET).hex
+	$(AVRDUDE) $(AVRDUDE_VERBOSE) -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
