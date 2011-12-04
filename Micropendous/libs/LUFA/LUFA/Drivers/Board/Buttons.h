@@ -146,7 +146,7 @@
 		#elif (BOARD == BOARD_USER)
 			#include "Board/Buttons.h"
 		#else
-			// this allows BoardSupport.h to include empty LED drivers
+			// this allows BoardSupport.h to include empty button drivers
 			#define BUTTONS_BUTTON1	(0 << 0)
 			static inline void Buttons_Init(void) {};
 			static inline uint8_t Buttons_GetStatus(void) {return 0;};

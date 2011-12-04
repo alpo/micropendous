@@ -26,58 +26,35 @@ Files Changed:
   ./LUFA/Drivers/Board/LEDs.h
   ./LUFA/Common/BoardTypes.h
 
-* Included NO_AUTO_VBUS_MANAGEMENT option code from Dean Camera
+* Included NO_AUTO_VBUS_MANAGEMENT and INVERTED_VBUS_ENABLE_LINE
+  compile-time option code from Dean Camera
   ./LUFA/Drivers/USB/Core/AVR8/Host_AVR8.c
   ./LUFA/Drivers/USB/Core/AVR8/Host_AVR8.h
 
 
 
-LUFA SVN Updates Included Following LUFA-111009 Release:
+LUFA SVN AVR8-related updates included following LUFA-111009 Release:
 
-* r1974 Update incomplete StandaloneProgrammer project to latest LUFA
-    ./Projects/Incomplete/StandaloneProgrammer/DiskHost.c
-    ./Projects/Incomplete/StandaloneProgrammer/StandaloneProgrammer.c
+* r2000 - Fixed AVRISP-MKII Clone failing to start application
+    firmware once a TPI programming session is exited.
+  ./Projects/AVRISP-MKII/Lib/XPROG/TINYNVM.c
 
-* r1971 Fixed race condition in class drivers
-    ./LUFA/Drivers/USB/Class/Device/CDC.c
-    ./LUFA/Drivers/USB/Class/Device/HID.c
-    ./LUFA/Drivers/USB/Class/Device/MassStorage.c
+* r1998 - Bit-bang ISP in the AVRISP-MKII clone project needs to
+    set MOSI pin to the MSB of the data byte on startup, not the LSB.
+  ./Projects/AVRISP-MKII/Lib/ISP/ISPTarget.c
 
-* r1963 Added INVERTED_ISP_MISO compile time option to AVRISP-MKII
-    ./Projects/AVRISP-MKII/AVRISP-MKII.txt
-    ./Projects/AVRISP-MKII/Lib/ISP/ISPTarget.h
-    ./Projects/AVRISP-MKII/makefile
+* r1995 - Remove unnecessary ErrorCode variable initialization
+  ./Demos/Host/LowLevel/MassStorageHost/Lib/MassStoreCommands.c
+  ./Demos/Host/LowLevel/PrinterHost/Lib/PrinterCommands.c
 
-* r1953 Fixed CDC class drivers not saving and sending all 16-bits
-  of the control line states.
-    ./LUFA/Drivers/USB/Class/Device/CDC.h
-    ./LUFA/Drivers/USB/Class/Host/CDC.h
+* r1994 - Missing const qualifier to bootloader API functions
+  ./Bootloaders/CDC/BootloaderAPI.c
+  ./Bootloaders/CDC/BootloaderAPI.h
+  ./Bootloaders/DFU/BootloaderAPI.c
+  ./Bootloaders/DFU/BootloaderAPI.h
 
-* r1949 Fixed AVRISP-MKII Clone compile warning on AVR8 U4
-    ./Projects/AVRISP-MKII/Lib/V2Protocol.h
+* r1993 - Fix incorrect value of AOA_CSCP_AOADataSubclass
+  ./LUFA/Drivers/USB/Class/Common/AndroidAccessoryClassCommon.h
 
-* r1948 Fixed ring buffer size limited to 255 elements (now 65535)
-    ./LUFA/Drivers/Misc/RingBuffer.h
+* r1992 - All updates from r1942 (LUFA-111009) to r1992 (2011-11-24)
 
-* r1947 Reliability patches for AVRISP-MKII's PDI/TPI protocols
-    ./Projects/AVRISP-MKII/Lib/XPROG/XMEGANVM.c
-    ./Projects/AVRISP-MKII/Lib/XPROG/XPROGTarget.c
-
-* r1944 Fixed U4 PLL Management to meet 3.3V specification
-    ./LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.c
-
-* r1943 Added User Application APIs to the CDC and DFU class bootloaders
-    ./Bootloaders/CDC/BootloaderAPI.c
-    ./Bootloaders/CDC/BootloaderAPI.h
-    ./Bootloaders/CDC/BootloaderAPITable.S
-    ./Bootloaders/CDC/BootloaderCDC.c
-    ./Bootloaders/CDC/BootloaderCDC.h
-    ./Bootloaders/CDC/BootloaderCDC.txt
-    ./Bootloaders/CDC/makefile
-    ./Bootloaders/DFU/BootloaderAPI.c
-    ./Bootloaders/DFU/BootloaderAPI.h
-    ./Bootloaders/DFU/BootloaderAPITable.S
-    ./Bootloaders/DFU/BootloaderDFU.c
-    ./Bootloaders/DFU/BootloaderDFU.h
-    ./Bootloaders/DFU/BootloaderDFU.txt
-    ./Bootloaders/DFU/makefile

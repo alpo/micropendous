@@ -118,18 +118,18 @@
 		#else
 			// the following are board defines that can still exist in functional programs that do
 			// not use External SRAM, a Voltage Translator, or the USB Signal+Power switches
-			#define DISABLE_VOLTAGE_TXRX	__asm__ volatile ("NOP" ::)
-			#define ENABLE_VOLTAGE_TXRX	__asm__ volatile ("NOP" ::)
+			#define DISABLE_VOLTAGE_TXRX		__asm__ volatile ("NOP" ::)
+			#define ENABLE_VOLTAGE_TXRX		__asm__ volatile ("NOP" ::)
 			#if !defined(DISABLE_EXT_SRAM)
 				#define DISABLE_EXT_SRAM	__asm__ volatile ("NOP" ::)
 			#endif
-			#define SELECT_USB_A		__asm__ volatile ("NOP" ::)
-			#define SELECT_USB_B		__asm__ volatile ("NOP" ::)
+			#define SELECT_USB_A			__asm__ volatile ("NOP" ::)
+			#define SELECT_USB_B			__asm__ volatile ("NOP" ::)
 			#define OVERCURRENT_FLAG_ENABLE		__asm__ volatile ("NOP" ::)
 			#define OVERCURRENT_FLAG_STATUS		0
 		#endif
 
-		#define Board_Init()			Buttons_Init(); LEDs_Init();
+		#define Board_Init()				Buttons_Init(); LEDs_Init();
 
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
