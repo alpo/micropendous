@@ -1,5 +1,4 @@
 #summary Run Arduino code on a Micropendous
-#labels Featured
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/LUFAduino` directory.
 
