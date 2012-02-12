@@ -2,7 +2,7 @@
 
 Micropendous-A is an Open Hardware Development Board for Atmel's 64-pin [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] USB AVR Microcontroller.
 
-The Micropendous-A is pin and function-compatible with the [AT90USB1287 Micropendous3].
+The Micropendous-A is pin and function-compatible with the [http://code.google.com/p/micropendous/wiki/Micropendous3 AT90USB1287 Micropendous3].
 
 The Micropendous-A is unfortunately too expensive to produce at a competitive price.  If you are interested in batches of these boards (40+) you may contact me through the [http://groups.google.com/group/Micropendous Micropendous Group] for information on an assembler with experience producing these boards.
 
