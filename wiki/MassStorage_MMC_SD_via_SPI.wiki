@@ -6,7 +6,7 @@ The latest version of this firmware is available in the [http://code.google.com/
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/MassStorage_MMC_SD_via_SPI View] or [http://www.Micropendous.org/Distribution Download]
 
-*Targets:* [Micropendous2] or any USB AVR running at 3.3V with 1kb+ SRAM connected to a MMC/SD Card via SPI
+*Targets:* USB AVR with 3.3V IO and 1kb+ SRAM connected to a MMC/SD Card via SPI
 
 *USB Mode:* Device-mode enumerating as Mass Storage device
 
