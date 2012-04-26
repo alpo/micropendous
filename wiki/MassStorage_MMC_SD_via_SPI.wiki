@@ -25,11 +25,14 @@ Now compile and load the !MassStorage_MMC_SD_via_SPI firmware onto your USB AVR 
 
 Make sure your USB AVR is running at 3.3V or that you have 3.3V buffers on all the signal lines to the MMC/SD card (such as [http://search.digikey.com/us/en/products/SN74LVC245AN/296-8503-5-ND/ 74LVC245]).
 
-|| *Micropendous* || *I2C* ||
-|| `PD0`          || `SCL` ||
-|| `PD1`          || `SDA` ||
-|| `VCC`          || `VCC` ||
-|| `GND`          || `GND` ||
+|| *Micropendous* || *MMC/SD* ||
+|| `PB0-CS`       || `1-CS` ||
+|| `PB1-CLK`      || `5-CLK` ||
+|| `PB2-MOSI`     || `2-CMD/DI` ||
+|| `PB3-MISO`     || `7-DAT0/DO` ||
+|| `3V3`          || `4-VDD` ||
+|| `GND`          || `3-VSS1` ||
+|| `GND`          || `6-VSS2` ||
 
 == Firmware Design ==
 
