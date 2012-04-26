@@ -1,6 +1,6 @@
 #summary Mass Storage Firmware Demo using MMC/SD Cards in SPI Mode
 
-The latest version of this firmware is available in the [http://code.google.com/p/micropendous/downloads/list Micropendous-2011-03-01.zip  Distribution] ~or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/MassStorage_MMC_SD_via_SPI` directory~.
+The latest version of this firmware is available in the [http://code.google.com/p/micropendous/downloads/list Micropendous-2011-03-01.zip  Distribution] ~~or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/MassStorage_MMC_SD_via_SPI` directory~~.
 
 *Purpose:* Use your USB AVR to interface to a MMC or SD card.  More likely this firmware will be used to store data onto a MMC or SD card while the board is disconnected from a host and then use the USB Mass Storage interface to read the data from a PC.  For example, a sensor logger.
 
