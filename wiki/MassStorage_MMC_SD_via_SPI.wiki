@@ -21,6 +21,16 @@ Set your [Micropendous2] board's VCC_Select Jumper to 3.3V as MMC/SD cards only 
 
 Now compile and load the !MassStorage_MMC_SD_via_SPI firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
+== Pinout ==
+
+Make sure your USB AVR is running at 3.3V or that you have 3.3V buffers on all the signal lines to the MMC/SD card (such as [http://search.digikey.com/us/en/products/SN74LVC245AN/296-8503-5-ND/ 74LVC245]).
+
+|| *Micropendous* || *I2C* ||
+|| `PD0`          || `SCL` ||
+|| `PD1`          || `SDA` ||
+|| `VCC`          || `VCC` ||
+|| `GND`          || `GND` ||
+
 == Firmware Design ==
 
 This firmware is almost an exact copy of [http://www.fourwalledcubicle.com/LUFA.php LUFA]'s !MassStorage demo with the DataFLASH code replaced by MMC and SD SPI mode code.  `DataflashManager.c/.h` is replaced with `MMC_SD_SPI.c/.h`.  MMC and SD SPI Mode functionality is taken from [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/avrlib/mmc.c mmc.c].
