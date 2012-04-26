@@ -13,14 +13,6 @@ The latest version of this firmware is available in the [http://code.google.com/
 *Status:* _Working_
 
 
-== Usage ==
-
-Current version of this firmware must be recompiled for each new MMC or SD card you plan to use.  Need to set the number of blocks.  Format your MMC or SD card using a standard Card Reader then note the number of bytes under the device's properties.  Divide the number by 512 to get the number of pages, then open `MassStorage_MMC_SD_SPI_Mode.h` and change `#define DATAFLASH_PAGES  1986976` to the number of pages for your specific card.
-
-Set your [Micropendous2] board's VCC_Select Jumper to 3.3V as MMC/SD cards only work at 3.3V.  If you are using an USB AVR running at 5V you will need some sort of level translator.
-
-Now compile and load the !MassStorage_MMC_SD_via_SPI firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
-
 == Pinout ==
 
 Make sure your USB AVR is running at 3.3V or that you have 3.3V buffers on all the signal lines to the MMC/SD card (such as [http://search.digikey.com/us/en/products/SN74LVC245AN/296-8503-5-ND/ 74LVC245]).
@@ -33,6 +25,14 @@ Make sure your USB AVR is running at 3.3V or that you have 3.3V buffers on all t
 || `3V3`          || `4-VDD` ||
 || `GND`          || `3-VSS1` ||
 || `GND`          || `6-VSS2` ||
+
+
+== Usage ==
+
+Current version of this firmware must be recompiled for each new MMC or SD card you plan to use.  Need to set the number of blocks.  Format your MMC or SD card using a standard Card Reader then note the number of bytes under the device's properties.  Divide the number by 512 to get the number of pages, then open `MassStorage_MMC_SD_SPI_Mode.h` and change `#define DATAFLASH_PAGES  1986976` to the number of pages for your specific card.
+
+Now compile and load the !MassStorage_MMC_SD_via_SPI firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+
 
 == Firmware Design ==
 
