@@ -47,27 +47,16 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous_RE
  * [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/LUFA/Common/MicropendousDefines.h MicropendousDefines.h] is automatically included during compilation and includes defines for the USB Switch, Voltage Translator, and External SRAM:
 {{{
   #define ENABLE_VOLTAGE_TXRX
-
   #define DISABLE_VOLTAGE_TXRX
 
-
-
   #define SELECT_USB_A
-
   #define SELECT_USB_B
 
-
-
   #define PORTE_EXT_SRAM_SETUP
-
   #define ENABLE_EXT_SRAM
-
   #define DISABLE_EXT_SRAM
-
   #define SELECT_EXT_SRAM_BANK0
-
   #define SELECT_EXT_SRAM_BANK1
-
   #define CURRENT_SRAM_BANK
 }}}
  * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
@@ -80,6 +69,5 @@ BOARD = MICROPENDOUS_REV1
 ` and `INVERTED_VBUS_ENABLE_LINE` to enable manual control of the USB switch:
 {{{
   #define NO_AUTO_VBUS_MANAGEMENT
-
   #define INVERTED_VBUS_ENABLE_LINE
 }}}
