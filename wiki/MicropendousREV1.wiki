@@ -20,7 +20,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous_RE
   * 120kb available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 8 kbytes SRAM and 4 kbytes of EEPROM
   * 112 kbytes of [http://www.Micropendous.org/SRAM external SRAM]
-  * microSD connector in SPI Mode
+  * [SPIMicroSD microSD connector in SPI Mode]
   * USB powered or DC powered
   * DC Power Jack, 2.1mm ID, 7V to 15V Input
   * 16MHz crystal
