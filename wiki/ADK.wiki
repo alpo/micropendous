@@ -1,6 +1,29 @@
 #summary LUFA Android Accessory Host
 
-*Current Status*: Nexus-S to LUFA communication works.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/AndroidAccessoryHost` directory.
+
+*Purpose:* Communicate with [http://en.wikipedia.org/wiki/Android_%28operating_system%29 Android 2.3.4+] devices over USB using the [http://developer.android.com/tools/adk/adk.html ADK Protocol].
+
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost View] or [http://www.Micropendous.org/Distribution Download]
+
+*Targets:* [Micropendous], [MicropendousREV1], [MicropendousDIP] or any [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287]/[http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB647 AT90USB647] USB AVR based hardware with hosting support.  Android devices with heavily discharged batteries require a high power 
+
+*USB Mode:* Host-mode enumerating as [http://developer.android.com/tools/adk/adk.html#firmware Android Accessory Host]
+
+*Status:* _Working_
+
+= Usage =
+
+Compile and load the AndroidAccessoryHost firmware onto your USB AVR by following the [ProgramAndTest] tutorial.  Install the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/ DemoKit App] onto your Android device by pointing its browser to the following link, or [http://developer.android.com/tools/help/adb.html#move using ADB], or [https://play.google.com/store/apps/details?id=com.diyphonegadgets.DemoKit via the Market].
+{{{
+http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/DemoKIT.apk
+}}}
+
+HWB button presses are shown under the IN heading as B1.  Other buttons are [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidAccessoryHost.c#324 ready to be implemented]:
+
+Data sent from the Android device under the OUT heading is sent to the Micropendous and can be viewed over UART or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidAccessoryHost.c#280 customized behavior can be implemented].
+
+== Example ==
 
 The following shows a [Micropendous] programmed with [http://www.LUFA-lib.org LUFA]'s [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/ AndroidAccessoryHost] firmware communicating with a [http://www.google.com/phone/detail/nexus-s Nexus-S] phone running [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware DemoKit] software while debug messages are sent to a PC through a [MicropendousA] running [USBtoSerial] firmware.  Note the [Micropendous] board needs to be powered with a high power (6V 1A+) wall adapter to meet the charging requirements of the connected Android device.  The pictured adapter is a [http://search.digikey.com/us/en/products/KTPS24-06035MP/62-1114-ND Volgen KTPS24-06035MP] but other 6V 1A+ 2.1mm center-positive DC power supplies such as the [http://search.digikey.com/us/en/products/EMSA060300-P5P-SZ/T1089-P5P-ND CUI EMSA060300-P5P-SZ] should work as well.  Although the [Micropendous] can accept DC power from 5.5V to 12V, voltages above 7V will cause overheating due to the Nexus-S' high current consumption while charging.
 
