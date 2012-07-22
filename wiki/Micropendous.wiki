@@ -20,7 +20,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
   * 120kb available FLASH memory for your programs (8kb used by USB bootloader - stock Atmel or [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU LUFA])
   * 8 kbytes internal SRAM and 4 kbytes of internal EEPROM
   * up to 128 kbytes of [http://www.Micropendous.org/SRAM external SRAM]
-  * microSD connector in SPI Mode
+  * [SPIMicroSD microSD connector in SPI Mode]
   * USB powered or DC powered
   * DC Power Jack, 2.1mm ID, Center-Positive, 5.5V to 16V Input (6V optimal)
   * 16MHz crystal
@@ -39,13 +39,28 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
 
 == !QuickNotes ==
  * *DO NOT* connect *GND* and *VCC*.  This will short your computer's USB power supply and may damage your computer and your Micropendous board
- * important pins: *PE3* controls TXB0108 `OE` pin, *PE6* is USB-A over-current flag, *PE4* is SRAM `nCE`, *PE5* is SRAM address bit 17, and *PE7* controls USB switch with USB-B=`0` and USB-A=`1`.
  * to start the bootloader, plug in your board and press both the RESET and HWB buttons, then release RESET, then release HWB
  * Due to the open construction of the board, do not use it on any conductive surface as it may create short circuits
  * PE2 (HWB) is pulled up to Vcc with a 47k resistor to disable the bootloader under normal operation.  This may influence your design decisions and usage of PE2.  Be careful this pin is not Low during RESET/START-UP or the board will enter the bootloader.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
- * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
+ * important pins: *PE3* controls TXB0108 `OE` pin, *PE6* is USB-A over-current flag, *PE4* is SRAM `nCE`, *PE5* is SRAM address bit 17, and *PE7* controls USB switch with USB-B=`0` and USB-A=`1`.
+ * [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/LUFA/Common/MicropendousDefines.h MicropendousDefines.h] is automatically included during compilation and includes defines for the USB Switch, Voltage Translator, and External SRAM:
+{{{
+  #define ENABLE_VOLTAGE_TXRX
+  #define DISABLE_VOLTAGE_TXRX
+
+  #define SELECT_USB_A
+  #define SELECT_USB_B
+
+  #define PORTE_EXT_SRAM_SETUP
+  #define ENABLE_EXT_SRAM
+  #define DISABLE_EXT_SRAM
+  #define SELECT_EXT_SRAM_BANK0
+  #define SELECT_EXT_SRAM_BANK1
+  #define CURRENT_SRAM_BANK
+}}}
+ * you will need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
 {{{
 MCU = at90usb1287
 F_CPU = 16000000
