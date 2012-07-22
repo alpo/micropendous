@@ -59,14 +59,13 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous_RE
   #define SELECT_EXT_SRAM_BANK1
   #define CURRENT_SRAM_BANK
 }}}
- * you may need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
+ * you will need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
 {{{
 MCU = at90usb1287
 F_CPU = 16000000
 BOARD = MICROPENDOUS_REV1
 }}}
- * For hosting applications, you will need to edit the `Config/LUFAConfig.h` by uncommenting `NO_AUTO_VBUS_MANAGEMENT
-` and `INVERTED_VBUS_ENABLE_LINE` to enable manual control of the USB switch:
+ * For hosting applications, you will need to edit the `Config/LUFAConfig.h` by uncommenting `NO_AUTO_VBUS_MANAGEMENT` and `INVERTED_VBUS_ENABLE_LINE` to enable manual control of the USB switch:
 {{{
   #define NO_AUTO_VBUS_MANAGEMENT
   #define INVERTED_VBUS_ENABLE_LINE
