@@ -39,7 +39,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/Micropendous4_Pinout_Pictu
  * if your board has a communication error after being plugged in, press RESET
 
  * you can enable pins PF4,5,6,7 by disabling JTAG via software. Place `JTAG_DISABLE();` near the top of your `main()` function.
- * important pins: *PE6* is SRAM `nCE`, *PE7* is SRAM address bit 17, and the USB switch has an external control pin with USB-B=`0` and USB-A=`1`.
+ * important pins: *PE6* is SRAM `nCE`, *PE7* is SRAM address bit 17, and the USB switch has an external control pin with USB-A=`0` and USB-miniB=`1`/unconnected.
  * [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/LUFA/Common/MicropendousDefines.h MicropendousDefines.h] is automatically included during compilation and includes defines for the USB Switch, Voltage Translator, and External SRAM:
 {{{
   #define SELECT_USB_A
