@@ -44,13 +44,13 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous-A/
  * to power the board externally at other IO voltages, simply cut the VBUS=VCC trace jumper on the underside of the board and provide regulated 3V-5.5V power to the board through the VCC pin and regulated 4.5V-5.5V power to the board through the VBUS pin.  The VBUS pin is always connected to the USB connector power rail so do not provide VBUS if the board is connected to a USB Host.  Only connect power to the VBUS pin when the board is the USB Host.  Note that operation at 16MHz and/or use of the external SRAM requires 4.5V-5.5V VCC.
  * observe precautions for electrostatic sensitive components while handling the board
  * if your board has a communication error after being plugged in, press RESET
- * you may need to edit the `makefile` before compiling Micropendous firmware demos.  The three key variables you need to be mindful of are:
+ * you can enable pins PF4,5,6,7 by disabling JTAG via software. Place `JTAG_DISABLE();` near the top of your `main()` function.
+ * you will need to edit the `makefile` before compiling LUFA or Micropendous firmware demos.  The three key variables you need to be mindful of are:
 {{{
 MCU = at90usb1287
-BOARD  = USER
 F_CPU = 16000000
+BOARD = MICROPENDOUS_A
 }}}
- * you can enable pins PF4,5,6,7 by disabling JTAG via software. Place `JTAG_DISABLE();` near the top of your `main()` function.
 
 == Power Supply Design ==
 
