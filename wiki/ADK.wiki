@@ -14,7 +14,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 = Usage =
 
-Compile and load the AndroidAccessoryHost firmware onto your USB AVR by following the [ProgramAndTest] tutorial.  Install the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/ DemoKit App] onto your Android device by pointing its browser to the following link, or [http://developer.android.com/tools/help/adb.html#move using ADB], or [https://play.google.com/store/apps/details?id=com.diyphonegadgets.DemoKit via the Market].
+Compile and load the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/ AndroidAccessoryHost] firmware onto your USB AVR by following the [ProgramAndTest] tutorial.  Install the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/ DemoKit App] onto your Android device by pointing its browser to the following link, or [http://developer.android.com/tools/help/adb.html#move using ADB], or [https://play.google.com/store/apps/details?id=com.diyphonegadgets.DemoKit via the Market].
 {{{
 http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AndroidAccessoryHost/AndroidDeviceSoftware/DemoKIT.apk
 }}}
