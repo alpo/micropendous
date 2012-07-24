@@ -63,11 +63,11 @@
 #MCU = at90usb162
 #MCU = atmega16u2
 #MCU = atmega32u2
-#MCU = atmega32u4
+MCU = atmega32u4
 #MCU = at90usb646
 #MCU = at90usb647
 #MCU = at90usb1286
-MCU = at90usb1287
+#MCU = at90usb1287
 
 
 # Processor frequency.
@@ -78,7 +78,7 @@ MCU = at90usb1287
 #     Typical values are:
 #         F_CPU =  8000000
 #         F_CPU = 16000000
-F_CPU = 16000000
+F_CPU = 8000000
 
 
 # Target board: NONE for projects not requiring LUFA board drivers.
@@ -89,7 +89,7 @@ F_CPU = 16000000
 #         BOARD = NONE
 #         BOARD = USER
 #         BOARD = MICROPENDOUS
-BOARD = USER
+BOARD = MICROPENDOUS
 
 
 # Input clock frequency.
