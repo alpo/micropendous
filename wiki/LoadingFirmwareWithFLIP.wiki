@@ -18,7 +18,7 @@ This Tutorial assumes you have already compiled your firmware by following the i
   http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-01.jpg
  # Under the _Device_ menu, select _Select_.
   http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-02.jpg
- #  Choose your Micropendous board's corresponding MCU.  The picture below assumes a [Micropendous4] with an [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] MCU will be programmed.
+ #  Choose your Micropendous board's corresponding MCU.  The picture below assumes a [Micropendous] with an [http://www.atmel.com/dyn/products/product_card.asp?PN=AT90USB1287 AT90USB1287] MCU will be programmed.
   http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-03.jpg
  # Under the _Communication_ menu, select _USB_.
   http://micropendous.googlecode.com/svn/trunk/Pictures/FLIP_Tutorial-04.jpg
