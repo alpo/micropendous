@@ -123,7 +123,7 @@ Lets go over what the code does.  Python supports [http://en.wikipedia.org/wiki/
 
 Proceed to [FirmwareDevelopment Firmware Development]
 
-Back to [QuickStart]
+Back to [ProgramAndTestLinux] or [QuickStart]
 
 
 == Useful Note ==
