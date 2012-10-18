@@ -1,3 +1,3 @@
 #summary Projects using the Micropendous
 
-These are all on the front-page now.
+These are all on the [http://code.google.com/p/micropendous/#External_Projects front-page] now.
