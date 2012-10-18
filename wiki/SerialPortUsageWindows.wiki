@@ -133,4 +133,4 @@ Lets go over what the code does.  Python supports [http://en.wikipedia.org/wiki/
 
 Proceed to [FirmwareDevelopment Firmware Development]
 
-Back to [QuickStart]
+Back to [ProgramAndTestWindows] or [QuickStart]
