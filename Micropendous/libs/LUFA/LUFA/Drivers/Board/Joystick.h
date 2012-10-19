@@ -115,6 +115,20 @@
 			#include "UC3/EVK1101/Joystick.h"
 		#elif (BOARD == BOARD_EVK1100)
 			#include "UC3/EVK1100/Joystick.h"
+		#elif ((BOARD == BOARD_MICROPENDOUS_32U2) || (BOARD == BOARD_MICROPENDOUS_A) || \
+			(BOARD == BOARD_MICROPENDOUS_1)    || (BOARD == BOARD_MICROPENDOUS_2) || \
+			(BOARD == BOARD_MICROPENDOUS_3)    || (BOARD == BOARD_MICROPENDOUS_4) || \
+			(BOARD == BOARD_MICROPENDOUS_REV1) || (BOARD == BOARD_MICROPENDOUS_REV2) || \
+			(BOARD == BOARD_MICROPENDOUS_DIP)  || (BOARD == BOARD_MICROPENDOUS_32U4))
+			#define JOY_LEFT	0
+			#define JOY_RIGHT	0
+			#define JOY_UP		0
+			#define JOY_DOWN	0
+			#define JOY_PRESS	0
+			static inline void Joystick_Init(void) {};
+			static inline void Joystick_Disable(void) {};
+			static inline uint_reg_t ATTR_WARN_UNUSED_RESULT Joystick_GetStatus(void) { return 0; };
+			#warning Joystick code is used but Micropendous boards do not have a joystick.
 		#else
 			#include "Board/Joystick.h"
 		#endif
