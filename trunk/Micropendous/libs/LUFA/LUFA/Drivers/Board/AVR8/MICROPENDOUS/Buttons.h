@@ -18,7 +18,7 @@
   advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
-  The author disclaims all warranties with regard to this
+  The author disclaim all warranties with regard to this
   software, including all implied warranties of merchantability
   and fitness.  In no event shall the author be liable for any
   special, indirect or consequential damages or any damages
@@ -31,6 +31,14 @@
 /** \file
  *  \brief Board specific Buttons driver header for the Micropendous series boards.
  *  \copydetails Group_Buttons_MICROPENDOUS_32U2
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
+ */
+
+/** \file
+ *  \brief Board specific Buttons driver header for the Micropendous series boards.
+ *  \copydetails Group_Buttons_MICROPENDOUS_32U4
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -137,6 +145,9 @@
 			#define _BOARD_BUTTON1_MASK             (1 << 7)
 			#define _BOARD_BUTTON_PORTLETTER        D
 		#elif (BOARD == BOARD_MICROPENDOUS_A)
+			#define _BOARD_BUTTON1_MASK             (1 << 2)
+			#define _BOARD_BUTTON_PORTLETTER        E
+		#elif (BOARD == BOARD_MICROPENDOUS_32U4)
 			#define _BOARD_BUTTON1_MASK             (1 << 2)
 			#define _BOARD_BUTTON_PORTLETTER        E
 		#elif (BOARD == BOARD_MICROPENDOUS_1)

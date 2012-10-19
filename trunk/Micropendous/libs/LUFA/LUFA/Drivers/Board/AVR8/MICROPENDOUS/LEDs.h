@@ -18,7 +18,7 @@
   advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
-  The author disclaims all warranties with regard to this
+  The author disclaim all warranties with regard to this
   software, including all implied warranties of merchantability
   and fitness.  In no event shall the author be liable for any
   special, indirect or consequential damages or any damages
@@ -29,8 +29,16 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Micropendous-32U2.
+ *  \brief Board specific LED driver header for the Micropendous-32U2 (http://code.google.com/p/micropendous/wiki/Micropendous_32U2).
  *  \copydetails Group_LEDs_MICROPENDOUS_32U2
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
+ *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
+ */
+
+/** \file
+ *  \brief Board specific LED driver header for the Micropendous-32U4 (http://code.google.com/p/micropendous/wiki/Micropendous_32U4).
+ *  \copydetails Group_LEDs_MICROPENDOUS_32U4
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -38,14 +46,14 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_MICROPENDOUS_REV1 MICROPENDOUS_REV1
- *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 1 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 1 (http://code.google.com/p/micropendous/wiki/MicropendousREV1).
  *
  *  See \ref Group_LEDs_MICROPENDOUS_32U2 for more details.
  */
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_MICROPENDOUS_REV2 MICROPENDOUS_REV2
- *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 2 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 2 (http://code.google.com/p/micropendous/wiki/MicropendousREV2).
  *
  *  See \ref Group_LEDs_MICROPENDOUS_32U2 for more details.
  */
@@ -54,7 +62,7 @@
  *  \defgroup Group_LEDs_MICROPENDOUS_32U2 MICROPENDOUS_32U2
  *  \brief Board specific LED driver header for the Micropendous-32U2.
  *
- *  Board specific LED driver header for the Micropendous 32U2 (https://code.google.com/p/micropendous/wiki/Micropendous_32U2).
+ *  Board specific LED driver header for the Micropendous 32U2 (http://code.google.com/p/micropendous/wiki/Micropendous_32U2).
  *
  *  <b>BOARD_MICROPENDOUS_32U2</b>:
  *  <table>
@@ -92,12 +100,20 @@
 		#if (BOARD == BOARD_MICROPENDOUS_32U2)
 			#define _BOARD_LED1_MASK                (1 << 6)
 			#define _BOARD_LED_PORTLETTER           D
+		#elif (BOARD == BOARD_MICROPENDOUS_32U4)
+			#define _BOARD_LED1_MASK                (1 << 6)
+			#define _BOARD_LED_PORTLETTER           D
 		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
 		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
+		#else
+			#define _BOARD_LED1_MASK                (1 << 1)
+			#define _BOARD_LED_PORTLETTER           B
+			#warning The currently selected Micropendous board does not have an LED.
+			#warning Use PB1, cathode to GND with 1k series resistor: PB1---/\R/\---|LED>---GND
 		#endif
 		
 		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter

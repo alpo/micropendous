@@ -74,6 +74,10 @@
 		#include "CompilerSpecific.h"
 		#include "Attributes.h"
 
+		/* MicropendousDefines must be included after BoardTypes.h */
+		#include "MissingDefines.h"
+		#include "MicropendousDefines.h"
+
 		#if defined(USE_LUFA_CONFIG_HEADER)
 			#include "LUFAConfig.h"
 		#endif
