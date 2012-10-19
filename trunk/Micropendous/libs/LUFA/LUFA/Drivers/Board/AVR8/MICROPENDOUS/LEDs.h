@@ -113,7 +113,7 @@
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
 			#warning The currently selected Micropendous board does not have an LED.
-			#warning Use PB1, cathode to GND with 1k series resistor: PB1---/\R/\---|LED>---GND
+			#warning Use PB1, cathode to GND with resistor: PB1---/\R/\---|LED>---GND
 		#endif
 		
 		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter
