@@ -1,2 +1,0 @@
-This directory contains a copy of FreeRTOS v7.0.2
-stripped of all files not related to the USB AVRs.
