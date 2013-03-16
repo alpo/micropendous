@@ -1,0 +1,109 @@
+
+    README for Atmel AVR Toolchain 3.4.1 Sources - AVR 8-bit GNU Toolchain 
+    ======================================================================
+
+
+This directory contains the complete modified source code of various open source 
+software that was used for building the Atmel AVR Toolchain 3.4.1.
+
+
+CONTENTS
+========
+
+1. avr-binutils-2.22.tar.gz
+
+   Binutils 2.22 with the modifications in AVR target
+
+2. avr-gcc-4.6.2.tar.gz
+
+   GCC 4.6.2 with the modifications in AVR target
+
+3. avr-libc-1.8.0.tar.gz
+
+   AVR libc with the modifications
+
+4. avr-headers-3.2.3.970.zip
+
+   Header files for AVR 8 bit devices
+
+5. build-avr-gnu-toolchain.sh
+
+   Script to build the toolchain
+
+6. avr-patches.tar.gz
+
+   Modifications in the form of patches 
+
+
+
+HOW TO BUILD?
+=============
+
+Preparation:
+
+1. Create directories for build <bld>, source <src>, and install <install>
+  
+
+2. Copy the source tarballs/ zip to the corresponding directories in the 
+   following locations:
+
+   <src>/binutils-src-patches/
+   <src>/gcc-src-patches/
+   <src>/avr-libc-src-patches/
+   <src>/headers/
+
+   * If patched source tarballs used directly, remove prefix 'avr-' from name.
+     example: rename avr-gcc-4.6.2.tar.gz to gcc-4.6.2.tar.gz 
+
+
+3. If you are using the patches, then they must also be copied to the 
+   corresponding directories mentioned at [2]. In this case the source code
+   tarballs should contain unmodified sources which can be obtained form their 
+   respective project websites
+
+   Note: By default, the script uses the patches and expects the tarballs to be
+         clean sources obtained from their respective sites. However, if one
+         wants to build using the tarballs supplied here, he may have to modify
+         the build script to disable using the patches:
+
+         Function 'apply_patches' shall be used to apply patches to source. 
+         This shall be enabled/ disabled in following functions.
+           a. binutils_prep()
+           b. gcc_prep()
+           c. avr_libc_prep()
+
+
+4. Building the toolchain has following dependencies:
+
+   gmp-5.0.2
+   mpfr-3.0.0
+   mpc-0.9
+
+   They may be obtained from their respective project websites. The tarballs
+   of these should be copied to the following directories:
+
+   - gmp tar.gz file to <src>/gmp/
+   - mpfr tar.gz file to <src>/mpfr/
+   - mpc tar file to <src>/mpc/
+
+
+5. In order to build, issue the following command
+
+
+   sh build-avr8-gnu-toolchain.sh -b <bld> -p <install> -s <src> 
+
+
+   Note 1: If the binaries are required to be installed in the default 
+           directories, one may use  -P <root-passwd>  option to pass the root 
+           password.
+
+   Note 2: This current version assumes that the build environment has the 
+           following present and available:
+
+           - automake-1.11.1
+           - autoconf-2.64
+
+
+--------------------------------------------------------------------------------
+
+
