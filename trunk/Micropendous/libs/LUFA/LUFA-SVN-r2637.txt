@@ -1,0 +1,22 @@
+svn checkout http://lufa-lib.googlecode.com/svn/trunk/ lufa-lib-read-only
+
+This directory contains LUFA SVN Revision 2637 with the following modifications:
+
+Files Added:
+
+LUFA/Common/MicropendousDefines.h
+LUFA/Common/MissingDefines.h
+
+
+Files Modified:
+
+* to include MicropendousDefines.h and MissingDefines.h:
+LUFA/Common/Common.h
+
+* to ease development with Micropendous boards:
+LUFA/Common/BoardTypes.h
+LUFA/Drivers/Board/Buttons.h
+LUFA/Drivers/Board/LEDs.h
+LUFA/Drivers/Board/AVR8/MICROPENDOUS/Buttons.h
+LUFA/Drivers/Board/AVR8/MICROPENDOUS/LEDs.h
+

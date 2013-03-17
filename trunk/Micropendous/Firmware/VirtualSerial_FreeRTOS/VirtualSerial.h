@@ -33,8 +33,8 @@
  *  Header file for VirtualSerial.c.
  */
 
-#ifndef _VIRTUALSERIAL_H_
-#define _VIRTUALSERIAL_H_
+#ifndef _VIRTUALSERIAL_FREERTOS_H_
+#define _VIRTUALSERIAL_FREERTOS_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -47,8 +47,21 @@
 		#include "Descriptors.h"
 
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
+
+		// FreeRTOS include files
+		#include "FreeRTOS.h"
+		#include "task.h"
+		#include "croutine.h"
+		#include "FreeRTOSConfig.h"
+
+		// FreeRTOS Task Settings
+		// USB-CDC/VirtualSerial Task must run at higher priority than the MainTask loop
+		#define MAIN_TASK_PRIORITY		( configMAX_PRIORITIES - 3 )
+		#define ViSe_TASK_PRIORITY		( configMAX_PRIORITIES - 1 )	// highest priority
+
+		#define taskDelayPeriod			3
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -65,7 +78,10 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void CheckJoystickMovement(void);
+		void MainTaskLoop(void);
+		void vApplicationIdleHook(void);
+		static void VirtualSerialTask(void *pvParameters);
+		static void MainTask(void *pvParameters);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
