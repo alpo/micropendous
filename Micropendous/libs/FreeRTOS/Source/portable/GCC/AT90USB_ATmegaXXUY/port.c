@@ -79,6 +79,11 @@ Changes from V2.6.0
 	+ AVR port - Replaced the inb() and outb() functions with direct memory
 	  access.  This allows the port to be built with the 20050414 build of
 	  WinAVR.
+
+Changes from FreeRTOS V7.4.0
+
+	+ AVR port - Adapted ATmega323 port to the AT90USB USB AVRs
+
 */
 
 #include <stdlib.h>
@@ -92,13 +97,14 @@ Changes from V2.6.0
  *----------------------------------------------------------*/
 
 /* Start tasks with interrupts enables. */
-#define portFLAGS_INT_ENABLED					( ( portSTACK_TYPE ) 0x80 )
+#define portFLAGS_INT_ENABLED				( ( portSTACK_TYPE ) 0x80 )
 
 /* Hardware constants for timer 1. */
-#define portCLEAR_COUNTER_ON_MATCH				( ( unsigned char ) 0x08 )
-#define portPRESCALE_64							( ( unsigned char ) 0x03 )
-#define portCLOCK_PRESCALER						( ( unsigned long ) 64 )
-#define portCOMPARE_MATCH_A_INTERRUPT_ENABLE	( ( unsigned char ) 0x10 )
+#define portCLEAR_COUNTER_ON_MATCH			( (unsigned portCHAR)(1 << WGM12) )
+// CS10 and CS11 will set a prescale value of 64
+#define portPRESCALE_64					( (unsigned portCHAR)((1 << CS10) | (1 << CS11)) )
+#define portCLOCK_PRESCALER				( (unsigned portLONG) 64 )
+#define portCOMPARE_MATCH_A_INTERRUPT_ENABLE		( (unsigned portCHAR)(1 << OCIE1A) )
 
 /*-----------------------------------------------------------*/
 
@@ -406,8 +412,7 @@ void vPortYieldFromTick( void )
  */
 static void prvSetupTimerInterrupt( void )
 {
-unsigned long ulCompareMatch;
-unsigned char ucHighByte, ucLowByte;
+	unsigned long ulCompareMatch;
 
 	/* Using 16bit timer 1 to generate the tick.  Correct fuses must be
 	selected for the configCPU_CLOCK_HZ clock. */
@@ -422,21 +427,16 @@ unsigned char ucHighByte, ucLowByte;
 
 	/* Setup compare match value for compare match A.  Interrupts are disabled 
 	before this is called so we need not worry here. */
-	ucLowByte = ( unsigned char ) ( ulCompareMatch & ( unsigned long ) 0xff );
-	ulCompareMatch >>= 8;
-	ucHighByte = ( unsigned char ) ( ulCompareMatch & ( unsigned long ) 0xff );
-	OCR1AH = ucHighByte;
-	OCR1AL = ucLowByte;
+	OCR1A = ulCompareMatch;
+
+	/* Start Timer1 */
+	TCCR1A = 0;
 
 	/* Setup clock source and compare match behaviour. */
-	ucLowByte = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
-	TCCR1B = ucLowByte;
+	TCCR1B = portCLEAR_COUNTER_ON_MATCH | portPRESCALE_64;
 
-	/* Enable the interrupt - this is okay as interrupt are currently globally
-	disabled. */
-	ucLowByte = TIMSK;
-	ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
-	TIMSK = ucLowByte;
+	/* Enable the interrupt - interrupt are currently globally disabled so it will work */
+	TIMSK1 = portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
 }
 /*-----------------------------------------------------------*/
 
@@ -447,8 +447,8 @@ unsigned char ucHighByte, ucLowByte;
 	 * the context is saved at the start of vPortYieldFromTick().  The tick
 	 * count is incremented after the context is saved.
 	 */
-	void SIG_OUTPUT_COMPARE1A( void ) __attribute__ ( ( signal, naked ) );
-	void SIG_OUTPUT_COMPARE1A( void )
+	void TIMER1_COMPA_vect( void ) __attribute__ ( ( signal, naked ) );
+	void TIMER1_COMPA_vect( void )
 	{
 		vPortYieldFromTick();
 		asm volatile ( "reti" );
@@ -460,12 +460,10 @@ unsigned char ucHighByte, ucLowByte;
 	 * tick count.  We don't need to switch context, this can only be done by
 	 * manual calls to taskYIELD();
 	 */
-	void SIG_OUTPUT_COMPARE1A( void ) __attribute__ ( ( signal ) );
-	void SIG_OUTPUT_COMPARE1A( void )
+	void TIMER1_COMPA_vect( void ) __attribute__ ( ( signal ) );
+	void TIMER1_COMPA_vect( void )
 	{
 		vTaskIncrementTick();
 	}
 #endif
 
-
-	

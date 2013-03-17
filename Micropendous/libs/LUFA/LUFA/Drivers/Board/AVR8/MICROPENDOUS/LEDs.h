@@ -92,12 +92,20 @@
 		#if (BOARD == BOARD_MICROPENDOUS_32U2)
 			#define _BOARD_LED1_MASK                (1 << 6)
 			#define _BOARD_LED_PORTLETTER           D
+		#elif (BOARD == BOARD_MICROPENDOUS_32U4)
+			#define _BOARD_LED1_MASK                (1 << 6)
+			#define _BOARD_LED_PORTLETTER           D
 		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
 		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
+		#else
+			#define _BOARD_LED1_MASK                (1 << 1)
+			#define _BOARD_LED_PORTLETTER           B
+			#warning The currently selected Micropendous board does not have an LED.
+			#warning Use PB1, cathode to GND with resistor: PB1---/\R/\---|LED>---GND
 		#endif
 
 		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter

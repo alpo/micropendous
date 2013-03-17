@@ -134,7 +134,7 @@
 			     (BOARD == BOARD_MICROPENDOUS_32U2) || defined(__DOXYGEN__))
 				#include "../../LEDs.h"
 
-				/** Indicates the board has a hardware LEDs mounted. */
+				/** Indicates the board has hardware LEDs mounted. */
 				#define BOARD_HAS_LEDS
 			#endif
 

@@ -9,6 +9,9 @@
 /*
   Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
+  Updated for Loopback by Opendous Inc. 2013-03-16
+  www.Micropendous.org/VirtualSerial
+
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
   without fee, provided that the above copyright notice appear in
@@ -35,6 +38,11 @@
  */
 
 #include "VirtualSerial.h"
+
+
+// Global buffer for use with STDIO functions
+volatile char buffer[CDC_TXRX_EPSIZE];
+
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -82,19 +90,18 @@ int main(void)
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
 
-	for (;;)
-	{
-		CheckJoystickMovement();
+	// Create Tasks for FreeRTOS
+	// The VirtualSerial/USB-CDC task is highest priority to ensure USB functions run in time
+	xTaskCreate(MainTask, (signed portCHAR *) "MainTask", configMINIMAL_STACK_SIZE, NULL, MAIN_TASK_PRIORITY, NULL );
+	xTaskCreate(VirtualSerialTask, (signed portCHAR *) "ViSeTask", configMINIMAL_STACK_SIZE, NULL, (ViSe_TASK_PRIORITY | portPRIVILEGE_BIT), NULL );
 
-		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
-		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+	// Start the scheduler
+	vTaskStartScheduler();
 
-		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
-		USB_USBTask();
-	}
+	// Should never get here!
+	return 0;
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
@@ -107,43 +114,30 @@ void SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
+	/* Disable JTAG; allows upper nibble of Port F to be used as GPIO */
+	#if (	defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
+			defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
+			defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
+			defined(__AVR_ATmega32U6__)	)
+		JTAG_DISABLE();
+	#endif
+
 	/* Hardware Initialization */
-	Joystick_Init();
 	LEDs_Init();
+	LEDs_TurnOnLEDs(LEDS_LED1);
+	DISABLE_VOLTAGE_TXRX(); // used on Micropendous REV1/2 boards
+	DISABLE_EXT_SRAM(); // used on Micropendous REV1/2 boards
+	SELECT_USB_B(); // needed for Micropendous REV1/2 boards
 	USB_Init();
 }
 
-/** Checks for changes in the position of the board joystick, sending strings to the host upon each change. */
-void CheckJoystickMovement(void)
+
+// CoRoutines are not enabled, but FreeRTOS complains during compile
+void vApplicationIdleHook(void)
 {
-	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
-	char*       ReportString  = NULL;
-	static bool ActionSent    = false;
-
-	if (JoyStatus_LCL & JOY_UP)
-	  ReportString = "Joystick Up\r\n";
-	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportString = "Joystick Down\r\n";
-	else if (JoyStatus_LCL & JOY_LEFT)
-	  ReportString = "Joystick Left\r\n";
-	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportString = "Joystick Right\r\n";
-	else if (JoyStatus_LCL & JOY_PRESS)
-	  ReportString = "Joystick Pressed\r\n";
-	else
-	  ActionSent = false;
-
-	if ((ReportString != NULL) && (ActionSent == false))
-	{
-		ActionSent = true;
-
-		/* Write the string to the virtual COM port via the created character stream */
-		fputs(ReportString, &USBSerialStream);
-
-		/* Alternatively, without the stream: */
-		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
-	}
+	//vCoRoutineSchedule();
 }
+
 
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
@@ -171,5 +165,72 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
+}
+
+
+
+static void VirtualSerialTask(void *pvParameters)
+{
+
+	for (;;)
+	{
+		// Must throw away unused bytes from the host, or it will lock up while waiting for the device
+		// TODO: this causes loopback to fail
+		//CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+
+		// want CDC and USB functions to run without interruption but
+		// with interrupts enabled so ENTER/EXIT_CRITICAL won't work
+		vTaskSuspendAll();
+
+			CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
+			USB_USBTask();
+
+		xTaskResumeAll();
+
+		vTaskDelay((portTickType) taskDelayPeriod );
+	}
+
+}
+
+
+static void MainTask(void *pvParameters)
+{
+	for(;;) {
+		MainTaskLoop();
+		portYIELD();
+	}
+}
+
+
+void MainTaskLoop(void)
+{
+	int count = 0;
+
+	// If the host has sent data then echo it back
+	// Throughput is maximized if the full EP buffer is read and sent each time
+	// Throughput approaches CDC_TXRX_EPSIZE kbytes/second and depends on transfer size from host 
+	// NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+	vTaskSuspendAll();
+		count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream);
+	xTaskResumeAll();
+
+	//TODO: you can process the received buffer data here
+
+	vTaskSuspendAll();
+		if (count > 0) {
+			fwrite(&buffer, 1, count, &USBSerialStream);
+		}
+	xTaskResumeAll();
+
+
+	// If HWB Button is pressed then send formatted strings
+	if (Buttons_GetStatus()) {
+		// NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+		vTaskSuspendAll();
+			fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n")); // send a constant string stored in FLASH
+			fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND); // send a string that is dynamic and stored in SRAM
+		xTaskResumeAll();
+	}
+
 }
 

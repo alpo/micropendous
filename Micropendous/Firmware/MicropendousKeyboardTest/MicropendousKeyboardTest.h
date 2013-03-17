@@ -33,8 +33,8 @@
  *  Header file for Keyboard.c.
  */
 
-#ifndef _KEYBOARD_H_
-#define _KEYBOARD_H_
+#ifndef _MICROPENDOUSKEYBOARDTEST_H_
+#define _MICROPENDOUSKEYBOARDTEST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -46,7 +46,6 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
@@ -84,5 +83,5 @@
 		                                          const void* ReportData,
 		                                          const uint16_t ReportSize);
 
-#endif
+#endif // _MICROPENDOUSKEYBOARDTEST_H_
 
