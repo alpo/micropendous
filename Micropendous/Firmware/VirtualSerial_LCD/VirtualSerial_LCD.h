@@ -33,8 +33,8 @@
  *  Header file for VirtualSerial.c.
  */
 
-#ifndef _VIRTUALSERIAL_H_
-#define _VIRTUALSERIAL_H_
+#ifndef _VIRTUALSERIAL_LCD_H_
+#define _VIRTUALSERIAL_LCD_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -49,6 +49,12 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
+
+		#include "global.h"
+		#include "lcdconf.h"
+		#include <lcd.h>
+		#include <timer.h>
+		#include <rprintf.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -72,5 +78,5 @@
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
 
-#endif
+#endif // _VIRTUALSERIAL_LCD_H_
 

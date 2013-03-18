@@ -131,46 +131,56 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				_BOARD_LED_DDR  |=  LEDS_ALL_LEDS;
-				_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
+				//_BOARD_LED_DDR  |=  LEDS_ALL_LEDS;
+				//_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
+				DDRB  |=  (1 << PB1);
+				PORTB |=  (1 << PB1);
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				_BOARD_LED_DDR  &= ~LEDS_ALL_LEDS;
-				_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
+				//_BOARD_LED_DDR  &= ~LEDS_ALL_LEDS;
+				//_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
+				DDRB  &= ~(1 << PB1);
+				PORTB &= ~(1 << PB1);
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PORT |= LEDMask;
+				//_BOARD_LED_PORT |= LEDMask;
+				PORTB |=  LEDMask;
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PORT &= ~LEDMask;
+				//_BOARD_LED_PORT &= ~LEDMask;
+				PORTB &= ~LEDMask;
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDS_ALL_LEDS) | LEDMask);
+				//_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDS_ALL_LEDS) | LEDMask);
+				PORTB = ((_BOARD_LED_PORT & ~LEDS_ALL_LEDS) | LEDMask);
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDMask) | ActiveMask);
+				//_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDMask) | ActiveMask);
+				PORTB = ((_BOARD_LED_PORT & ~LEDMask) | ActiveMask);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PIN  = LEDMask;
+				//_BOARD_LED_PIN  = LEDMask;
+				PORTB  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (_BOARD_LED_PORT & LEDS_ALL_LEDS);
+				//return (_BOARD_LED_PORT & LEDS_ALL_LEDS);
+				return (PORTB & (1 << PB0));
 			}
 		#endif
 
