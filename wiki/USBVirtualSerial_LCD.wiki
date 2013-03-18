@@ -50,7 +50,7 @@ Connect your Micropendous board to your PC.  Connect to the board with a serial 
 
 = Firmware Design =
 
-The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBVirtualSerial] firmware.  The following steps are how the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD VirtualSerial_LCD] firmware was created.
+The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [VirtualSerial] firmware.  The following steps are how the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD VirtualSerial_LCD] firmware was created.
 
 The first step is to copy [USBVirtualSerial] firmware to a new `VirtualSerial_LCD` directory and rename `USBVirtualSerial.c` and `USBVirtualSerial.h`.  The `#include` line near the top of our new `VirtualSerial_LCD.c` must be edited for the renamed files.
 
