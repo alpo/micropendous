@@ -56,7 +56,7 @@ The first step is to copy [USBVirtualSerial] firmware to a new `VirtualSerial_LC
 
 Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
 
-Files `global.h` and `lcdconf.h` must be copied to the `VirtualSerial_LCD` directory.
+Files `global.h` and `lcdconf.h` must be copied to the `VirtualSerial_LCD` directory from `/libs/avrlib/examples/lcd`.
 
 AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, `SRC` to include AVRlib's files during compilation, and `CC_FLAGS` to include the AVRlib path when searching for include files.
 
