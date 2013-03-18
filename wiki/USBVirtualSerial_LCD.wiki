@@ -1,10 +1,10 @@
 #summary USB Virtual Serial to HD44780 Character LCD Interface
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/USBVirtualSerial-LCD ` directory.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/VirtualSerial_LCD ` directory.
 
 *Purpose:* Display text on a [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780] character LCD display.
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-LCD View] or [http://www.Micropendous.org/Distribution Download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD View] or [http://www.Micropendous.org/Distribution Download]
 
 *Targets:* [Micropendous1], [Micropendous2], [Micropendous3], [Micropendous4] or any USB AVR based hardware
 
@@ -20,15 +20,15 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
 
 === [Micropendous2] ===
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Picture.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/VirtualSerial_LCD_Picture.jpg
 
-Compile and load the USBVirtualSerial-LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the VirtualSerial_LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a breakable [http://www.digikey.com/product-detail/en/PREC040SBAN-M71RC/S1112EC-40-ND right-angle] or [http://www.digikey.com/product-detail/en/PREC040SABN-RC/S1022EC-40-ND straight-through] header which you will need to solder to the LCD.  It can be connected to any USB AVR board (5V or 3.3V IO) but must be powered at 5V.
 
 == Connecting a Micropendous Board to a HD44780 LCD ==
 
-To save pins the 4-bit HD44780 communication protocol is used.  You can modify the port being used and associated pins in `/Micropendous/Firmware/USBVirtualSerial-LCD/lcdconf.h`.  This is explained later.
+To save pins the 4-bit HD44780 communication protocol is used.  You can modify the port being used and associated pins in `/Micropendous/Firmware/VirtualSerial_LCD/lcdconf.h`.  This is explained later.
 
 The connections are as follows for the standard firmware:
 
@@ -50,33 +50,30 @@ Connect your Micropendous board to your PC.  Connect to the board with a serial 
 
 = Firmware Design =
 
-The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBVirtualSerial] firmware.  The following steps are how the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/USBVirtualSerial-LCD USBVirtualSerial-LCD] firmware was created.
+The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [USBVirtualSerial] firmware.  The following steps are how the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD VirtualSerial_LCD] firmware was created.
 
-The first step is to copy [USBVirtualSerial] firmware to a new `USBVirtualSerial-LCD` directory and rename `USBVirtualSerial.c` and `USBVirtualSerial.h`.  The `#include` line near the top of our new `USBVirtualSerial-LCD.c` must be edited for the renamed files.
+The first step is to copy [USBVirtualSerial] firmware to a new `VirtualSerial_LCD` directory and rename `USBVirtualSerial.c` and `USBVirtualSerial.h`.  The `#include` line near the top of our new `VirtualSerial_LCD.c` must be edited for the renamed files.
 
 Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
 
-Files `global.h` and `lcdconf.h` must be copied to the `USBVirtualSerial-LCD` directory.
+Files `global.h` and `lcdconf.h` must be copied to the `VirtualSerial_LCD` directory.
 
-AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, and `SRC` to include AVRlib's files during compilation.
+AVRlib's `rprintf.c, lcd.c, and timer.c` will need to be included for proper functionality of the LCD code.  Open the `makefile` for editing in an editor that does not add formatting (such as [SettingUpProgrammersNotepad Programmer's Notepad]).  Set `TARGET` to use the renamed code base, `SRC` to include AVRlib's files during compilation, and `CC_FLAGS` to include the AVRlib path when searching for include files.
 
 {{{
-TARGET = USBVirtualSerial-LCD
+TARGET = VirtualSerial_LCD
 }}}
 
 {{{
-AVRLIB_PATH = ../../libs/avrlib
-
-SRC = $(TARGET).c            \
-    Descriptors.c            \
-    Lib/RingBuff.c           \
-    $(AVRLIB_PATH)/rprintf.c \
-    $(AVRLIB_PATH)/lcd.c     \
-    $(AVRLIB_PATH)/timer.c   \
+AVRLIB_PATH  = ../../libs/avrlib
+SRC = $(TARGET).c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)   \
+      $(AVRLIB_PATH)/rprintf.c $(AVRLIB_PATH)/lcd.c $(AVRLIB_PATH)/timer.c
+...
+CC_FLAGS = -DUSE_LUFA_CONFIG_HEADER -IConfig/   -I$(AVRLIB_PATH)
 ...
 }}}
 
-AVRlib also requires some [http://en.wikipedia.org/wiki/Header_file header files].  Add the following `#includes` to `USBVirtualSerial-LCD.h`:
+AVRlib also requires some [http://en.wikipedia.org/wiki/Header_file header files].  Add the following `#includes` to `VirtualSerial_LCD.h`:
 
 {{{
   #include "global.h"
@@ -86,12 +83,7 @@ AVRlib also requires some [http://en.wikipedia.org/wiki/Header_file header files
   #include <rprintf.h>
 }}}
 
-To make sure the compiler can find the above header files the `makefile` must also have AVRlib's directory in the list of header include directories:
-{{{
-EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/
-}}}
-
-For the LCD code to work the USB AVRs and your particular HD44780-based LCD display `lcdconf.h` must be edited.  The chosen display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey].
+For the AVRlib LCD code to work with the USB AVRs and your particular HD44780-based LCD display `lcdconf.h` must be edited.  The chosen display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey].
 
 {{{
 #ifdef LCD_PORT_INTERFACE
@@ -105,6 +97,7 @@ For the LCD code to work the USB AVRs and your particular HD44780-based LCD disp
     #define LCD_DATA_PIN    PIND
     #define LCD_DATA_DDR    DDRD
     // access mode you will use (default is 8bit unless 4bit is selected)
+    // for 4bit mode, upper nibble (pins 4,5,6,7) of above port is used
     #define LCD_DATA_4BIT
     ...
 
@@ -112,7 +105,6 @@ For the LCD code to work the USB AVRs and your particular HD44780-based LCD disp
 #define LCD_LINE_LENGTH     16
 
 }}}
-
 
 `global.h` is edited to remove `F_CPU` defines, as the `makefile` defines this variable.
 {{{
@@ -122,11 +114,11 @@ For the LCD code to work the USB AVRs and your particular HD44780-based LCD disp
 #define CYCLES_PER_US ((F_CPU+500000)/1000000)  // cpu cycles per microsecond
 }}}
 
-In `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
+In `main()` of `VirtualSerial_LCD.c`, the LCD functions must be initialized:
 
 {{{
   lcdInit();
-  rprintfInit(lcdDataWrite); // direct rprintf to LCD
+  rprintfInit(lcdDataWrite);  // direct rprintf to LCD
   lcdClear();  // clear the LCD
   rprintf("GO AVRlib!");
 }}}
@@ -134,26 +126,30 @@ In `main()` of `USBVirtualSerial-LCD.c`, the LCD functions must be initialized:
 Finally, while data from the host is in the input buffer, send it to the LCD and back to the host.  Make sure characters past the end of the second line get sent back to the start.
 
 {{{
-volatile uint8_t character_count = 0;
-volatile uint8_t current_line = 0;
-
+volatile uint8_t lcd_character_count = 0;
+volatile uint8_t lcd_current_line = 0;
+...
 void Main_Task(void)
 {
-  uint8_t tempChar = 0;   // temporary storage - unsigned 8-bit integer
+  uint8_t tempChar = 0;   // temporary storage - unsigned 8-bit int
 
   // while the buffer has elements, write them to the LCD
-  while (haveData()) {
-    /* Basically each character is written sequentially, first to the top line, then to the next, etc... */
+  while (haveData())
+  {
+    // Basically each character is written sequentially,
+    // first to the top line, then to the next, etc...
     tempChar = getchar();
     putchar(tempChar); // send char back for echo'ing on terminal
     character_count++;
     rprintfChar(tempChar); // print char to the LCD
     // once we hit the end of a single line, loop to next line
-    if (character_count >= LCD_LINE_LENGTH) {
+    if (character_count >= LCD_LINE_LENGTH)
+    {
       character_count = 0;
       current_line++;
       // once we hit the end of the last line, loop to the first line
-      if (current_line >= LCD_LINES) {
+      if (current_line >= LCD_LINES)
+      {
         current_line = 0;
       }
       lcdGotoXY(0, current_line);
@@ -200,13 +196,13 @@ Do not use `\n` or `\r\n` newline characters as they are not properly handled.  
 
 = Connecting an [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey] to a HD44780 LCD =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/VirtualSerial_LCD-AT90USBKey.jpg
 
-The current USBVirtualSerial-LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.  All non-Vcc other connections are standard.
+The current VirtualSerial_LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's Vcc and GND pins.  All non-Vcc other connections are standard.
 
 = Connecting a Micropendous to a HD44780 LCD using 2 Ports =
 
-The version that uses a full 8-bit data bus is slightly faster an is available in the `USBVirtualSerial-LCD_2PortVersion` directory.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
+The version that uses a full 8-bit data bus is slightly faster an is available in the `VirtualSerial_LCD_2PortVersion` directory.  It is used on the obsolete [http://code.google.com/p/opendous/wiki/AD_Micropendous1BaseDevelopmentBoard Micropendous1-Base Development Board].
 
 To enable 8-Bit mode you must comment out the `USE_4BIT_LCD_INTERFACE` line in the `makefile`:
 {{{
@@ -235,7 +231,7 @@ The connections are as follows:
 || PB6 || Data6 || 13 ||
 || PB7 || Data7 || 14 ||
 
-The key settings that determine functionality are in `Micropendous/Firmware/USBVirtualSerial-LCD/lcdconf.h`:
+The key settings that determine functionality are in `Micropendous/Firmware/VirtualSerial_LCD/lcdconf.h`:
 
 {{{
 #ifdef LCD_PORT_INTERFACE
