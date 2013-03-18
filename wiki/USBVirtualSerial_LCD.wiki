@@ -24,7 +24,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Pictu
 
 Compile and load the `VirtualSerial_LCD` firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
-The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a breakable [http://www.digikey.com/product-detail/en/PREC040SBAN-M71RC/S1112EC-40-ND right-angle] or [http://www.digikey.com/product-detail/en/PREC040SABN-RC/S1022EC-40-ND straight-through] header which you will need to solder to the LCD.  It can be connected to any USB AVR board (5V or 3.3V IO) but must be powered at 5V.
+The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a breakable [http://www.digikey.com/product-detail/en/PREC040SBAN-M71RC/S1112EC-40-ND right-angle] or [http://www.digikey.com/product-detail/en/PREC040SABN-RC/S1022EC-40-ND straight-through] header which needs to be soldered to the LCD.  It can be connected to any USB AVR board (5V or 3.3V IO) but must be powered at 5V.
 
 == Connecting a Micropendous Board to a HD44780 LCD ==
 
@@ -52,7 +52,7 @@ Connect your Micropendous board to your PC.  Connect to the board with a serial 
 
 The goal is to use [http://ccrma.stanford.edu/courses/250a/docs/avrlib/html/index.html AVRlib's] character LCD functions with data sent to the _Virtual Serial Port_ made up of the Micropendous running modified [VirtualSerial] firmware.  The following steps are how the [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD VirtualSerial_LCD] firmware was created.
 
-The first step is to copy [USBVirtualSerial] firmware to a new `VirtualSerial_LCD` directory and rename `USBVirtualSerial.c` and `USBVirtualSerial.h`.  The `#include` line near the top of our new `VirtualSerial_LCD.c` must be edited for the renamed files.
+The first step is to copy [VirtualSerial] firmware to a new `VirtualSerial_LCD` directory and rename `VirtualSerial.c` and `VirtualSerial.h`.  The `#include "VirtualSerial.h"` line near the top of our new `VirtualSerial_LCD.c` must be edited for the renamed files.
 
 Examine AVRlib's example code for [http://code.google.com/p/micropendous/source/browse/#svn/trunk/Micropendous/libs/avrlib/examples/lcd LCD functionality] to determine what files are needed to use the LCD code.
 
@@ -137,56 +137,31 @@ volatile uint8_t lcd_current_line = 0;
 void Main_Task(void)
 {
   int     tempInt  = 0;
-
   uint8_t tempChar = 0;
 
-
   // while there are characters in the USB stream, write them to LCD
-
   // Each character is written sequentially,
-
   // first to the top line, then to the next, etc...
-
   while ((tempInt = fgetc(&USBSerialStream)) > 0)
-
   {
-
     tempChar = (uint8_t)tempInt;
- // convert to char
+    // convert to char
     // send char back for echo'ing on terminal
-
     fputc(tempChar, &USBSerialStream);
-
-
-    lcd_character_count++;
- // wrote another character
+    lcd_character_count++; // wrote another character
     rprintfChar(tempChar); // print char to the LCD
-
     // once we hit the end of a single line, loop to next line
-
     if (lcd_character_count >= LCD_LINE_LENGTH)
-
     {
-
       lcd_character_count = 0;
-
       lcd_current_line++;
-
       // once we hit the end of the last line, loop to the first line
-
       if (lcd_current_line >= LCD_LINES)
-
       {
-
         lcd_current_line = 0;
-
       }
-
-  
-    lcdGotoXY(0, lcd_current_line);
-
+      lcdGotoXY(0, lcd_current_line);
     }
-
   }
 }
 
@@ -227,6 +202,6 @@ Do not use `\n` or `\r\n` newline characters as they are not properly handled.  
 
 = Connecting an [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey] to a HD44780 LCD =
 
-http://micropendous.googlecode.com/svn/trunk/Pictures/VirtualSerial_LCD-AT90USBKey.jpg
+http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
 
-The current VirtualSerial_LCD firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's VDD and GND pins.  All non-VDD connections will work at 3.3V.
+The `VirtualSerial_LCD` firmware will work with an AT90USBKey.  However, most HD44780 LCDs run at 5V while the AT90USBKey runs at 3.3V.  You must source 5V and its' corresponding GND from somewhere else (such as a [http://en.wikipedia.org/wiki/Universal_Serial_Bus#Connector_types USB connector]) and connect them to your LCD's VDD and GND pins.  All non-VDD connections will work at 3.3V.
