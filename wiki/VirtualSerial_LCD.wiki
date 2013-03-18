@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/VirtualSerial_LCD ` directory.
 
-*Purpose:* Display text on a [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780] character LCD display.
+*Purpose:* Display text on a [http://en.wikipedia.org/wiki/HD44780_Character_LCD HD44780] character LCD display.  This page also provides details for incorporating [http://www.procyonengineering.com/embedded/avr/avrlib/ avrlib] functions into [http://www.fourwalledcubicle.com/LUFA.php LUFA]-based projects.
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_LCD View] or [http://www.Micropendous.org/Distribution Download]
 
