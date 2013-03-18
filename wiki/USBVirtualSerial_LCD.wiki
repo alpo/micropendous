@@ -22,7 +22,7 @@ http://micropendous.googlecode.com/svn/trunk/Micropendous/Design/Micropendous/Mi
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/VirtualSerial_LCD_Picture.jpg
 
-Compile and load the VirtualSerial_LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the `VirtualSerial_LCD` firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
 The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a breakable [http://www.digikey.com/product-detail/en/PREC040SBAN-M71RC/S1112EC-40-ND right-angle] or [http://www.digikey.com/product-detail/en/PREC040SABN-RC/S1022EC-40-ND straight-through] header which you will need to solder to the LCD.  It can be connected to any USB AVR board (5V or 3.3V IO) but must be powered at 5V.
 
