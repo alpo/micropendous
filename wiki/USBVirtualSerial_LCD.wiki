@@ -91,7 +91,7 @@ To make sure the compiler can find the above header files the `makefile` must al
 EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRLIB_PATH)/
 }}}
 
-For the LCD code to work the USB AVRs and your particular HD44780-based LCD display `lcdconf.h` must be edited.  The chosen display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey].
+For the LCD code to work the USB AVRs and your particular HD44780-based LCD display `lcdconf.h` must be edited.  The chosen display has 2 lines of 16 characters.  Data and control signals are sent over `PortD` using a 4bit interface.  This configuration was chosen as `PortD` exists on all USB AVRs and will work with the [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey].
 
 {{{
 #ifdef LCD_PORT_INTERFACE
@@ -198,7 +198,7 @@ rprintf(" of something")
 
 Do not use `\n` or `\r\n` newline characters as they are not properly handled.  Use `lcdGotoXY()` to position your text.
 
-= Connecting an [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3879 AT90USBKey] to a HD44780 LCD =
+= Connecting an [http://www.atmel.com/tools/at90usbkey.aspx AT90USBKey] to a HD44780 LCD =
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial_LCD-AT90USBKey.jpg
 
