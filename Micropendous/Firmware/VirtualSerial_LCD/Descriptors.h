@@ -37,20 +37,25 @@
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Common/PrinterClassCommon.h>
-
 		#include <avr/pgmspace.h>
 
+		#include <LUFA/Drivers/USB/USB.h>
+
 	/* Macros: */
-		/** Endpoint address of the Printer device-to-host data IN endpoint. */
-		#define PRINTER_IN_EPADDR         (ENDPOINT_DIR_IN  | 3)
+		/** Endpoint address of the CDC device-to-host notification IN endpoint. */
+		#define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN  | 2)
 
-		/** Endpoint address of the Printer host-to-device data OUT endpoint. */
-		#define PRINTER_OUT_EPADDR        (ENDPOINT_DIR_OUT | 4)
+		/** Endpoint address of the CDC device-to-host data IN endpoint. */
+		#define CDC_TX_EPADDR                  (ENDPOINT_DIR_IN  | 3)
 
-		/** Size in bytes of the Printer data endpoints. */
-		#define PRINTER_IO_EPSIZE         64
+		/** Endpoint address of the CDC host-to-device data OUT endpoint. */
+		#define CDC_RX_EPADDR                  (ENDPOINT_DIR_OUT | 4)
+
+		/** Size in bytes of the CDC device-to-host notification IN endpoint. */
+		#define CDC_NOTIFICATION_EPSIZE        8
+
+		/** Size in bytes of the CDC data IN and OUT endpoints. */
+		#define CDC_TXRX_EPSIZE                16
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
@@ -59,12 +64,19 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t Config;
+			USB_Descriptor_Configuration_Header_t    Config;
 
-			// Printer Interface
-			USB_Descriptor_Interface_t            Printer_Interface;
-			USB_Descriptor_Endpoint_t             Printer_DataInEndpoint;
-			USB_Descriptor_Endpoint_t             Printer_DataOutEndpoint;
+			// CDC Control Interface
+			USB_Descriptor_Interface_t               CDC_CCI_Interface;
+			USB_CDC_Descriptor_FunctionalHeader_t    CDC_Functional_Header;
+			USB_CDC_Descriptor_FunctionalACM_t       CDC_Functional_ACM;
+			USB_CDC_Descriptor_FunctionalUnion_t     CDC_Functional_Union;
+			USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
+
+			// CDC Data Interface
+			USB_Descriptor_Interface_t               CDC_DCI_Interface;
+			USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
+			USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
