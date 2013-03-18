@@ -24,7 +24,7 @@ http://micropendous.googlecode.com/svn/trunk/Pictures/USBVirtualSerial-LCD_Pictu
 
 Compile and load the USBVirtualSerial-LCD firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
-The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a [http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-2227-ND breakable right-angle header] which you will need to solder to the LCD.  It is connected to a [Micropendous2] set to run at 5V.
+The HD44780 LCD pictured is a [http://www.lumex.com/specs/LCM-S01602DTR%20M.pdf Lumex LCM-S01602DTR].  It can be purchased from [http://www.digikey.com/product-detail/en/LCM-S01602DTR%2FM/67-1781-ND Digi-Key] along with a [http://www.digikey.com/product-detail/en/68016-436HLF/609-2227-ND breakable right-angle header] which you will need to solder to the LCD.  It is connected to a [Micropendous2] set to run at 5V.
 
 == Connecting a Micropendous Board to a HD44780 LCD ==
 
