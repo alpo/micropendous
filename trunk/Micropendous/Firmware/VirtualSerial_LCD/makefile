@@ -17,10 +17,12 @@ BOARD        = MICROPENDOUS_REV2
 F_CPU        = 16000000
 F_USB        = $(F_CPU)
 OPTIMIZATION = s
-TARGET       = VirtualSerial
-SRC          = $(TARGET).c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+TARGET       = VirtualSerial_LCD
+AVRLIB_PATH  = ../../libs/avrlib
+SRC          = $(TARGET).c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)  \
+               $(AVRLIB_PATH)/rprintf.c $(AVRLIB_PATH)/lcd.c $(AVRLIB_PATH)/timer.c
 LUFA_PATH    = ../../libs/LUFA/LUFA
-CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
+CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/  -I$(AVRLIB_PATH)
 LD_FLAGS     =
 CDC_BOOTLOADER_PORT = /dev/ttyACM0
 #CDC_BOOTLOADER_PORT = COM5

@@ -69,15 +69,28 @@
 #define GNUC_PACKED __attribute__((packed)) 
 
 // port address helpers
-#define DDR(x) ((x)-1)    // address of data direction register of port x
-#define PIN(x) ((x)-2)    // address of input register of port x
+#ifndef DDR
+	#define DDR(x) ((x)-1)    // address of data direction register of port x
+#endif
+#ifndef PIN
+	#define PIN(x) ((x)-2)    // address of input register of port x
+#endif
 
 // MIN/MAX/ABS macros
-#define MIN(a,b)			((a<b)?(a):(b))
-#define MAX(a,b)			((a>b)?(a):(b))
-#define ABS(x)				((x>0)?(x):(-x))
+#ifndef MIN
+	#define MIN(a,b)			((a<b)?(a):(b))
+#endif
+#ifndef MAX
+	#define MAX(a,b)			((a>b)?(a):(b))
+#endif
+#ifndef ABS
+	#define ABS(x)				((x>0)?(x):(-x))
+#endif
 
 // constants
-#define PI		3.14159265359
-
+#ifndef PI
+	#define PI		3.14159265359
 #endif
+
+#endif // AVRLIBDEFS_H
+
