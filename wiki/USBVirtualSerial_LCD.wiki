@@ -32,17 +32,17 @@ To save pins the 4-bit HD44780 communication protocol is used.  You can modify t
 
 The connections are as follows for the standard firmware:
 
-|| *Micropendous*  || *LCD Name* || *LCD Pin* ||
-|| GND             || GND        || 1         ||
-|| VCC/5V          || VCC        || 2         ||
-|| GND             || Contrast   || 3         ||
-|| PD0 (5)         || RS         || 4         ||
-|| PD1 (4)         || RW         || 5         ||
-|| PD2 (0)         || E          || 6         ||
-|| PD4 (2)         || Data4      || 11        ||
-|| PD5 (3)         || Data5      || 12        ||
-|| PD6 (6)         || Data6      || 13        ||
-|| PD7 (7)         || Data7      || 14        ||
+|| *Micropendous*  || *LCD Name*  || *LCD Pin* ||
+|| GND             || GND         || 1         ||
+|| 5V              || VDD         || 2         ||
+|| GND             || Vo Contrast || 3         ||
+|| PD0 (5)         || RS          || 4         ||
+|| PD1 (4)         || RW          || 5         ||
+|| PD2 (0)         || E           || 6         ||
+|| PD4 (2)         || Data4       || 11        ||
+|| PD5 (3)         || Data5       || 12        ||
+|| PD6 (6)         || Data6       || 13        ||
+|| PD7 (7)         || Data7       || 14        ||
 
 == Testing ==
 
