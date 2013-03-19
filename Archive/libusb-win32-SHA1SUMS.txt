@@ -1,0 +1,5 @@
+e1362d9ba4a9c9b30394691e7acdee05631fd54e  libusb-win32-bin-1.2.6.0.zip
+aec0db76c2da0faba440a3dcfe6393507fcb3f7d  libusb-win32-bin-debug-1.2.6.0.zip
+ebcc4d8bcf020c9ea9b8d164e183ccfb947f7856  libusb-win32-devel-filter-1.2.6.0.exe
+6f5b7d05a4c96155dabe90833c673cde8509e7a4  libusb-win32-README-1.2.6.0.txt
+6b90d083e4aee2fa0edbf18dec79d40afe9ded7d  libusb-win32-src-1.2.6.0.zip
