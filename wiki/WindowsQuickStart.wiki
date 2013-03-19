@@ -23,7 +23,7 @@ In general, *Administrator* privileges are required on a Windows machine during 
 
    * the above means everything is O.K.  If you get other output, either add FLIP to your `PATH` [AddingFLIPtoPATH permanently] or temporarily each time you start a Command Prompt with the following command:
      http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_Fail.jpg
-   Replace `C:\Program Files\Atmel\Flip 3.4.7` above with whatever directory you installed FLIP into.
+   Replace `C:\Program Files\Atmel\Flip 3.3.2\bin` above with whatever directory you installed FLIP into.
 
 
 == Next ==
