@@ -20,3 +20,6 @@ LUFA/Drivers/Board/LEDs.h
 LUFA/Drivers/Board/AVR8/MICROPENDOUS/Buttons.h
 LUFA/Drivers/Board/AVR8/MICROPENDOUS/LEDs.h
 
+* add cdc and cdc-ee programming commands
+LUFA/LUFA/Build/lufa_avrdude.mk
+
