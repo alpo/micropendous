@@ -2,7 +2,7 @@
 
 The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/VirtualSerial_FreeRTOS` directory.
 
-*Purpose:* VirtualSerial_FreeRTOS combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with the preemptive [http://www.freertos.org/ FreeRTOS] kernel.  The preemptive FreeRTOS kernel allows for multitasking user code and LUFA USB functions.
+*Purpose:* `VirtualSerial_FreeRTOS` combines the [http://www.fourwalledcubicle.com/LUFA.php LUFA] USB library with the preemptive [http://www.freertos.org/ FreeRTOS] kernel.  The preemptive FreeRTOS kernel allows for multitasking user code and LUFA USB functions.
 
 *Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS View] or [http://www.Micropendous.org/Distribution Download]
 
