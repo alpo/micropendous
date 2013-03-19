@@ -4,8 +4,6 @@ A version of this page for Linux is also [LinuxQuickStart available].
 
 In general, *Administrator* privileges are required on a Windows machine during development.  The easiest thing to do is to log in as Administrator during development.  This creates security issues so it is best disconnect from the Internet when not using it.  Also, having a separate computer for development is preferable in case you incorrectly connect something and fry your system.
 
-http://download.savannah.gnu.org/releases/avrdude/avrdude-5.11-Patch7610-win32.zip
-
  # Download and Install [http://www.atmel.com/tools/atmelavrtoolchainforwindows.aspx Atmel AVR 8-bit Toolchain 3.4.1] _(Required for firmware development)_
  # Download and Install [http://www.atmel.com/tools/flip.aspx Atmel's FLIP] _(Needed for programming firmware onto USB AVRs with default DFU Bootloader)_
  # Download and Extract [http://download.savannah.gnu.org/releases/avrdude/avrdude-5.11-Patch7610-win32.zip AVRdude] into a directory in your `PATH` such as `C:\WINDOWS` _(Needed for programming firmware onto USB AVRs with CDC Bootloader)_
