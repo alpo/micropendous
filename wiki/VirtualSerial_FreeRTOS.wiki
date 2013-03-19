@@ -28,7 +28,7 @@ _Note:_ DO NOT alter Timer1 settings in your code as it is used by FreeRTOS.
 
 Connect to a board running this firmware with a [http://www.Micropendous.org/Serial Serial Terminal] and any data you send will be looped back.
 
-FreeRTOS is enabled in [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/VirtualSerial.c#86 main by creating tasks and starting the scheduler:
+FreeRTOS is enabled in [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/VirtualSerial.c#86 main] by creating tasks and starting the scheduler:
 
 {{{
   // Create Tasks for FreeRTOS
@@ -62,7 +62,8 @@ static void VirtualSerialTask(void *pvParameters)
 
 static void MainTask(void *pvParameters)
 {
-  for(;;) {
+  for(;;)
+  {
     MainTaskLoop();
     portYIELD();
   }
@@ -74,7 +75,8 @@ void MainTaskLoop(void)
   int count = 0;
 
   // If the host has sent data then echo it back
-  // NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+  // NOTE: AVRlibc stdio functions are not thread-safe
+  // and must therefore be in a Suspend-Resume section
   vTaskSuspendAll();
     count = fread(&buffer, 1, CDC_TXRX_EPSIZE, &USBSerialStream);
   xTaskResumeAll();
@@ -82,22 +84,25 @@ void MainTaskLoop(void)
   //TODO: you can process the received buffer data here
 
   vTaskSuspendAll();
-  if (count > 0) {
+  if (count > 0)
+  {
     fwrite(&buffer, 1, count, &USBSerialStream);
   }
 
   xTaskResumeAll();
 
   // If HWB Button is pressed then send formatted strings
-  if (Buttons_GetStatus()) {
-    // NOTE: AVRlibc stdio functions are not thread-safe and must therefore be in a Suspend-Resume section
+  if (Buttons_GetStatus())
+  {
+    // NOTE: AVRlibc stdio functions are not thread-safe
+    // and must therefore be in a Suspend-Resume section
     vTaskSuspendAll();
-      fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n")); // send a constant string stored in FLASH
-      fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND); // send a string that is dynamic and stored in SRAM
+      // send a constant string stored in FLASH
+      fprintf_P(&USBSerialStream, PSTR("\r\nHWB has been pressed!\r\n"));
+      // send a string that is dynamic and stored in SRAM
+      fprintf(&USBSerialStream, "PORTD = %3x\r\n", PIND);
     xTaskResumeAll();
   }
-}
-
 }
 
 }}}
