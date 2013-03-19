@@ -1,0 +1,4 @@
+5b94897a1bc6c9d43defd9f9d91e0c1ed53952b5  avr8-gnu-toolchain-3.4.1.798-linux.any.x86_64.tar.gz
+de8a30ad50c37018c9fc473364bb19412df9f0dc  avr8-gnu-toolchain-3.4.1.798-linux.any.x86.tar.gz
+d3adb69b3375dd33c26fecd5dae47b8fd5adbdf4  avr-headers-3.2.3.970.zip
+b78a5cb4ac817cf2b185ec677c6449386ea135e8  avr-toolchain-installer-3.4.1.1195-win32.win32.x86.exe
