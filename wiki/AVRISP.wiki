@@ -55,4 +55,4 @@ make
 avrdude -vv -C -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderNAME.hex
 }}}
 
-Edit `usb1287` above to the name of your USB AVR.
+Edit `usb1287` above to the name of your USB AVR (`usb82`, `usb162`, `m32u2`, `m32u4`, `usb646`, `usb647`, `usb1286`, `usb1287`).
