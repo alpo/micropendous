@@ -14,7 +14,7 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and upload the VirtualSerial_FreeRTOS firmware onto your Micropendous board by following the [ProgramAndTest] tutorial.
+Compile and upload the `VirtualSerial_FreeRTOS` firmware onto your Micropendous board by following the [ProgramAndTest] tutorial.
 
 VirtualSerial_FreeRTOS programmed devices will enumerate as a Virtual Serial Port and any data sent to the device using [Serial] will be echoed back.
 
