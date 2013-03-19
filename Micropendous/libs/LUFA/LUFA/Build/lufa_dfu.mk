@@ -77,7 +77,7 @@ flip-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 	@echo $(MSG_REMOVE_CMD) Removing temporary file \"$<.hex\"
 	rm $<.hex
-
+	
 # Programs in the target FLASH memory using DFU-PROGRAMMER
 dfu: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming FLASH with dfu-programmer using \"$<\"
@@ -90,6 +90,6 @@ dfu-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming EEPROM with dfu-programmer using \"$<\"
 	dfu-programmer $(MCU) eeprom-flash $<
 	dfu-programmer $(MCU) reset
-
+	
 # Phony build targets for this module
 .PHONY: flip flip-ee dfu dfu-ee

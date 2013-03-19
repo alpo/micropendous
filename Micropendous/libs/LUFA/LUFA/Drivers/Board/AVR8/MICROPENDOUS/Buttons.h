@@ -136,6 +136,9 @@
 		#if (BOARD == BOARD_MICROPENDOUS_32U2)
 			#define _BOARD_BUTTON1_MASK             (1 << 7)
 			#define _BOARD_BUTTON_PORTLETTER        D
+		#elif (BOARD == BOARD_MICROPENDOUS_32U4)
+			#define _BOARD_BUTTON1_MASK             (1 << 2)
+			#define _BOARD_BUTTON_PORTLETTER        E
 		#elif (BOARD == BOARD_MICROPENDOUS_A)
 			#define _BOARD_BUTTON1_MASK             (1 << 2)
 			#define _BOARD_BUTTON_PORTLETTER        E
