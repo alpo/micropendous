@@ -1,10 +1,10 @@
 #summary LUFA AVR ISP mkII clone AVR programmer
 
-The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `/Micropendous/Firmware/AVRISP` directory.  Copied directly from the [http://www.fourwalledcubicle.com/LUFA.php LUFA] project.
+The latest version of this firmware is available in the latest [http://code.google.com/p/micropendous/downloads/list Micropendous Distribution] or via [http://code.google.com/p/micropendous/source/checkout SVN] in the `libs/LUFA/Projects/AVRISP-MKII` directory.
 
-*Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808 AVRISP mkII In-System Programmer].  Allows in-system programming of "In-System Programmable via SPI Port" AVRs, including another Micropendous board's [BootloaderDFU USB Bootloader].
+*Purpose:* Emulates [http://www.atmel.com Atmel]'s [http://www.atmel.com/tools/avrispmkii.aspx AVRISP mkII In-System Programmer].  Allows in-system programming of "In-System Programmable via SPI Port" AVRs, including another Micropendous board's [BootloaderDFU DFU], [BootloaderCDC CDC], or [BootloaderMassStorage MassStorage] Bootloader.
 
-*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/AVRISP-mkII View] or [http://www.Micropendous.org/Distribution Download]
+*Source Code:* [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/libs/LUFA/Projects/AVRISP-MKII View] or [http://www.Micropendous.org/Distribution Download].
 
 *Targets*: Any USB AVR based board with accessible SPI pins
 
@@ -15,20 +15,21 @@ The latest version of this firmware is available in the latest [http://code.goog
 
 == Usage ==
 
-Compile and load the  AVRISP firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
+Compile and load the  `AVRISP-mkII` firmware onto your USB AVR by following the [ProgramAndTest] tutorial.
 
-Connect your Micropendous board programmed with AVRISP firmware to another AVR using SPI (you can even connect to another USB AVR board to program its' [BootloaderDFU bootloader]):
-|| *Micropendous* || *Target AVR* ||
-|| `PB4`          || `RESET`      ||
-|| `PB1(SCK)`     || `SCK`        ||
-|| `PB2(MOSI)`    || `MOSI/PDI`   ||
-|| `PB3(MISO)`    || `MISO/PDO`   ||
-|| `GND`          || `GND`+`AGND` ||
-|| `Vcc`          || `Vcc`+`AVcc` ||
+Connect your Micropendous board programmed with `AVRISP-mkII` firmware to another AVR using SPI:
+
+|| *Micropendous*    || *Target AVR* ||
+|| `PB4 (10) (nSS)`  || `RESET`      ||
+|| `PB2 (11) (MOSI)` || `MOSI/PDI`   ||
+|| `PB3 (12) (MISO)` || `MISO/PDO`   ||
+|| `PB1 (13) (SCK)`  || `SCK`        ||
+|| `GND`             || `GND`+`AGND` ||
+|| `Vcc`             || `Vcc`+`AVcc` ||
 
 http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
 
-You can either program your target AVR using [http://savannah.nongnu.org/projects/avrdude AVRdude] (which you already have installed if you have followed the [http://www.micropendous.org/QuickStart setup instructions]) or using [http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2725 AVRStudio].
+You can program your target AVR using [http://savannah.nongnu.org/projects/avrdude AVRdude] or [http://www.atmel.com/tools/atmelstudio.aspx Atmel Studio].
 
 === Using AVRdude ===
 
@@ -48,16 +49,10 @@ Remember to change `m32` to your target AVR's name.
 
 === Using AVRdude to Program the Bootloader of another Micropendous Board ===
 
-Connect your Micropendous board loaded with AVRISP firmware to your target board.  Change to the `/Micropendous/Firmware/BootloaderDFU` [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/BootloaderDFU/ directory].  Edit the `makefile` to create a bootloader for your target AVR.  You simply need to uncomment the correct `MCU` and `BOOT_START` values.  Run `make` to compile.  Run `make program` to load the firmware using _avrdude_.
+Connect your Micropendous board loaded with `AVRISP-mkII` firmware to your target board.  Change to the `/libs/LUFA/?` bootloader directory.  Edit the `makefile` to create a bootloader for your target AVR by changing `MCU`, `BOARD`, `F_CPU`, `FLASH_SIZE_KB`, and `BOOT_SECTION_SIZE_KB` values as appropriate.  Run `make` to compile and `avrdude` to program.
 {{{
 make
-make program
-}}}
-
-If using an older version of _avrdude_ run the following command, which uses a local copy of `avrdude.conf` which includes ATmega32u4 and AT90USB162 ICs.
-
-{{{
-avrdude -vv -C ./avrdude.conf -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderDFU.hex
+avrdude -vv -C -P usb -c avrispmkII -p usb1287 -U flash:w:BootloaderNAME.hex
 }}}
 
 Edit `usb1287` above to the name of your USB AVR.
