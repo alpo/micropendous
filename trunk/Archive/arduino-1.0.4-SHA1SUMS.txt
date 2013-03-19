@@ -1,0 +1,4 @@
+b7d8392774033e942736966fe8fa4ddea492d8f8  arduino-1.0.4-linux32.tgz
+b8574dc4595fa5ea096ee2ad02aa8431f6b3f8fc  arduino-1.0.4-linux64.tgz
+c45043daa251345ccf2add37ecb6ebe2abf6086b  arduino-1.0.4-src.tar.gz
+97b2b66c56f9b9923d21bd6e2afb621e554c0e75  arduino-1.0.4-windows.zip

@@ -1,0 +1,3 @@
+39e6d9a37b826c48eab6959591a174135fc2873c  pyserial-2.6.tar.gz
+fee482852c3c5c8aa6d88b2ebdeedd60dd1b1dd5  pyusb-1.0.0a3.tar.gz
+f40fbdfd1a6e7416083a381aa178612e308b4949  pyusb-1.0.0a3.zip
