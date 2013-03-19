@@ -4,11 +4,14 @@ A version of this page for Linux is also [LinuxQuickStart available].
 
 In general, *Administrator* privileges are required on a Windows machine during development.  The easiest thing to do is to log in as Administrator during development.  This creates security issues so it is best disconnect from the Internet when not using it.  Also, having a separate computer for development is preferable in case you incorrectly connect something and fry your system.
 
- # Download and Install [http://sourceforge.net/projects/winavr/ WinAVR] _(Required for firmware development)_
- # Download and Install [http://www.atmel.com/tools/flip.aspx Atmel's FLIP] _(Required for firmware development)_
- # Download and Install [http://www.python.org/download/releases/2.5.5/ Python 2.5.5] _(Optional - Needed for developing software using Python)_
- # Download and Install [http://sourceforge.net/projects/pyusb/files/ PyUSB 0.4.2] _(Optional - Needed for developing software using Python)_
- # Download and Install [http://sourceforge.net/projects/pyserial/files/ PySerial 2.5] _(Optional - Needed for developing Serial Port software using Python)_
+http://download.savannah.gnu.org/releases/avrdude/avrdude-5.11-Patch7610-win32.zip
+
+ # Download and Install [http://www.atmel.com/tools/atmelavrtoolchainforwindows.aspx Atmel AVR 8-bit Toolchain 3.4.1] _(Required for firmware development)_
+ # Download and Install [http://www.atmel.com/tools/flip.aspx Atmel's FLIP] _(Needed for programming firmware onto USB AVRs with default DFU Bootloader)_
+ # Download and Extract [http://download.savannah.gnu.org/releases/avrdude/avrdude-5.11-Patch7610-win32.zip AVRdude] into a directory in your `PATH` such as `C:\WINDOWS` _(Needed for programming firmware onto USB AVRs with CDC Bootloader)_
+ # Download and Install [http://www.python.org/download/releases/2.7.3/ Python 2.7] _(Optional - Needed for developing software using Python)_
+ # Download and Install [http://sourceforge.net/projects/pyusb/files/PyUSB%201.0/1.0.0-alpha-3/pyusb-1.0.0a3.zip/download PyUSB] _(Optional - Needed for developing USB software using Python)_
+ # Download and Install [https://pypi.python.org/pypi/pyserial PySerial] _(Optional - Needed for developing Serial Port software using Python)_
 
 === Did FLIP Install Correctly? ===
 
@@ -22,7 +25,7 @@ In general, *Administrator* privileges are required on a Windows machine during 
 
    * the above means everything is O.K.  If you get other output, either add FLIP to your `PATH` [AddingFLIPtoPATH permanently] or temporarily each time you start a Command Prompt with the following command:
      http://micropendous.googlecode.com/svn/trunk/Pictures/BatchISP_Fail.jpg
-   Replace `C:\Program Files\Atmel\Flip 3.3.2` above with whatever directory you installed FLIP into.
+   Replace `C:\Program Files\Atmel\Flip 3.4.7` above with whatever directory you installed FLIP into.
 
 
 == Next ==
