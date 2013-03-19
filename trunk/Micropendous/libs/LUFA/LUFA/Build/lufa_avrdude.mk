@@ -26,10 +26,6 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #                                avrdude
 #    avrdude-ee                - Program target EEPROM with application data
 #                                using avrdude
-#    cdc                       - Program target (with CDC Bootloader) FLASH
-#                                with application using avrdude
-#    cdc-ee                    - Program target (with CDC Bootloader) EEPROM
-#                                with application using avrdude
 #
 # MANDATORY PARAMETERS:
 #
@@ -86,11 +82,5 @@ avrdude-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" EEPROM using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude $(BASE_AVRDUDE_FLAGS) -U eeprom:w:$< $(AVRDUDE_FLAGS)
 
-cdc: $(TARGET).hex
-	avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U flash:w:$(TARGET).hex
-
-cdc-ee: $(TARGET).hex
-	avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U eeprom:w:$(TARGET).eep
-
 # Phony build targets for this module
-.PHONY: avrdude avrdude-ee cdc cdc-ee
+.PHONY: avrdude avrdude-ee

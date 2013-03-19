@@ -1,6 +1,6 @@
 svn checkout http://lufa-lib.googlecode.com/svn/trunk/ lufa-lib-read-only
 
-This directory contains LUFA SVN Revision 2644 with the following modifications:
+This directory contains LUFA SVN Revision 2651 with the following modifications:
 
 Files Added:
 
