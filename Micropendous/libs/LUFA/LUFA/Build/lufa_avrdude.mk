@@ -88,11 +88,11 @@ avrdude-ee: $(TARGET).eep $(MAKEFILE_LIST)
 
 # Programs in the target FLASH memory using AVRDUDE to a board running the CDC LUFA Bootloader
 cdc: $(TARGET).hex
-        avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U flash:w:$(TARGET).hex
+	avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U flash:w:$(TARGET).hex
 
 # Programs in the target EEPROM memory using AVRDUDE to a board running the CDC LUFA Bootloader
 cdc-ee: $(TARGET).hex
-        avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U eeprom:w:$(TARGET).eep
+	avrdude -v -v -c avr109 -P $(CDC_BOOTLOADER_PORT) -p $(MCU) -U eeprom:w:$(TARGET).eep
 
 # Phony build targets for this module
 .PHONY: avrdude avrdude-ee cdc cdc-ee
