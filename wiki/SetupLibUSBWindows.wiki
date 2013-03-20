@@ -1,5 +1,7 @@
 #summary Setting up a LibUSB-Win32 development environment in Windows
 
+*WILL SOON BE UPDATED*
+
 [http://libusb-win32.sourceforge.net/ LibUSB-Win32] allows you to access USB devices from user space without needing to develop custom drivers.  The API is compatible with [http://libusb.sourceforge.net/ LibUSB] for Linux and other Operating Systems.
 
 In general, *Administrator* privileges are required on a Windows machine during development.  The easiest thing to do is to log in as Administrator during development.  This creates security issues so it is best disconnect from the Internet when not using it.  Having a separate computer for development is preferable in case you incorrectly connect something and fry your system.
