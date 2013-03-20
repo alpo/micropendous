@@ -3,11 +3,11 @@
 A version of this page for Linux is also [ProgramAndTestLinux available].
 
 *Table of Contents*
- * Installing Drivers
- * Loading Firmware
- * Using a GUI Editor for Development
- * Testing
- * Communication Testing
+ * [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows#Installing_Drivers Installing Drivers]
+ * [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows#Loading_Firmware Loading Firmware]
+ * [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows#Using_a_GUI_Editor_for_Development Using a GUI Editor for Development]
+ * [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows#Testing Testing]
+ * [http://code.google.com/p/micropendous/wiki/ProgramAndTestWindows#Communication_Testing Communication Testing]
 
 The Micropendous [http://code.google.com/p/micropendous/downloads/list Distribution] is designed for [http://en.wikipedia.org/wiki/Make_(software) makefile]-based development as this is an industry standard development process.  The following tutorial is therefore Command Prompt based.  However, [LoadingFirmwareWithFLIP graphical loading of firmware] is also possible.
 
