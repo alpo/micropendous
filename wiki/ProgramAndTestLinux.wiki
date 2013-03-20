@@ -2,6 +2,10 @@
 
 A version of this page for Windows is also [ProgramAndTestWindows available].
 
+*Table of Contents*
+
+<wiki:toc max_depth="1" />
+
 == Loading Firmware ==
 
   * This tutorial assumes you have already completed [LinuxQuickStart] installation steps.
