@@ -4,7 +4,7 @@ A version of this page for Windows is also [ProgramAndTestWindows available].
 
 *Table of Contents*
 
-<wiki:toc max_depth="1"/>
+<wiki:toc max_depth="2"/>
 
 == Loading Firmware ==
 
