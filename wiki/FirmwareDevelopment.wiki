@@ -4,24 +4,7 @@ Firmware development for the Micropendous is C/C++ and [http://en.wikipedia.org/
 
 There are several ways to approach firmware development and which is best depends on your experience and requirements.  Developing projects based on USB Virtual Serial Port firmware is the easiest and most versatile option as you can use traditional Serial Port software and techniques.  Choose one of the following to begin.
 
-= [LUFAduino] =
-
-Great for those with [http://www.arduino.cc Arduino] experience.  All USB Virtual Serial Port functionality is hidden behind the `Serial` class.  Built on [USBVirtualSerial_FreeRTOS].
-
-*Advantages*
-  * communicate with the board using standard Serial Port software and techniques
-  * multi-tasking: several `loop()` functions can run "simultaneously"
-  * mostly code-compatible with your Arduino projects
-  * allows the use of delay() functions
-
-*Disadvantages*
-  * slow - throughput about 12kbytes/s on Windows and 30kbytes/s on Linux when echoing characters
-  * Timer1 required by underlying code so fewer PWM channels 
-  * still in development
-  * requires 2kbytes+ of SRAM
-
-
-= [USBVirtualSerial_FreeRTOS] =
+= [VirtualSerial_FreeRTOS] =
 
 Program AVR directly but ignore USB functionality.  Send and receive data over the USB Virtual Serial Port using three simple functions: `haveData()`, `sendData(uint8_t)`, `getData()`.
 
@@ -35,7 +18,7 @@ Program AVR directly but ignore USB functionality.  Send and receive data over t
   * requires 2kbytes+ of SRAM
 
 
-= [USBVirtualSerial] =
+= [VirtualSerial] =
 
 Program AVR directly but ignore USB functionality.  Send and receive data over the USB Virtual Serial Port using three simple functions: `haveData()`, `sendData(uint8_t)`, `getData()`.
 
@@ -56,7 +39,7 @@ Program AVR directly and directly control USB communication on both the host and
   * very fast - throughput can approach 1000kbytes/s when transferring bulk data, see [SpeedTest]
 
 *Disadvantages*
-  * requires custom host-side software based on [http://libusb.sourceforge.net/ LibUSB].  Demo software included.
+  * requires custom host-side software.
   * [SetupLibUSBWindows LibUSB Setup for Windows] is complicated
 
 
