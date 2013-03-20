@@ -27,6 +27,8 @@ Connect your Micropendous board programmed with `AVRISP-mkII` firmware to anothe
 || `GND`             || `GND`+`AGND` ||
 || `Vcc`             || `Vcc`+`AVcc` ||
 
+*NOTE* Vcc does not need to be connected if the target is self-powered.
+
 http://micropendous.googlecode.com/svn/trunk/Pictures/AVRISP_mkII-Usage_Picture.jpg
 
 You can program your target AVR using [http://savannah.nongnu.org/projects/avrdude AVRdude] or [http://www.atmel.com/tools/atmelstudio.aspx Atmel Studio].
