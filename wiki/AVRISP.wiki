@@ -47,7 +47,11 @@ which will check the connection to an ATmega32 IC.  To program a file called "FI
 avrdude -vv -P usb -c avrispmkII -p m32 -U flash:w:FIRMWARE.hex
 }}}
 
-Remember to change `m32` to your target AVR's name.
+Remember to change `m32` to your target AVR's name.  You can list all supported AVRs with the following command:
+
+{{{
+avrdude -c avrispmkII -p a
+}}}
 
 === Using AVRdude to Program the Bootloader of another Micropendous Board ===
 
