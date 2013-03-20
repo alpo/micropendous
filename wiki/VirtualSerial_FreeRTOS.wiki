@@ -24,7 +24,7 @@ This firmware is based on [VirtualSerial].  The preemptive [http://www.freertos.
 
 Alterations to [http://code.google.com/p/micropendous/source/diff?spec=svn856&r=856&format=side&path=/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/VirtualSerial.c VirtualSerial.c], [http://code.google.com/p/micropendous/source/diff?spec=svn856&r=856&format=side&path=/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/VirtualSerial.h VirtualSerial.h], and the [http://code.google.com/p/micropendous/source/diff?spec=svn856&r=856&format=side&path=/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/makefile makefile] are needed to enable FreeRTOS.  [http://code.google.com/p/micropendous/source/browse/trunk/Micropendous/Firmware/VirtualSerial_FreeRTOS/FreeRTOSConfig.h?spec=svn856&r=856 FreeRTOSConfig.h] must be added to define which FreeRTOS functionality to include.
 
-The `makefile` changes are related to including FreeRTOS in the list of source files to compile and header directories.
+The `makefile` changes are related to including FreeRTOS header directories and in the list of source files to compile.
 
 {{{
 MCU			= at90usb1287
