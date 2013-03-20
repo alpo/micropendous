@@ -52,6 +52,6 @@ void MainTask(void)
 }
 }}}
 
-The above example is very simple.  `fread()` returns positive if data is available and `fwrite()` sends it back to the Host.
+The above example is very simple.  `fread()` returns positive if data is available and `fwrite()` sends it back to the Host.  If the HWB button is pressed, dynamically and statically stored text is sent to the Host.
 
 Note that `fprintf()` is stored entirely in SRAM so it is best to use `printf_P(PSTR("...");` to store and print any constant strings.
